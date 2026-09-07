@@ -2,23 +2,25 @@
 
 A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.
 
-**Current version: 0.1.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
+**This branch prepares 0.2.0 and is awaiting review.** The latest tagged release remains **v0.1.0**. The expanded React components, framework-neutral tokens and compiled CSS can be tested locally from this branch. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
 
 [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ## What is included?
 
-| Area               | Included in 0.1.0                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- |
-| Foundations        | 85 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout |
-| Components         | Card, Select dropdown and responsive DashboardSidebar, with supporting Button, Icon and ConvertMark           |
-| Layout             | DashboardShell with a skip link, desktop navigation and a mobile drawer                                       |
-| Storybook          | Searchable token reference, design guidance, interactive states and a neutral sample dashboard                |
-| Developer guidance | Typed APIs, consumption examples, release checks and instructions for AI coding tools                         |
+| Area               | Included in the 0.2.0 candidate                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Foundations        | 92 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout          |
+| Components         | Forms, badges, links, feedback, metrics, progress, tables and supporting content, alongside the original components    |
+| Layout             | DashboardShell, roadmap board, sign-in form and reusable card compositions                                             |
+| Storybook          | Searchable token reference, five chart recipes, interactive states and neutral dashboard, roadmap and sign-in examples |
+| Developer guidance | Typed APIs, consumption examples, release checks and instructions for AI coding tools                                  |
 
 Koko Monthly Review V4 defines the product visual language. The new Convert website informs technical conventions. This library is independent of both references and contains no client data or business logic.
 
 ## Install in your project
+
+The commands in this section install the existing **stable 0.1.0** release. See the candidate instructions below to test the expansion.
 
 You do not need to fork the repository to use the library. Build an archive from a fixed version, then install that archive as a dependency in your application. There is no npm registry package to install by name yet.
 
@@ -51,6 +53,40 @@ Commit the archive, `package.json` and your lockfile in the consuming project so
 
 Do not install directly from the GitHub branch: the repository contains source, and the archive supplies the compiled files applications need. The package name in imports is **`@convert/product-ui`**, even though the repository is called **`cd-product-ui`**.
 
+## Test the 0.2.0 candidate
+
+The candidate is on `feature/product-ui-expansion`. No `v0.2.0` tag has been published. For review, clone that branch:
+
+```sh
+git clone --branch feature/product-ui-expansion --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+cd convert-product-ui
+git rev-parse HEAD
+pnpm install --frozen-lockfile
+pnpm pack --pack-destination artifacts
+```
+
+Record the commit shown, copy `artifacts/convert-product-ui-0.2.0.tgz` into the application's `vendor` folder, and install that exact archive:
+
+```sh
+pnpm add --save-exact ./vendor/convert-product-ui-0.2.0.tgz
+# or: npm install --save-exact ./vendor/convert-product-ui-0.2.0.tgz
+```
+
+This moving branch is for review, not a production release reference. Keep the archive and source commit together. After review, maintainers will merge, create the immutable release tag and update these instructions. Existing 0.1.0 projects do not change automatically.
+
+See the [component guide](docs/component-catalogue.md) for the expanded API, examples and boundaries.
+
+### Optional charts
+
+Only applications using `@convert/product-ui/charts` need the chart peers:
+
+```sh
+pnpm add --save-exact recharts@3.10.1 react-is@19.2.8
+# or: npm install --save-exact recharts@3.10.1 react-is@19.2.8
+```
+
+Match react-is to your application's React version. These pins match the tested React 19.2.8 setup. Import `DataChart`, `Sparkline`, `ChartContainer`, `ChartTooltipContent` or `ChartLegend` from `@convert/product-ui/charts`. The core component entry does not import Recharts.
+
 ## Use with React
 
 The complete component implementation supports **React 19.2**. Your application supplies React and React DOM. Import the compiled stylesheet once at the application root:
@@ -81,7 +117,7 @@ The example supplies a styled native select. Connect its value and change handle
 
 Use `DashboardShell` for the responsive page frame. It already applies `cui-root`. Storybook shows the sidebar, layout and component states; [the separate React example](examples/react) demonstrates package imports.
 
-In Next.js, import CSS in the root layout and add `'use client'` to consuming components that use state or event handlers. Interactive library modules retain their client directives. Card and static primitives support server rendering. A full Next.js application build has not yet been tested.
+In Next.js, import CSS in the root layout and add `'use client'` to consuming components that use state or event handlers. Interactive library modules retain their client directives. Card and static primitives support server rendering. The expanded package has been built in a Next.js 16.3.4 App Router application with React 19.2.8, including server-rendered cards and client charts/forms.
 
 Your application does **not** need Tailwind or Storybook to use this package.
 
@@ -170,14 +206,16 @@ pnpm exec playwright install chromium
 pnpm check
 pnpm format:check
 pnpm package:check
+pnpm next:check
 ```
 
-`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached.
+`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached. `next:check` then builds the packed candidate in a separate Next.js application.
 
 Edit `tokens/tokens.json` and run `pnpm tokens` to update generated CSS, responsive breakpoints and typed data. Storybook's live token reference uses that same generated source. Commit generated changes with the source change.
 
 ## Further guidance
 
+- [Expanded component guide](docs/component-catalogue.md)
 - [Architecture and boundaries](docs/architecture.md)
 - [AI coding guidance and Impeccable review standard](docs/ai-guidance.md), plus [repository rules](AGENTS.md)
 - [Consumer examples](examples/README.md)

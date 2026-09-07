@@ -1,5 +1,17 @@
 import { useState } from 'react'
-import { Button, Card, DashboardShell, Icon, Select, type SidebarItem } from '../src/index.js'
+import {
+  Button,
+  Card,
+  DashboardShell,
+  Icon,
+  Select,
+  MetricCard,
+  DataTable,
+  Progress,
+  type SidebarItem,
+} from '../src/index.js'
+import { DataChart } from '../src/charts/index.js'
+import { projectRows, projectColumns } from './workspace-data.js'
 export const demoNavigation: SidebarItem[] = [
   { id: 'overview', label: 'Overview', href: '#overview', icon: <Icon name="overview" /> },
   { id: 'projects', label: 'Projects', href: '#projects', icon: <Icon name="projects" /> },
@@ -67,20 +79,24 @@ export function DashboardExample() {
               <span className="cui-caption cui-secondary">Illustrative data</span>
             </div>
             <div className="cui-metric-grid">
-              <Card heading="Projects in this view" headingLevel={3}>
-                <strong className="cui-metric">{filtered.length.toString().padStart(2, '0')}</strong>
-                <span className="cui-caption cui-secondary">Across the demonstration workspace</span>
-              </Card>
-              <Card heading="Ready for review" headingLevel={3}>
-                <strong className="cui-metric">{reviewed ? '00' : '01'}</strong>
-                <span className="cui-caption cui-secondary">
-                  {reviewed ? 'Review complete in this demo' : 'One item needs a second look'}
-                </span>
-              </Card>
-              <Card heading="Completed this month" headingLevel={3}>
-                <strong className="cui-metric">08</strong>
-                <span className="cui-caption cui-positive">↑ 2 more than last month</span>
-              </Card>
+              <MetricCard
+                heading="Projects in this view"
+                headingLevel={3}
+                value={filtered.length.toString().padStart(2, '0')}
+                description="Across the demonstration workspace"
+              />
+              <MetricCard
+                heading="Ready for review"
+                headingLevel={3}
+                value={reviewed ? '00' : '01'}
+                description={reviewed ? 'Review complete in this demo' : 'One item needs a second look'}
+              />
+              <MetricCard
+                heading="Completed this month"
+                headingLevel={3}
+                value="08"
+                comparison={{ direction: 'up', sentiment: 'positive', label: '2 more than last month' }}
+              />
             </div>
           </section>
         )}
@@ -99,19 +115,14 @@ export function DashboardExample() {
               description="A small, shared view of the work."
               headingLevel={3}
             >
-              <ul className="cui-project-list">
-                {filtered.map((project) => (
-                  <li key={project.name}>
-                    <div>
-                      <h3>{project.name}</h3>
-                      <p>{project.team}</p>
-                    </div>
-                    <span className={`cui-badge ${project.group === 'completed' ? 'cui-badge-positive' : ''}`}>
-                      {project.status}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <DataTable
+                caption="Project details"
+                data={projectRows.filter((row) => filtered.some((project) => project.name === row.name))}
+                columns={projectColumns}
+                pageSize={5}
+                searchLabel="Search projects"
+                getRowId={(row) => row.id}
+              />
             </Card>
           </section>
           <div className="cui-stack">
@@ -126,33 +137,36 @@ export function DashboardExample() {
               >
                 {reviewed ? 'Reviewed' : 'Mark as reviewed'}
               </Button>
+              <Progress
+                label="Review checklist"
+                value={reviewed ? 100 : 75}
+                hint={reviewed ? 'All four checks complete.' : 'Three of four checks complete.'}
+              />
               <p className="cui-caption cui-secondary" role="status">
                 {reviewed ? 'Marked as reviewed in this demo.' : 'This action only changes the local example.'}
               </p>
             </Card>
             <Card heading="Weekly activity" description="Completed items · Illustrative data" elevation="flat">
-              <figure className="cui-chart">
-                <figcaption className="cui-sr-only">
-                  Completed items by week: Week 1, 3; Week 2, 5; Week 3, 4; Week 4, 8.
-                </figcaption>
-                <div className="cui-chart-bars" aria-hidden="true">
-                  {[3, 5, 4, 8].map((value, index) => (
-                    <div className="cui-chart-column" key={index}>
-                      <span>{value}</span>
-                      <div className="cui-chart-track">
-                        <span className="cui-chart-bar" style={{ height: `${(value / 8) * 100}%` }} />
-                      </div>
-                      <span className="cui-secondary">W{index + 1}</span>
-                    </div>
-                  ))}
-                </div>
-              </figure>
+              <DataChart
+                title="Completed items by week"
+                summary="Completed items rose from 3 to 8 across four weeks."
+                kind="bar"
+                data={[
+                  { week: 'W1', count: 3 },
+                  { week: 'W2', count: 5 },
+                  { week: 'W3', count: 4 },
+                  { week: 'W4', count: 8 },
+                ]}
+                xKey="week"
+                series={[{ key: 'count', label: 'Completed items' }]}
+                height={220}
+              />
             </Card>
           </div>
         </div>
         <footer className="cui-demo-foot">
           <span>Neutral demonstration content. No connected systems.</span>
-          <span>Convert Product UI · 0.1.0</span>
+          <span>Convert Product UI · 0.2.0 candidate</span>
         </footer>
       </div>
     </DashboardShell>

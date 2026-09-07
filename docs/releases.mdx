@@ -8,7 +8,7 @@ Make a focused branch, change the shared source, and include examples demonstrat
 
 ## Before review
 
-Run `pnpm check`, `pnpm format:check` and `pnpm package:check`. Check focus, long content, disabled states, errors, mobile navigation and reduced motion. The Storybook accessibility addon is configured to fail automated checks on violations. Automated results supplement manual review; they do not certify full accessibility.
+Run `pnpm check`, `pnpm format:check` and `pnpm package:check`, followed by `pnpm next:check`. Check focus, long content, disabled states, errors, mobile navigation and reduced motion. The Storybook accessibility addon is configured to fail automated checks on violations. Automated results supplement manual review; they do not certify full accessibility.
 
 ## Review and release
 
@@ -31,4 +31,4 @@ Each consumer upgrades deliberately and commits its vendor archive, dependency a
 
 ## Scope discipline
 
-Start with the three core components and supporting primitives. Add a component when a real product needs it. Keep client data, authentication, business calculations and integrations in the consuming application.
+Use the component guide to select from the shared controls, data displays and complete patterns. Add components when a real product need warrants them. Keep client data, authentication, business calculations and integrations in the consuming application.

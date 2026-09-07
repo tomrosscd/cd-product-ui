@@ -91,3 +91,30 @@ export const NegativeValues: Story = {
 export const Loading: Story = { args: { state: 'loading' } }
 export const Empty: Story = { args: { data: [] } }
 export const Error: Story = { args: { state: 'error' } }
+
+export const ZeroDonut: Story = {
+  args: {
+    kind: 'donut',
+    title: 'No allocation yet',
+    summary: 'No time has been allocated.',
+    xKey: 'category',
+    data: [{ category: 'Planning', hours: 0 }],
+    series: [{ key: 'hours', label: 'Hours' }],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText('No chart data')).toBeVisible()
+  },
+}
+export const InvalidDonut: Story = {
+  args: {
+    kind: 'donut',
+    title: 'Allocation',
+    summary: 'This dataset contains a negative value.',
+    xKey: 'category',
+    data: [{ category: 'Planning', hours: -2 }],
+    series: [{ key: 'hours', label: 'Hours' }],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText('This data needs a different chart')).toBeVisible()
+  },
+}

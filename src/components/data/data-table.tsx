@@ -142,8 +142,8 @@ export function DataTable<T>({
           </Table>
           <nav className="cui-row cui-table-pagination" aria-label={`${caption} pagination`}>
             <p id={id} role="status">
-              {table.getFilteredRowModel().rows.length} rows · Page {table.getState().pagination.pageIndex + 1} of{' '}
-              {Math.max(1, table.getPageCount())}
+              {table.getFilteredRowModel().rows.length} {table.getFilteredRowModel().rows.length === 1 ? 'row' : 'rows'}{' '}
+              · Page {table.getState().pagination.pageIndex + 1} of {Math.max(1, table.getPageCount())}
             </p>
             <div className="cui-row">
               <Button aria-describedby={id} disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>

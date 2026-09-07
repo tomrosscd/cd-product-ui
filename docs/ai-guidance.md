@@ -24,3 +24,9 @@ This repository does not bundle or install an Impeccable executable skill. Its g
 A release review should record what was inspected, any changes, and remaining limitations. Visual judgement is combined with typed APIs, token generation, automated interaction and contrast checks, and manual browser inspection.
 
 [Impeccable documentation](https://impeccable.style/docs/) and [design context](https://impeccable.style/docs/context/).
+
+## Expanded component selection
+
+Read component-catalogue.md for the 0.2.0 candidate. Prefer MetricCard, ProgressCard, DetailsCard and ActionCard for repeated compositions; use Badge, TextLink and native form controls for their actual semantics. Keep charts in the optional charts entry. Supply truthful chart summaries and labelled exact values, and preserve gaps in missing data. Keep metric direction and sentiment separate.
+
+Use controlled RoadmapBoard data and callbacks. Column names, permissions and saving belong in the application. SignInForm supplies presentation only; do not add authentication logic or credential logging to library examples.

@@ -31,7 +31,7 @@ export const SortSearchAndPaginate: Story = {
     await userEvent.click(c.getByRole('button', { name: 'Next' }))
     await expect(c.getByRole('status')).toHaveTextContent('Page 2')
     await userEvent.type(c.getByRole('searchbox'), 'Workspace')
-    await expect(c.getByRole('status')).toHaveTextContent('1 rows · Page 1')
+    await expect(c.getByRole('status')).toHaveTextContent('1 row · Page 1')
     await expect(c.getByText('Workspace refresh')).toBeVisible()
     await userEvent.clear(c.getByRole('searchbox'))
     await userEvent.click(c.getByRole('button', { name: /Estimate/ }))

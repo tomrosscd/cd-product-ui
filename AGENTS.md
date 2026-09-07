@@ -1,6 +1,6 @@
 # Convert Product UI: AI contribution rules
 
-These instructions apply to this repository. Product UI version: 0.1.0. The user-approved Convert product system is authoritative.
+These instructions apply to this repository. Product UI version: 0.2.0 candidate. The user-approved Convert product system is authoritative.
 
 - Read README.md, docs/architecture.md and docs/ai-guidance.md before changing components.
 - Koko Monthly Review V4 is the visual reference. The website archive supplies technical conventions only. Do not edit either reference, previous Koko versions or V8.
@@ -18,3 +18,9 @@ These instructions apply to this repository. Product UI version: 0.1.0. The user
 - Run pnpm check, pnpm format:check and pnpm package:check for a release. Follow docs/release-process.md. Automated accessibility checks supplement manual review.
 - Exclude local fonts, secrets and client reference content from release packages. See README.md for preview font handling.
 - No sub-agents unless the user explicitly asks for delegation.
+
+- Read docs/component-catalogue.md before composing new forms, data views or roadmaps.
+- Import charts only through @convert/product-ui/charts. Preserve optional chart dependencies and text/data-table alternatives.
+- Keep metric direction independent from sentiment. Never silently treat missing observations as zero.
+- SignInForm is presentation only. Never log credentials or add authentication/session storage to the library.
+- Keep main and release tags unchanged during feature work. Use focused commits and a reviewed pull request. Run pnpm next:check after package:check for chart/client-boundary releases.

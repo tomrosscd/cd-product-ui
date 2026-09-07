@@ -1,0 +1,18 @@
+{
+  "name": "convert-product-ui-next-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build --webpack",
+    "start": "next start --hostname 127.0.0.1"
+  },
+  "dependencies": {
+    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.2.0.tgz",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "recharts": "3.10.1",
+    "react-is": "19.2.8"
+  }
+}

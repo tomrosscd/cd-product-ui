@@ -6,7 +6,9 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 Product UI is a reusable package, and Storybook is its catalogue. Copying an example does not create an update connection. Install the library package and commit your project's dependency lockfile.
 
-## Local installation today
+## Install the stable release
+
+These commands install 0.1.0. The expanded catalogue is a 0.2.0 candidate on the feature branch, awaiting review. See the GitHub README for candidate installation and the Component guide for the new APIs.
 
 From the library repository:
 
@@ -70,3 +72,9 @@ Projects remain on their installed version until their developers choose to upgr
 ## Ideas and contributions
 
 Use [GitHub issues](https://github.com/tomrosscd/cd-product-ui/issues/new/choose) to report bugs or suggest features. No code is required to suggest an improvement. For code changes, team members with write access use a branch; other contributors can fork and open a pull request. Follow [CONTRIBUTING.md](https://github.com/tomrosscd/cd-product-ui/blob/main/CONTRIBUTING.md). Merged improvements reach your application when you install a later version.
+
+## Optional charts and tested examples
+
+For the candidate chart entry, install `recharts@3.10.1` and `react-is@19.2.8` alongside the package. Import charts from `@convert/product-ui/charts`, and match react-is to your React version. The core entry works without chart peers. See the Component guide for chart recipes and accessibility requirements.
+
+The repository includes separate React and Next.js consuming applications. `pnpm package:check` verifies ordinary and chart-enabled Vite builds. `pnpm next:check` builds the Next.js App Router fixture from the archive.

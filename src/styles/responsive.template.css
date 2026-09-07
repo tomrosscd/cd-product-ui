@@ -89,3 +89,26 @@
     flex-wrap: wrap;
   }
 }
+
+@media (width <= {{breakpoint.mobile}}) {
+  .cui-roadmap {
+    padding: var(--cui-space-16);
+  }
+  .cui-board-column {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+  .cui-roadmap-card .cui-choice,
+  .cui-table-sort {
+    min-height: var(--cui-size-touch);
+  }
+}
+
+@media (width <= {{breakpoint.mobile}}) {
+  .cui-roadmap-demo {
+    padding: var(--cui-space-12);
+  }
+  .cui-board-hint {
+    display: block;
+  }
+}
