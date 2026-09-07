@@ -21,6 +21,10 @@
   gap: var(--cui-space-8);
   min-width: 0;
 }
+.cui-input-row > .cui-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 .cui-input {
   box-sizing: border-box;
   width: 100%;
