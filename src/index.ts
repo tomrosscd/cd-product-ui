@@ -9,3 +9,11 @@ export {
   type SidebarItem,
 } from './components/navigation/dashboard-sidebar.js'
 export { DashboardShell, type DashboardShellProps } from './patterns/dashboard-shell.js'
+export * from './components/primitives/fields.js'
+export * from './components/primitives/badge.js'
+export * from './components/primitives/text-link.js'
+export * from './components/primitives/feedback.js'
+export * from './components/primitives/tabs.js'
+export * from './components/primitives/disclosure.js'
+export * from './components/primitives/confirmation-dialog.js'
+export * from './components/primitives/content.js'

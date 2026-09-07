@@ -77,3 +77,15 @@
     min-height: var(--cui-size-touch);
   }
 }
+
+@media (max-width: 650px) {
+  .cui-input,
+  .cui-choice,
+  .cui-tab,
+  .cui-text-link-standalone {
+    min-height: var(--cui-size-touch);
+  }
+  .cui-key-values > div {
+    flex-wrap: wrap;
+  }
+}
