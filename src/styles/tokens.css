@@ -85,4 +85,11 @@
   --cui-layer-navigation: 20;
   --cui-layer-overlay: 40;
   --cui-layer-dialog: 50;
+  --cui-chart-series-primary: var(--cui-colour-forest);
+  --cui-chart-series-secondary: var(--cui-colour-chart);
+  --cui-chart-series-tertiary: var(--cui-colour-muted);
+  --cui-chart-grid: var(--cui-border-subtle);
+  --cui-chart-label: var(--cui-text-secondary);
+  --cui-chart-radius: 4px;
+  --cui-chart-stroke: 2px;
 }

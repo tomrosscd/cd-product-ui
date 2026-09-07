@@ -25,7 +25,7 @@ export function Field({ id, label, hint, error, required, className, describedBy
     <div className={cn('cui-field', className)}>
       <label className="cui-label" htmlFor={controlId}>
         {label}
-        {required && <span className="cui-secondary"> (required)</span>}
+        {required ? ' (required)' : ''}
       </label>
       {children({
         id: controlId,

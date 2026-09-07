@@ -3,6 +3,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities) prefix(cdu);
 @import './components.css';
 @import './controls.css';
+@import './data.css';
 @import './responsive.css';
 @source '../';
 @theme {

@@ -14,6 +14,7 @@ export default defineConfig({
       },
       {
         plugins: [storybookTest({ configDir: '.storybook' })],
+        optimizeDeps: { include: ['recharts', '@tanstack/react-table'] },
         test: {
           name: 'storybook',
           browser: { enabled: true, headless: true, provider: playwright(), instances: [{ browser: 'chromium' }] },

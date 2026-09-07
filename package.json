@@ -31,7 +31,11 @@
       "import": "./dist/tokens.js"
     },
     "./tokens.css": "./dist/tokens.css",
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "import": "./dist/charts/index.js"
+    }
   },
   "sideEffects": [
     "**/*.css"

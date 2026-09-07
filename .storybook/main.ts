@@ -6,5 +6,12 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   staticDirs: existsSync('local-fonts') ? [{ from: '../local-fonts', to: '/local-fonts' }] : [],
   core: { disableTelemetry: true },
+  viteFinal: async (config) => ({
+    ...config,
+    optimizeDeps: {
+      ...config.optimizeDeps,
+      include: [...(config.optimizeDeps?.include || []), 'recharts', '@tanstack/react-table'],
+    },
+  }),
 }
 export default config
