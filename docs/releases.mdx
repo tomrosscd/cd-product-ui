@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Contributing/Releases and review" />
+
+# Changes that teams can trust
+
+Make a focused branch, change the shared source, and include examples demonstrating the new behaviour. Review changes to appearance and interaction as carefully as changes to the API.
+
+## Before review
+
+Run `pnpm check`, `pnpm format:check` and `pnpm package:check`. Check focus, long content, disabled states, errors, mobile navigation and reduced motion. The Storybook accessibility addon is configured to fail automated checks on violations. Automated results supplement manual review; they do not certify full accessibility.
+
+## Review and release
+
+1. Explain the problem, the resulting behaviour and the affected components or tokens.
+2. Update stories, usage guidance and the changelog. Supply migration steps if consumers must change their code.
+3. Run the checks and review desktop and mobile examples using the approved Convert rules and Impeccable guidance.
+4. Obtain a team review through the GitHub pull request process. Follow the contribution guide and supplied template.
+5. Set the package version, build and inspect its contents, then test the packaged version in a consuming project.
+6. Commit the release and create an immutable version tag. Publish only to the agreed destination after authorisation.
+
+Use patch versions for compatible fixes, minor versions for compatible additions, and major versions for breaking API or token changes. During 0.x, use minor versions for breaking changes and document them explicitly. Never replace the contents of an existing release.
+
+## Adoption and rollback
+
+Each consumer upgrades deliberately and commits its vendor archive, dependency and new lockfile. Verify important screens before merging. To roll back, revert the application's upgrade commit and reinstall from the restored lockfile. GitHub holds source, fixed version tags and contributions. Hosting, registry distribution and CI services are separate setup decisions.
+
+## Suggest an improvement
+
+[Open a GitHub issue](https://github.com/tomrosscd/cd-product-ui/issues/new/choose) for a bug or feature request. Explain the internal-tool need using neutral examples. Team members can contribute from a branch, and contributors without write access can fork and open a pull request. The [contribution guide](https://github.com/tomrosscd/cd-product-ui/blob/main/CONTRIBUTING.md) explains the steps.
+
+## Scope discipline
+
+Start with the three core components and supporting primitives. Add a component when a real product needs it. Keep client data, authentication, business calculations and integrations in the consuming application.

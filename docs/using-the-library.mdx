@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Start here/Using the library" />
+
+# Use a specific version
+
+Product UI is a reusable package, and Storybook is its catalogue. Copying an example does not create an update connection. Install the library package and commit your project's dependency lockfile.
+
+## Local installation today
+
+From the library repository:
+
+```sh
+git clone --branch v0.1.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+cd convert-product-ui
+pnpm install --frozen-lockfile
+pnpm pack --pack-destination artifacts
+```
+
+Copy the resulting archive into a `vendor` folder in the consuming project, then install it:
+
+```sh
+pnpm add --save-exact ./vendor/convert-product-ui-0.1.0.tgz
+```
+
+Keep this archive with the consuming project until an internal registry is available. A short relative path avoids package-manager path-length issues in deeply nested folders.
+
+The archive contains the versioned React code, declarations, tokens and compiled CSS. There is no registry release yet. The package's `private: true` setting prevents accidental registry publishing and does not prevent archive installation. You do not need to fork the repository to use it.
+
+## React and Next.js
+
+```tsx
+import '@convert/product-ui/styles.css'
+import { Card, Select } from '@convert/product-ui'
+
+export function ProjectSummary() {
+  return (
+    <Card heading="Projects">
+      <Select
+        label="Project view"
+        defaultValue="all"
+        options={[
+          { value: 'all', label: 'All projects' },
+          { value: 'active', label: 'Active projects' },
+        ]}
+      />
+    </Card>
+  )
+}
+```
+
+Import the CSS once, normally in the application's root. In Next.js, add `'use client'` to a consuming component that manages state or supplies event handlers. The library preserves client boundaries for Select and DashboardSidebar. React is a peer dependency, so the host owns its React installation. This release targets React 19.2; see the validation record for the tested version. It does not require Next.js or the host's Tailwind build to run its components.
+
+## Plain HTML and other frameworks
+
+Import `@convert/product-ui/tokens.css` for the foundations, or `styles.css` for tokens and component classes. The package also exports typed token data from `@convert/product-ui/tokens`. The `examples/html` folder demonstrates a styled card and native select without React.
+
+The React drawer and other React-managed interactions do not run merely by importing CSS. A different framework must provide its own behaviour and accessibility. This release supports universal tokens and styles, with React as its complete component implementation.
+
+## Fonts and host styles
+
+Applications supply licensed Roobert fonts through their own font setup, with Geist as fallback. No font files are in the installable package. Local Storybook can use ignored files in `local-fonts`; the catalogue still works with fallback fonts when those files are absent. Do not publish a font-containing Storybook build until distribution rights are confirmed.
+
+The package uses prefixed CSS names and does not ship a global reset. Wrap custom product content in `cui-root` where the scoped base rules are useful. Treat consumer CSS overrides as deliberate exceptions to review.
+
+## Updates
+
+Projects remain on their installed version until their developers choose to upgrade. Read the changelog, build an archive from the chosen version tag, install its exact filename, and review the dashboard and keyboard/mobile behaviour. Commit the archive, dependency and lockfile changes in that project's pull request. To roll back, revert that upgrade commit and reinstall from the restored lockfile. Do not use a moving `latest` URL in production. The GitHub README includes npm and pnpm commands.
+
+## Ideas and contributions
+
+Use [GitHub issues](https://github.com/tomrosscd/cd-product-ui/issues/new/choose) to report bugs or suggest features. No code is required to suggest an improvement. For code changes, team members with write access use a branch; other contributors can fork and open a pull request. Follow [CONTRIBUTING.md](https://github.com/tomrosscd/cd-product-ui/blob/main/CONTRIBUTING.md). Merged improvements reach your application when you install a later version.

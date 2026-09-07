@@ -1,0 +1,14 @@
+node_modules/
+dist/
+storybook-static/
+local-fonts/
+artifacts/
+coverage/
+test-results/
+playwright-report/
+.pnpm-store/
+.DS_Store
+*.log
+*.tgz
+.env*
+!.env.example

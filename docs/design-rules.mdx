@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Foundations/Design rules" />
+
+# Design rules
+
+Off-white and white lead. Green punctuates the interface. Begin with the content hierarchy, then choose the right container.
+
+## Surfaces and density
+
+Use the page surface as the canvas, a neutral band to group related information, and white cards for individual subjects. Avoid elevated cards inside other elevated cards. Use 24px card padding by default, 16px for compact layouts and small screens. Rows have a 44px reference minimum and grow with their content. Do not force content into fixed-height cards.
+
+## Typography and spacing
+
+Use Roobert at 400, 500 and 600, followed by Geist and system sans. Font files are provided by the consuming project. Display headings use 40/48px, reducing to 32/40px on mobile. Sections use 20/28px, body copy 16/24px, compact copy 14/20px, captions 12/16px and data 24/32px. Values in rem respect browser text sizing.
+
+All margins, padding and gaps use the approved scale: 0, 4, 8, 12, 16, 20, 24, 32, 40, 48 and 64px. Prefer whitespace and a clear heading over an extra divider. Use tabular numerals where readers compare figures.
+
+## Interaction and accessibility
+
+Controls have a 40px desktop minimum and 48px minimum for touch or small screens. Preserve the 2px focus outline with a 4px offset. Never remove keyboard focus to achieve a visual effect. Use visible labels, associated hints and useful error messages. Do not communicate status by colour alone. Chart accent is intended for graphics, not small text. Respect reduced motion and allow content to wrap at 200% zoom.
+
+Native selects use operating-system menus. The library styles the closed control and documents open-menu behaviour, rather than promising identical menus on every device.
+
+## Responsive layout
+
+The desktop sidebar is 208px wide. Below 900px, a menu button opens a modal navigation drawer. At 650px and below, content uses one column and controls grow to touch size. These breakpoints are generated from the token source. Test 320px, 390px, tablet and desktop widths, long labels, keyboard navigation, scrolling and browser zoom.
+
+## Content
+
+Use Australian English, sentence case and direct descriptions of actions. Avoid em dashes in interface copy. Demo content must be neutral and labelled illustrative. Client data, permissions, calculations, persistence and API integrations belong in the consuming application.
+
+## Impeccable within Convert
+
+Use Impeccable to review hierarchy, typography, spacing, density, responsive behaviour and interaction quality against these rules. Approved Convert decisions remain authoritative. Propose token changes for review instead of introducing an unrelated palette or visual treatment. See the versioned AI guidance in `AGENTS.md` and `docs/ai-guidance.md`.

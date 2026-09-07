@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a problem with a component, token or documentation.
+title: '[Bug]: '
+body:
+  - type: markdown
+    attributes:
+      value: Search existing issues first. Use neutral examples and remove client data, credentials and private screenshots.
+  - type: input
+    id: version
+    attributes:
+      label: Library version
+      description: The installed @convert/product-ui version, or the source commit if developing locally.
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Framework and version, browser and version, operating system, and screen size if relevant.
+      placeholder: React 19.2, Chrome, macOS, 390px viewport
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include a small neutral example or the affected Storybook story.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: Include relevant errors or screenshots with sensitive information removed.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact or workaround
+      description: Who is affected? Does it prevent keyboard, mobile or assistive-technology use?

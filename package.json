@@ -1,0 +1,95 @@
+{
+  "name": "@convert/product-ui",
+  "version": "0.1.0",
+  "description": "Convert product foundations and React components for dashboards and internal tools",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22.22.2 <23"
+  },
+  "files": [
+    "dist",
+    "docs/architecture.md",
+    "docs/ai-guidance.md",
+    "docs/release-process.md",
+    "docs/validation.md",
+    "README.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "AGENTS.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./styles.css": "./dist/styles.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "scripts": {
+    "tokens": "node scripts/generate-tokens.mjs",
+    "tokens:check": "node scripts/generate-tokens.mjs --check",
+    "styles": "tailwindcss -i src/styles/index.css -o dist/styles.css --minify",
+    "build": "pnpm tokens && tsc -p tsconfig.build.json && pnpm styles && node scripts/copy-tokens.mjs",
+    "storybook": "pnpm tokens && storybook dev -p 6006 --host 127.0.0.1 --no-open --disable-telemetry",
+    "build-storybook": "pnpm tokens && storybook build --disable-telemetry",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:stories": "vitest run --project storybook",
+    "check": "pnpm tokens:check && pnpm type-check && pnpm lint && pnpm test && pnpm build && pnpm build-storybook",
+    "package:check": "node scripts/check-package.mjs",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "1.1.23",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1"
+  },
+  "devDependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@types/node": "22.19.11",
+    "storybook": "10.6.0",
+    "@storybook/react-vite": "10.6.0",
+    "@storybook/addon-docs": "10.6.0",
+    "@storybook/addon-a11y": "10.6.0",
+    "@storybook/addon-vitest": "10.6.0",
+    "@tailwindcss/vite": "4.3.3",
+    "@tailwindcss/cli": "4.3.3",
+    "tailwindcss": "4.3.3",
+    "vite": "8.2.2",
+    "@vitejs/plugin-react": "6.1.1",
+    "vitest": "4.1.11",
+    "@vitest/browser-playwright": "4.1.11",
+    "playwright": "1.63.0",
+    "typescript": "5.9.3",
+    "eslint": "10.10.0",
+    "typescript-eslint": "8.69.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-config-prettier": "10.1.8",
+    "prettier": "3.9.6",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.7",
+    "jsdom": "30.0.1"
+  }
+}

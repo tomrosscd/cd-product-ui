@@ -1,0 +1,9 @@
+dist
+storybook-static
+node_modules
+local-fonts
+artifacts
+pnpm-lock.yaml
+src/tokens.ts
+src/styles/tokens.css
+src/styles/responsive.css

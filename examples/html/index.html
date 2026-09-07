@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Product UI · HTML example</title>
+    <link rel="stylesheet" href="../../dist/styles.css" />
+  </head>
+  <body>
+    <main class="cui-root" style="padding: var(--cui-space-24); background: var(--cui-surface-page)">
+      <h1 class="cui-page-heading">HTML foundations</h1>
+      <p style="margin: var(--cui-space-16) var(--cui-space-0)">
+        This example uses packaged CSS and a native select. React is not loaded.
+      </p>
+      <article class="cui-card cui-card-comfortable cui-card-flat">
+        <h2 class="cui-card-heading">Projects</h2>
+        <div class="cui-field">
+          <label class="cui-label" for="view">Project view</label
+          ><select class="cui-select" id="view">
+            <option value="all">All projects</option>
+            <option value="active">Active projects</option>
+          </select>
+        </div>
+        <p id="selection" role="status">Showing: all</p>
+      </article>
+    </main>
+    <script>
+      document.getElementById('view').addEventListener('change', (event) => {
+        document.getElementById('selection').textContent = 'Showing: ' + event.target.value
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { TokenReference } from './token-reference'
+
+<Meta title="Foundations/Tokens" />
+
+# Shared foundations
+
+These values drive the components and this reference. Edit `tokens/tokens.json`, then run `pnpm tokens`. The generator resolves aliases and produces both the CSS variables and the typed data shown below. `pnpm tokens:check` detects stale output.
+
+Use semantic roles such as `--cui-surface-card` in product code. Base colour values explain their origin. The `cui` prefix keeps Product UI names separate from host styles.
+
+<TokenReference />
