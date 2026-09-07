@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0 · 8 September 2026
+
+- Forms: Input, PasswordInput, Textarea, Field, Checkbox, RadioGroup and Switch.
+- Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, Alert, EmptyState, Spinner and Skeleton.
+- KeyValueList, Avatar, ResourceList and ActivityList.
+- Metric/MetricCard, Progress/AllocationBar, Table and sortable, searchable, paginated DataTable.
+- Optional Recharts v3 charts entry: line, area, bar, stacked bar, donut and sparkline, plus composable chart container, tooltip and legend.
+- Seven chart tokens, using existing Convert colours. Charts include summaries, keyboard tooltips and expandable exact values.
+- Controlled roadmap board/cards, sign-in presentation and summary/details/progress/action card compositions.
+- Dashboard rebuilt with exported metrics, tables, progress and charts. Neutral roadmap and sign-in examples.
+- Expanded interaction and accessibility checks, core/chart package consumers and a Next.js build fixture.
+
+Migration: existing 0.1.0 component imports remain valid. Chart users install the optional Recharts/react-is peers and import from `@convert/product-ui/charts`. Prefixes and the approved palette remain unchanged. Authentication and persistence remain application responsibilities.
+
 ## 0.1.0 · 7 September 2026
 
 Initial versioned library delivery.

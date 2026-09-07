@@ -12,3 +12,5 @@ playwright-report/
 *.tgz
 .env*
 !.env.example
+
+.next/

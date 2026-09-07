@@ -49,6 +49,21 @@ execFileSync(process.execPath, ['verify.mjs'], { cwd: consumer, stdio: 'inherit'
 for (const file of ['index.html', 'main.tsx', 'vite.config.ts'])
   await copyFile(`examples/react/${file}`, join(consumer, file))
 execFileSync('pnpm', ['exec', 'vite', 'build'], { cwd: consumer, stdio: 'inherit' })
+// Verify that the ordinary component entry point does not require Recharts.
+const plainConsumer = JSON.parse(await readFile(join(consumer, 'package.json'), 'utf8'))
+assert(!plainConsumer.dependencies.recharts, 'Ordinary consumer unexpectedly requires charts')
+plainConsumer.dependencies.recharts = pkg.devDependencies.recharts
+plainConsumer.dependencies['react-is'] = pkg.devDependencies['react-is']
+await writeFile(join(consumer, 'package.json'), JSON.stringify(plainConsumer, null, 2))
+execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', '/private/tmp/convert-product-ui-pnpm-store'], {
+  cwd: consumer,
+  stdio: 'inherit',
+})
+await writeFile(
+  join(consumer, 'main.tsx'),
+  `import{createRoot}from'react-dom/client';import{DataChart}from'@convert/product-ui/charts';import{MetricCard,Input,Progress,DataTable}from'@convert/product-ui';import'@convert/product-ui/styles.css';createRoot(document.getElementById('root')!).render(<main className="cui-root"><MetricCard heading="Completed" value="8"/><Input label="Workspace"/><Progress label="Review" value={60}/><DataTable caption="Projects" data={[{name:'Guide'}]} columns={[{accessorKey:'name',header:'Name'}]}/><DataChart title="Activity" summary="Activity increased." data={[{week:'W1',count:3},{week:'W2',count:8}]} xKey="week" series={[{key:'count',label:'Items'}]}/></main>);`,
+)
+execFileSync('pnpm', ['exec', 'vite', 'build'], { cwd: consumer, stdio: 'inherit' })
 await mkdir('artifacts', { recursive: true })
 await writeFile(
   'artifacts/package-check.json',

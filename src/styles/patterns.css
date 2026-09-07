@@ -1,0 +1,89 @@
+.cui-roadmap {
+  background: var(--cui-surface-card);
+  border-radius: var(--cui-radius-card);
+  padding: var(--cui-space-24);
+  min-width: 0;
+}
+.cui-roadmap-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--cui-space-16);
+}
+.cui-roadmap-toolbar h2 {
+  margin-inline-end: auto;
+}
+.cui-roadmap-toolbar > .cui-field {
+  min-width: 160px;
+}
+.cui-board-scroll {
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: var(--cui-space-8);
+}
+.cui-board-columns {
+  display: flex;
+  align-items: stretch;
+  gap: var(--cui-space-16);
+  min-width: 100%;
+}
+.cui-board-column {
+  flex: 1 0 240px;
+  min-width: 240px;
+  padding: var(--cui-space-16);
+  background: var(--cui-surface-page);
+  border-radius: var(--cui-radius-control);
+}
+.cui-board-column-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--cui-space-16);
+  padding-bottom: var(--cui-space-16);
+  border-bottom: var(--cui-border-width) solid var(--cui-border-control);
+}
+.cui-board-column-head h3,
+.cui-roadmap-title {
+  font-size: var(--cui-type-compact);
+  line-height: var(--cui-type-compact-leading);
+  font-weight: var(--cui-font-semibold);
+}
+.cui-roadmap-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-8);
+  padding-block: var(--cui-space-16);
+  border-bottom: var(--cui-border-width) solid var(--cui-border-subtle);
+  overflow-wrap: anywhere;
+}
+.cui-roadmap-card:last-child {
+  border-bottom: 0;
+}
+.cui-roadmap-card .cui-field {
+  margin-top: var(--cui-space-8);
+}
+.cui-roadmap-card .cui-choice {
+  min-height: var(--cui-size-control);
+}
+.cui-sign-in {
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+}
+.cui-pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: var(--cui-space-24);
+}
+.cui-table td > .cui-numeric {
+  display: block;
+}
+
+.cui-roadmap-demo {
+  padding: var(--cui-space-24);
+  background: var(--cui-surface-page);
+  min-height: 100dvh;
+}
+
+.cui-board-hint {
+  display: none;
+}

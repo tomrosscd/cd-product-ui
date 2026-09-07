@@ -764,6 +764,69 @@ export const tokenReference = [
     "value": "50",
     "description": "Mobile navigation panel",
     "resolved": "50"
+  },
+  {
+    "group": "chart",
+    "name": "series-primary",
+    "key": "chart.series-primary",
+    "css": "--cui-chart-series-primary",
+    "value": "{colour.forest}",
+    "description": "Primary chart series and progress fill",
+    "resolved": "#27382f"
+  },
+  {
+    "group": "chart",
+    "name": "series-secondary",
+    "key": "chart.series-secondary",
+    "css": "--cui-chart-series-secondary",
+    "value": "{colour.chart}",
+    "description": "Secondary chart series; pair with labels and line styles",
+    "resolved": "#499e6b"
+  },
+  {
+    "group": "chart",
+    "name": "series-tertiary",
+    "key": "chart.series-tertiary",
+    "css": "--cui-chart-series-tertiary",
+    "value": "{colour.muted}",
+    "description": "Third chart series; pair with labels and line styles",
+    "resolved": "#5e665f"
+  },
+  {
+    "group": "chart",
+    "name": "grid",
+    "key": "chart.grid",
+    "css": "--cui-chart-grid",
+    "value": "{border.subtle}",
+    "description": "Supporting chart grid lines",
+    "resolved": "#dce2db"
+  },
+  {
+    "group": "chart",
+    "name": "label",
+    "key": "chart.label",
+    "css": "--cui-chart-label",
+    "value": "{text.secondary}",
+    "description": "Chart axis and legend text",
+    "resolved": "#5e665f"
+  },
+  {
+    "group": "chart",
+    "name": "radius",
+    "key": "chart.radius",
+    "css": "--cui-chart-radius",
+    "value": "4px",
+    "description": "Subtle bar-end radius",
+    "resolved": "4px"
+  },
+  {
+    "group": "chart",
+    "name": "stroke",
+    "key": "chart.stroke",
+    "css": "--cui-chart-stroke",
+    "value": "2px",
+    "description": "Chart series stroke width",
+    "resolved": "2px"
   }
 ] as const
 export const tokens = {
@@ -851,6 +914,13 @@ export const tokens = {
   "breakpoint.sidebar": "900px",
   "layer.navigation": "20",
   "layer.overlay": "40",
-  "layer.dialog": "50"
+  "layer.dialog": "50",
+  "chart.series-primary": "#27382f",
+  "chart.series-secondary": "#499e6b",
+  "chart.series-tertiary": "#5e665f",
+  "chart.grid": "#dce2db",
+  "chart.label": "#5e665f",
+  "chart.radius": "4px",
+  "chart.stroke": "2px"
 } as const
 export type TokenName = keyof typeof tokens

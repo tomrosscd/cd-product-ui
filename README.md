@@ -2,19 +2,19 @@
 
 A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.
 
-**Current version: 0.1.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
+**Current version: 0.2.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
 
 [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ## What is included?
 
-| Area               | Included in 0.1.0                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- |
-| Foundations        | 85 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout |
-| Components         | Card, Select dropdown and responsive DashboardSidebar, with supporting Button, Icon and ConvertMark           |
-| Layout             | DashboardShell with a skip link, desktop navigation and a mobile drawer                                       |
-| Storybook          | Searchable token reference, design guidance, interactive states and a neutral sample dashboard                |
-| Developer guidance | Typed APIs, consumption examples, release checks and instructions for AI coding tools                         |
+| Area               | Included in 0.2.0                                                                                                      |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Foundations        | 92 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout          |
+| Components         | Forms, badges, links, feedback, metrics, progress, tables and supporting content, alongside the original components    |
+| Layout             | DashboardShell, roadmap board, sign-in form and reusable card compositions                                             |
+| Storybook          | Searchable token reference, five chart recipes, interactive states and neutral dashboard, roadmap and sign-in examples |
+| Developer guidance | Typed APIs, consumption examples, release checks and instructions for AI coding tools                                  |
 
 Koko Monthly Review V4 defines the product visual language. The new Convert website informs technical conventions. This library is independent of both references and contains no client data or business logic.
 
@@ -27,13 +27,13 @@ You do not need to fork the repository to use the library. Build an archive from
 Use Node **22.22.2** and pnpm **10.33.0**, recorded in this repository. In a terminal, outside your application's folder:
 
 ```sh
-git clone --branch v0.1.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.2.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.1.0.tgz`. One team member can build this archive and share it with other authorised projects.
+The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.2.0.tgz`. One team member can build this archive and share it with other authorised projects.
 
 ### 2. Install the archive in your application
 
@@ -41,15 +41,28 @@ Copy the archive into a `vendor` folder in your application. From **your applica
 
 ```sh
 # pnpm
-pnpm add --save-exact ./vendor/convert-product-ui-0.1.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.2.0.tgz
 
 # or npm
-npm install --save-exact ./vendor/convert-product-ui-0.1.0.tgz
+npm install --save-exact ./vendor/convert-product-ui-0.2.0.tgz
 ```
 
 Commit the archive, `package.json` and your lockfile in the consuming project so colleagues and CI install the same package. If that project ignores `*.tgz`, add an exception for this vendor archive. Use a short relative path as shown.
 
 Do not install directly from the GitHub branch: the repository contains source, and the archive supplies the compiled files applications need. The package name in imports is **`@convert/product-ui`**, even though the repository is called **`cd-product-ui`**.
+
+See the [component guide](docs/component-catalogue.md) for the full API, examples and boundaries.
+
+### Optional charts
+
+Only applications using `@convert/product-ui/charts` need the chart peers:
+
+```sh
+pnpm add --save-exact recharts@3.10.1 react-is@19.2.8
+# or: npm install --save-exact recharts@3.10.1 react-is@19.2.8
+```
+
+Match react-is to your application's React version. These pins match the tested React 19.2.8 setup. Import `DataChart`, `Sparkline`, `ChartContainer`, `ChartTooltipContent` or `ChartLegend` from `@convert/product-ui/charts`. The core component entry does not import Recharts.
 
 ## Use with React
 
@@ -81,7 +94,7 @@ The example supplies a styled native select. Connect its value and change handle
 
 Use `DashboardShell` for the responsive page frame. It already applies `cui-root`. Storybook shows the sidebar, layout and component states; [the separate React example](examples/react) demonstrates package imports.
 
-In Next.js, import CSS in the root layout and add `'use client'` to consuming components that use state or event handlers. Interactive library modules retain their client directives. Card and static primitives support server rendering. A full Next.js application build has not yet been tested.
+In Next.js, import CSS in the root layout and add `'use client'` to consuming components that use state or event handlers. Interactive library modules retain their client directives. Card and static primitives support server rendering. The expanded package has been built in a Next.js 16.3.4 App Router application with React 19.2.8, including server-rendered cards and client charts/forms.
 
 Your application does **not** need Tailwind or Storybook to use this package.
 
@@ -124,7 +137,7 @@ Library improvements do not automatically change installed applications. Upgrade
 4. Run the application's checks and review important screens, including keyboard navigation, errors, long content and mobile layout.
 5. Commit the new archive, dependency and lockfile changes in an application pull request. Merge after review.
 
-For example, **if a future 0.2.0 version has been released**:
+For example, to move a project from 0.1.0 to 0.2.0:
 
 ```sh
 pnpm add --save-exact ./vendor/convert-product-ui-0.2.0.tgz
@@ -170,14 +183,16 @@ pnpm exec playwright install chromium
 pnpm check
 pnpm format:check
 pnpm package:check
+pnpm next:check
 ```
 
-`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached.
+`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached. `next:check` then builds the packed archive in a separate Next.js application.
 
 Edit `tokens/tokens.json` and run `pnpm tokens` to update generated CSS, responsive breakpoints and typed data. Storybook's live token reference uses that same generated source. Commit generated changes with the source change.
 
 ## Further guidance
 
+- [Expanded component guide](docs/component-catalogue.md)
 - [Architecture and boundaries](docs/architecture.md)
 - [AI coding guidance and Impeccable review standard](docs/ai-guidance.md), plus [repository rules](AGENTS.md)
 - [Consumer examples](examples/README.md)

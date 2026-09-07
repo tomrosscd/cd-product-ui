@@ -3,7 +3,7 @@
 Keep tokens, components and guidance on one version initially. A release is an immutable package and matching Git tag. The Storybook build describes that same source revision.
 
 1. Create a branch and explain the concrete change. Update stories, relevant tests, docs and CHANGELOG.md.
-2. Run pnpm check, pnpm format:check and pnpm package:check. Inspect desktop, 390px mobile and long-content states. Check keyboard focus, mobile Escape/focus return, error recovery and reduced motion. Use the Convert rules and Impeccable review guidance.
+2. Run pnpm check, pnpm format:check and pnpm package:check and pnpm next:check. Inspect desktop, 390px mobile and long-content states. Check keyboard focus, mobile Escape/focus return, error recovery and reduced motion. Use the Convert rules and Impeccable review guidance.
 3. Open a pull request in [cd-product-ui](https://github.com/tomrosscd/cd-product-ui) and have another developer review API, visual and accessibility changes. Follow CONTRIBUTING.md and the pull request template. Token changes must show affected components, not only a colour swatch.
 4. Choose a version. Patches are compatible fixes; minors are compatible additions; majors are breaking API/token changes. During 0.x, use a minor for a breaking change and provide migration instructions.
 5. Change package.json, refresh the lockfile, update displayed version labels and the changelog, then rerun the release checks. Inspect package contents for fonts, credentials and client material.

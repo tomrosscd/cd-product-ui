@@ -25,3 +25,11 @@ The package contains no licensed fonts, client data or reference source files. T
 ## Reference alignment
 
 The website's React/TypeScript, colocated stories, semantic layering, variants and developer conventions inform this repository. Its typography, website components, Payload CMS, global theme state and Cloudflare services are not dependencies of this library. See reference-review.md for the pre-build findings; its recommendation status records the earlier review stage. The user subsequently approved the shared-foundation/React-first approach.
+
+## 0.2.0 expansion
+
+The core entry now includes form controls, badges/links, feedback, supporting content, metrics, progress, static tables, a TanStack v8 DataTable and roadmap/sign-in/card patterns. ChartContainer and chart recipes live under the separate charts entry, with Recharts and react-is as optional peers. Ordinary consumers can build without those chart packages.
+
+Chart styling adds seven semantic tokens by aliasing existing Convert colours and establishing stroke/radius roles. No additional palette hues are introduced. The chart recipes provide keyboard interaction, reserved responsive dimensions, a summary and an exact-values table.
+
+The Next.js consumption fixture tests server cards and client charts/forms from the packed archive. The roadmap uses controlled callbacks, with focus restoration after a move. Authentication, workflow rules, persistence and reporting calculations remain outside the library.

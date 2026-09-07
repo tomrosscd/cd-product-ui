@@ -25,6 +25,10 @@ describe('approved foundations', () => {
     expect(contrast(tokens['border.control'], tokens['surface.card'])).toBeGreaterThanOrEqual(3)
     expect(contrast(tokens['focus.colour'], tokens['surface.page'])).toBeGreaterThanOrEqual(3)
   })
+  it('keeps chart series distinct from their card background', () => {
+    for (const key of ['chart.series-primary', 'chart.series-secondary', 'chart.series-tertiary'] as const)
+      expect(contrast(tokens[key], tokens['surface.card'])).toBeGreaterThanOrEqual(3)
+  })
   it('resolves aliases and keeps names unique', () => {
     expect(new Set(tokenReference.map((t) => t.css)).size).toBe(tokenReference.length)
     expect(tokenReference.every((t) => !t.resolved.includes('{'))).toBe(true)
