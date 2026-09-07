@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 · Unreleased candidate
+## 0.2.0 · 8 September 2026
 
 - Forms: Input, PasswordInput, Textarea, Field, Checkbox, RadioGroup and Switch.
 - Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, Alert, EmptyState, Spinner and Skeleton.
@@ -12,7 +12,7 @@
 - Dashboard rebuilt with exported metrics, tables, progress and charts. Neutral roadmap and sign-in examples.
 - Expanded interaction and accessibility checks, core/chart package consumers and a Next.js build fixture.
 
-Migration: existing 0.1.0 component imports remain valid. Chart users install the optional Recharts/react-is peers and import from `@convert/product-ui/charts`. Prefixes and the approved palette remain unchanged. This candidate is not yet tagged or merged into main. Authentication and persistence remain application responsibilities.
+Migration: existing 0.1.0 component imports remain valid. Chart users install the optional Recharts/react-is peers and import from `@convert/product-ui/charts`. Prefixes and the approved palette remain unchanged. Authentication and persistence remain application responsibilities.
 
 ## 0.1.0 · 7 September 2026
 

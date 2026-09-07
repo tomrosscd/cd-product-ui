@@ -166,7 +166,7 @@ export function DashboardExample() {
         </div>
         <footer className="cui-demo-foot">
           <span>Neutral demonstration content. No connected systems.</span>
-          <span>Convert Product UI · 0.2.0 candidate</span>
+          <span>Convert Product UI · 0.2.0</span>
         </footer>
       </div>
     </DashboardShell>

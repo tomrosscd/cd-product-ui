@@ -1,6 +1,6 @@
 # Convert Product UI: AI contribution rules
 
-These instructions apply to this repository. Product UI version: 0.2.0 candidate. The user-approved Convert product system is authoritative.
+These instructions apply to this repository. Product UI version: 0.2.0. The user-approved Convert product system is authoritative.
 
 - Read README.md, docs/architecture.md and docs/ai-guidance.md before changing components.
 - Koko Monthly Review V4 is the visual reference. The website archive supplies technical conventions only. Do not edit either reference, previous Koko versions or V8.

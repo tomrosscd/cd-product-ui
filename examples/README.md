@@ -1,6 +1,6 @@
 # Consuming examples
 
-Build the library archive first with `pnpm pack --pack-destination artifacts`. These examples target the 0.2.0 candidate.
+Build the library archive first with `pnpm pack --pack-destination artifacts`. These examples target 0.2.0.
 
 - `react/`: install with pnpm from that folder, then run `pnpm dev`. It consumes the package archive through normal package imports, without chart dependencies.
 - `html/`: open index.html after the library build. It references compiled CSS and uses native controls without React.

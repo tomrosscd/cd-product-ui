@@ -17,7 +17,3 @@ Install an exact package version and commit the vendor archive, dependency and l
 ## Repository and future distribution
 
 GitHub is the source repository and the place for bug reports, feature requests and pull requests. Git tags identify fixed versions; the default branch contains ongoing work. No CI service, registry, Storybook hosting or cross-repository automation is configured. The local scripts provide the checks a future CI pipeline should run. Keep deployment credentials outside Git and resolve font hosting rights before distributing a font-containing catalogue.
-
-## Current expansion branch
-
-0.2.0 is a review candidate on feature/product-ui-expansion. Keep main and v0.1.0 unchanged until review. After approval, merge the pull request, change candidate labels and installation instructions to the approved tag, rerun release checks, then tag the release commit. Do not tag an unreviewed feature branch or overwrite earlier tags.
