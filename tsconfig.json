@@ -13,7 +13,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@convert/product-ui": ["./src/index.ts"]
+      "@convert/product-ui": ["./src/index.ts"],
+      "@/registry/*": ["./registry/*"]
     }
   },
   "include": [
@@ -23,6 +24,8 @@
     ".storybook",
     "*.ts",
     "examples/react/**/*.tsx",
-    "examples/react/**/*.d.ts"
+    "examples/react/**/*.d.ts",
+    "registry/**/*.ts",
+    "registry/**/*.tsx"
   ]
 }
