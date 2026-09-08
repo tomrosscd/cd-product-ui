@@ -5,6 +5,7 @@
 @import './controls.css';
 @import './data.css';
 @import './patterns.css';
+@import './workspace.css';
 @import './responsive.css';
 @source '../';
 @theme {
