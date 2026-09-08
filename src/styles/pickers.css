@@ -6,6 +6,11 @@
   gap: var(--cui-space-12);
   cursor: pointer;
   text-align: start;
+  /* The trigger lays its own icon out with flexbox, unlike the native .cui-select it borrows
+     base styles from, which reserves a wide right gutter for a browser-drawn, absolutely
+     positioned arrow. Without this override that reserved gutter pushes the flex icon in from
+     the edge instead of letting it sit flush against it. */
+  padding-inline-end: var(--cui-space-12);
 }
 .cui-select-panel,
 .cui-date-panel {

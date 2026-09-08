@@ -69,7 +69,7 @@
   --cui-shadow-none: none;
   --cui-focus-colour: var(--cui-colour-forest);
   --cui-focus-width: 2px;
-  --cui-focus-offset: 4px;
+  --cui-focus-offset: 0px;
   --cui-size-control: 40px;
   --cui-size-touch: 48px;
   --cui-size-row: 44px;
@@ -164,7 +164,7 @@
   --cui-shadow-none: none;
   --cui-focus-colour: var(--cui-colour-sage);
   --cui-focus-width: 2px;
-  --cui-focus-offset: 4px;
+  --cui-focus-offset: 0px;
   --cui-size-control: 40px;
   --cui-size-touch: 48px;
   --cui-size-row: 44px;

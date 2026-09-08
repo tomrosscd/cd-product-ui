@@ -713,10 +713,10 @@ export const tokenReference = [
     "name": "offset",
     "key": "focus.offset",
     "css": "--cui-focus-offset",
-    "value": "4px",
-    "description": "Outline offset",
-    "resolved": "4px",
-    "darkResolved": "4px"
+    "value": "0px",
+    "description": "Outline offset. Flush against the element's own border, not floating with a gap.",
+    "resolved": "0px",
+    "darkResolved": "0px"
   },
   {
     "group": "size",
@@ -1012,7 +1012,7 @@ export const tokens = {
   "shadow.none": "none",
   "focus.colour": "#27382f",
   "focus.width": "2px",
-  "focus.offset": "4px",
+  "focus.offset": "0px",
   "size.control": "40px",
   "size.touch": "48px",
   "size.row": "44px",
@@ -1106,7 +1106,7 @@ export const darkTokens = {
   "shadow.none": "none",
   "focus.colour": "#c9deb6",
   "focus.width": "2px",
-  "focus.offset": "4px",
+  "focus.offset": "0px",
   "size.control": "40px",
   "size.touch": "48px",
   "size.row": "44px",
