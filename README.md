@@ -4,7 +4,7 @@ A shared design system for Convert dashboards and internal tools. Install it in 
 
 **Current version: 0.2.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
 
-[Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+[Browse Storybook](#browse-the-components-locally) · [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ## What is included?
 
@@ -17,6 +17,25 @@ A shared design system for Convert dashboards and internal tools. Install it in 
 | Developer guidance | Typed APIs, consumption examples, release checks and instructions for AI coding tools                                  |
 
 Koko Monthly Review V4 defines the product visual language. The new Convert website informs technical conventions. This library is independent of both references and contains no client data or business logic.
+
+## Browse the components locally
+
+Anyone on the team can browse every component, its states, props and code, without installing the package into a project or having a GitHub Pages/Vercel account. This runs Storybook on your own computer.
+
+Prerequisites: Node **22.22.2** and pnpm **10.33.0** (this repository pins the exact version; run `corepack enable` once if `pnpm` isn't already available).
+
+```sh
+git clone https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+cd convert-product-ui
+pnpm install --frozen-lockfile
+pnpm storybook
+```
+
+Open [http://127.0.0.1:6006](http://127.0.0.1:6006/?path=/docs/start-here-welcome--docs) in a browser once the terminal shows it's ready. Storybook watches the source, so it updates live if you pull later changes. Stop it with Ctrl+C when you're done.
+
+Start with **Start here → Welcome**, then **Start here → Component guide** for what to use and when, and **Patterns → Dashboard** to see components working together in a realistic screen. No fonts, build step or account are required; without licensed Roobert files installed locally, headings and body text fall back to Geist and Arial, which is expected.
+
+This clone is read-only browsing. To use components in your own project instead, install the packaged release below.
 
 ## Install in your project
 
@@ -156,18 +175,9 @@ During 0.x, a minor version can include breaking changes, so read its migration 
 
 Search [existing issues](https://github.com/tomrosscd/cd-product-ui/issues) first. Discuss new components or breaking changes before building them. Use neutral examples and remove client information from screenshots and reports. Maintainers review contributions before they enter a release; accepted code reaches applications when those projects upgrade.
 
-## Browse and develop the library
+## Develop the library and run release checks
 
-To work on current source, clone the repository's default branch instead of a version tag:
-
-```sh
-git clone https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
-cd convert-product-ui
-pnpm install --frozen-lockfile
-pnpm storybook
-```
-
-Open [local Storybook](http://127.0.0.1:6006/?path=/docs/start-here-welcome--docs). It runs on your own computer and does not require a Storybook account. Stop it with Ctrl+C.
+Building or changing components needs the same clone as [browsing Storybook](#browse-the-components-locally), plus the checks below before proposing a change. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
 For licensed local preview fonts, place these files in the ignored `local-fonts/` folder:
 
