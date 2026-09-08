@@ -1,8 +1,10 @@
 'use client'
+import { useProductTheme } from '../primitives/theme.js'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useEffect, useState, type MouseEvent, type ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
 import { tokens } from '../../tokens.js'
+import { ConvertLogo } from '../primitives/convert-logo.js'
 import { ConvertMark } from '../primitives/convert-mark.js'
 import { Icon } from '../primitives/icon.js'
 export interface SidebarItem {
@@ -30,6 +32,7 @@ export function DashboardSidebar({
   onNavigate,
   className,
 }: DashboardSidebarProps) {
+  const theme = useProductTheme()
   const [open, setOpen] = useState(false)
   useEffect(() => {
     const media = window.matchMedia(`(min-width: ${tokens['breakpoint.sidebar']})`)
@@ -43,7 +46,7 @@ export function DashboardSidebar({
     return (
       <>
         <div className="cui-brand">
-          <ConvertMark /> <span>CONVERT</span>
+          <ConvertLogo variant="straight" label="Convert" className="cui-brand-logo" />
         </div>
         <div className="cui-workspace">
           <strong>{workspace}</strong>
@@ -98,7 +101,7 @@ export function DashboardSidebar({
         </div>
         <Dialog.Portal>
           <Dialog.Overlay className="cui-sidebar-overlay" />
-          <Dialog.Content className="cui-sidebar-drawer cui-root" aria-describedby={undefined}>
+          <Dialog.Content data-cui-theme={theme} className="cui-sidebar-drawer cui-root" aria-describedby={undefined}>
             <Dialog.Title className="cui-sr-only">Workspace navigation</Dialog.Title>
             <Dialog.Close asChild>
               <button
