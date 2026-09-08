@@ -1,6 +1,6 @@
-# 0.5.0 candidate: readable tables and branded pickers
+# 0.5.0: readable tables and branded pickers
 
-Pass 1 of the approved roadmap. Pending review; v0.4.0 remains the latest approved release. No existing exports, props or defaults are removed.
+Pass 1 of the approved roadmap. Shipped in v0.6.0 (merged and tagged 9 September 2026, alongside Pass 2 — see [release-0.6.md](release-0.6.md)). No existing exports, props or defaults were removed.
 
 ## Readable tables
 
@@ -29,4 +29,4 @@ The visual language follows the approved Convert tokens: restrained surface, lab
 
 ## Verification and adoption
 
-Review the new components under their own Components sections (Pagination, Styled select, Calendar, Date picker, Month picker, and the readable-layout story on Data table), then the dashboard in both themes. Every release must pass API snapshots, browser tests, formatting, lint/types, package and Next.js consumer checks, and CI. Keep the existing v0.4.0 install instructions until the candidate is reviewed and tagged. Current application defaults are deliberately unchanged; adopting the new variants is an explicit application edit.
+Review the new components under their own Components sections (Pagination, Styled select, Calendar, Date picker, Month picker, and the readable-layout story on Data table), then the dashboard in both themes. Every release passed API snapshots, browser tests, formatting, lint/types, package and Next.js consumer checks, and CI before merging. Current application defaults are deliberately unchanged; adopting the new variants is an explicit application edit.

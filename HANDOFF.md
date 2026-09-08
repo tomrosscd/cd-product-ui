@@ -4,9 +4,17 @@ Last updated: 9 September 2026. Update this file at each meaningful checkpoint a
 
 ## Current state
 
-Branch `feature/product-ui-0.5-controls`, based on main `ac4367b`. Pass 1 of the consolidated ROADMAP.md sequence is implemented, committed and pushed, targeting 0.5.0. A Codex session did the original implementation but ran out of usage mid-way with everything uncommitted; a fresh Claude session (8 September 2026) independently re-verified all of it from scratch — none of Codex's own `/tmp/cui-pass-*.log` claims were trusted — then committed, pushed and opened the PR. No merge or tag is authorised; that is the user's call.
+`v0.6.0` is merged to `main` and tagged (9 September 2026). PR #8 (`feature/product-ui-0.5-controls`) covered two passes and is now closed/merged — that branch's detailed checkpoint history is kept below for context, but treat `main`/`CHANGELOG.md`/`git log` as the source of truth going forward, not the branch name. The user explicitly asked to merge+tag this as a single v0.6.0 release rather than tagging 0.5.0 and 0.6.0 separately, since 0.5.0 was never tagged on its own.
 
-Previous release checkpoint: `v0.4.0` is merged to `main` and tagged. It was a breaking release (see `docs/release-0.4.md`): `title` → `heading` on Alert/EmptyState/Disclosure/ConfirmationDialog/DataChart/RoadmapBoard/SignInForm, and `SignInForm.pending` → `loading`. It also added an enforced public API check (`pnpm api:check`/`api:update`, backed by `etc/*.api.md`, wired into CI) — read `docs/release-process.md#backward-compatibility` before shipping anything that renames or removes a public export, prop, or CSS class.
+- **Pass 1 (0.5.0):** standalone `Pagination`, Radix-backed `StyledSelect`, `Calendar`/`DatePicker`/`MonthPicker`, opt-in readable/scrollable `Table`/`DataTable` layout. See `docs/release-0.5.md`.
+- **Pass 2 (0.6.0):** `Chip`/`ChipGroup`, `SegmentedControl`/`SegmentedMultiControl`, `Combobox`, `CurrencyInput`/`PercentageInput`/`HoursInput`, `PeriodNavigator`, `FilterToolbar` pattern. See `docs/release-0.6.md`.
+- Also in this release: `ErrorBoundary`, three accessibility fixes, coverage thresholds, examples lint/type-check coverage, and the `--cui-focus-offset` token fix (was 4px, giving every focusable element a detached ring).
+
+Previous release checkpoint before this one: `v0.4.0` — a breaking release (see `docs/release-0.4.md`): `title` → `heading` on Alert/EmptyState/Disclosure/ConfirmationDialog/DataChart/RoadmapBoard/SignInForm, and `SignInForm.pending` → `loading`. It also added an enforced public API check (`pnpm api:check`/`api:update`, backed by `etc/*.api.md`, wired into CI) — read `docs/release-process.md#backward-compatibility` before shipping anything that renames or removes a public export, prop, or CSS class.
+
+## Next: Pass 3
+
+ROADMAP.md's "Next: make tables and editing useful for real work" — `DataTable` expansion (row selection, bulk actions, column filters, sticky headers, server-driven pagination, virtualisation), column configuration/saved views, grouped rows/summary footers, a general dialog/details drawer, editable cells/quick-entry rows, file upload/attachments, wizard/stepper. Pagination (item 9) is already done from Pass 1. Start a new branch off `main` (don't reuse `feature/product-ui-0.5-controls`, which is now merged) — the usual naming would be `feature/product-ui-0.7-controls` or similar, matching the version it targets. Same process every time: implement, verify fresh (not from any prior session's logs), commit in coherent checkpoints, push, open a PR, and do not merge or tag without the user's explicit go-ahead.
 
 ## Current pass and next steps
 

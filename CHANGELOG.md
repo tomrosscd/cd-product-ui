@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.0 candidate
+## 0.6.0 · 9 September 2026
 
 Pass 2 of the user's re-prioritised roadmap: "everyday controls". See [docs/release-0.6.md](docs/release-0.6.md) for full contracts.
 
@@ -14,7 +14,7 @@ Pass 2 of the user's re-prioritised roadmap: "everyday controls". See [docs/rele
 - Fix: a Radix Popover race in `Combobox` where the click that opened it also immediately closed it (`onInteractOutside`), and a follow-on bug where confirming a single selection's refocus reopened the panel and blanked the display value.
 - Existing component defaults and all prior exports remain unchanged.
 
-## 0.5.0 candidate
+## 0.5.0 · 9 September 2026
 
 - Add branded StyledSelect, Calendar, DatePicker (single and combined range with presets) and MonthPicker. Keep native Select and DateRange unchanged.
 - Add responsive standalone Pagination, opt-in full DataTable pagination, and opt-in readable horizontally scrolling table layouts. Dashboard demonstrates adoption.

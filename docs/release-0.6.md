@@ -1,6 +1,6 @@
-# 0.6.0 candidate: everyday controls
+# 0.6.0: everyday controls
 
-Pass 2 of the user's re-prioritised roadmap (see ROADMAP.md). Pending review; v0.5.0 remains the latest approved release. No existing exports, props or defaults are removed.
+Pass 2 of the user's re-prioritised roadmap (see ROADMAP.md). Shipped in v0.6.0 (merged and tagged 9 September 2026, alongside Pass 1 — see [release-0.5.md](release-0.5.md)). No existing exports, props or defaults were removed.
 
 ## Chip / ChipGroup
 
@@ -33,4 +33,4 @@ Composes existing controls into a search/filter bar rather than defining its own
 
 ## Verification and adoption
 
-Review the new components under their own Components sections (Chip, Segmented control, Combobox, Formatted inputs, Period navigator) and Patterns/Filter toolbar, in both themes and at mobile widths. Every release must pass API snapshots, browser tests, formatting, lint/types, package and Next.js consumer checks, and CI. Keep the existing v0.5.0 install instructions until this candidate is reviewed and tagged. Current application defaults are unaffected — every addition here is a new, opt-in component.
+Review the new components under their own Components sections (Chip, Segmented control, Combobox, Formatted inputs, Period navigator) and Patterns/Filter toolbar, in both themes and at mobile widths. Every release passed API snapshots, browser tests, formatting, lint/types, package and Next.js consumer checks, and CI before merging. Current application defaults are unaffected — every addition here is a new, opt-in component.
