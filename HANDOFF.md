@@ -4,25 +4,17 @@ Last updated: 8 September 2026. Update this file at each meaningful checkpoint a
 
 ## Current state
 
-Active work: user approved starting the consolidated passes. Branch `feature/product-ui-0.5-controls`, based on main `ac4367b`. Pass 1 is in progress, target 0.5.0. No implementation checks completed yet. Read the new Approved delivery order in ROADMAP.md; it supersedes the narrower seven-component list below. Next: implement opt-in table responsiveness, Pagination, branded select and date-picker family, then stories, compatibility checks and release PR. No merge or tag is authorised.
+Branch `feature/product-ui-0.5-controls`, based on main `ac4367b`. Pass 1 of the consolidated ROADMAP.md sequence is implemented, committed and pushed, targeting 0.5.0. A Codex session did the original implementation but ran out of usage mid-way with everything uncommitted; a fresh Claude session (8 September 2026) independently re-verified all of it from scratch — none of Codex's own `/tmp/cui-pass-*.log` claims were trusted — then committed, pushed and opened the PR. No merge or tag is authorised; that is the user's call.
 
 Previous release checkpoint: `v0.4.0` is merged to `main` and tagged. It was a breaking release (see `docs/release-0.4.md`): `title` → `heading` on Alert/EmptyState/Disclosure/ConfirmationDialog/DataChart/RoadmapBoard/SignInForm, and `SignInForm.pending` → `loading`. It also added an enforced public API check (`pnpm api:check`/`api:update`, backed by `etc/*.api.md`, wired into CI) — read `docs/release-process.md#backward-compatibility` before shipping anything that renames or removes a public export, prop, or CSS class.
 
-## User-approved objective for the next session
+## Current pass and next steps
 
-Build out new components from **ROADMAP.md section 2** ("New components"). These are the candidates, in the order the roadmap suggests but pick whichever makes sense to start with:
+Implemented (commits `b883105`, `87fb912` on top of the planning commit `141baea`): opt-in `Table`/`DataTable` `layout`/`tableLayout: 'scroll'` with `minWidth`, and `pagination: 'full'`; standalone controlled `Pagination`; Radix-backed `StyledSelect` (used internally by `Pagination` and the date pickers); `Calendar`/`DatePicker`/`MonthPicker` built on `react-day-picker` with DST-safe date parsing and draft/apply/cancel range editing. Existing native controls and legacy defaults are unchanged. `docs/release-0.5.md` documents the new contracts. The dashboard example adopts `tableLayout="scroll"`/`pagination="full"`. New pinned dependencies: `@radix-ui/react-select@2.3.7`, `@radix-ui/react-popover@1.1.23`, `react-day-picker@10.0.1`.
 
-1. Standalone Pagination (extract from DataTable's existing TanStack pagination row model)
-2. Async/remote Combobox (distinct from the existing local-only SearchSelect)
-3. Command palette (cmd-k)
-4. Wizard / multi-step stepper
-5. File upload / dropzone
-6. Real drag-and-drop for RoadmapBoard (progressive enhancement alongside the existing dropdown-based move, not a replacement)
-7. Error boundary component
+Verification (all run fresh on this branch's actual current state, not inferred from a prior session's logs): `pnpm type-check`, `pnpm lint`, `pnpm format:check` all clean; `pnpm test` 170/170 passing (29 files); `pnpm test:dark` 146/146 passing (25 files) — both runs emit a benign Radix `Presence` "not wrapped in act(...)" console warning from Select/Popover exit animations (confirmed absent on the pre-pass-1 baseline via `git stash -u`; it's test noise, not a failure, and every assertion still passes); `pnpm api:check` clean, no diff against the committed `etc/*.api.md` snapshot; `pnpm package:check` verified 240 package files against both the core and charts-enabled consumer fixtures; `pnpm next:check` built the Next.js fixture successfully. Manual review in Storybook (a temporary local instance on port 6100, since 6006 was held by an unrelated stale process from a different checkout — `.claude/launch.json` was not added to the repo): BrandedSelect and SelectStates confirmed correct in both light and dark themes (checkmark, disabled/grouped options, theme-aware portal); CombinedRange confirmed correct at desktop and mobile widths (single month on mobile vs two on desktop, disabled Apply on invalid range, correct final applied value); NarrowTable confirmed the readable/scrolling table layout and the container-query compact pagination fallback (`Page 2 of 2` text swaps in for the numbered buttons under ~560px).
 
-All seven are purely additive — new components, no changes to existing props — so none of them need the CONSUMERS.md/backward-compatibility check that a rename or removal would. Standard process still applies: read `docs/architecture.md` and `docs/ai-guidance.md` first, follow `AGENTS.md`'s conventions (named exports, kebab-case filenames, `cui-` prefixed classes, colocated stories), write real Storybook interaction tests (not just visual stories — see the earlier audit's finding that ~19% interaction coverage was a real gap), update `docs/component-catalogue.md`, and run the full check suite (`pnpm check`, `pnpm format:check`, `pnpm package:check`, `pnpm next:check`, `pnpm api:check`) before opening a PR. `.github/workflows/ci.yml` runs the same checks automatically — don't rely on local runs alone; if CI fails for an environment-specific reason, fix the actual cause rather than skip the check (see 0.3.1's history for a real example of this happening).
-
-Do not merge to `main` or tag a release without the user's explicit go-ahead — open a PR and wait.
+Next: push is done; open/confirm the PR is up to date and ask the user to review. Do not merge or tag until the user approves. Later passes (items 2+ of the consolidated 30-item roadmap Codex negotiated with the user, e.g. combobox, chips, segmented controls, filter toolbar, currency/period inputs, advanced tables, Gantt/resource-timeline/capacity visualisations) are tracked in ROADMAP.md — read its "Approved delivery order" section before picking up the next pass.
 
 ## What NOT to do
 
