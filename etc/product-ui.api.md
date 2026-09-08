@@ -6,16 +6,20 @@
 
 import { ClassProp } from 'class-variance-authority/types';
 import { ColumnDef } from '@tanstack/react-table';
+import { Component } from 'react';
 import { ComponentProps } from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
+import { ErrorInfo } from 'react';
 import type { FormEventHandler } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { JSX } from 'react';
+import { JSXElementConstructor } from 'react';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import * as Primitive from '@radix-ui/react-tabs';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { ReactPortal } from 'react';
 import { RefAttributes } from 'react';
 import type { SVGProps } from 'react';
 import { VariantProps } from 'class-variance-authority';
@@ -892,6 +896,35 @@ export function EmptyState(input: {
     action?: ReactNode;
     live?: boolean;
 }): JSX.Element;
+
+// Warning: (ae-forgotten-export) The symbol "ErrorBoundaryState" needs to be exported by the entry point index.d.ts
+//
+// @public
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    // (undocumented)
+    componentDidCatch(error: Error, info: ErrorInfo): void;
+    // (undocumented)
+    static getDerivedStateFromError(error: Error): ErrorBoundaryState;
+    // (undocumented)
+    render(): string | number | bigint | boolean | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | JSX.Element | null | undefined;
+    // (undocumented)
+    reset: () => void;
+    // (undocumented)
+    state: ErrorBoundaryState;
+}
+
+// @public (undocumented)
+export interface ErrorBoundaryProps {
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    description?: string;
+    fallback?: ReactNode | ((error: Error, reset: () => void) => ReactNode);
+    // (undocumented)
+    heading?: string;
+    // (undocumented)
+    onError?: (error: Error, info: ErrorInfo) => void;
+}
 
 // @public
 export function Field(input: FieldProps): JSX.Element;
