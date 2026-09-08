@@ -16,5 +16,13 @@
       "@convert/product-ui": ["./src/index.ts"]
     }
   },
-  "include": ["src", "docs/**/*.tsx", "tests", ".storybook", "*.ts", "examples/react/**/*.tsx", "examples/react/**/*.d.ts"]
+  "include": [
+    "src",
+    "docs/**/*.tsx",
+    "tests",
+    ".storybook",
+    "*.ts",
+    "examples/react/**/*.tsx",
+    "examples/react/**/*.d.ts"
+  ]
 }

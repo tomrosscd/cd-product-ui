@@ -4,14 +4,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 import prettier from 'eslint-config-prettier'
 export default tseslint.config(
   {
-    ignores: [
-      'dist/**',
-      'storybook-static/**',
-      'node_modules/**',
-      'artifacts/**',
-      'coverage/**',
-      'src/tokens.ts',
-    ],
+    ignores: ['dist/**', 'storybook-static/**', 'node_modules/**', 'artifacts/**', 'coverage/**', 'src/tokens.ts'],
   },
   ...tseslint.configs.recommended,
   {
