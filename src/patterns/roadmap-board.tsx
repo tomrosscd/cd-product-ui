@@ -64,7 +64,7 @@ export function RoadmapCard({ item, stages, selectId, onStageChange, onPriorityC
   )
 }
 export interface RoadmapBoardProps {
-  title: string
+  heading: string
   columns: readonly RoadmapColumn[]
   items: readonly RoadmapItem[]
   actions?: ReactNode
@@ -75,7 +75,7 @@ export interface RoadmapBoardProps {
 }
 /** Controlled board. Applications own saved state, workflow rules and permissions. */
 export function RoadmapBoard({
-  title,
+  heading,
   columns,
   items,
   actions,
@@ -108,7 +108,7 @@ export function RoadmapBoard({
   return (
     <div className="cui-root cui-roadmap cui-stack" ref={container}>
       <div className="cui-roadmap-toolbar">
-        <h2 className="cui-card-heading">{title}</h2>
+        <h2 className="cui-card-heading">{heading}</h2>
         <Select
           id={`${id}-filter`}
           label="Show stage"
@@ -127,7 +127,7 @@ export function RoadmapBoard({
       {state === 'loading' ? (
         <Spinner label="Loading roadmap" />
       ) : state === 'error' ? (
-        <Alert title="Roadmap could not be loaded" tone="error">
+        <Alert heading="Roadmap could not be loaded" tone="error">
           {onRetry ? <Button onClick={onRetry}>Try again</Button> : 'Try again later.'}
         </Alert>
       ) : (
@@ -136,7 +136,7 @@ export function RoadmapBoard({
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- WCAG/APG scrollable-region pattern: keyboard users need tabIndex=0 to reach and arrow-scroll this region
           tabIndex={0}
           role="region"
-          aria-label={`${title} columns, scroll horizontally to view more`}
+          aria-label={`${heading} columns, scroll horizontally to view more`}
         >
           <div className="cui-board-columns">
             {visible.map((column) => {
@@ -153,7 +153,7 @@ export function RoadmapBoard({
                     </span>
                   </header>
                   {entries.length === 0 ? (
-                    <EmptyState title="No items yet" />
+                    <EmptyState heading="No items yet" />
                   ) : (
                     entries.map((item) => (
                       <RoadmapCard
@@ -181,7 +181,7 @@ export function RoadmapBoard({
                 </section>
               )
             })}
-            {visible.length === 0 && <EmptyState title="No stages available" />}
+            {visible.length === 0 && <EmptyState heading="No stages available" />}
           </div>
         </div>
       )}

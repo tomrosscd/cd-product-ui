@@ -80,7 +80,7 @@ export function Alert(input: AlertProps): JSX.Element;
 // @public (undocumented)
 export interface AlertProps extends ComponentProps<'div'> {
     // (undocumented)
-    title: string;
+    heading: string;
     // (undocumented)
     tone?: 'info' | 'success' | 'warning' | 'error';
 }
@@ -693,13 +693,13 @@ export interface ConfirmationDialogProps {
     // (undocumented)
     description: string;
     // (undocumented)
+    heading: string;
+    // (undocumented)
     onConfirm: () => void;
     // (undocumented)
     onOpenChange?: (open: boolean) => void;
     // (undocumented)
     open?: boolean;
-    // (undocumented)
-    title: string;
     // (undocumented)
     trigger: ReactNode;
 }
@@ -822,14 +822,14 @@ export function DetailsCard(input: CardProps & {
 export function Disclosure(input: DisclosureProps): JSX.Element;
 
 // @public (undocumented)
-export interface DisclosureProps extends Omit<ComponentProps<'details'>, 'title'> {
+export interface DisclosureProps extends ComponentProps<'details'> {
     // (undocumented)
-    title: ReactNode;
+    heading: ReactNode;
 }
 
 // @public (undocumented)
 export function EmptyState(input: {
-    title: string;
+    heading: string;
     description?: string;
     action?: ReactNode;
 }): JSX.Element;
@@ -1023,6 +1023,8 @@ export interface RoadmapBoardProps {
     // (undocumented)
     columns: readonly RoadmapColumn[];
     // (undocumented)
+    heading: string;
+    // (undocumented)
     items: readonly RoadmapItem[];
     // (undocumented)
     onPriorityChange?: (id: string, priority: boolean) => void;
@@ -1032,8 +1034,6 @@ export interface RoadmapBoardProps {
     onStageChange?: (id: string, stage: string) => void;
     // (undocumented)
     state?: 'ready' | 'loading' | 'error';
-    // (undocumented)
-    title: string;
 }
 
 // @public (undocumented)
@@ -1165,15 +1165,15 @@ export interface SignInFormProps {
     // (undocumented)
     error?: string;
     // (undocumented)
+    heading?: string;
+    // (undocumented)
+    loading?: boolean;
+    // (undocumented)
     onSubmit: FormEventHandler<HTMLFormElement>;
     // (undocumented)
     passwordError?: string;
     // (undocumented)
-    pending?: boolean;
-    // (undocumented)
     recoveryHref?: string;
-    // (undocumented)
-    title?: string;
 }
 
 // @public (undocumented)

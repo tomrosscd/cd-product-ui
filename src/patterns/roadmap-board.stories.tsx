@@ -6,7 +6,7 @@ const meta = {
   title: 'Patterns/Roadmap board',
   component: RoadmapBoard,
   tags: ['autodocs'],
-  args: { title: 'Workspace roadmap', columns: roadmapColumns, items: roadmapItems },
+  args: { heading: 'Workspace roadmap', columns: roadmapColumns, items: roadmapItems },
   parameters: {
     layout: 'fullscreen',
     docs: {

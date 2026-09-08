@@ -86,6 +86,8 @@ export interface DataChartProps {
     // (undocumented)
     formatValue?: (value: number) => string;
     // (undocumented)
+    heading: string;
+    // (undocumented)
     height?: number;
     // (undocumented)
     kind?: 'line' | 'area' | 'bar' | 'stacked-bar' | 'donut';
@@ -97,8 +99,6 @@ export interface DataChartProps {
     state?: 'ready' | 'loading' | 'error';
     // (undocumented)
     summary: string;
-    // (undocumented)
-    title: string;
     // (undocumented)
     xKey: string;
 }

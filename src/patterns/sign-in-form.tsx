@@ -7,9 +7,9 @@ import { TextLink } from '../components/primitives/text-link.js'
 import { Alert } from '../components/primitives/feedback.js'
 export interface SignInFormProps {
   onSubmit: FormEventHandler<HTMLFormElement>
-  title?: string
+  heading?: string
   description?: string
-  pending?: boolean
+  loading?: boolean
   error?: string
   recoveryHref?: string
   alternativeAction?: ReactNode
@@ -19,9 +19,9 @@ export interface SignInFormProps {
 /** Sign-in presentation only. The host handles authentication and errors. Never log credentials. */
 export function SignInForm({
   onSubmit,
-  title = 'Sign in to your workspace',
+  heading = 'Sign in to your workspace',
   description = 'Use your work account to continue.',
-  pending,
+  loading,
   error,
   recoveryHref,
   alternativeAction,
@@ -30,18 +30,18 @@ export function SignInForm({
 }: SignInFormProps) {
   return (
     <div className="cui-root cui-sign-in">
-      <Card heading={title} description={description} elevation="flat">
+      <Card heading={heading} description={description} elevation="flat">
         <form
           className="cui-stack"
           aria-label="Sign in"
           onSubmit={(event) => {
             event.preventDefault()
-            if (!pending) onSubmit(event)
+            if (!loading) onSubmit(event)
           }}
-          aria-busy={pending || undefined}
+          aria-busy={loading || undefined}
         >
           {error && (
-            <Alert title="Unable to sign in" tone="error">
+            <Alert heading="Unable to sign in" tone="error">
               {error}
             </Alert>
           )}
@@ -51,7 +51,7 @@ export function SignInForm({
             name="email"
             autoComplete="username"
             required
-            readOnly={pending}
+            readOnly={loading}
             error={emailError}
           />
           <PasswordInput
@@ -59,12 +59,12 @@ export function SignInForm({
             name="password"
             autoComplete="current-password"
             required
-            readOnly={pending}
+            readOnly={loading}
             error={passwordError}
           />
           {recoveryHref && <TextLink href={recoveryHref}>Forgot your password?</TextLink>}
-          <Button type="submit" variant="primary" loading={pending}>
-            {pending ? 'Signing in…' : 'Sign in'}
+          <Button type="submit" variant="primary" loading={loading}>
+            {loading ? 'Signing in…' : 'Sign in'}
           </Button>
           {alternativeAction}
         </form>

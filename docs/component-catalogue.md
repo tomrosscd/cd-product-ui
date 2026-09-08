@@ -85,7 +85,7 @@ import { DataChart } from '@convert/product-ui/charts'
 export function ActivityChart() {
   return (
     <DataChart
-      title="Weekly completion"
+      heading="Weekly completion"
       summary="Completed items increased from 3 to 8."
       kind="bar"
       data={[

@@ -69,16 +69,16 @@ describe('expanded component contracts', () => {
     expect(link.textContent).toContain('opens in a new tab')
     expect(link.getAttribute('rel')).toBe('nofollow noopener noreferrer')
   })
-  it('prevents a pending sign-in from calling the host handler', () => {
+  it('prevents a loading sign-in from calling the host handler', () => {
     const submit = vi.fn()
-    render(<SignInForm pending onSubmit={submit} />)
+    render(<SignInForm loading onSubmit={submit} />)
     fireEvent.submit(screen.getByRole('form'))
     expect(submit).not.toHaveBeenCalled()
   })
   it('keeps an unknown roadmap stage visible rather than losing its item', () => {
     render(
       <RoadmapBoard
-        title="Roadmap"
+        heading="Roadmap"
         columns={[{ id: 'ideas', label: 'Ideas' }]}
         items={[{ id: '1', title: 'Review the guide', stage: 'missing' }]}
       />,
@@ -91,7 +91,7 @@ describe('expanded component contracts', () => {
       const [items, setItems] = useState([{ id: '1', title: 'Review the guide', stage: 'ideas' }])
       return (
         <RoadmapBoard
-          title="Roadmap"
+          heading="Roadmap"
           columns={[
             { id: 'ideas', label: 'Ideas' },
             { id: 'ready', label: 'Ready' },

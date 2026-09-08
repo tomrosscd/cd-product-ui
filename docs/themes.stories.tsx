@@ -34,12 +34,12 @@ function Example({ theme }: { theme: 'light' | 'dark' }) {
           <Input label="Reference" error="Enter a reference." />
           <ConfirmationDialog
             trigger={<Button>Review changes</Button>}
-            title="Apply changes?"
+            heading="Apply changes?"
             description="This example does not save data."
             onConfirm={() => {}}
           />
           <DataChart
-            title="Completed work"
+            heading="Completed work"
             summary="Completion increased during the period."
             kind="bar"
             data={[

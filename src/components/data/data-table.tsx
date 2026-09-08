@@ -74,7 +74,7 @@ export function DataTable<T>({
       {state === 'loading' ? (
         <Spinner label="Loading rows" />
       ) : state === 'error' ? (
-        <Alert title="Rows could not be loaded" tone="error">
+        <Alert heading="Rows could not be loaded" tone="error">
           {onRetry ? <Button onClick={onRetry}>Try again</Button> : 'Try again later.'}
         </Alert>
       ) : (
@@ -132,7 +132,7 @@ export function DataTable<T>({
                 <tr>
                   <td colSpan={Math.max(columns.length, 1)}>
                     <EmptyState
-                      title={globalFilter ? 'No matching results' : 'No rows yet'}
+                      heading={globalFilter ? 'No matching results' : 'No rows yet'}
                       description={globalFilter ? 'Try a different search.' : 'Rows will appear here when available.'}
                     />
                   </td>

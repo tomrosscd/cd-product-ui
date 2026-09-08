@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     trigger: <Button>Archive project</Button>,
-    title: 'Archive this project?',
+    heading: 'Archive this project?',
     description: 'It will leave the active project list. You can restore it later.',
     confirmLabel: 'Archive project',
     onConfirm: fn(),
