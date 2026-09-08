@@ -4,7 +4,9 @@ Last updated: 8 September 2026. Update this file at each meaningful checkpoint a
 
 ## Current state
 
-**0.3.1 is prepared and verified, on branch `feature/product-ui-0.3.1`, not yet pushed/PR'd/tagged.** It's a patch release from a full codebase audit: bug fixes, no public API changes. See CHANGELOG.md for the exact list and docs/validation.md for what was checked.
+**0.3.1 is on branch `feature/product-ui-0.3.1`, PR #2 open, CI green, not yet merged/tagged.** It's a patch release from a full codebase audit: bug fixes, no public API changes. See CHANGELOG.md for the exact list and docs/validation.md for what was checked.
+
+CI's first real run on GitHub Actions caught a genuine bug that no local run had ever hit: `check-package.mjs`/`check-next.mjs`'s temp-consumer `pnpm install` calls failed under `CI=true` (pnpm treats plain `install` as `--frozen-lockfile` when that env var is set). Fixed with `--no-frozen-lockfile` on all three call sites, verified locally with `CI=true pnpm package:check`/`next:check` before pushing, then confirmed green on the actual GitHub Actions run (not just "should work now").
 
 ## Repository and branch
 
@@ -15,11 +17,9 @@ Last updated: 8 September 2026. Update this file at each meaningful checkpoint a
 
 ## Exact next steps
 
-1. Push `feature/product-ui-0.3.1` to origin and open a PR into `main`.
-2. This is the first PR that will actually run the new `.github/workflows/ci.yml` — watch it, since it's never executed on GitHub's runners before (only reproduced locally). If it fails for an environment reason (not a real bug), fix the workflow, don't disable the check.
-3. Get it reviewed (the user does this) before merging.
-4. After approval: merge, tag `v0.3.1`, rebuild the archive from that tag. No stable-install-instruction changes needed beyond what's already in this branch (README already points at v0.3.1).
-5. Ask the user to update CONSUMERS.md with their coworker's actual project name/contact once known — it currently has a placeholder row.
+1. Get PR #2 reviewed (the user does this) before merging — CI is green, nothing blocking on the tooling side.
+2. After approval: merge, tag `v0.3.1`, rebuild the archive from that tag. No stable-install-instruction changes needed beyond what's already in this branch (README already points at v0.3.1).
+3. Ask the user to update CONSUMERS.md with their coworker's actual project name/contact once known — it currently has a placeholder row.
 
 ## What NOT to do next
 
