@@ -2,13 +2,21 @@
 
 A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.
 
-**Current version: 0.2.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
+**Release candidate: 0.3.0. Latest tagged release: 0.2.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
 
 [Browse Storybook](#browse-the-components-locally) · [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
+## Review the 0.3.0 candidate
+
+This branch prepares 0.3.0 for review. Existing v0.1.0 and v0.2.0 tags are unchanged; do not use a v0.3.0 clone command until that tag has been approved and created. The stable installation commands below intentionally select v0.2.0.
+
+From this candidate checkout, run `pnpm pack --pack-destination artifacts`, then install `./vendor/convert-product-ui-0.3.0.tgz` with `pnpm add --save-exact` or `npm install --save-exact`. Commit the archive and consuming lockfile. Review important screens before adopting it.
+
+New in this candidate: scoped light/dark themes, official logo components and 80 original downloadable brand files, action menus, tooltips, controlled toast notifications, breadcrumbs, searchable single/multiple selection and native date ranges. See [0.3.0 usage and migration](docs/release-0.3.md).
+
 ## What is included?
 
-| Area               | Included in 0.2.0                                                                                                      |
+| Area               | Included in 0.3.0                                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
 | Foundations        | 92 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout          |
 | Components         | Forms, badges, links, feedback, metrics, progress, tables and supporting content, alongside the original components    |

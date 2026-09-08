@@ -1,30 +1,44 @@
-# Initial delivery validation
+# Release validation history
 
-Validated locally on 7 September 2026. Package version: 0.1.0.
+## 0.3.0 · 8 September 2026 (release candidate)
 
-## Automated checks
+Validated locally on the `feature/product-ui-0.3` branch, on top of the 0.1.0 and 0.2.0 results below.
+
+### Automated checks
+
+- 24 unit and token tests passed (`pnpm test:unit`), including the added brand-asset manifest/hash checks.
+- 134 Storybook examples passed in Chromium with accessibility checks configured as errors, run once with the default light theme and once with `VITE_CUI_THEME=dark` (`pnpm test:stories` / `pnpm test:dark`). Interaction tests cover action-menu arrow-key navigation, Enter selection and focus return; tooltip, breadcrumb, searchable single/multiple selection and date-range behaviour; and theme inheritance into dialogs and the mobile drawer.
+- Type checking, ESLint, Prettier formatting, token generation (92 tokens, light and dark scopes) and static Storybook compilation passed (`pnpm check`, `pnpm format:check`).
+- The packed archive was verified twice: once as `pnpm package:check` (214 package files, installed into an isolated consumer, rendered through React's server renderer and built as a Vite application using only package imports) and once as `pnpm next:check` (built inside a Next.js 16.3.4 App Router application with `next build --webpack`). Both passed against React 19.2.8.
+
+### Browser and design review
+
+- Dark theme reviewed on the dashboard, sidebar, cards, forms and charts: surface, text, border and chart tokens all resolve to their dark values, and the sidebar renders the official Convert mark rather than typed text, in both themes.
+- Native `<input type="date">` controls carry `color-scheme: dark` under the dark theme, so the browser-drawn calendar icon renders light-on-dark instead of disappearing.
+- Brand asset downloads gallery confirmed against the manifest: 80 original files searchable by variant, colour and format; search filtering (e.g. "png") returns the expected subset.
+- Action menu, searchable single/multiple selection and date range reviewed at 390px: full-width controls, no horizontal overflow, disabled options visibly greyed.
+- Confirmation dialogs and the mobile navigation drawer carry the active theme through their portals.
+
+### Limitations
+
+Manual review covered the areas above; it was not an exhaustive pass over all 134 stories at every breakpoint. Reduced-motion, forced-colour, Safari/Firefox coverage and a screen-reader session remain future checks, as in 0.1.0.
+
+## 0.2.0 · 8 September 2026
+
+Automated checks (type checking, ESLint, 140 unit/story tests, build, static Storybook, `package:check`, `next:check`) passed on `main` before tagging. See [CHANGELOG.md](../CHANGELOG.md) for scope. A password-visibility toggle wrapping bug in `Input`'s trailing-action slot was found by manual Storybook review and fixed before release; automated checks alone had not caught it, which is why manual review of new patterns stays part of this process.
+
+## 0.1.0 · 7 September 2026 (initial delivery)
 
 - 12 unit and token tests passed: label and ID associations, hints/errors, controlled values, native form submission, disabled options, empty/loading controls, card loading, action repeat prevention, route semantics, drawer Escape/focus return and navigation callbacks.
 - 31 Storybook examples passed in Chromium with accessibility checks configured as errors. Interactive stories cover selection, state updates, recovery and dashboard actions.
 - Normal text contrast was checked on page, band and card surfaces. Inverse/selected text, control boundaries and focus contrast were also checked.
-- Type checking, ESLint, token generation, component compilation and static Storybook compilation passed during implementation. The final release commands are recorded in README.md.
+- Type checking, ESLint, token generation, component compilation and static Storybook compilation passed during implementation.
 - The packed archive was checked for fonts and development files, installed into a separate temporary consumer, rendered through React's server renderer, and built as a Vite application using only package imports. React 19.2.8 and its compiled styles/token exports worked.
+- The live catalogue and dashboard were reviewed against the approved Koko hierarchy and Convert rules, using the Impeccable review guidance recorded in this repository. Roobert was confirmed as the computed primary family; desktop (1280px), mobile (390px) and narrow mobile (320px) layouts were reviewed; the mobile drawer's Escape/focus-return behaviour was checked; the user-supplied archives and all existing Koko reference files were checked against preservation baselines, with V8 retaining its recorded SHA256.
 
-## Browser and design review
+## Ongoing limitations
 
-The live catalogue and dashboard were reviewed against the approved Koko hierarchy and Convert rules, using the Impeccable review guidance recorded in this repository.
-
-- Roobert was confirmed as the computed primary family in the local dashboard.
-- Desktop at 1280px: sidebar, main content, neutral section bands, card hierarchy and density reviewed.
-- Mobile at 390px: single-column layout and labelled drawer reviewed. Shift+Tab stayed in the open drawer, Escape closed it and focus returned to Open navigation.
-- Narrow mobile at 320px: content wrapped without page-level horizontal overflow; select and menu controls measured 48px tall.
-- Search for “focus” in the token reference returned the three focus tokens.
-- The welcome page's dashboard link navigated the catalogue correctly.
-- The user-supplied archives and all existing Koko reference files were checked against preservation baselines. V8 retains its recorded SHA256.
-
-## Limitations
-
-This is the first local library release. No client services, real data, authentication or production integrations are included. Other frameworks receive tokens and CSS, not the React interaction implementation. A full Next.js application build, Safari/Firefox coverage, screen-reader sessions, forced-colour visual review and a broader assistive-technology audit remain future checks; do not describe automated results as full accessibility certification.
+No client services, real data, authentication or production integrations are included at any version. Other frameworks receive tokens and CSS, not the React interaction implementation. Safari/Firefox coverage, screen-reader sessions, forced-colour visual review and a broader assistive-technology audit remain future checks; do not describe automated results as full accessibility certification.
 
 Reduced-motion and forced-colour styles are implemented. Native select menus follow the operating system. Licensed fonts are excluded from Git and the installable package; local Storybook builds may contain ignored preview fonts and need rights review before hosting.
 

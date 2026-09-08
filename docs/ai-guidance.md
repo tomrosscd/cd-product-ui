@@ -30,3 +30,7 @@ A release review should record what was inspected, any changes, and remaining li
 Read component-catalogue.md for the 0.2.0 component surface. Prefer MetricCard, ProgressCard, DetailsCard and ActionCard for repeated compositions; use Badge, TextLink and native form controls for their actual semantics. Keep charts in the optional charts entry. Supply truthful chart summaries and labelled exact values, and preserve gaps in missing data. Keep metric direction and sentiment separate.
 
 Use controlled RoadmapBoard data and callbacks. Column names, permissions and saving belong in the application. SignInForm supplies presentation only; do not add authentication logic or credential logging to library examples.
+
+## Themes and workspace controls
+
+For the 0.3.0 candidate, read release-0.3.md. Wrap React content in ThemeProvider for dark mode and portal inheritance. Use semantic tokens rather than raw palette colours. Reuse official ConvertLogo artwork and the supplied brandAssets manifest. Use ActionMenu for commands, Breadcrumbs for location, SearchSelect for searchable native choices, DateRange for date-only periods, and ToastRegion for transient feedback. Keep all authentication, preference storage and application data outside the library.

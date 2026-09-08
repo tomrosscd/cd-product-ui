@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 · release candidate
+
+- Add scoped light and dark themes from the same token source, a Storybook theme toolbar and theme-aware portals. Light remains the default.
+- Add official logo/mark/straight components and 80 original SVG, PNG and JPG downloads with a searchable Storybook catalogue. Replace the sidebar wordmark text with official artwork.
+- Add ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect and DateRange with controlled application-owned data.
+- Add theme contrast tests and interactive stories, and update installation, AI and validation guidance.
+- Preserve existing component APIs, optional chart imports and licensed-font exclusion. No Brand Hub application or authentication is included.
+
 ## 0.2.0 · 8 September 2026
 
 - Forms: Input, PasswordInput, Textarea, Field, Checkbox, RadioGroup and Switch.
