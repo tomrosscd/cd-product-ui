@@ -7,13 +7,16 @@
 import { ClassProp } from 'class-variance-authority/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { ComponentProps } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 import type { FormEventHandler } from 'react';
+import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { JSX } from 'react';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import * as Primitive from '@radix-ui/react-tabs';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { RefAttributes } from 'react';
 import type { SVGProps } from 'react';
 import { VariantProps } from 'class-variance-authority';
 
@@ -615,13 +618,13 @@ export function Breadcrumbs(input: {
     label?: string;
 }): JSX.Element;
 
-// @public (undocumented)
-export function Button(input: ButtonProps): JSX.Element;
+// @public
+export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<HTMLButtonElement>>;
 
 // Warning: (ae-forgotten-export) The symbol "buttonVariants" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)
-export interface ButtonProps extends ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends ComponentPropsWithoutRef<'button'>, VariantProps<typeof buttonVariants> {
     // (undocumented)
     leadingIcon?: ReactNode;
     // (undocumented)
@@ -664,6 +667,16 @@ export interface CheckboxProps extends Omit<ComponentProps<'input'>, 'type' | 's
     hint?: string;
     // (undocumented)
     label: string;
+}
+
+// @public
+export interface ChoiceOption {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    value: string;
 }
 
 export { ColumnDef }
@@ -980,14 +993,7 @@ export interface RadioGroupProps {
 }
 
 // @public (undocumented)
-export interface RadioOption {
-    // (undocumented)
-    disabled?: boolean;
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    value: string;
-}
+export type RadioOption = ChoiceOption;
 
 // @public (undocumented)
 export interface ResourceItem {
@@ -1085,14 +1091,7 @@ export interface RoadmapItem {
 export function SearchSelect(input: SearchSelectProps): JSX.Element;
 
 // @public (undocumented)
-export interface SearchSelectOption {
-    // (undocumented)
-    disabled?: boolean;
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    value: string;
-}
+export type SearchSelectOption = ChoiceOption;
 
 // @public (undocumented)
 export interface SearchSelectProps {
@@ -1120,14 +1119,7 @@ export interface SearchSelectProps {
 export function Select(input: SelectProps): JSX.Element;
 
 // @public (undocumented)
-export interface SelectOption {
-    // (undocumented)
-    disabled?: boolean;
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    value: string;
-}
+export type SelectOption = ChoiceOption;
 
 // @public (undocumented)
 export interface SelectProps extends Omit<ComponentProps<'select'>, 'children' | 'multiple' | 'size'> {
