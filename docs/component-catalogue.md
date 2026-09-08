@@ -130,3 +130,7 @@ Breaking: Alert, EmptyState, Disclosure, ConfirmationDialog, DataChart, RoadmapB
 ## 0.5.0 candidate additions
 
 Pagination, StyledSelect, Calendar, DatePicker and MonthPicker plus opt-in table scrolling/full pagination are documented in [release-0.5.md](release-0.5.md). Existing native Select and DateRange contracts remain supported.
+
+## 0.6.0 candidate additions
+
+Chip/ChipGroup, SegmentedControl/SegmentedMultiControl, Combobox, CurrencyInput/PercentageInput/HoursInput, PeriodNavigator and the FilterToolbar pattern are documented in [release-0.6.md](release-0.6.md).

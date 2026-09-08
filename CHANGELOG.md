@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.6.0 candidate
+
+Pass 2 of the user's re-prioritised roadmap: "everyday controls". See [docs/release-0.6.md](docs/release-0.6.md) for full contracts.
+
+- Add `Chip`/`ChipGroup`: selectable and/or removable interactive tags, distinct from the non-interactive `Badge`.
+- Add `SegmentedControl`/`SegmentedMultiControl` on the new `@radix-ui/react-toggle-group` dependency.
+- Add `Combobox`: searchable single or multi-select, local or remote (`onSearchChange`) filtering, loading/error states, avatar slot per option.
+- Add `CurrencyInput`/`PercentageInput`/`HoursInput`: formatted numeric inputs; the application keeps calculations and rounding.
+- Add `PeriodNavigator`: previous/next chrome for an application-defined period, with an optional Today shortcut and reporting presets.
+- Add `FilterToolbar` pattern: composes search, application-supplied filters, a result count and removable active-filter chips into a responsive bar.
+- Fix: `Icon` silently dropped its own base class when a caller passed `className`, since it spread props after a hardcoded `className` instead of merging them — invisible until a real consumer (`PeriodNavigator`'s flipped arrow) needed it.
+- Fix: a Radix Popover race in `Combobox` where the click that opened it also immediately closed it (`onInteractOutside`), and a follow-on bug where confirming a single selection's refocus reopened the panel and blanked the display value.
+- Existing component defaults and all prior exports remain unchanged.
+
 ## 0.5.0 candidate
 
 - Add branded StyledSelect, Calendar, DatePicker (single and combined range with presets) and MonthPicker. Keep native Select and DateRange unchanged.

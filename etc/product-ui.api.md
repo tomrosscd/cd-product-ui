@@ -57,6 +57,16 @@ export interface ActionMenuProps {
 }
 
 // @public (undocumented)
+export interface ActiveFilter {
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onRemove: () => void;
+}
+
+// @public (undocumented)
 export interface ActivityItem {
     // (undocumented)
     dateLabel: string;
@@ -693,6 +703,38 @@ export interface CheckboxProps extends Omit<ComponentProps<'input'>, 'type' | 's
 }
 
 // @public
+export function Chip(input: ChipProps): JSX.Element;
+
+// @public
+export function ChipGroup(input: ChipGroupProps): JSX.Element;
+
+// @public (undocumented)
+export interface ChipGroupProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string[]) => void;
+    // (undocumented)
+    options: readonly ChoiceOption[];
+    // (undocumented)
+    value: readonly string[];
+}
+
+// @public (undocumented)
+export interface ChipProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    onRemove?: () => void;
+    // (undocumented)
+    onSelect?: () => void;
+    selected?: boolean;
+}
+
+// @public
 export interface ChoiceOption {
     // (undocumented)
     disabled?: boolean;
@@ -703,6 +745,28 @@ export interface ChoiceOption {
 }
 
 export { ColumnDef }
+
+// @public
+export function Combobox(props: ComboboxProps): JSX.Element;
+
+// @public (undocumented)
+export interface ComboboxOption extends ChoiceOption {
+    // (undocumented)
+    avatar?: ReactNode;
+}
+
+// Warning: (ae-forgotten-export) The symbol "ComboboxBaseProps" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export type ComboboxProps = ComboboxBaseProps & ({
+    multiple?: false;
+    value?: string;
+    onValueChange: (value: string) => void;
+} | {
+    multiple: true;
+    value: readonly string[];
+    onValueChange: (value: string[]) => void;
+});
 
 // @public
 export function ConfirmationDialog(input: ConfirmationDialogProps): JSX.Element;
@@ -741,6 +805,18 @@ export interface ConvertLogoProps extends Omit<SVGProps<SVGSVGElement>, 'childre
 
 // @public (undocumented)
 export function ConvertMark(props: SVGProps<SVGSVGElement>): JSX.Element;
+
+// @public
+export function CurrencyInput(input: CurrencyInputProps): JSX.Element;
+
+// Warning: (ae-forgotten-export) The symbol "FormattedInputSharedProps" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export interface CurrencyInputProps extends FormattedInputSharedProps {
+    currency?: string;
+    // (undocumented)
+    locale?: string;
+}
 
 // @public (undocumented)
 export function DashboardShell(input: DashboardShellProps): JSX.Element;
@@ -953,6 +1029,39 @@ export interface FieldProps {
     required?: boolean;
 }
 
+// @public
+export function FilterToolbar(input: FilterToolbarProps): JSX.Element;
+
+// @public (undocumented)
+export interface FilterToolbarProps {
+    // (undocumented)
+    activeFilters?: readonly ActiveFilter[];
+    filters?: ReactNode;
+    // (undocumented)
+    onClearAll?: () => void;
+    // (undocumented)
+    onSearchChange: (value: string) => void;
+    // (undocumented)
+    resultCount?: number;
+    // (undocumented)
+    resultLabel?: (count: number) => string;
+    // (undocumented)
+    searchLabel?: string;
+    // (undocumented)
+    searchPlaceholder?: string;
+    // (undocumented)
+    searchValue: string;
+}
+
+// @public
+export function HoursInput(input: HoursInputProps): JSX.Element;
+
+// @public (undocumented)
+export interface HoursInputProps extends FormattedInputSharedProps {
+    // (undocumented)
+    locale?: string;
+}
+
 // @public (undocumented)
 export function Icon(input: SVGProps<SVGSVGElement> & {
     name: IconName;
@@ -1069,6 +1178,47 @@ export interface PaginationProps {
 
 // @public (undocumented)
 export function PasswordInput(props: Omit<InputProps, 'type' | 'trailingAction'>): JSX.Element;
+
+// @public
+export function PercentageInput(input: PercentageInputProps): JSX.Element;
+
+// @public (undocumented)
+export interface PercentageInputProps extends FormattedInputSharedProps {
+    // (undocumented)
+    locale?: string;
+}
+
+// @public
+export function PeriodNavigator(input: PeriodNavigatorProps): JSX.Element;
+
+// @public (undocumented)
+export interface PeriodNavigatorProps {
+    // (undocumented)
+    disabledNext?: boolean;
+    // (undocumented)
+    disabledPrevious?: boolean;
+    label: string;
+    // (undocumented)
+    nextLabel?: string;
+    // (undocumented)
+    onNext: () => void;
+    // (undocumented)
+    onPrevious: () => void;
+    onToday?: () => void;
+    presets?: readonly PeriodPreset[];
+    // (undocumented)
+    previousLabel?: string;
+    // (undocumented)
+    todayLabel?: string;
+}
+
+// @public (undocumented)
+export interface PeriodPreset {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onSelect: () => void;
+}
 
 // @public (undocumented)
 export type ProductTheme = 'light' | 'dark';
@@ -1243,6 +1393,40 @@ export interface SearchSelectProps {
     onValueChange: (value: string[]) => void;
     // (undocumented)
     options: readonly SearchSelectOption[];
+    // (undocumented)
+    value: readonly string[];
+}
+
+// @public
+export function SegmentedControl(input: SegmentedControlProps): JSX.Element;
+
+// @public (undocumented)
+export interface SegmentedControlProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string) => void;
+    // (undocumented)
+    options: readonly ChoiceOption[];
+    // (undocumented)
+    value: string;
+}
+
+// @public
+export function SegmentedMultiControl(input: SegmentedMultiControlProps): JSX.Element;
+
+// @public (undocumented)
+export interface SegmentedMultiControlProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string[]) => void;
+    // (undocumented)
+    options: readonly ChoiceOption[];
     // (undocumented)
     value: readonly string[];
 }
