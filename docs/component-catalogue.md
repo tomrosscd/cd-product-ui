@@ -122,3 +122,7 @@ Review keyboard, mobile, long-content, loading, empty and error states when upgr
 ## 0.3.0 additions
 
 ThemeProvider, ConvertLogo, ActionMenu, SearchSelect, DateRange, Tooltip, ToastRegion and Breadcrumbs extend the existing catalogue. Read [the usage and migration guide](./release-0.3.md) for contracts and limits. Storybook exposes Brand assets, Themes and Workspace controls with live examples.
+
+## 0.4.0 changes
+
+Breaking: Alert, EmptyState, Disclosure, ConfirmationDialog, DataChart, RoadmapBoard and SignInForm renamed their `title` prop to `heading`, matching Card. SignInForm's `pending` renamed to `loading`. No new components. Read [the migration guide](./release-0.4.md) for the full rename table and what was deliberately left unchanged.
