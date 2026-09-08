@@ -55,7 +55,7 @@ export interface AllocationSegment {
   label: string
   value: number
 }
-/** A part-to-whole display. Values must be finite and non-negative. */
+/** A part-to-whole display. Non-finite or negative segment values are treated as zero rather than rejected. */
 export function AllocationBar({
   label,
   segments,

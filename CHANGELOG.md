@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.1 · 8 September 2026
+
+Patch release from a full codebase audit. No public API changes.
+
+- Fix: `docs/using-the-library.mdx` no longer hardcodes a version number that goes stale every release.
+- Fix: `check-package.mjs`/`check-next.mjs` used a macOS-only hardcoded temp path; now cross-platform.
+- Fix: `TextLink` and the sidebar's nav links now block `javascript:`/`vbscript:`/`data:` URI schemes in an application-supplied `href`.
+- Fix: `RadioGroup`'s fieldset had `aria-invalid` with no supporting ARIA role; added `role="radiogroup"`.
+- Fix: `check-package.mjs`/`check-next.mjs`'s temp-consumer installs failed under `CI=true` (pnpm implicitly treats plain `pnpm install` as `--frozen-lockfile` in CI) — caught by the new CI workflow the first time it actually ran on GitHub Actions, since no local run had `CI` set.
+- Internal: charts, RoadmapBoard and Breadcrumbs now use `Button`/`TextLink` internally instead of hand-rolled markup that duplicated their styling without their behaviour.
+- Docs: merged the duplicate `component-catalogue.md`/`.mdx` into one source; added a README version-history table.
+- Tooling: added CI (`.github/workflows/ci.yml`), Dependabot, `eslint-plugin-jsx-a11y` (fixed the 4 violations it found on introduction), and `pnpm test:coverage`.
+- Process: added a backward-compatibility policy (`docs/release-process.md`) and [CONSUMERS.md](CONSUMERS.md) to track who has installed this package, so future breaking changes can be coordinated instead of discovered. See [ROADMAP.md](ROADMAP.md) for what's deliberately deferred, including a breaking naming-consistency pass.
+
 ## 0.3.0 · 8 September 2026
 
 - Add scoped light and dark themes from the same token source, a Storybook theme toolbar and theme-aware portals. Light remains the default.

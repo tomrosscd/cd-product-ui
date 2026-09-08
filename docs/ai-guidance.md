@@ -27,7 +27,7 @@ A release review should record what was inspected, any changes, and remaining li
 
 ## Expanded component selection
 
-Read component-catalogue.md for the 0.2.0 component surface. Prefer MetricCard, ProgressCard, DetailsCard and ActionCard for repeated compositions; use Badge, TextLink and native form controls for their actual semantics. Keep charts in the optional charts entry. Supply truthful chart summaries and labelled exact values, and preserve gaps in missing data. Keep metric direction and sentiment separate.
+Read component-catalogue.md for the current component surface. Prefer MetricCard, ProgressCard, DetailsCard and ActionCard for repeated compositions; use Badge, TextLink and native form controls for their actual semantics. Keep charts in the optional charts entry. Supply truthful chart summaries and labelled exact values, and preserve gaps in missing data. Keep metric direction and sentiment separate.
 
 Use controlled RoadmapBoard data and callbacks. Column names, permissions and saving belong in the application. SignInForm supplies presentation only; do not add authentication logic or credential logging to library examples.
 

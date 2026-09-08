@@ -19,6 +19,7 @@ import {
 import { Disclosure } from '../components/primitives/disclosure.js'
 import { Table } from '../components/primitives/table.js'
 import { Alert, EmptyState, Spinner } from '../components/primitives/feedback.js'
+import { Button } from '../components/primitives/button.js'
 import { tokens } from '../tokens.js'
 export type ChartColour = 'primary' | 'secondary' | 'tertiary'
 export interface ChartSeries {
@@ -246,13 +247,7 @@ export function DataChart({
         <Spinner label="Loading chart" />
       ) : state === 'error' ? (
         <Alert title="Chart could not be loaded" tone="error">
-          {onRetry ? (
-            <button className="cui-button" type="button" onClick={onRetry}>
-              Try again
-            </button>
-          ) : (
-            'Try again later.'
-          )}
+          {onRetry ? <Button onClick={onRetry}>Try again</Button> : 'Try again later.'}
         </Alert>
       ) : invalidDonut ? (
         <Alert title="This data needs a different chart" tone="warning">

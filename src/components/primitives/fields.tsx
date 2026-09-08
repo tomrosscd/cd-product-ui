@@ -226,6 +226,7 @@ export function RadioGroup({
   return (
     <fieldset
       className="cui-field cui-fieldset"
+      role="radiogroup"
       disabled={disabled}
       aria-describedby={[hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined}
       aria-invalid={error ? true : undefined}

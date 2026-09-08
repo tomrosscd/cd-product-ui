@@ -8,12 +8,12 @@ Product UI is a reusable package, and Storybook is its catalogue. Copying an exa
 
 ## Install the stable release
 
-These commands install 0.2.0, the current tagged release. See the GitHub README for full instructions and the Component guide for the expanded APIs.
+The [GitHub README](https://github.com/tomrosscd/cd-product-ui#install-in-your-project) has the exact, current install commands and always names the latest tagged release. This page intentionally does not repeat a version number, so it cannot go stale the way a hardcoded copy would; see the Component guide for the expanded APIs.
 
-From the library repository:
+The pattern is always the same: clone the repository at its current version tag, build the archive, then install that exact file:
 
 ```sh
-git clone --branch v0.2.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch <current-version-tag> --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
@@ -22,7 +22,7 @@ pnpm pack --pack-destination artifacts
 Copy the resulting archive into a `vendor` folder in the consuming project, then install it:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.2.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-<version>.tgz
 ```
 
 Keep this archive with the consuming project until an internal registry is available. A short relative path avoids package-manager path-length issues in deeply nested folders.

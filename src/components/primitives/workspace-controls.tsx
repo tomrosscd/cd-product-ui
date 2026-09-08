@@ -5,6 +5,7 @@ import * as ToastPrimitive from '@radix-ui/react-toast'
 import { useId, useState, type ReactElement, type ReactNode } from 'react'
 import { Input, Checkbox } from './fields.js'
 import { Button } from './button.js'
+import { TextLink } from './text-link.js'
 import { useProductTheme } from './theme.js'
 
 export interface ActionMenuItem {
@@ -111,9 +112,7 @@ export function Breadcrumbs({ items, label = 'Breadcrumb' }: { items: readonly B
             {index === items.length - 1 ? (
               <span aria-current="page">{item.label}</span>
             ) : item.href ? (
-              <a className="cui-text-link" href={item.href}>
-                {item.label}
-              </a>
+              <TextLink href={item.href}>{item.label}</TextLink>
             ) : (
               <span>{item.label}</span>
             )}
@@ -162,6 +161,7 @@ export function SearchSelect({
       <p id={`${id}-description`} className={error ? 'cui-negative' : 'cui-secondary'}>
         {error || hint || (multiple ? 'Choose one or more options.' : 'Choose one option.')}
       </p>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- <details> is natively interactive; this only adds an Escape shortcut on top of its default toggle behaviour */}
       <details
         onKeyDown={(event) => {
           if (event.key === 'Escape') {
