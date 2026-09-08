@@ -12,6 +12,8 @@
 - Fix: `Table`'s scroll region announced its caption twice (once via a duplicated `aria-label`, once via the native `<caption>`) — now uses `aria-labelledby` pointing at the caption, with "scrollable table" conveyed separately via `aria-describedby`.
 - Fix: `Breadcrumbs` silently discarded `href` on the current-page item; if one is supplied it's now rendered as a link with `aria-current="page"` instead of being dropped. Unchanged when no `href` is supplied.
 - `EmptyState` gains an opt-in `live` prop (default `false`) instead of always being a live region — `DataTable` sets it only for its dynamic "no matching results while searching" case, not its initial "no rows yet" state. `RoadmapBoard`'s empty columns are unaffected.
+- Add `ErrorBoundary`: catches rendering errors in its subtree and shows a fallback (default or custom) instead of a blank page, with a reset action and an `onError` hook.
+- Tooling: a real coverage threshold in `vitest.config.ts`; `examples/**` is now covered by ESLint, and `examples/react`'s `*.tsx` fixture is now type-checked against current source (caught a genuine implicit-any in the process). `examples/next`'s `*.jsx` fixture remains outside `tsc` — see ROADMAP.md.
 
 ## 0.4.0 · 8 September 2026
 

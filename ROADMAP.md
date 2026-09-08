@@ -51,10 +51,13 @@ Fixed alongside the 0.5.0 pass 1 table/select/date-picker work (9 September 2026
 
 ## 5. Testing and tooling, further out
 
+Done (9 September 2026): a real coverage threshold (`vitest.config.ts`, statements 90/branches 80/functions 85/lines 90 — a few points below the actual baseline, so it catches a genuine regression without blocking normal work); lint coverage for `examples/**` (a dedicated `*.jsx` block for `examples/next`'s fixture, and `examples/react/**/*.tsx` now type-checked against current source via a `paths` alias, which caught a real implicit-any).
+
+Still open:
 - **Interaction test coverage for `Button` and `DashboardSidebar`'s mobile drawer.** Both are genuinely interactive and currently have zero Storybook play-function coverage (they're covered only by the jsdom unit tests in `tests/components.test.tsx`, which don't exercise real browser focus/keyboard behaviour the way the Storybook/Playwright project does for other components).
-- **A coverage threshold in CI**, once there's a sense of what's realistic per-directory (the current 97% baseline is generous because most components at least render in a story even without an interaction assertion — don't just gate on that number without thinking about what it actually measures).
-- **`typescript-eslint` `recommendedTypeChecked`** instead of the current plain `recommended`, for stricter type-aware linting.
-- **`eslint-plugin-storybook`**, and lint coverage for `examples/**` (currently excluded from both ESLint and `tsc`, so the Next.js/React consumer fixtures that `next:check` builds are never linted or type-checked).
+- **`typescript-eslint` `recommendedTypeChecked`** instead of the current plain `recommended`, for stricter type-aware linting. Deliberately not attempted yet — expect it to surface a real batch of new violations across the codebase, so budget dedicated time rather than folding it into an unrelated pass.
+- **`eslint-plugin-storybook`.**
+- **`examples/next`'s `*.jsx` fixture is still outside `tsc`.** Bringing it in needs `allowJs`/`checkJs` at the root project level, a bigger, separate decision than the `examples/react` fix above.
 - **Print stylesheet** (`@media print`) — currently doesn't exist anywhere in `src/styles/`.
 - **RTL language support.** A handful of logical CSS properties exist already, but there's no `[dir="rtl"]` handling or story — directionality has been unconsidered rather than actively supported.
 - **Visual regression testing (Chromatic or similar).** Deliberately deferred by decision on 8 September 2026 — not worth the external-account overhead at the current team/contributor size. Revisit if the component count or number of people submitting UI PRs grows meaningfully.
