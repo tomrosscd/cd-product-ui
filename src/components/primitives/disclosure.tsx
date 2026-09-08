@@ -1,12 +1,12 @@
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
-export interface DisclosureProps extends Omit<ComponentProps<'details'>, 'title'> {
-  title: ReactNode
+export interface DisclosureProps extends ComponentProps<'details'> {
+  heading: ReactNode
 }
-export function Disclosure({ title, children, className, ...props }: DisclosureProps) {
+export function Disclosure({ heading, children, className, ...props }: DisclosureProps) {
   return (
     <details {...props} className={cn('cui-root cui-disclosure', className)}>
-      <summary>{title}</summary>
+      <summary>{heading}</summary>
       <div className="cui-disclosure-body">{children}</div>
     </details>
   )

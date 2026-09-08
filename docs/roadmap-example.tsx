@@ -107,7 +107,7 @@ export function RoadmapExample() {
           </form>
         )}
         <RoadmapBoard
-          title="Workspace roadmap"
+          heading="Workspace roadmap"
           columns={roadmapColumns}
           items={items}
           actions={

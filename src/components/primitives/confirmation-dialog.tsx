@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import { Button } from './button.js'
 export interface ConfirmationDialogProps {
   trigger: ReactNode
-  title: string
+  heading: string
   description: string
   confirmLabel?: string
   cancelLabel?: string
@@ -16,7 +16,7 @@ export interface ConfirmationDialogProps {
 /** Confirmation only. The application owns the resulting operation and its feedback. */
 export function ConfirmationDialog({
   trigger,
-  title,
+  heading,
   description,
   confirmLabel = 'Confirm',
   cancelLabel = 'Cancel',
@@ -31,7 +31,7 @@ export function ConfirmationDialog({
       <Primitive.Portal>
         <Primitive.Overlay className="cui-sidebar-overlay" />
         <Primitive.Content data-cui-theme={theme} className="cui-root cui-dialog">
-          <Primitive.Title className="cui-card-heading">{title}</Primitive.Title>
+          <Primitive.Title className="cui-card-heading">{heading}</Primitive.Title>
           <Primitive.Description className="cui-secondary">{description}</Primitive.Description>
           <div className="cui-row cui-dialog-actions">
             <Primitive.Cancel asChild>

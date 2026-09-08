@@ -1,4 +1,5 @@
-import type { ComponentProps, ReactNode } from 'react'
+import { forwardRef, type ReactNode } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 const buttonVariants = cva('cui-button', {
   variants: {
@@ -6,23 +7,19 @@ const buttonVariants = cva('cui-button', {
   },
   defaultVariants: { variant: 'secondary' },
 })
-export interface ButtonProps extends ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends ComponentPropsWithoutRef<'button'>, VariantProps<typeof buttonVariants> {
   loading?: boolean
   leadingIcon?: ReactNode
 }
-export function Button({
-  variant,
-  className,
-  loading = false,
-  disabled,
-  leadingIcon,
-  children,
-  type = 'button',
-  ...props
-}: ButtonProps) {
+/** Forwards its ref so Radix asChild triggers (Dialog, AlertDialog) can restore focus to it on close. */
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { variant, className, loading = false, disabled, leadingIcon, children, type = 'button', ...props },
+  ref,
+) {
   return (
     <button
       {...props}
+      ref={ref}
       type={type}
       className={buttonVariants({ variant, className })}
       disabled={disabled || loading}
@@ -32,4 +29,4 @@ export function Button({
       {children}
     </button>
   )
-}
+})

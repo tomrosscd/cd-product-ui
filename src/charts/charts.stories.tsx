@@ -12,7 +12,7 @@ const meta = {
   component: DataChart,
   tags: ['autodocs'],
   args: {
-    title: 'Weekly completion',
+    heading: 'Weekly completion',
     summary: 'Completed items rose from 12 to 24 over four weeks. Demonstration values.',
     data,
     xKey: 'week',
@@ -39,7 +39,7 @@ export const StackedBar: Story = { args: { kind: 'stacked-bar' } }
 export const Donut: Story = {
   args: {
     kind: 'donut',
-    title: 'Work allocation',
+    heading: 'Work allocation',
     summary: 'Improvements account for 28 of 52 hours.',
     xKey: 'category',
     data: [
@@ -95,7 +95,7 @@ export const Error: Story = { args: { state: 'error' } }
 export const ZeroDonut: Story = {
   args: {
     kind: 'donut',
-    title: 'No allocation yet',
+    heading: 'No allocation yet',
     summary: 'No time has been allocated.',
     xKey: 'category',
     data: [{ category: 'Planning', hours: 0 }],
@@ -108,7 +108,7 @@ export const ZeroDonut: Story = {
 export const InvalidDonut: Story = {
   args: {
     kind: 'donut',
-    title: 'Allocation',
+    heading: 'Allocation',
     summary: 'This dataset contains a negative value.',
     xKey: 'category',
     data: [{ category: 'Planning', hours: -2 }],

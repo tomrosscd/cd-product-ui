@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0 · 8 September 2026
+
+**Breaking.** See [docs/release-0.4.md](docs/release-0.4.md) for the full migration guide.
+
+- Renamed `title` to `heading` on Alert, EmptyState, Disclosure, ConfirmationDialog, DataChart, RoadmapBoard and SignInForm, matching Card's existing `heading` for the same concept. SignInForm's `pending` renamed to `loading`, matching the Button it already forwards that value to.
+- Added `pnpm api:check`/`pnpm api:update` (Microsoft API Extractor) and `etc/*.api.md`, enforced in CI. Every future change to the public API surface now shows up as an explicit diff instead of relying on manual review.
+- Internal only, no usage changes: `SelectOption`/`RadioOption`/`SearchSelectOption` consolidated into one exported `ChoiceOption`; `Button` now forwards its ref (fixes `Button` refs silently doing nothing, and lets the sidebar's mobile-drawer controls use `Button` instead of hand-rolled markup); `Card`'s loading state now reuses `Skeleton`; `RadioGroup` and `Field` share one `aria-describedby` helper; `RoadmapCard`'s heading level corrected from `h3` to `h4`.
+- Deliberately not changed, and why: `Table.caption`, and the `label` prop on Tabs/Progress/AllocationBar/ChartContainer/Breadcrumbs, describe genuinely different roles than "block heading" and were left alone rather than forced into false consistency. `RoadmapItem.title`/`ToastMessage.title` are data-record fields, not component props, and are unaffected. The `state` unions on DataTable/DataChart/RoadmapBoard were not given a matching `'empty'` value — each already renders its own empty message from within `'ready'` by inspecting its data/items array.
+
 ## 0.3.1 · 8 September 2026
 
 Patch release from a full codebase audit. No public API changes.

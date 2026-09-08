@@ -2,11 +2,9 @@
 import { useId, type ComponentProps } from 'react'
 import { cn } from '../../lib/classes.js'
 import { Icon } from './icon.js'
-export interface SelectOption {
-  value: string
-  label: string
-  disabled?: boolean
-}
+import type { ChoiceOption } from './option.js'
+export type { ChoiceOption } from './option.js'
+export type SelectOption = ChoiceOption
 export interface SelectProps extends Omit<ComponentProps<'select'>, 'children' | 'multiple' | 'size'> {
   label: string
   options: readonly SelectOption[]

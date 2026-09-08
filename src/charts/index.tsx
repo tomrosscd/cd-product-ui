@@ -98,7 +98,7 @@ export interface ChartDatum {
   [key: string]: string | number | null
 }
 export interface DataChartProps {
-  title: string
+  heading: string
   summary: string
   data: ChartDatum[]
   xKey: string
@@ -112,7 +112,7 @@ export interface DataChartProps {
 const formatNumber = (value: number) => new Intl.NumberFormat('en-AU', { maximumFractionDigits: 2 }).format(value)
 /** Ready-to-use chart recipe with a textual summary and exact data table. */
 export function DataChart({
-  title,
+  heading,
   summary,
   data,
   xKey,
@@ -240,24 +240,24 @@ export function DataChart({
   return (
     <figure className="cui-root cui-data-chart" aria-labelledby={id}>
       <figcaption id={id} className="cui-stack">
-        <strong className="cui-card-heading">{title}</strong>
+        <strong className="cui-card-heading">{heading}</strong>
         <p className="cui-secondary">{summary}</p>
       </figcaption>
       {state === 'loading' ? (
         <Spinner label="Loading chart" />
       ) : state === 'error' ? (
-        <Alert title="Chart could not be loaded" tone="error">
+        <Alert heading="Chart could not be loaded" tone="error">
           {onRetry ? <Button onClick={onRetry}>Try again</Button> : 'Try again later.'}
         </Alert>
       ) : invalidDonut ? (
-        <Alert title="This data needs a different chart" tone="warning">
+        <Alert heading="This data needs a different chart" tone="warning">
           Donut charts require one series of non-negative values.
         </Alert>
       ) : !numeric || (kind === 'donut' && primary && !data.some((d) => Number(d[primary.key]) > 0)) ? (
-        <EmptyState title="No chart data" description="Values will appear here when available." />
+        <EmptyState heading="No chart data" description="Values will appear here when available." />
       ) : (
         <>
-          <ChartContainer config={config} label={title} height={height}>
+          <ChartContainer config={config} label={heading} height={height}>
             {visual}
           </ChartContainer>
           <ChartLegend
@@ -271,8 +271,8 @@ export function DataChart({
                   }))
             }
           />
-          <Disclosure title="View chart data">
-            <Table caption={`${title}: exact values`} density="compact">
+          <Disclosure heading="View chart data">
+            <Table caption={`${heading}: exact values`} density="compact">
               <thead>
                 <tr>
                   <th scope="col">{xKey}</th>

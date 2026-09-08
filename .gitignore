@@ -14,3 +14,4 @@ playwright-report/
 !.env.example
 
 .next/
+temp/

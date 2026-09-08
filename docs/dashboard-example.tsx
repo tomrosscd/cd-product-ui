@@ -148,7 +148,7 @@ export function DashboardExample() {
             </Card>
             <Card heading="Weekly activity" description="Completed items · Illustrative data" elevation="flat">
               <DataChart
-                title="Completed items by week"
+                heading="Completed items by week"
                 summary="Completed items rose from 3 to 8 across four weeks."
                 kind="bar"
                 data={[
@@ -166,7 +166,7 @@ export function DashboardExample() {
         </div>
         <footer className="cui-demo-foot">
           <span>Neutral demonstration content. No connected systems.</span>
-          <span>Convert Product UI · 0.3.1</span>
+          <span>Convert Product UI · 0.4.0</span>
         </footer>
       </div>
     </DashboardShell>

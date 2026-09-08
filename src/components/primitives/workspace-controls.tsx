@@ -7,6 +7,7 @@ import { Input, Checkbox } from './fields.js'
 import { Button } from './button.js'
 import { TextLink } from './text-link.js'
 import { useProductTheme } from './theme.js'
+import type { ChoiceOption } from './option.js'
 
 export interface ActionMenuItem {
   id: string
@@ -123,11 +124,7 @@ export function Breadcrumbs({ items, label = 'Breadcrumb' }: { items: readonly B
   )
 }
 
-export interface SearchSelectOption {
-  value: string
-  label: string
-  disabled?: boolean
-}
+export type SearchSelectOption = ChoiceOption
 export interface SearchSelectProps {
   label: string
   options: readonly SearchSelectOption[]

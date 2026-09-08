@@ -1,33 +1,33 @@
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
 export interface AlertProps extends ComponentProps<'div'> {
-  title: string
+  heading: string
   tone?: 'info' | 'success' | 'warning' | 'error'
 }
-export function Alert({ title, tone = 'info', children, className, role, ...props }: AlertProps) {
+export function Alert({ heading, tone = 'info', children, className, role, ...props }: AlertProps) {
   return (
     <div
       {...props}
       className={cn('cui-alert', `cui-alert-${tone}`, className)}
       role={role ?? (tone === 'error' ? 'alert' : 'status')}
     >
-      <strong>{title}</strong>
+      <strong>{heading}</strong>
       {children && <div>{children}</div>}
     </div>
   )
 }
 export function EmptyState({
-  title,
+  heading,
   description,
   action,
 }: {
-  title: string
+  heading: string
   description?: string
   action?: ReactNode
 }) {
   return (
     <div className="cui-empty" role="status">
-      <strong>{title}</strong>
+      <strong>{heading}</strong>
       {description && <p className="cui-secondary">{description}</p>}
       {action}
     </div>
