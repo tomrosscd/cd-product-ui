@@ -13,7 +13,7 @@ await cp('examples/next', consumer, {
 await copyFile(resolve('artifacts', filename), join(consumer, filename))
 fixture.dependencies['@convert/product-ui'] = `file:./${filename}`
 await writeFile(join(consumer, 'package.json'), JSON.stringify(fixture, null, 2))
-execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', '/private/tmp/convert-product-ui-pnpm-store'], {
+execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', join(tmpdir(), 'convert-product-ui-pnpm-store')], {
   cwd: consumer,
   stdio: 'inherit',
 })

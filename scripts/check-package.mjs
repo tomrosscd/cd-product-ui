@@ -50,7 +50,7 @@ await writeFile(
     },
   }),
 )
-execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', '/private/tmp/convert-product-ui-pnpm-store'], {
+execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', join(tmpdir(), 'convert-product-ui-pnpm-store')], {
   cwd: consumer,
   stdio: 'inherit',
 })
@@ -68,7 +68,7 @@ assert(!plainConsumer.dependencies.recharts, 'Ordinary consumer unexpectedly req
 plainConsumer.dependencies.recharts = pkg.devDependencies.recharts
 plainConsumer.dependencies['react-is'] = pkg.devDependencies['react-is']
 await writeFile(join(consumer, 'package.json'), JSON.stringify(plainConsumer, null, 2))
-execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', '/private/tmp/convert-product-ui-pnpm-store'], {
+execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', join(tmpdir(), 'convert-product-ui-pnpm-store')], {
   cwd: consumer,
   stdio: 'inherit',
 })

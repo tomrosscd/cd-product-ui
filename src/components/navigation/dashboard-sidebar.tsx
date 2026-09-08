@@ -3,6 +3,7 @@ import { useProductTheme } from '../primitives/theme.js'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useEffect, useState, type MouseEvent, type ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
+import { safeHref } from '../../lib/href.js'
 import { tokens } from '../../tokens.js'
 import { ConvertLogo } from '../primitives/convert-logo.js'
 import { ConvertMark } from '../primitives/convert-mark.js'
@@ -63,7 +64,7 @@ export function DashboardSidebar({
             ) : (
               <a
                 key={item.id}
-                href={item.href}
+                href={safeHref(item.href)}
                 className="cui-nav-item"
                 aria-current={activeId === item.id ? 'page' : undefined}
                 onClick={(event) => {

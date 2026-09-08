@@ -5,6 +5,7 @@ import { Select, type SelectOption } from '../components/primitives/select.js'
 import { Checkbox } from '../components/primitives/fields.js'
 import { EmptyState, Spinner, Alert } from '../components/primitives/feedback.js'
 import { TextLink } from '../components/primitives/text-link.js'
+import { Button } from '../components/primitives/button.js'
 export interface RoadmapItem {
   id: string
   title: string
@@ -127,13 +128,7 @@ export function RoadmapBoard({
         <Spinner label="Loading roadmap" />
       ) : state === 'error' ? (
         <Alert title="Roadmap could not be loaded" tone="error">
-          {onRetry ? (
-            <button className="cui-button" type="button" onClick={onRetry}>
-              Try again
-            </button>
-          ) : (
-            'Try again later.'
-          )}
+          {onRetry ? <Button onClick={onRetry}>Try again</Button> : 'Try again later.'}
         </Alert>
       ) : (
         <div
