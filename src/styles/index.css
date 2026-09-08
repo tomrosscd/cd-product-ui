@@ -6,6 +6,7 @@
 @import './data.css';
 @import './patterns.css';
 @import './workspace.css';
+@import './pickers.css';
 @import './responsive.css';
 @source '../';
 @theme {

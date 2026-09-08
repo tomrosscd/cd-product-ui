@@ -8,6 +8,11 @@ export default defineConfig({
       reporter: ['text', 'html', 'json-summary'],
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['src/**/*.stories.tsx', 'src/tokens.ts'],
+      // A regression floor, not a target: a few points below the actual baseline (~96/86/93/96 as
+      // of 0.5.0) so a real drop in coverage fails CI without blocking routine work at the current
+      // level. Branches sits furthest below the others because most components render fully in a
+      // story even without exercising every conditional branch — see ROADMAP.md section 5.
+      thresholds: { statements: 90, branches: 80, functions: 85, lines: 90 },
     },
     projects: [
       {

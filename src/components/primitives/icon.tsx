@@ -1,4 +1,5 @@
 import type { SVGProps } from 'react'
+import { cn } from '../../lib/classes.js'
 const paths = {
   overview: 'M3 3h6v6H3z M15 3h6v6h-6z M3 15h6v6H3z M15 15h6v6h-6z',
   activity: 'M3 18V6m0 12h18M6 14l4-5 4 3 6-8',
@@ -12,10 +13,9 @@ const paths = {
   help: 'M9 9a3 3 0 1 1 5 2c-2 1-2 2-2 3m0 3h.01 M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0',
 } as const
 export type IconName = keyof typeof paths
-export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
+export function Icon({ name, className, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
   return (
     <svg
-      className="cui-icon"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -25,6 +25,7 @@ export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconN
       aria-hidden="true"
       focusable="false"
       {...props}
+      className={cn('cui-icon', className)}
     >
       <path d={paths[name]} />
     </svg>

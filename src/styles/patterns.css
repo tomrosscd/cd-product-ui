@@ -87,3 +87,45 @@
 .cui-board-hint {
   display: none;
 }
+
+.cui-filter-toolbar {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-12);
+}
+.cui-filter-toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--cui-space-16);
+}
+.cui-filter-toolbar-search {
+  flex: 1;
+  min-width: 200px;
+}
+.cui-filter-toolbar-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--cui-space-12);
+}
+.cui-filter-toolbar-count {
+  white-space: nowrap;
+  padding-block-end: var(--cui-space-8);
+}
+.cui-filter-toolbar-active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cui-space-8);
+}
+@container (max-width: 480px) {
+  .cui-filter-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cui-filter-toolbar-count {
+    padding-block-end: 0;
+  }
+}

@@ -75,7 +75,7 @@ export const darkTokens: {
     readonly "shadow.none": "none";
     readonly "focus.colour": "#c9deb6";
     readonly "focus.width": "2px";
-    readonly "focus.offset": "4px";
+    readonly "focus.offset": "0px";
     readonly "size.control": "40px";
     readonly "size.touch": "48px";
     readonly "size.row": "44px";
@@ -748,10 +748,10 @@ export const tokenReference: readonly [{
     readonly name: "offset";
     readonly key: "focus.offset";
     readonly css: "--cui-focus-offset";
-    readonly value: "4px";
-    readonly description: "Outline offset";
-    readonly resolved: "4px";
-    readonly darkResolved: "4px";
+    readonly value: "0px";
+    readonly description: "Outline offset. Flush against the element's own border, not floating with a gap.";
+    readonly resolved: "0px";
+    readonly darkResolved: "0px";
 }, {
     readonly group: "size";
     readonly name: "control";
@@ -1026,7 +1026,7 @@ export const tokens: {
     readonly "shadow.none": "none";
     readonly "focus.colour": "#27382f";
     readonly "focus.width": "2px";
-    readonly "focus.offset": "4px";
+    readonly "focus.offset": "0px";
     readonly "size.control": "40px";
     readonly "size.touch": "48px";
     readonly "size.row": "44px";

@@ -218,3 +218,54 @@
     border: 1px solid CanvasText;
   }
 }
+
+/* Opt-in layout preserves existing consumers until they adopt the new presentation. */
+.cui-table-readable {
+  max-width: 100%;
+  min-width: 0;
+}
+.cui-table-readable .cui-table :is(th, td) {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.cui-table-readable :is(.cui-badge, .cui-numeric) {
+  white-space: nowrap;
+}
+.cui-pagination {
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cui-space-16);
+}
+.cui-pagination-controls,
+.cui-pagination-pages,
+.cui-pagination-pages > span {
+  display: flex;
+  align-items: center;
+  gap: var(--cui-space-4);
+}
+.cui-pagination-controls {
+  flex-wrap: wrap;
+  gap: var(--cui-space-8);
+}
+.cui-pagination-compact {
+  display: none;
+}
+.cui-pagination > .cui-field {
+  width: auto;
+}
+.cui-pagination .cui-select {
+  min-width: 80px;
+}
+.cui-table-pagination[hidden] {
+  display: none;
+}
+@container (max-width: 560px) {
+  .cui-pagination-pages {
+    display: none;
+  }
+  .cui-pagination-compact {
+    display: inline;
+  }
+}

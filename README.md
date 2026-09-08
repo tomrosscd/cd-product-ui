@@ -1,3 +1,7 @@
+# 0.5.0 candidate
+
+This feature branch prepares pass 1 for review. Latest tagged release remains v0.4.0; stable install commands below deliberately target that tag. Read [candidate usage](docs/release-0.5.md). From this checkout, `pnpm pack --pack-destination artifacts` creates `convert-product-ui-0.5.0.tgz`; install the exact archive in a test application before adoption.
+
 # Convert Product UI
 
 A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.

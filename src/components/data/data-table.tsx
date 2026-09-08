@@ -12,6 +12,7 @@ import {
 } from '@tanstack/react-table'
 import { Table } from '../primitives/table.js'
 import { Input } from '../primitives/fields.js'
+import { Pagination } from '../primitives/pagination.js'
 import { Button } from '../primitives/button.js'
 import { EmptyState, Alert, Spinner } from '../primitives/feedback.js'
 export type { ColumnDef } from '@tanstack/react-table'
@@ -19,6 +20,9 @@ export interface DataTableProps<T> {
   caption: string
   data: T[]
   columns: ColumnDef<T>[]
+  pagination?: 'legacy' | 'full'
+  tableLayout?: 'legacy' | 'scroll'
+  tableMinWidth?: number
   pageSize?: number
   searchable?: boolean
   searchLabel?: string
@@ -33,6 +37,9 @@ export function DataTable<T>({
   data,
   columns,
   pageSize = 10,
+  pagination = 'legacy',
+  tableLayout = 'legacy',
+  tableMinWidth = 640,
   searchable = true,
   searchLabel = 'Search table',
   state = 'ready',
@@ -79,7 +86,7 @@ export function DataTable<T>({
         </Alert>
       ) : (
         <>
-          <Table caption={caption} density={density}>
+          <Table caption={caption} density={density} layout={tableLayout} minWidth={tableMinWidth}>
             <thead>
               {table.getHeaderGroups().map((group) => (
                 <tr key={group.id}>
@@ -134,13 +141,18 @@ export function DataTable<T>({
                     <EmptyState
                       heading={globalFilter ? 'No matching results' : 'No rows yet'}
                       description={globalFilter ? 'Try a different search.' : 'Rows will appear here when available.'}
+                      live={Boolean(globalFilter)}
                     />
                   </td>
                 </tr>
               )}
             </tbody>
           </Table>
-          <nav className="cui-row cui-table-pagination" aria-label={`${caption} pagination`}>
+          <nav
+            hidden={pagination === 'full'}
+            className="cui-row cui-table-pagination"
+            aria-label={`${caption} pagination`}
+          >
             <p id={id} role="status">
               {table.getFilteredRowModel().rows.length} {table.getFilteredRowModel().rows.length === 1 ? 'row' : 'rows'}{' '}
               · Page {table.getState().pagination.pageIndex + 1} of {Math.max(1, table.getPageCount())}
@@ -154,6 +166,16 @@ export function DataTable<T>({
               </Button>
             </div>
           </nav>
+          {pagination === 'full' && (
+            <Pagination
+              label={`${caption} pagination`}
+              page={table.getState().pagination.pageIndex + 1}
+              pageSize={table.getState().pagination.pageSize}
+              total={table.getFilteredRowModel().rows.length}
+              onPageChange={(page) => table.setPageIndex(page - 1)}
+              onPageSizeChange={(size) => table.setPageSize(size)}
+            />
+          )}
         </>
       )}
     </div>

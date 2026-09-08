@@ -6,16 +6,20 @@
 
 import { ClassProp } from 'class-variance-authority/types';
 import { ColumnDef } from '@tanstack/react-table';
+import { Component } from 'react';
 import { ComponentProps } from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
+import { ErrorInfo } from 'react';
 import type { FormEventHandler } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { JSX } from 'react';
+import { JSXElementConstructor } from 'react';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import * as Primitive from '@radix-ui/react-tabs';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { ReactPortal } from 'react';
 import { RefAttributes } from 'react';
 import type { SVGProps } from 'react';
 import { VariantProps } from 'class-variance-authority';
@@ -50,6 +54,16 @@ export interface ActionMenuProps {
     items: readonly ActionMenuItem[];
     // (undocumented)
     label?: string;
+}
+
+// @public (undocumented)
+export interface ActiveFilter {
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onRemove: () => void;
 }
 
 // @public (undocumented)
@@ -632,6 +646,25 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'>, Variant
 }
 
 // @public (undocumented)
+export function Calendar(input: CalendarProps): JSX.Element;
+
+// @public (undocumented)
+export interface CalendarProps {
+    // (undocumented)
+    label?: string;
+    // (undocumented)
+    max?: string;
+    // (undocumented)
+    min?: string;
+    // (undocumented)
+    mode?: 'single' | 'range';
+    // (undocumented)
+    onValueChange: (value: DateSelection | undefined) => void;
+    // (undocumented)
+    value?: DateSelection;
+}
+
+// @public (undocumented)
 export function Card(input: CardProps): JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "cardVariants" needs to be exported by the entry point index.d.ts
@@ -670,6 +703,38 @@ export interface CheckboxProps extends Omit<ComponentProps<'input'>, 'type' | 's
 }
 
 // @public
+export function Chip(input: ChipProps): JSX.Element;
+
+// @public
+export function ChipGroup(input: ChipGroupProps): JSX.Element;
+
+// @public (undocumented)
+export interface ChipGroupProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string[]) => void;
+    // (undocumented)
+    options: readonly ChoiceOption[];
+    // (undocumented)
+    value: readonly string[];
+}
+
+// @public (undocumented)
+export interface ChipProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    onRemove?: () => void;
+    // (undocumented)
+    onSelect?: () => void;
+    selected?: boolean;
+}
+
+// @public
 export interface ChoiceOption {
     // (undocumented)
     disabled?: boolean;
@@ -680,6 +745,28 @@ export interface ChoiceOption {
 }
 
 export { ColumnDef }
+
+// @public
+export function Combobox(props: ComboboxProps): JSX.Element;
+
+// @public (undocumented)
+export interface ComboboxOption extends ChoiceOption {
+    // (undocumented)
+    avatar?: ReactNode;
+}
+
+// Warning: (ae-forgotten-export) The symbol "ComboboxBaseProps" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export type ComboboxProps = ComboboxBaseProps & ({
+    multiple?: false;
+    value?: string;
+    onValueChange: (value: string) => void;
+} | {
+    multiple: true;
+    value: readonly string[];
+    onValueChange: (value: string[]) => void;
+});
 
 // @public
 export function ConfirmationDialog(input: ConfirmationDialogProps): JSX.Element;
@@ -718,6 +805,18 @@ export interface ConvertLogoProps extends Omit<SVGProps<SVGSVGElement>, 'childre
 
 // @public (undocumented)
 export function ConvertMark(props: SVGProps<SVGSVGElement>): JSX.Element;
+
+// @public
+export function CurrencyInput(input: CurrencyInputProps): JSX.Element;
+
+// Warning: (ae-forgotten-export) The symbol "FormattedInputSharedProps" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export interface CurrencyInputProps extends FormattedInputSharedProps {
+    currency?: string;
+    // (undocumented)
+    locale?: string;
+}
 
 // @public (undocumented)
 export function DashboardShell(input: DashboardShellProps): JSX.Element;
@@ -771,11 +870,42 @@ export interface DataTableProps<T> {
     // (undocumented)
     pageSize?: number;
     // (undocumented)
+    pagination?: 'legacy' | 'full';
+    // (undocumented)
     searchable?: boolean;
     // (undocumented)
     searchLabel?: string;
     // (undocumented)
     state?: 'ready' | 'loading' | 'error';
+    // (undocumented)
+    tableLayout?: 'legacy' | 'scroll';
+    // (undocumented)
+    tableMinWidth?: number;
+}
+
+// @public
+export function DatePicker(input: DatePickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DatePickerProps extends CalendarProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    name?: string;
+    // (undocumented)
+    presets?: readonly DatePreset[];
+}
+
+// @public (undocumented)
+export interface DatePreset {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    value: DateSelection;
 }
 
 // @public
@@ -814,6 +944,14 @@ export interface DateRangeValue {
 }
 
 // @public (undocumented)
+export interface DateSelection {
+    // (undocumented)
+    end?: string;
+    // (undocumented)
+    start: string;
+}
+
+// @public (undocumented)
 export function DetailsCard(input: CardProps & {
     items: readonly KeyValueItem[];
 }): JSX.Element;
@@ -832,7 +970,37 @@ export function EmptyState(input: {
     heading: string;
     description?: string;
     action?: ReactNode;
+    live?: boolean;
 }): JSX.Element;
+
+// Warning: (ae-forgotten-export) The symbol "ErrorBoundaryState" needs to be exported by the entry point index.d.ts
+//
+// @public
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    // (undocumented)
+    componentDidCatch(error: Error, info: ErrorInfo): void;
+    // (undocumented)
+    static getDerivedStateFromError(error: Error): ErrorBoundaryState;
+    // (undocumented)
+    render(): string | number | bigint | boolean | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | JSX.Element | null | undefined;
+    // (undocumented)
+    reset: () => void;
+    // (undocumented)
+    state: ErrorBoundaryState;
+}
+
+// @public (undocumented)
+export interface ErrorBoundaryProps {
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    description?: string;
+    fallback?: ReactNode | ((error: Error, reset: () => void) => ReactNode);
+    // (undocumented)
+    heading?: string;
+    // (undocumented)
+    onError?: (error: Error, info: ErrorInfo) => void;
+}
 
 // @public
 export function Field(input: FieldProps): JSX.Element;
@@ -859,6 +1027,39 @@ export interface FieldProps {
     label: string;
     // (undocumented)
     required?: boolean;
+}
+
+// @public
+export function FilterToolbar(input: FilterToolbarProps): JSX.Element;
+
+// @public (undocumented)
+export interface FilterToolbarProps {
+    // (undocumented)
+    activeFilters?: readonly ActiveFilter[];
+    filters?: ReactNode;
+    // (undocumented)
+    onClearAll?: () => void;
+    // (undocumented)
+    onSearchChange: (value: string) => void;
+    // (undocumented)
+    resultCount?: number;
+    // (undocumented)
+    resultLabel?: (count: number) => string;
+    // (undocumented)
+    searchLabel?: string;
+    // (undocumented)
+    searchPlaceholder?: string;
+    // (undocumented)
+    searchValue: string;
+}
+
+// @public
+export function HoursInput(input: HoursInputProps): JSX.Element;
+
+// @public (undocumented)
+export interface HoursInputProps extends FormattedInputSharedProps {
+    // (undocumented)
+    locale?: string;
 }
 
 // @public (undocumented)
@@ -936,7 +1137,88 @@ export interface MetricProps {
 }
 
 // @public (undocumented)
+export function MonthPicker(input: MonthPickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface MonthPickerProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    endYear: number;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string) => void;
+    // (undocumented)
+    startYear: number;
+    // (undocumented)
+    value: string;
+}
+
+// @public
+export function Pagination(input: PaginationProps): JSX.Element;
+
+// @public (undocumented)
+export interface PaginationProps {
+    // (undocumented)
+    label?: string;
+    // (undocumented)
+    onPageChange: (page: number) => void;
+    // (undocumented)
+    onPageSizeChange?: (size: number) => void;
+    // (undocumented)
+    page: number;
+    // (undocumented)
+    pageSize: number;
+    // (undocumented)
+    pageSizes?: readonly number[];
+    // (undocumented)
+    total: number;
+}
+
+// @public (undocumented)
 export function PasswordInput(props: Omit<InputProps, 'type' | 'trailingAction'>): JSX.Element;
+
+// @public
+export function PercentageInput(input: PercentageInputProps): JSX.Element;
+
+// @public (undocumented)
+export interface PercentageInputProps extends FormattedInputSharedProps {
+    // (undocumented)
+    locale?: string;
+}
+
+// @public
+export function PeriodNavigator(input: PeriodNavigatorProps): JSX.Element;
+
+// @public (undocumented)
+export interface PeriodNavigatorProps {
+    // (undocumented)
+    disabledNext?: boolean;
+    // (undocumented)
+    disabledPrevious?: boolean;
+    label: string;
+    // (undocumented)
+    nextLabel?: string;
+    // (undocumented)
+    onNext: () => void;
+    // (undocumented)
+    onPrevious: () => void;
+    onToday?: () => void;
+    presets?: readonly PeriodPreset[];
+    // (undocumented)
+    previousLabel?: string;
+    // (undocumented)
+    todayLabel?: string;
+}
+
+// @public (undocumented)
+export interface PeriodPreset {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onSelect: () => void;
+}
 
 // @public (undocumented)
 export type ProductTheme = 'light' | 'dark';
@@ -1116,6 +1398,40 @@ export interface SearchSelectProps {
 }
 
 // @public
+export function SegmentedControl(input: SegmentedControlProps): JSX.Element;
+
+// @public (undocumented)
+export interface SegmentedControlProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string) => void;
+    // (undocumented)
+    options: readonly ChoiceOption[];
+    // (undocumented)
+    value: string;
+}
+
+// @public
+export function SegmentedMultiControl(input: SegmentedMultiControlProps): JSX.Element;
+
+// @public (undocumented)
+export interface SegmentedMultiControlProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string[]) => void;
+    // (undocumented)
+    options: readonly ChoiceOption[];
+    // (undocumented)
+    value: readonly string[];
+}
+
+// @public
 export function Select(input: SelectProps): JSX.Element;
 
 // @public (undocumented)
@@ -1187,6 +1503,39 @@ export function Spinner(input: {
     label?: string;
 }): JSX.Element;
 
+// @public
+export function StyledSelect(input: StyledSelectProps): JSX.Element;
+
+// @public (undocumented)
+export interface StyledSelectProps {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    hint?: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    loading?: boolean;
+    // (undocumented)
+    name?: string;
+    // (undocumented)
+    onValueChange?: (value: string) => void;
+    // (undocumented)
+    options: readonly (ChoiceOption & {
+        group?: string;
+    })[];
+    // (undocumented)
+    placeholder?: string;
+    // (undocumented)
+    required?: boolean;
+    // (undocumented)
+    value?: string;
+}
+
 // @public (undocumented)
 export function SummaryCard(props: CardProps): JSX.Element;
 
@@ -1214,6 +1563,10 @@ export interface TableProps extends ComponentProps<'table'> {
     caption: string;
     // (undocumented)
     density?: 'comfortable' | 'compact';
+    // (undocumented)
+    layout?: 'legacy' | 'scroll';
+    // (undocumented)
+    minWidth?: number;
 }
 
 // @public (undocumented)

@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.6.0 candidate
+
+Pass 2 of the user's re-prioritised roadmap: "everyday controls". See [docs/release-0.6.md](docs/release-0.6.md) for full contracts.
+
+- Add `Chip`/`ChipGroup`: selectable and/or removable interactive tags, distinct from the non-interactive `Badge`.
+- Add `SegmentedControl`/`SegmentedMultiControl` on the new `@radix-ui/react-toggle-group` dependency.
+- Add `Combobox`: searchable single or multi-select, local or remote (`onSearchChange`) filtering, loading/error states, avatar slot per option.
+- Add `CurrencyInput`/`PercentageInput`/`HoursInput`: formatted numeric inputs; the application keeps calculations and rounding.
+- Add `PeriodNavigator`: previous/next chrome for an application-defined period, with an optional Today shortcut and reporting presets.
+- Add `FilterToolbar` pattern: composes search, application-supplied filters, a result count and removable active-filter chips into a responsive bar.
+- Fix: `Icon` silently dropped its own base class when a caller passed `className`, since it spread props after a hardcoded `className` instead of merging them — invisible until a real consumer (`PeriodNavigator`'s flipped arrow) needed it.
+- Fix: a Radix Popover race in `Combobox` where the click that opened it also immediately closed it (`onInteractOutside`), and a follow-on bug where confirming a single selection's refocus reopened the panel and blanked the display value.
+- Existing component defaults and all prior exports remain unchanged.
+
+## 0.5.0 candidate
+
+- Add branded StyledSelect, Calendar, DatePicker (single and combined range with presets) and MonthPicker. Keep native Select and DateRange unchanged.
+- Add responsive standalone Pagination, opt-in full DataTable pagination, and opt-in readable horizontally scrolling table layouts. Dashboard demonstrates adoption.
+- Add calendar keyboard, invalid-range, cancellation, selection and pagination stories. API snapshots capture additive exports and props.
+- Existing component defaults and v0.4.0 naming remain unchanged.
+- Fix: the `--cui-focus-offset` token was 4px, giving every focusable element (buttons, links, checkboxes, tabs, StyledSelect/DatePicker triggers, SearchSelect's disclosure) a visibly detached "floating" focus ring — Input and native Select had already been special-cased flush against their border, but the token itself was never corrected. Set to 0px and removed the now-redundant per-component overrides.
+- Fix: StyledSelect and DatePicker's trigger chevron sat too far in from the right edge, because their trigger reused native Select's asymmetric padding (a gutter meant for a browser-drawn arrow). Gave it symmetric padding for its own flex-laid-out icon.
+- Docs: split the "Pass 1 controls" scratch story file into a proper per-component section each (Pagination, Styled select, Calendar, Date picker, Month picker), and moved the existing native DateRange's stories next to the new Date picker instead of an unrelated grab-bag file, so the two aren't mistaken for each other.
+- Fix: `Table`'s scroll region announced its caption twice (once via a duplicated `aria-label`, once via the native `<caption>`) — now uses `aria-labelledby` pointing at the caption, with "scrollable table" conveyed separately via `aria-describedby`.
+- Fix: `Breadcrumbs` silently discarded `href` on the current-page item; if one is supplied it's now rendered as a link with `aria-current="page"` instead of being dropped. Unchanged when no `href` is supplied.
+- `EmptyState` gains an opt-in `live` prop (default `false`) instead of always being a live region — `DataTable` sets it only for its dynamic "no matching results while searching" case, not its initial "no rows yet" state. `RoadmapBoard`'s empty columns are unaffected.
+- Add `ErrorBoundary`: catches rendering errors in its subtree and shows a fallback (default or custom) instead of a blank page, with a reset action and an `onError` hook.
+- Tooling: a real coverage threshold in `vitest.config.ts`; `examples/**` is now covered by ESLint, and `examples/react`'s `*.tsx` fixture is now type-checked against current source (caught a genuine implicit-any in the process). `examples/next`'s `*.jsx` fixture remains outside `tsc` — see ROADMAP.md.
+
 ## 0.4.0 · 8 September 2026
 
 **Breaking.** See [docs/release-0.4.md](docs/release-0.4.md) for the full migration guide.
