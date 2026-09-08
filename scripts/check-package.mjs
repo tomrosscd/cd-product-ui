@@ -50,10 +50,20 @@ await writeFile(
     },
   }),
 )
-execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', join(tmpdir(), 'convert-product-ui-pnpm-store')], {
-  cwd: consumer,
-  stdio: 'inherit',
-})
+execFileSync(
+  'pnpm',
+  [
+    'install',
+    '--ignore-scripts',
+    '--no-frozen-lockfile',
+    '--store-dir',
+    join(tmpdir(), 'convert-product-ui-pnpm-store'),
+  ],
+  {
+    cwd: consumer,
+    stdio: 'inherit',
+  },
+)
 await writeFile(
   join(consumer, 'verify.mjs'),
   `import assert from 'node:assert/strict';import{createElement}from'react';import{renderToString}from'react-dom/server';import{Card,Select,ThemeProvider,ConvertLogo,ActionMenu,SearchSelect,DateRange,ToastRegion,Tooltip,Breadcrumbs}from'@convert/product-ui';import{tokens}from'@convert/product-ui/tokens';import{readFileSync}from'node:fs';for(const Component of [ThemeProvider,ConvertLogo,ActionMenu,SearchSelect,DateRange,ToastRegion,Tooltip,Breadcrumbs])assert.equal(typeof Component,'function');const html=renderToString(createElement(Card,{heading:'Installed package'},createElement(Select,{label:'Project view',options:[{value:'all',label:'All projects'}]})));assert(html.includes('Installed package'));assert(html.includes('<select'));assert.equal(tokens['surface.page'],'#faf9f7');const css=readFileSync(new URL(import.meta.resolve('@convert/product-ui/styles.css')),'utf8');assert(css.includes('.cui-card'));console.log('Packed consumer: React render, token export and compiled CSS passed.');`,
@@ -68,10 +78,20 @@ assert(!plainConsumer.dependencies.recharts, 'Ordinary consumer unexpectedly req
 plainConsumer.dependencies.recharts = pkg.devDependencies.recharts
 plainConsumer.dependencies['react-is'] = pkg.devDependencies['react-is']
 await writeFile(join(consumer, 'package.json'), JSON.stringify(plainConsumer, null, 2))
-execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', join(tmpdir(), 'convert-product-ui-pnpm-store')], {
-  cwd: consumer,
-  stdio: 'inherit',
-})
+execFileSync(
+  'pnpm',
+  [
+    'install',
+    '--ignore-scripts',
+    '--no-frozen-lockfile',
+    '--store-dir',
+    join(tmpdir(), 'convert-product-ui-pnpm-store'),
+  ],
+  {
+    cwd: consumer,
+    stdio: 'inherit',
+  },
+)
 await writeFile(
   join(consumer, 'main.tsx'),
   `import{createRoot}from'react-dom/client';import{DataChart}from'@convert/product-ui/charts';import{MetricCard,Input,Progress,DataTable}from'@convert/product-ui';import'@convert/product-ui/styles.css';createRoot(document.getElementById('root')!).render(<main className="cui-root"><MetricCard heading="Completed" value="8"/><Input label="Workspace"/><Progress label="Review" value={60}/><DataTable caption="Projects" data={[{name:'Guide'}]} columns={[{accessorKey:'name',header:'Name'}]}/><DataChart title="Activity" summary="Activity increased." data={[{week:'W1',count:3},{week:'W2',count:8}]} xKey="week" series={[{key:'count',label:'Items'}]}/></main>);`,
