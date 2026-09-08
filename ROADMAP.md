@@ -1,8 +1,76 @@
 # Roadmap
 
-## Approved delivery order (9 September 2026)
+## Approved delivery order (9 September 2026, re-prioritised by the user — supersedes Codex's original ordering below)
 
-This sequence incorporates the finance/capacity screenshots and supersedes the ordering of deferred audit items below. Preserve the settled 0.4.0 decisions.
+The user reviewed Codex's negotiated 30-item pass structure and found the priority and grouping had drifted from what the finance/capacity screenshots actually need. This replacement list is the authoritative one; Codex's original six-pass ordering further down this section is kept only as historical record of what it superseded.
+
+### First: improve everyday controls (Pass 2, in progress)
+
+| #   | Component or improvement              | Scope                                                                                                                                                                                                                                                                                                    |
+| --- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Branded Select and menu improvements  | Consistent open panels, selected indicators, groups, disabled items, scrolling, keyboard navigation and light/dark styling. Preserve existing consumer behaviour. **Largely done in Pass 1** (`StyledSelect`); this pass only covers any remaining menu (`ActionMenu`) polish, e.g. long-list scrolling. |
+| 2   | Calendar and date-range picker        | Convert-styled calendar, clear range highlighting, month/year navigation, typed entry, disabled dates, clear/apply actions and mobile layout. **Done in Pass 1** (`Calendar`/`DatePicker`/`MonthPicker`).                                                                                                |
+| 3   | Chips                                 | Selectable filter chips, removable selections and chip groups. Keep non-interactive status badges (`Badge`) separate.                                                                                                                                                                                    |
+| 4   | Searchable combobox and multi-select  | Better person/project selection, optional avatars, local or remote options, loading, no-results and request-error states.                                                                                                                                                                                |
+| 5   | Segmented controls / toggle groups    | Weeks/Months, List/Quick Capture, Pipeline-mode style toggles. Use single- or multiple-selection behaviour as appropriate.                                                                                                                                                                               |
+| 6   | Filter toolbar                        | Search, grouped filters, active chips, result count, clear-all and a compact mobile arrangement. Composes items 3–5.                                                                                                                                                                                     |
+| 7   | Currency, percentage and hours inputs | Prefixes/suffixes, decimal handling, validation and matching formatted display. Keep financial calculations in the application.                                                                                                                                                                          |
+| 8   | Period navigation                     | Previous/next period, Today/This week, week/month labels and reporting presets.                                                                                                                                                                                                                          |
+
+### Next: make tables and editing useful for real work (Pass 3)
+
+| #   | Component or improvement                     | Scope                                                                                                                                                         |
+| --- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9   | Standalone Pagination                        | **Done in Pass 1.** Reusable page controls, page size, totals; reused within `DataTable` via `pagination="full"`.                                             |
+| 10  | DataTable expansion                          | Row selection, bulk actions, column filters, sticky headers, sorting controls and server-driven pagination. Add virtualisation when dataset size warrants it. |
+| 11  | Column configuration and saved-view controls | Show/hide, reorder and pin columns; choose named views. The application owns saving preferences.                                                              |
+| 12  | Grouped rows and summary footers             | Group by team, lead or project, expand/collapse groups and display supplied totals/subtotals.                                                                 |
+| 13  | General dialog and details drawer            | Inspect or edit records without leaving the table. Include dirty, saving, saved and failed states.                                                            |
+| 14  | Editable cells and quick-entry rows          | Explicit save/cancel, validation, keyboard movement and pending/error feedback. Do this before any spreadsheet-style bulk editing.                            |
+| 15  | File upload and attachments                  | Invoice/receipt uploads, file lists, progress, retry, removal and validation states.                                                                          |
+| 16  | Wizard / stepper                             | Multi-step creation and import flows, including mapping, review and completion.                                                                               |
+
+### Then: finance and capacity visualisation (Pass 4)
+
+| #   | Component or improvement               | Scope                                                                                                                                         |
+| --- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| 17  | Capacity indicator                     | Booked versus available hours, remaining capacity and visible overload above 100%. Ordinary progress bars stay completion indicators.         |
+| 18  | Status indicators and reusable legends | Labelled risk states and project-phase legends, including unknown states. Review semantic colours in both themes; never rely on colour alone. |
+| 19  | Budget-versus-actual chart patterns    | Targets, variance, negative values, currency formatting and actual/forecast distinctions, with accessible data alternatives.                  |
+| 20  | Gantt project timeline                 | Projects/tasks against dates, phases, milestones, grouped rows, today marker and week/month scales. Start with viewing and inspection.        |
+| 21  | Resource scheduling timeline           | People/teams against time, allocation blocks, availability and conflicts. Share timeline foundations with Gantt where practical.              |
+| 22  | Capacity heatmap                       | Person/team × week grid with exact hours or percentages, explicit missing data and accessible alternatives.                                   |
+| 23  | Timeline editing                       | Move and resize allocations, with keyboard alternatives and save/cancel feedback. Decide dependency editing separately.                       |
+| 24  | Roadmap drag-and-drop                  | Add pointer dragging while retaining the existing accessible stage selector.                                                                  |
+
+### Additional gaps visible in the screenshots (Pass 5)
+
+| #   | Component or improvement                  | Scope                                                                                                                                                               |
+| --- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 25  | Nested and collapsible sidebar navigation | Expandable Projects groups, child destinations, collapsed desktop mode and clear active states.                                                                     |
+| 26  | Reusable page header                      | Title, supporting context, primary actions and responsive toolbar placement. Keep the library's UI typography rather than adopting the screenshots' serif headings. |
+| 27  | Notification centre                       | Bell, unread count and notification list. Existing toasts cover temporary feedback, not a persistent inbox.                                                         |
+| 28  | Command palette                           | Keyboard search across application destinations and actions.                                                                                                        |
+| 29  | Import/sync status pattern                | Last updated, running, partial success, failed records and retry. Compose existing feedback components; integration logic stays outside the library.                |
+| 30  | Print styling                             | Readable tables and reports, repeated headers where supported, sensible page breaks and hidden navigation/controls.                                                 |
+
+### Engineering work to ship alongside the relevant feature work, not batched at the end
+
+| Priority                        | Work                                                                                                                                                                              | Status                                                                                                                          |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Before changing shared controls | Real-browser Button and mobile-sidebar interaction tests; verify ref handling and focus return before replacing remaining raw sidebar buttons.                                    | Still open — see section 5 below.                                                                                               |
+| Alongside accessibility review  | Reduce unnecessary live-region announcements; fix duplicate table announcements and roadmap heading levels; document or support the current breadcrumb's supplied link.           | **Done** (this session, 9 September 2026) — see section 4 below.                                                                |
+| Early resilience improvement    | Add an `ErrorBoundary` with a useful fallback and application-owned recovery action.                                                                                              | **Done.**                                                                                                                       |
+| Alongside component changes     | Reuse `Skeleton` within `Card`; consolidate field-description/error logic for `RadioGroup`; strengthen chart data types.                                                          | Skeleton/RadioGroup done in 0.4.0. Chart data types still open.                                                                 |
+| Dedicated compatibility review  | Review loading/pending/state conventions, empty-state handling, shared option types and Badge/Alert tone vocabulary. Preserve existing APIs through aliases or migration support. | Still open — do this as its own review, not folded into a feature pass.                                                         |
+| Locale support                  | Make internal copy overridable and provide deliberate number, currency and date formatting options. Australian English remains the default.                                       | Still open — see section 3 (this is the same i18n decision, not new scope).                                                     |
+| Tooling                         | Meaningful CI coverage thresholds, type-aware linting, Storybook linting and lint/type coverage for consumer examples.                                                            | Coverage thresholds and examples lint/type-check **done**. Type-aware linting and Storybook linting still open — see section 5. |
+| Later compatibility coverage    | RTL layouts and stories; revisit visual regression testing as contribution volume grows.                                                                                          | Still deferred — see section 5.                                                                                                 |
+
+Keep i18n, RTL, Chromatic and animation-library decisions deferred (including the CSS-only loading screen below — the user confirmed 9 September 2026 it's "way later", not part of any near-term pass). Product UI private employee font setup uses company-restricted storage, excluded from Git and public packages; document local/deployed use once a storage link is provided.
+
+<details>
+<summary>Superseded: Codex's original six-pass ordering (9 September 2026, kept for history only)</summary>
 
 1. **Pass 1, target 0.5.0:** opt-in readable/scrollable tables; branded Select/menu patterns; single-date, combined-range, reporting-preset, month/year and inline calendars; standalone responsive Pagination and DataTable integration.
 2. **Pass 2:** collapsible sidebar/navigation rail and mobile drawer, chips, async single/multiple combobox, segmented controls, responsive filter toolbar.
@@ -11,7 +79,7 @@ This sequence incorporates the finance/capacity screenshots and supersedes the o
 5. **Pass 5:** capacity/overload indicators, labelled status/phase legends, budget-versus-actual chart patterns, Gantt, resource timelines and capacity heatmaps. Evaluate scheduling separately from Recharts.
 6. **Pass 6:** timeline move/resize, roadmap dragging with keyboard alternatives, page header, notification centre, command palette, import/sync patterns and print styles.
 
-Cross-cutting: ship accessibility fixes and interaction tests with affected work; ErrorBoundary and CSS-only branded loader as small independent additions; improve chart types and tooling incrementally. Keep i18n, RTL, Chromatic and animation-library decisions deferred. Product UI private employee font setup uses company-restricted storage, excluded from Git and public packages; document local/deployed use once a storage link is provided.
+</details>
 
 Each pass can have multiple focused PRs. Keep existing APIs and default behaviour intact where practical through opt-in variants. Every release requires light/dark keyboard/mobile review, API snapshots, full checks, package and Next.js validation, and green CI. Do not merge or tag without user approval.
 
@@ -54,6 +122,7 @@ Fixed alongside the 0.5.0 pass 1 table/select/date-picker work (9 September 2026
 Done (9 September 2026): a real coverage threshold (`vitest.config.ts`, statements 90/branches 80/functions 85/lines 90 — a few points below the actual baseline, so it catches a genuine regression without blocking normal work); lint coverage for `examples/**` (a dedicated `*.jsx` block for `examples/next`'s fixture, and `examples/react/**/*.tsx` now type-checked against current source via a `paths` alias, which caught a real implicit-any).
 
 Still open:
+
 - **Interaction test coverage for `Button` and `DashboardSidebar`'s mobile drawer.** Both are genuinely interactive and currently have zero Storybook play-function coverage (they're covered only by the jsdom unit tests in `tests/components.test.tsx`, which don't exercise real browser focus/keyboard behaviour the way the Storybook/Playwright project does for other components).
 - **`typescript-eslint` `recommendedTypeChecked`** instead of the current plain `recommended`, for stricter type-aware linting. Deliberately not attempted yet — expect it to surface a real batch of new violations across the codebase, so budget dedicated time rather than folding it into an unrelated pass.
 - **`eslint-plugin-storybook`.**
