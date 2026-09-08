@@ -1,0 +1,10 @@
+{
+  "extends": "./api-extractor.json",
+  "mainEntryPointFilePath": "<projectFolder>/dist/charts/index.d.ts",
+  "apiReport": {
+    "enabled": true,
+    "reportFileName": "product-ui-charts.api.md",
+    "reportFolder": "<projectFolder>/etc/",
+    "reportTempFolder": "<projectFolder>/temp/"
+  }
+}

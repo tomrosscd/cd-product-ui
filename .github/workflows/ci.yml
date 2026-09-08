@@ -41,6 +41,9 @@ jobs:
       - name: Tokens, types, lint, unit/browser tests, build, static Storybook
         run: pnpm check
 
+      - name: Public API surface check
+        run: pnpm api:check
+
       - name: Dark-theme story tests
         run: pnpm test:dark
 

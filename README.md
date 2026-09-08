@@ -205,9 +205,10 @@ pnpm check
 pnpm format:check
 pnpm package:check
 pnpm next:check
+pnpm api:check
 ```
 
-`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached. `next:check` then builds the packed archive in a separate Next.js application.
+`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached. `next:check` then builds the packed archive in a separate Next.js application. `api:check` diffs the compiled public API against `etc/*.api.md` and fails if it changed unexpectedly; run `pnpm api:update` and commit the result when a change is intentional (see [the backward-compatibility policy](docs/release-process.md#backward-compatibility)).
 
 Edit `tokens/tokens.json` and run `pnpm tokens` to update generated CSS, responsive breakpoints and typed data. Storybook's live token reference uses that same generated source. Commit generated changes with the source change.
 

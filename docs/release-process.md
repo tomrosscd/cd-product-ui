@@ -22,6 +22,12 @@ This library has real consumers outside its own demos (see [CONSUMERS.md](../CON
 
 This applies to component APIs and to generated tokens/CSS class names equally — a renamed `--cui-*` variable or `.cui-*` class is exactly as breaking as a renamed prop.
 
+### Mechanical enforcement
+
+The steps above rely on someone remembering to follow them, which is not a real safeguard on its own. `pnpm api:check` (wired into `.github/workflows/ci.yml`) diffs the actual compiled public API — every exported component, prop and type across all three entry points (`.`, `./tokens`, `./charts`) — against the accepted snapshots in `etc/*.api.md`. Any change to that surface fails CI with a readable diff, whether or not the person making it thought to check CONSUMERS.md first.
+
+This does not replace the human judgment above — it only guarantees a breaking change can't land silently. When a change is intentional, run `pnpm api:update` to regenerate and accept the new snapshot, and commit the updated `etc/*.api.md` files alongside it so the PR diff shows reviewers exactly what changed.
+
 ## Consumer updates
 
 Install an exact package version and commit the vendor archive, dependency and lockfile changes. Read migration notes and review important screens before merging. Avoid ranges or moving latest links where deterministic application builds are required. Roll back by reverting the application's upgrade commit and reinstalling from its restored lockfile. The README provides consumer commands for pnpm and npm.

@@ -7,3 +7,5 @@ pnpm-lock.yaml
 src/tokens.ts
 src/styles/tokens.css
 src/styles/responsive.css
+etc
+temp

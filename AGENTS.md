@@ -17,7 +17,8 @@ These instructions apply to this repository. Product UI version: 0.3.1. The user
 - Keep React external as a peer dependency. Preserve use-client boundaries. Test the packed version, not only source imports.
 - Impeccable reviews must work within these approved rules. Do not introduce an unrelated aesthetic. Record intentional rule changes and why they are needed.
 - Do not install or update an unpinned AI skill automatically. Record and review the version/source of any external design tooling used.
-- Run pnpm check, pnpm format:check and pnpm package:check for a release. Follow docs/release-process.md. Automated accessibility checks supplement manual review. .github/workflows/ci.yml runs the same checks on every push/PR — a red CI check blocks the merge regardless of what ran locally.
+- Run pnpm check, pnpm format:check, pnpm package:check and pnpm api:check for a release. Follow docs/release-process.md. Automated accessibility checks supplement manual review. .github/workflows/ci.yml runs the same checks on every push/PR — a red CI check blocks the merge regardless of what ran locally.
+- pnpm api:check fails CI if the public API (component props, exported types, across `.`, `./tokens` and `./charts`) changed from the accepted snapshot in `etc/*.api.md`. If the change is intentional, run pnpm api:update and commit the updated `etc/*.api.md` files with it — do not delete or hand-edit them to make the check pass.
 - Exclude local fonts, secrets and client reference content from release packages. See README.md for preview font handling.
 - No sub-agents unless the user explicitly asks for delegation.
 
