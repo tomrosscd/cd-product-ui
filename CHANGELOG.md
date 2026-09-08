@@ -6,6 +6,9 @@
 - Add responsive standalone Pagination, opt-in full DataTable pagination, and opt-in readable horizontally scrolling table layouts. Dashboard demonstrates adoption.
 - Add calendar keyboard, invalid-range, cancellation, selection and pagination stories. API snapshots capture additive exports and props.
 - Existing component defaults and v0.4.0 naming remain unchanged.
+- Fix: the `--cui-focus-offset` token was 4px, giving every focusable element (buttons, links, checkboxes, tabs, StyledSelect/DatePicker triggers, SearchSelect's disclosure) a visibly detached "floating" focus ring — Input and native Select had already been special-cased flush against their border, but the token itself was never corrected. Set to 0px and removed the now-redundant per-component overrides.
+- Fix: StyledSelect and DatePicker's trigger chevron sat too far in from the right edge, because their trigger reused native Select's asymmetric padding (a gutter meant for a browser-drawn arrow). Gave it symmetric padding for its own flex-laid-out icon.
+- Docs: split the "Pass 1 controls" scratch story file into a proper per-component section each (Pagination, Styled select, Calendar, Date picker, Month picker), and moved the existing native DateRange's stories next to the new Date picker instead of an unrelated grab-bag file, so the two aren't mistaken for each other.
 
 ## 0.4.0 · 8 September 2026
 
