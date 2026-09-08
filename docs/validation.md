@@ -1,8 +1,8 @@
 # Release validation history
 
-## 0.3.0 · 8 September 2026 (release candidate)
+## 0.3.0 · 8 September 2026
 
-Validated locally on the `feature/product-ui-0.3` branch, on top of the 0.1.0 and 0.2.0 results below.
+Validated locally on the `feature/product-ui-0.3` branch before merge, on top of the 0.1.0 and 0.2.0 results below. A manual review round after the checks below found three issues (input/select focus styling in dark mode, Alert's accent border, and the brand downloads gallery layout); all three were fixed and the full check suite (including `pnpm test:dark`) reran clean afterward.
 
 ### Automated checks
 

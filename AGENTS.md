@@ -2,7 +2,7 @@
 
 Read HANDOFF.md at the start of each task. Update it at meaningful checkpoints and before stopping so another coding tool can continue from verified state. CLAUDE.md points to the same handoff; do not maintain conflicting plans.
 
-These instructions apply to this repository. Product UI candidate version: 0.3.0; latest tagged release: 0.2.0. The user-approved Convert product system is authoritative.
+These instructions apply to this repository. Product UI version: 0.3.0. The user-approved Convert product system is authoritative.
 
 - Read README.md, docs/architecture.md and docs/ai-guidance.md before changing components.
 - Koko Monthly Review V4 is the visual reference. The website archive supplies technical conventions only. Do not edit either reference, previous Koko versions or V8.

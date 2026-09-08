@@ -1,6 +1,6 @@
-# 0.3.0 candidate: brand, themes and workspace controls
+# 0.3.0: brand, themes and workspace controls
 
-0.2.0 remains the latest tagged release until this candidate is reviewed. This is a compatible addition; existing light-mode consumers keep their current theme. The official sidebar logo changes visually but no sidebar props change.
+This is a compatible addition; existing light-mode consumers keep their current theme. The official sidebar logo changes visually but no sidebar props change.
 
 ## Themes
 
@@ -39,4 +39,4 @@ See Components / Workspace controls for interactive examples. Keep queues bounde
 
 ## Review and adoption
 
-Run the existing release checks plus `pnpm test:dark`. Install the exact packed candidate into the consuming project and inspect desktop/mobile states, portalled interactions, charts and custom CSS. No application authentication, storage or backend is included. After review, tag the approved commit v0.3.0 and update stable installation examples together; never overwrite an existing tag.
+Run the existing release checks plus `pnpm test:dark`. Install the exact packed archive into the consuming project and inspect desktop/mobile states, portalled interactions, charts and custom CSS. No application authentication, storage or backend is included.

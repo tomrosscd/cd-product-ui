@@ -1,12 +1,14 @@
 # Changelog
 
-## 0.3.0 · release candidate
+## 0.3.0 · 8 September 2026
 
 - Add scoped light and dark themes from the same token source, a Storybook theme toolbar and theme-aware portals. Light remains the default.
 - Add official logo/mark/straight components and 80 original SVG, PNG and JPG downloads with a searchable Storybook catalogue. Replace the sidebar wordmark text with official artwork.
 - Add ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect and DateRange with controlled application-owned data.
 - Add theme contrast tests and interactive stories, and update installation, AI and validation guidance.
 - Preserve existing component APIs, optional chart imports and licensed-font exclusion. No Brand Hub application or authentication is included.
+
+Review fixes: Input and Select in dark mode use a neutral white border/focus colour instead of the accent green; their focus outline sits flush against the border instead of floating with a gap. Alert dropped its accent-coloured left border for a plain border matching the rest of the system. The brand asset Downloads catalogue is now organised into Icon/Logo/Straight/Profile icons tabs with one swatch per colour, instead of a flat 80-item grid.
 
 ## 0.2.0 · 8 September 2026
 
