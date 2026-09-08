@@ -1,4 +1,5 @@
 'use client'
+import { useProductTheme } from './theme.js'
 import * as Primitive from '@radix-ui/react-alert-dialog'
 import type { ReactNode } from 'react'
 import { Button } from './button.js'
@@ -23,12 +24,13 @@ export function ConfirmationDialog({
   open,
   onOpenChange,
 }: ConfirmationDialogProps) {
+  const theme = useProductTheme()
   return (
     <Primitive.Root open={open} onOpenChange={onOpenChange}>
       <Primitive.Trigger asChild>{trigger}</Primitive.Trigger>
       <Primitive.Portal>
         <Primitive.Overlay className="cui-sidebar-overlay" />
-        <Primitive.Content className="cui-root cui-dialog">
+        <Primitive.Content data-cui-theme={theme} className="cui-root cui-dialog">
           <Primitive.Title className="cui-card-heading">{title}</Primitive.Title>
           <Primitive.Description className="cui-secondary">{description}</Primitive.Description>
           <div className="cui-row cui-dialog-actions">

@@ -10,15 +10,31 @@ const flat = Object.entries(source).flatMap(([group, values]) =>
   })),
 )
 const byKey = new Map(flat.map((token) => [token.key, token]))
-function resolve(value, seen = new Set()) {
+function resolve(value, seen = new Set(), mode = 'light') {
   return value.replace(/\{([^}]+)\}/g, (_, key) => {
     if (!byKey.has(key) || seen.has(key)) throw new Error(`Invalid or circular token reference: ${key}`)
-    return resolve(byKey.get(key).value, new Set([...seen, key]))
+    return resolve(
+      mode === 'dark' ? (byKey.get(key).dark ?? byKey.get(key).value) : byKey.get(key).value,
+      new Set([...seen, key]),
+      mode,
+    )
   })
 }
-const resolved = flat.map((token) => ({ ...token, resolved: resolve(token.value) }))
-const css = `/* Generated from tokens/tokens.json. Run pnpm tokens. */\n:root {\n${flat.map((t) => `  ${t.css}: ${t.value.replace(/\{([^}]+)\}/g, (_, key) => `var(${byKey.get(key).css})`)};`).join('\n')}\n}\n`
-const ts = `// Generated from tokens/tokens.json. Run pnpm tokens.\nexport const tokenReference = ${JSON.stringify(resolved, null, 2)} as const\nexport const tokens = ${JSON.stringify(Object.fromEntries(resolved.map((t) => [t.key, t.resolved])), null, 2)} as const\nexport type TokenName = keyof typeof tokens\n`
+const resolved = flat.map((token) => ({
+  ...token,
+  resolved: resolve(token.value),
+  darkResolved: resolve(token.dark ?? token.value, new Set(), 'dark'),
+}))
+function declarations(mode) {
+  return flat
+    .map(
+      (t) =>
+        `  ${t.css}: ${(mode === 'dark' ? (t.dark ?? t.value) : t.value).replace(/\{([^}]+)\}/g, (_, key) => `var(${byKey.get(key).css})`)};`,
+    )
+    .join('\n')
+}
+const css = `/* Generated from tokens/tokens.json. Run pnpm tokens. */\n:root, [data-cui-theme="light"] {\n${declarations('light')}\n}\n[data-cui-theme="dark"] {\n  color-scheme: dark;\n${declarations('dark')}\n}\n[data-cui-theme="light"] { color-scheme: light; }\n`
+const ts = `// Generated from tokens/tokens.json. Run pnpm tokens.\nexport const tokenReference = ${JSON.stringify(resolved, null, 2)} as const\nexport const tokens = ${JSON.stringify(Object.fromEntries(resolved.map((t) => [t.key, t.resolved])), null, 2)} as const\nexport const darkTokens = ${JSON.stringify(Object.fromEntries(resolved.map((t) => [t.key, t.darkResolved])), null, 2)} as const\nexport type TokenName = keyof typeof tokens\n`
 const responsive = (await readFile(new URL('../src/styles/responsive.template.css', import.meta.url), 'utf8')).replace(
   /\{\{([^}]+)\}\}/g,
   (_, key) => resolve(byKey.get(key).value),

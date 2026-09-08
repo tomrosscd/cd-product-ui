@@ -1,7 +1,15 @@
+import { ThemeProvider } from '../src/components/primitives/theme.js'
 import type { Preview } from '@storybook/react-vite'
 import '../src/styles/index.css'
 import './preview.css'
 const preview: Preview = {
+  initialGlobals: { theme: import.meta.env.VITE_CUI_THEME === 'dark' ? 'dark' : 'light' },
+  globalTypes: {
+    theme: {
+      description: 'Product theme',
+      toolbar: { title: 'Theme', icon: 'circlehollow', items: ['light', 'dark'], dynamicTitle: true },
+    },
+  },
   parameters: {
     layout: 'padded',
     a11y: { test: 'error' },
@@ -30,9 +38,12 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => (
-      <div className={`cui-root ${context.parameters.layout === 'fullscreen' ? '' : 'cui-story-frame'}`}>
+      <ThemeProvider
+        theme={context.globals.theme === 'dark' ? 'dark' : 'light'}
+        className={`cui-root ${context.parameters.layout === 'fullscreen' ? '' : 'cui-story-frame'}`}
+      >
         <Story />
-      </div>
+      </ThemeProvider>
     ),
   ],
 }

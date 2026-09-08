@@ -1,8 +1,14 @@
+import { useProductTheme } from '../src/components/primitives/theme.js'
 import { useState } from 'react'
 import { tokenReference } from '../src/tokens.js'
 export function TokenReference() {
+  const theme = useProductTheme()
+  const reference = tokenReference.map((token) => ({
+    ...token,
+    resolved: theme === 'dark' ? token.darkResolved : token.resolved,
+  }))
   const [query, setQuery] = useState('')
-  const filtered = tokenReference.filter((token) =>
+  const filtered = reference.filter((token) =>
     `${token.group} ${token.name} ${token.description} ${token.resolved}`.toLowerCase().includes(query.toLowerCase()),
   )
   const groups = [...new Set(filtered.map((token) => token.group))]

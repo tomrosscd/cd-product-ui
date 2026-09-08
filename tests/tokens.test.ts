@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { tokenReference, tokens } from '../src/tokens.js'
+import { tokenReference, tokens, darkTokens } from '../src/tokens.js'
 function luminance(hex: string) {
   const values = hex
     .replace('#', '')
@@ -33,5 +33,20 @@ describe('approved foundations', () => {
     expect(new Set(tokenReference.map((t) => t.css)).size).toBe(tokenReference.length)
     expect(tokenReference.every((t) => !t.resolved.includes('{'))).toBe(true)
     expect(tokens['surface.page']).toBe('#faf9f7')
+  })
+})
+
+describe('dark foundations', () => {
+  it('keeps text, actions, selected states and graphics readable', () => {
+    for (const surface of ['surface.page', 'surface.band', 'surface.card'] as const) {
+      for (const text of ['text.primary', 'text.secondary', 'text.positive', 'text.negative', 'text.accent'] as const)
+        expect(contrast(darkTokens[text], darkTokens[surface]), `${text} on ${surface}`).toBeGreaterThanOrEqual(4.5)
+      expect(contrast(darkTokens['border.control'], darkTokens[surface])).toBeGreaterThanOrEqual(3)
+      expect(contrast(darkTokens['focus.colour'], darkTokens[surface])).toBeGreaterThanOrEqual(3)
+    }
+    expect(contrast(darkTokens['text.inverse'], darkTokens['accent.primary'])).toBeGreaterThanOrEqual(4.5)
+    expect(contrast(darkTokens['text.accent'], darkTokens['surface.selected'])).toBeGreaterThanOrEqual(4.5)
+    for (const key of ['chart.series-primary', 'chart.series-secondary', 'chart.series-tertiary'] as const)
+      expect(contrast(darkTokens[key], darkTokens['surface.card'])).toBeGreaterThanOrEqual(3)
   })
 })

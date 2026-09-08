@@ -7,7 +7,8 @@ export const tokenReference = [
     "css": "--cui-colour-ink",
     "value": "#171717",
     "description": "Product text base",
-    "resolved": "#171717"
+    "resolved": "#171717",
+    "darkResolved": "#171717"
   },
   {
     "group": "colour",
@@ -16,7 +17,8 @@ export const tokenReference = [
     "css": "--cui-colour-muted",
     "value": "#5e665f",
     "description": "Secondary text base",
-    "resolved": "#5e665f"
+    "resolved": "#5e665f",
+    "darkResolved": "#5e665f"
   },
   {
     "group": "colour",
@@ -25,7 +27,8 @@ export const tokenReference = [
     "css": "--cui-colour-paper",
     "value": "#faf9f7",
     "description": "Warm page base",
-    "resolved": "#faf9f7"
+    "resolved": "#faf9f7",
+    "darkResolved": "#faf9f7"
   },
   {
     "group": "colour",
@@ -34,7 +37,8 @@ export const tokenReference = [
     "css": "--cui-colour-band",
     "value": "#eef0ec",
     "description": "Neutral section base",
-    "resolved": "#eef0ec"
+    "resolved": "#eef0ec",
+    "darkResolved": "#eef0ec"
   },
   {
     "group": "colour",
@@ -43,7 +47,8 @@ export const tokenReference = [
     "css": "--cui-colour-white",
     "value": "#ffffff",
     "description": "Card base",
-    "resolved": "#ffffff"
+    "resolved": "#ffffff",
+    "darkResolved": "#ffffff"
   },
   {
     "group": "colour",
@@ -52,7 +57,8 @@ export const tokenReference = [
     "css": "--cui-colour-line",
     "value": "#dce2db",
     "description": "Subtle separation",
-    "resolved": "#dce2db"
+    "resolved": "#dce2db",
+    "darkResolved": "#dce2db"
   },
   {
     "group": "colour",
@@ -61,7 +67,8 @@ export const tokenReference = [
     "css": "--cui-colour-control",
     "value": "#829080",
     "description": "Control outline",
-    "resolved": "#829080"
+    "resolved": "#829080",
+    "darkResolved": "#829080"
   },
   {
     "group": "colour",
@@ -70,7 +77,8 @@ export const tokenReference = [
     "css": "--cui-colour-forest",
     "value": "#27382f",
     "description": "Convert brand-900",
-    "resolved": "#27382f"
+    "resolved": "#27382f",
+    "darkResolved": "#27382f"
   },
   {
     "group": "colour",
@@ -79,7 +87,8 @@ export const tokenReference = [
     "css": "--cui-colour-sage",
     "value": "#c9deb6",
     "description": "Convert brand-300",
-    "resolved": "#c9deb6"
+    "resolved": "#c9deb6",
+    "darkResolved": "#c9deb6"
   },
   {
     "group": "colour",
@@ -88,7 +97,8 @@ export const tokenReference = [
     "css": "--cui-colour-chart",
     "value": "#499e6b",
     "description": "Convert brand-500; graphical accent, not small text",
-    "resolved": "#499e6b"
+    "resolved": "#499e6b",
+    "darkResolved": "#499e6b"
   },
   {
     "group": "colour",
@@ -97,7 +107,8 @@ export const tokenReference = [
     "css": "--cui-colour-positive",
     "value": "#2f6b45",
     "description": "Positive text",
-    "resolved": "#2f6b45"
+    "resolved": "#2f6b45",
+    "darkResolved": "#2f6b45"
   },
   {
     "group": "colour",
@@ -106,7 +117,8 @@ export const tokenReference = [
     "css": "--cui-colour-negative",
     "value": "#a13d32",
     "description": "Negative and error text",
-    "resolved": "#a13d32"
+    "resolved": "#a13d32",
+    "darkResolved": "#a13d32"
   },
   {
     "group": "surface",
@@ -115,7 +127,9 @@ export const tokenReference = [
     "css": "--cui-surface-page",
     "value": "{colour.paper}",
     "description": "Page canvas",
-    "resolved": "#faf9f7"
+    "dark": "#171c19",
+    "resolved": "#faf9f7",
+    "darkResolved": "#171c19"
   },
   {
     "group": "surface",
@@ -124,7 +138,9 @@ export const tokenReference = [
     "css": "--cui-surface-band",
     "value": "{colour.band}",
     "description": "Group related cards",
-    "resolved": "#eef0ec"
+    "dark": "#202823",
+    "resolved": "#eef0ec",
+    "darkResolved": "#202823"
   },
   {
     "group": "surface",
@@ -133,7 +149,9 @@ export const tokenReference = [
     "css": "--cui-surface-card",
     "value": "{colour.white}",
     "description": "Content surface",
-    "resolved": "#ffffff"
+    "dark": "#28312b",
+    "resolved": "#ffffff",
+    "darkResolved": "#28312b"
   },
   {
     "group": "surface",
@@ -142,7 +160,9 @@ export const tokenReference = [
     "css": "--cui-surface-selected",
     "value": "{colour.sage}",
     "description": "Current navigation and selection",
-    "resolved": "#c9deb6"
+    "dark": "{colour.forest}",
+    "resolved": "#c9deb6",
+    "darkResolved": "#27382f"
   },
   {
     "group": "surface",
@@ -151,7 +171,9 @@ export const tokenReference = [
     "css": "--cui-surface-hover",
     "value": "{colour.band}",
     "description": "Neutral hover feedback",
-    "resolved": "#eef0ec"
+    "dark": "#344139",
+    "resolved": "#eef0ec",
+    "darkResolved": "#344139"
   },
   {
     "group": "text",
@@ -160,7 +182,9 @@ export const tokenReference = [
     "css": "--cui-text-primary",
     "value": "{colour.ink}",
     "description": "Headings and body",
-    "resolved": "#171717"
+    "dark": "{colour.paper}",
+    "resolved": "#171717",
+    "darkResolved": "#faf9f7"
   },
   {
     "group": "text",
@@ -169,7 +193,9 @@ export const tokenReference = [
     "css": "--cui-text-secondary",
     "value": "{colour.muted}",
     "description": "Supporting copy",
-    "resolved": "#5e665f"
+    "dark": "#bdc7bf",
+    "resolved": "#5e665f",
+    "darkResolved": "#bdc7bf"
   },
   {
     "group": "text",
@@ -178,7 +204,9 @@ export const tokenReference = [
     "css": "--cui-text-inverse",
     "value": "{colour.white}",
     "description": "Text on forest",
-    "resolved": "#ffffff"
+    "dark": "{colour.ink}",
+    "resolved": "#ffffff",
+    "darkResolved": "#171717"
   },
   {
     "group": "text",
@@ -187,7 +215,9 @@ export const tokenReference = [
     "css": "--cui-text-accent",
     "value": "{colour.forest}",
     "description": "Links and interactive emphasis",
-    "resolved": "#27382f"
+    "dark": "{colour.sage}",
+    "resolved": "#27382f",
+    "darkResolved": "#c9deb6"
   },
   {
     "group": "text",
@@ -196,7 +226,9 @@ export const tokenReference = [
     "css": "--cui-text-positive",
     "value": "{colour.positive}",
     "description": "Positive status with a text label",
-    "resolved": "#2f6b45"
+    "dark": "#a3d8b4",
+    "resolved": "#2f6b45",
+    "darkResolved": "#a3d8b4"
   },
   {
     "group": "text",
@@ -205,7 +237,9 @@ export const tokenReference = [
     "css": "--cui-text-negative",
     "value": "{colour.negative}",
     "description": "Error and negative status with a text label",
-    "resolved": "#a13d32"
+    "dark": "#ffb4a8",
+    "resolved": "#a13d32",
+    "darkResolved": "#ffb4a8"
   },
   {
     "group": "border",
@@ -214,7 +248,9 @@ export const tokenReference = [
     "css": "--cui-border-subtle",
     "value": "{colour.line}",
     "description": "Container separation only",
-    "resolved": "#dce2db"
+    "dark": "#47574b",
+    "resolved": "#dce2db",
+    "darkResolved": "#47574b"
   },
   {
     "group": "border",
@@ -223,7 +259,9 @@ export const tokenReference = [
     "css": "--cui-border-control",
     "value": "{colour.control}",
     "description": "Visible input boundary",
-    "resolved": "#829080"
+    "dark": "#95a78f",
+    "resolved": "#829080",
+    "darkResolved": "#95a78f"
   },
   {
     "group": "border",
@@ -232,7 +270,9 @@ export const tokenReference = [
     "css": "--cui-border-error",
     "value": "{colour.negative}",
     "description": "Invalid control",
-    "resolved": "#a13d32"
+    "dark": "#ffb4a8",
+    "resolved": "#a13d32",
+    "darkResolved": "#ffb4a8"
   },
   {
     "group": "border",
@@ -241,7 +281,8 @@ export const tokenReference = [
     "css": "--cui-border-width",
     "value": "1px",
     "description": "Standard border width",
-    "resolved": "1px"
+    "resolved": "1px",
+    "darkResolved": "1px"
   },
   {
     "group": "accent",
@@ -250,7 +291,9 @@ export const tokenReference = [
     "css": "--cui-accent-primary",
     "value": "{colour.forest}",
     "description": "Primary action",
-    "resolved": "#27382f"
+    "dark": "{colour.sage}",
+    "resolved": "#27382f",
+    "darkResolved": "#c9deb6"
   },
   {
     "group": "accent",
@@ -259,7 +302,9 @@ export const tokenReference = [
     "css": "--cui-accent-soft",
     "value": "{colour.sage}",
     "description": "Selection",
-    "resolved": "#c9deb6"
+    "dark": "{colour.forest}",
+    "resolved": "#c9deb6",
+    "darkResolved": "#27382f"
   },
   {
     "group": "accent",
@@ -268,7 +313,8 @@ export const tokenReference = [
     "css": "--cui-accent-chart",
     "value": "{colour.chart}",
     "description": "Charts and graphical marks",
-    "resolved": "#499e6b"
+    "resolved": "#499e6b",
+    "darkResolved": "#499e6b"
   },
   {
     "group": "space",
@@ -277,7 +323,8 @@ export const tokenReference = [
     "css": "--cui-space-0",
     "value": "0px",
     "description": "Approved spacing step",
-    "resolved": "0px"
+    "resolved": "0px",
+    "darkResolved": "0px"
   },
   {
     "group": "space",
@@ -286,7 +333,8 @@ export const tokenReference = [
     "css": "--cui-space-4",
     "value": "4px",
     "description": "Approved spacing step",
-    "resolved": "4px"
+    "resolved": "4px",
+    "darkResolved": "4px"
   },
   {
     "group": "space",
@@ -295,7 +343,8 @@ export const tokenReference = [
     "css": "--cui-space-8",
     "value": "8px",
     "description": "Approved spacing step",
-    "resolved": "8px"
+    "resolved": "8px",
+    "darkResolved": "8px"
   },
   {
     "group": "space",
@@ -304,7 +353,8 @@ export const tokenReference = [
     "css": "--cui-space-12",
     "value": "12px",
     "description": "Approved spacing step",
-    "resolved": "12px"
+    "resolved": "12px",
+    "darkResolved": "12px"
   },
   {
     "group": "space",
@@ -313,7 +363,8 @@ export const tokenReference = [
     "css": "--cui-space-16",
     "value": "16px",
     "description": "Approved spacing step",
-    "resolved": "16px"
+    "resolved": "16px",
+    "darkResolved": "16px"
   },
   {
     "group": "space",
@@ -322,7 +373,8 @@ export const tokenReference = [
     "css": "--cui-space-20",
     "value": "20px",
     "description": "Approved spacing step",
-    "resolved": "20px"
+    "resolved": "20px",
+    "darkResolved": "20px"
   },
   {
     "group": "space",
@@ -331,7 +383,8 @@ export const tokenReference = [
     "css": "--cui-space-24",
     "value": "24px",
     "description": "Approved spacing step",
-    "resolved": "24px"
+    "resolved": "24px",
+    "darkResolved": "24px"
   },
   {
     "group": "space",
@@ -340,7 +393,8 @@ export const tokenReference = [
     "css": "--cui-space-32",
     "value": "32px",
     "description": "Approved spacing step",
-    "resolved": "32px"
+    "resolved": "32px",
+    "darkResolved": "32px"
   },
   {
     "group": "space",
@@ -349,7 +403,8 @@ export const tokenReference = [
     "css": "--cui-space-40",
     "value": "40px",
     "description": "Approved spacing step",
-    "resolved": "40px"
+    "resolved": "40px",
+    "darkResolved": "40px"
   },
   {
     "group": "space",
@@ -358,7 +413,8 @@ export const tokenReference = [
     "css": "--cui-space-48",
     "value": "48px",
     "description": "Approved spacing step",
-    "resolved": "48px"
+    "resolved": "48px",
+    "darkResolved": "48px"
   },
   {
     "group": "space",
@@ -367,7 +423,8 @@ export const tokenReference = [
     "css": "--cui-space-64",
     "value": "64px",
     "description": "Approved spacing step",
-    "resolved": "64px"
+    "resolved": "64px",
+    "darkResolved": "64px"
   },
   {
     "group": "font",
@@ -376,7 +433,8 @@ export const tokenReference = [
     "css": "--cui-font-sans",
     "value": "Roobert, Geist, Arial, sans-serif",
     "description": "Host supplies licensed Roobert; Geist is the fallback",
-    "resolved": "Roobert, Geist, Arial, sans-serif"
+    "resolved": "Roobert, Geist, Arial, sans-serif",
+    "darkResolved": "Roobert, Geist, Arial, sans-serif"
   },
   {
     "group": "font",
@@ -385,7 +443,8 @@ export const tokenReference = [
     "css": "--cui-font-regular",
     "value": "400",
     "description": "Body",
-    "resolved": "400"
+    "resolved": "400",
+    "darkResolved": "400"
   },
   {
     "group": "font",
@@ -394,7 +453,8 @@ export const tokenReference = [
     "css": "--cui-font-medium",
     "value": "500",
     "description": "Labels",
-    "resolved": "500"
+    "resolved": "500",
+    "darkResolved": "500"
   },
   {
     "group": "font",
@@ -403,7 +463,8 @@ export const tokenReference = [
     "css": "--cui-font-semibold",
     "value": "600",
     "description": "Headings and key data",
-    "resolved": "600"
+    "resolved": "600",
+    "darkResolved": "600"
   },
   {
     "group": "type",
@@ -412,7 +473,8 @@ export const tokenReference = [
     "css": "--cui-type-display",
     "value": "2.5rem",
     "description": "40px at default root size",
-    "resolved": "2.5rem"
+    "resolved": "2.5rem",
+    "darkResolved": "2.5rem"
   },
   {
     "group": "type",
@@ -421,7 +483,8 @@ export const tokenReference = [
     "css": "--cui-type-display-leading",
     "value": "3rem",
     "description": "48px",
-    "resolved": "3rem"
+    "resolved": "3rem",
+    "darkResolved": "3rem"
   },
   {
     "group": "type",
@@ -430,7 +493,8 @@ export const tokenReference = [
     "css": "--cui-type-display-mobile",
     "value": "2rem",
     "description": "32px",
-    "resolved": "2rem"
+    "resolved": "2rem",
+    "darkResolved": "2rem"
   },
   {
     "group": "type",
@@ -439,7 +503,8 @@ export const tokenReference = [
     "css": "--cui-type-display-mobile-leading",
     "value": "2.5rem",
     "description": "40px",
-    "resolved": "2.5rem"
+    "resolved": "2.5rem",
+    "darkResolved": "2.5rem"
   },
   {
     "group": "type",
@@ -448,7 +513,8 @@ export const tokenReference = [
     "css": "--cui-type-section",
     "value": "1.25rem",
     "description": "20px",
-    "resolved": "1.25rem"
+    "resolved": "1.25rem",
+    "darkResolved": "1.25rem"
   },
   {
     "group": "type",
@@ -457,7 +523,8 @@ export const tokenReference = [
     "css": "--cui-type-section-leading",
     "value": "1.75rem",
     "description": "28px",
-    "resolved": "1.75rem"
+    "resolved": "1.75rem",
+    "darkResolved": "1.75rem"
   },
   {
     "group": "type",
@@ -466,7 +533,8 @@ export const tokenReference = [
     "css": "--cui-type-body",
     "value": "1rem",
     "description": "16px",
-    "resolved": "1rem"
+    "resolved": "1rem",
+    "darkResolved": "1rem"
   },
   {
     "group": "type",
@@ -475,7 +543,8 @@ export const tokenReference = [
     "css": "--cui-type-body-leading",
     "value": "1.5rem",
     "description": "24px",
-    "resolved": "1.5rem"
+    "resolved": "1.5rem",
+    "darkResolved": "1.5rem"
   },
   {
     "group": "type",
@@ -484,7 +553,8 @@ export const tokenReference = [
     "css": "--cui-type-compact",
     "value": ".875rem",
     "description": "14px",
-    "resolved": ".875rem"
+    "resolved": ".875rem",
+    "darkResolved": ".875rem"
   },
   {
     "group": "type",
@@ -493,7 +563,8 @@ export const tokenReference = [
     "css": "--cui-type-compact-leading",
     "value": "1.25rem",
     "description": "20px",
-    "resolved": "1.25rem"
+    "resolved": "1.25rem",
+    "darkResolved": "1.25rem"
   },
   {
     "group": "type",
@@ -502,7 +573,8 @@ export const tokenReference = [
     "css": "--cui-type-caption",
     "value": ".75rem",
     "description": "12px",
-    "resolved": ".75rem"
+    "resolved": ".75rem",
+    "darkResolved": ".75rem"
   },
   {
     "group": "type",
@@ -511,7 +583,8 @@ export const tokenReference = [
     "css": "--cui-type-caption-leading",
     "value": "1rem",
     "description": "16px",
-    "resolved": "1rem"
+    "resolved": "1rem",
+    "darkResolved": "1rem"
   },
   {
     "group": "type",
@@ -520,7 +593,8 @@ export const tokenReference = [
     "css": "--cui-type-data",
     "value": "1.5rem",
     "description": "24px",
-    "resolved": "1.5rem"
+    "resolved": "1.5rem",
+    "darkResolved": "1.5rem"
   },
   {
     "group": "type",
@@ -529,7 +603,8 @@ export const tokenReference = [
     "css": "--cui-type-data-leading",
     "value": "2rem",
     "description": "32px",
-    "resolved": "2rem"
+    "resolved": "2rem",
+    "darkResolved": "2rem"
   },
   {
     "group": "type",
@@ -538,7 +613,8 @@ export const tokenReference = [
     "css": "--cui-type-tracking-display",
     "value": "-.02em",
     "description": "Display tracking",
-    "resolved": "-.02em"
+    "resolved": "-.02em",
+    "darkResolved": "-.02em"
   },
   {
     "group": "type",
@@ -547,7 +623,8 @@ export const tokenReference = [
     "css": "--cui-type-tracking-heading",
     "value": "-.01em",
     "description": "Section tracking",
-    "resolved": "-.01em"
+    "resolved": "-.01em",
+    "darkResolved": "-.01em"
   },
   {
     "group": "radius",
@@ -556,7 +633,8 @@ export const tokenReference = [
     "css": "--cui-radius-band",
     "value": "16px",
     "description": "Section containment",
-    "resolved": "16px"
+    "resolved": "16px",
+    "darkResolved": "16px"
   },
   {
     "group": "radius",
@@ -565,7 +643,8 @@ export const tokenReference = [
     "css": "--cui-radius-card",
     "value": "12px",
     "description": "Content cards",
-    "resolved": "12px"
+    "resolved": "12px",
+    "darkResolved": "12px"
   },
   {
     "group": "radius",
@@ -574,7 +653,8 @@ export const tokenReference = [
     "css": "--cui-radius-control",
     "value": "8px",
     "description": "Inputs and buttons",
-    "resolved": "8px"
+    "resolved": "8px",
+    "darkResolved": "8px"
   },
   {
     "group": "radius",
@@ -583,7 +663,8 @@ export const tokenReference = [
     "css": "--cui-radius-round",
     "value": "50%",
     "description": "Circular marks",
-    "resolved": "50%"
+    "resolved": "50%",
+    "darkResolved": "50%"
   },
   {
     "group": "shadow",
@@ -592,7 +673,9 @@ export const tokenReference = [
     "css": "--cui-shadow-card",
     "value": "0 4px 12px rgba(23, 23, 23, 0.06)",
     "description": "Koko V4 card elevation; avoid nested elevated cards",
-    "resolved": "0 4px 12px rgba(23, 23, 23, 0.06)"
+    "dark": "0 4px 12px rgba(0, 0, 0, 0.2)",
+    "resolved": "0 4px 12px rgba(23, 23, 23, 0.06)",
+    "darkResolved": "0 4px 12px rgba(0, 0, 0, 0.2)"
   },
   {
     "group": "shadow",
@@ -601,7 +684,8 @@ export const tokenReference = [
     "css": "--cui-shadow-none",
     "value": "none",
     "description": "Flat containment",
-    "resolved": "none"
+    "resolved": "none",
+    "darkResolved": "none"
   },
   {
     "group": "focus",
@@ -610,7 +694,9 @@ export const tokenReference = [
     "css": "--cui-focus-colour",
     "value": "{colour.forest}",
     "description": "Visible keyboard outline",
-    "resolved": "#27382f"
+    "dark": "{colour.sage}",
+    "resolved": "#27382f",
+    "darkResolved": "#c9deb6"
   },
   {
     "group": "focus",
@@ -619,7 +705,8 @@ export const tokenReference = [
     "css": "--cui-focus-width",
     "value": "2px",
     "description": "Outline width",
-    "resolved": "2px"
+    "resolved": "2px",
+    "darkResolved": "2px"
   },
   {
     "group": "focus",
@@ -628,7 +715,8 @@ export const tokenReference = [
     "css": "--cui-focus-offset",
     "value": "4px",
     "description": "Outline offset",
-    "resolved": "4px"
+    "resolved": "4px",
+    "darkResolved": "4px"
   },
   {
     "group": "size",
@@ -637,7 +725,8 @@ export const tokenReference = [
     "css": "--cui-size-control",
     "value": "40px",
     "description": "Desktop minimum",
-    "resolved": "40px"
+    "resolved": "40px",
+    "darkResolved": "40px"
   },
   {
     "group": "size",
@@ -646,7 +735,8 @@ export const tokenReference = [
     "css": "--cui-size-touch",
     "value": "48px",
     "description": "Touch minimum",
-    "resolved": "48px"
+    "resolved": "48px",
+    "darkResolved": "48px"
   },
   {
     "group": "size",
@@ -655,7 +745,8 @@ export const tokenReference = [
     "css": "--cui-size-row",
     "value": "44px",
     "description": "Reference row minimum; allow content growth",
-    "resolved": "44px"
+    "resolved": "44px",
+    "darkResolved": "44px"
   },
   {
     "group": "size",
@@ -664,7 +755,8 @@ export const tokenReference = [
     "css": "--cui-size-icon",
     "value": "20px",
     "description": "Standard icon",
-    "resolved": "20px"
+    "resolved": "20px",
+    "darkResolved": "20px"
   },
   {
     "group": "size",
@@ -673,7 +765,8 @@ export const tokenReference = [
     "css": "--cui-size-icon-small",
     "value": "16px",
     "description": "Compact icon",
-    "resolved": "16px"
+    "resolved": "16px",
+    "darkResolved": "16px"
   },
   {
     "group": "size",
@@ -682,7 +775,8 @@ export const tokenReference = [
     "css": "--cui-size-brand",
     "value": "24px",
     "description": "Convert stack mark",
-    "resolved": "24px"
+    "resolved": "24px",
+    "darkResolved": "24px"
   },
   {
     "group": "size",
@@ -691,7 +785,8 @@ export const tokenReference = [
     "css": "--cui-size-sidebar",
     "value": "208px",
     "description": "Koko desktop sidebar width",
-    "resolved": "208px"
+    "resolved": "208px",
+    "darkResolved": "208px"
   },
   {
     "group": "size",
@@ -700,7 +795,8 @@ export const tokenReference = [
     "css": "--cui-size-content",
     "value": "1280px",
     "description": "Maximum page content width",
-    "resolved": "1280px"
+    "resolved": "1280px",
+    "darkResolved": "1280px"
   },
   {
     "group": "motion",
@@ -709,7 +805,8 @@ export const tokenReference = [
     "css": "--cui-motion-duration",
     "value": "160ms",
     "description": "Short interface feedback",
-    "resolved": "160ms"
+    "resolved": "160ms",
+    "darkResolved": "160ms"
   },
   {
     "group": "motion",
@@ -718,7 +815,8 @@ export const tokenReference = [
     "css": "--cui-motion-easing",
     "value": "ease-out",
     "description": "Restrained transitions",
-    "resolved": "ease-out"
+    "resolved": "ease-out",
+    "darkResolved": "ease-out"
   },
   {
     "group": "breakpoint",
@@ -727,7 +825,8 @@ export const tokenReference = [
     "css": "--cui-breakpoint-mobile",
     "value": "650px",
     "description": "Compact content and touch controls",
-    "resolved": "650px"
+    "resolved": "650px",
+    "darkResolved": "650px"
   },
   {
     "group": "breakpoint",
@@ -736,7 +835,8 @@ export const tokenReference = [
     "css": "--cui-breakpoint-sidebar",
     "value": "900px",
     "description": "Mobile navigation starts below desktop sidebar width",
-    "resolved": "900px"
+    "resolved": "900px",
+    "darkResolved": "900px"
   },
   {
     "group": "layer",
@@ -745,7 +845,8 @@ export const tokenReference = [
     "css": "--cui-layer-navigation",
     "value": "20",
     "description": "Desktop sidebar and mobile header",
-    "resolved": "20"
+    "resolved": "20",
+    "darkResolved": "20"
   },
   {
     "group": "layer",
@@ -754,7 +855,8 @@ export const tokenReference = [
     "css": "--cui-layer-overlay",
     "value": "40",
     "description": "Modal backdrop",
-    "resolved": "40"
+    "resolved": "40",
+    "darkResolved": "40"
   },
   {
     "group": "layer",
@@ -763,7 +865,8 @@ export const tokenReference = [
     "css": "--cui-layer-dialog",
     "value": "50",
     "description": "Mobile navigation panel",
-    "resolved": "50"
+    "resolved": "50",
+    "darkResolved": "50"
   },
   {
     "group": "chart",
@@ -772,7 +875,9 @@ export const tokenReference = [
     "css": "--cui-chart-series-primary",
     "value": "{colour.forest}",
     "description": "Primary chart series and progress fill",
-    "resolved": "#27382f"
+    "dark": "{colour.sage}",
+    "resolved": "#27382f",
+    "darkResolved": "#c9deb6"
   },
   {
     "group": "chart",
@@ -781,7 +886,9 @@ export const tokenReference = [
     "css": "--cui-chart-series-secondary",
     "value": "{colour.chart}",
     "description": "Secondary chart series; pair with labels and line styles",
-    "resolved": "#499e6b"
+    "dark": "#72be90",
+    "resolved": "#499e6b",
+    "darkResolved": "#72be90"
   },
   {
     "group": "chart",
@@ -790,7 +897,9 @@ export const tokenReference = [
     "css": "--cui-chart-series-tertiary",
     "value": "{colour.muted}",
     "description": "Third chart series; pair with labels and line styles",
-    "resolved": "#5e665f"
+    "dark": "#bdc7bf",
+    "resolved": "#5e665f",
+    "darkResolved": "#bdc7bf"
   },
   {
     "group": "chart",
@@ -799,7 +908,8 @@ export const tokenReference = [
     "css": "--cui-chart-grid",
     "value": "{border.subtle}",
     "description": "Supporting chart grid lines",
-    "resolved": "#dce2db"
+    "resolved": "#dce2db",
+    "darkResolved": "#47574b"
   },
   {
     "group": "chart",
@@ -808,7 +918,8 @@ export const tokenReference = [
     "css": "--cui-chart-label",
     "value": "{text.secondary}",
     "description": "Chart axis and legend text",
-    "resolved": "#5e665f"
+    "resolved": "#5e665f",
+    "darkResolved": "#bdc7bf"
   },
   {
     "group": "chart",
@@ -817,7 +928,8 @@ export const tokenReference = [
     "css": "--cui-chart-radius",
     "value": "4px",
     "description": "Subtle bar-end radius",
-    "resolved": "4px"
+    "resolved": "4px",
+    "darkResolved": "4px"
   },
   {
     "group": "chart",
@@ -826,7 +938,8 @@ export const tokenReference = [
     "css": "--cui-chart-stroke",
     "value": "2px",
     "description": "Chart series stroke width",
-    "resolved": "2px"
+    "resolved": "2px",
+    "darkResolved": "2px"
   }
 ] as const
 export const tokens = {
@@ -920,6 +1033,100 @@ export const tokens = {
   "chart.series-tertiary": "#5e665f",
   "chart.grid": "#dce2db",
   "chart.label": "#5e665f",
+  "chart.radius": "4px",
+  "chart.stroke": "2px"
+} as const
+export const darkTokens = {
+  "colour.ink": "#171717",
+  "colour.muted": "#5e665f",
+  "colour.paper": "#faf9f7",
+  "colour.band": "#eef0ec",
+  "colour.white": "#ffffff",
+  "colour.line": "#dce2db",
+  "colour.control": "#829080",
+  "colour.forest": "#27382f",
+  "colour.sage": "#c9deb6",
+  "colour.chart": "#499e6b",
+  "colour.positive": "#2f6b45",
+  "colour.negative": "#a13d32",
+  "surface.page": "#171c19",
+  "surface.band": "#202823",
+  "surface.card": "#28312b",
+  "surface.selected": "#27382f",
+  "surface.hover": "#344139",
+  "text.primary": "#faf9f7",
+  "text.secondary": "#bdc7bf",
+  "text.inverse": "#171717",
+  "text.accent": "#c9deb6",
+  "text.positive": "#a3d8b4",
+  "text.negative": "#ffb4a8",
+  "border.subtle": "#47574b",
+  "border.control": "#95a78f",
+  "border.error": "#ffb4a8",
+  "border.width": "1px",
+  "accent.primary": "#c9deb6",
+  "accent.soft": "#27382f",
+  "accent.chart": "#499e6b",
+  "space.0": "0px",
+  "space.4": "4px",
+  "space.8": "8px",
+  "space.12": "12px",
+  "space.16": "16px",
+  "space.20": "20px",
+  "space.24": "24px",
+  "space.32": "32px",
+  "space.40": "40px",
+  "space.48": "48px",
+  "space.64": "64px",
+  "font.sans": "Roobert, Geist, Arial, sans-serif",
+  "font.regular": "400",
+  "font.medium": "500",
+  "font.semibold": "600",
+  "type.display": "2.5rem",
+  "type.display-leading": "3rem",
+  "type.display-mobile": "2rem",
+  "type.display-mobile-leading": "2.5rem",
+  "type.section": "1.25rem",
+  "type.section-leading": "1.75rem",
+  "type.body": "1rem",
+  "type.body-leading": "1.5rem",
+  "type.compact": ".875rem",
+  "type.compact-leading": "1.25rem",
+  "type.caption": ".75rem",
+  "type.caption-leading": "1rem",
+  "type.data": "1.5rem",
+  "type.data-leading": "2rem",
+  "type.tracking-display": "-.02em",
+  "type.tracking-heading": "-.01em",
+  "radius.band": "16px",
+  "radius.card": "12px",
+  "radius.control": "8px",
+  "radius.round": "50%",
+  "shadow.card": "0 4px 12px rgba(0, 0, 0, 0.2)",
+  "shadow.none": "none",
+  "focus.colour": "#c9deb6",
+  "focus.width": "2px",
+  "focus.offset": "4px",
+  "size.control": "40px",
+  "size.touch": "48px",
+  "size.row": "44px",
+  "size.icon": "20px",
+  "size.icon-small": "16px",
+  "size.brand": "24px",
+  "size.sidebar": "208px",
+  "size.content": "1280px",
+  "motion.duration": "160ms",
+  "motion.easing": "ease-out",
+  "breakpoint.mobile": "650px",
+  "breakpoint.sidebar": "900px",
+  "layer.navigation": "20",
+  "layer.overlay": "40",
+  "layer.dialog": "50",
+  "chart.series-primary": "#c9deb6",
+  "chart.series-secondary": "#72be90",
+  "chart.series-tertiary": "#bdc7bf",
+  "chart.grid": "#47574b",
+  "chart.label": "#bdc7bf",
   "chart.radius": "4px",
   "chart.stroke": "2px"
 } as const
