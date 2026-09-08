@@ -161,6 +161,7 @@ export function SearchSelect({
       <p id={`${id}-description`} className={error ? 'cui-negative' : 'cui-secondary'}>
         {error || hint || (multiple ? 'Choose one or more options.' : 'Choose one option.')}
       </p>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- <details> is natively interactive; this only adds an Escape shortcut on top of its default toggle behaviour */}
       <details
         onKeyDown={(event) => {
           if (event.key === 'Escape') {

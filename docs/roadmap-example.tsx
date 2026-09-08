@@ -96,7 +96,7 @@ export function RoadmapExample() {
               closeForm()
             }}
           >
-            <Input label="Idea title" name="title" required maxLength={100} autoFocus />
+            <Input label="Idea title" name="title" required maxLength={100} />
             <Textarea label="Describe the idea" name="description" maxLength={500} />
             <div className="cui-row">
               <Button type="submit" variant="primary">

@@ -133,6 +133,7 @@ export function RoadmapBoard({
       ) : (
         <div
           className="cui-board-scroll"
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- WCAG/APG scrollable-region pattern: keyboard users need tabIndex=0 to reach and arrow-scroll this region
           tabIndex={0}
           role="region"
           aria-label={`${title} columns, scroll horizontally to view more`}
