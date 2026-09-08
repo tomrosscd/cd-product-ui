@@ -8,10 +8,13 @@
   font: inherit;
 }
 .cui-root :where(textarea, [role='tab'], [role='tabpanel'], [tabindex]):focus-visible,
-.cui-input:focus-visible,
 .cui-checkbox:focus-visible,
 .cui-switch:focus-visible,
 .cui-text-link:focus-visible {
+  outline: var(--cui-focus-width) solid var(--cui-focus-colour);
+  outline-offset: var(--cui-focus-offset);
+}
+.cui-input:focus-visible {
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: var(--cui-focus-offset);
 }
@@ -43,6 +46,15 @@
 }
 .cui-input:hover:not(:disabled) {
   border-color: var(--cui-accent-primary);
+}
+[data-cui-theme='dark'] .cui-input {
+  border-color: var(--cui-colour-white);
+}
+[data-cui-theme='dark'] .cui-input:hover:not(:disabled) {
+  border-color: var(--cui-colour-white);
+}
+[data-cui-theme='dark'] .cui-input:focus-visible {
+  outline-color: var(--cui-colour-white);
 }
 .cui-input[aria-invalid='true'] {
   border-color: var(--cui-border-error);
@@ -161,7 +173,6 @@
   gap: var(--cui-space-8);
   padding: var(--cui-space-16);
   border: var(--cui-border-width) solid var(--cui-border-control);
-  border-inline-start-width: var(--cui-space-4);
   border-radius: var(--cui-radius-control);
   background: var(--cui-surface-page);
 }
