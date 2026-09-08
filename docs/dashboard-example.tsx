@@ -116,6 +116,8 @@ export function DashboardExample() {
               headingLevel={3}
             >
               <DataTable
+                tableLayout="scroll"
+                pagination="full"
                 caption="Project details"
                 data={projectRows.filter((row) => filtered.some((project) => project.name === row.name))}
                 columns={projectColumns}

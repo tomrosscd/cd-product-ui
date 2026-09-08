@@ -15,7 +15,6 @@ Cross-cutting: ship accessibility fixes and interaction tests with affected work
 
 Each pass can have multiple focused PRs. Keep existing APIs and default behaviour intact where practical through opt-in variants. Every release requires light/dark keyboard/mobile review, API snapshots, full checks, package and Next.js validation, and green CI. Do not merge or tag without user approval.
 
-
 Everything here came out of a full codebase review (8 September 2026) and was deliberately deferred rather than fixed immediately — either because it's a breaking change that needs coordinating with [CONSUMERS.md](CONSUMERS.md) first, or because it's a real feature that deserves its own stories, tests and docs rather than being rushed into a "quick fix" batch. Nothing on this list is urgent; work through it whenever there's appetite. See [docs/release-process.md](docs/release-process.md#backward-compatibility) for how to ship the breaking items safely.
 
 When you pick something up, move it from here into a normal feature branch and PR — don't edit components directly against this list. Delete an item once it ships, and note it in CHANGELOG.md as usual.

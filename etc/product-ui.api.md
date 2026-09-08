@@ -632,6 +632,25 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'>, Variant
 }
 
 // @public (undocumented)
+export function Calendar(input: CalendarProps): JSX.Element;
+
+// @public (undocumented)
+export interface CalendarProps {
+    // (undocumented)
+    label?: string;
+    // (undocumented)
+    max?: string;
+    // (undocumented)
+    min?: string;
+    // (undocumented)
+    mode?: 'single' | 'range';
+    // (undocumented)
+    onValueChange: (value: DateSelection | undefined) => void;
+    // (undocumented)
+    value?: DateSelection;
+}
+
+// @public (undocumented)
 export function Card(input: CardProps): JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "cardVariants" needs to be exported by the entry point index.d.ts
@@ -771,11 +790,42 @@ export interface DataTableProps<T> {
     // (undocumented)
     pageSize?: number;
     // (undocumented)
+    pagination?: 'legacy' | 'full';
+    // (undocumented)
     searchable?: boolean;
     // (undocumented)
     searchLabel?: string;
     // (undocumented)
     state?: 'ready' | 'loading' | 'error';
+    // (undocumented)
+    tableLayout?: 'legacy' | 'scroll';
+    // (undocumented)
+    tableMinWidth?: number;
+}
+
+// @public
+export function DatePicker(input: DatePickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DatePickerProps extends CalendarProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    name?: string;
+    // (undocumented)
+    presets?: readonly DatePreset[];
+}
+
+// @public (undocumented)
+export interface DatePreset {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    value: DateSelection;
 }
 
 // @public
@@ -809,6 +859,14 @@ export interface DateRangeProps {
 export interface DateRangeValue {
     // (undocumented)
     end: string;
+    // (undocumented)
+    start: string;
+}
+
+// @public (undocumented)
+export interface DateSelection {
+    // (undocumented)
+    end?: string;
     // (undocumented)
     start: string;
 }
@@ -933,6 +991,46 @@ export interface MetricProps {
     unit?: string;
     // (undocumented)
     value: ReactNode;
+}
+
+// @public (undocumented)
+export function MonthPicker(input: MonthPickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface MonthPickerProps {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    endYear: number;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onValueChange: (value: string) => void;
+    // (undocumented)
+    startYear: number;
+    // (undocumented)
+    value: string;
+}
+
+// @public
+export function Pagination(input: PaginationProps): JSX.Element;
+
+// @public (undocumented)
+export interface PaginationProps {
+    // (undocumented)
+    label?: string;
+    // (undocumented)
+    onPageChange: (page: number) => void;
+    // (undocumented)
+    onPageSizeChange?: (size: number) => void;
+    // (undocumented)
+    page: number;
+    // (undocumented)
+    pageSize: number;
+    // (undocumented)
+    pageSizes?: readonly number[];
+    // (undocumented)
+    total: number;
 }
 
 // @public (undocumented)
@@ -1187,6 +1285,39 @@ export function Spinner(input: {
     label?: string;
 }): JSX.Element;
 
+// @public
+export function StyledSelect(input: StyledSelectProps): JSX.Element;
+
+// @public (undocumented)
+export interface StyledSelectProps {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    hint?: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    loading?: boolean;
+    // (undocumented)
+    name?: string;
+    // (undocumented)
+    onValueChange?: (value: string) => void;
+    // (undocumented)
+    options: readonly (ChoiceOption & {
+        group?: string;
+    })[];
+    // (undocumented)
+    placeholder?: string;
+    // (undocumented)
+    required?: boolean;
+    // (undocumented)
+    value?: string;
+}
+
 // @public (undocumented)
 export function SummaryCard(props: CardProps): JSX.Element;
 
@@ -1214,6 +1345,10 @@ export interface TableProps extends ComponentProps<'table'> {
     caption: string;
     // (undocumented)
     density?: 'comfortable' | 'compact';
+    // (undocumented)
+    layout?: 'legacy' | 'scroll';
+    // (undocumented)
+    minWidth?: number;
 }
 
 // @public (undocumented)

@@ -126,3 +126,7 @@ ThemeProvider, ConvertLogo, ActionMenu, SearchSelect, DateRange, Tooltip, ToastR
 ## 0.4.0 changes
 
 Breaking: Alert, EmptyState, Disclosure, ConfirmationDialog, DataChart, RoadmapBoard and SignInForm renamed their `title` prop to `heading`, matching Card. SignInForm's `pending` renamed to `loading`. No new components. Read [the migration guide](./release-0.4.md) for the full rename table and what was deliberately left unchanged.
+
+## 0.5.0 candidate additions
+
+Pagination, StyledSelect, Calendar, DatePicker and MonthPicker plus opt-in table scrolling/full pagination are documented in [release-0.5.md](release-0.5.md). Existing native Select and DateRange contracts remain supported.

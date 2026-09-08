@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 candidate
+
+- Add branded StyledSelect, Calendar, DatePicker (single and combined range with presets) and MonthPicker. Keep native Select and DateRange unchanged.
+- Add responsive standalone Pagination, opt-in full DataTable pagination, and opt-in readable horizontally scrolling table layouts. Dashboard demonstrates adoption.
+- Add calendar keyboard, invalid-range, cancellation, selection and pagination stories. API snapshots capture additive exports and props.
+- Existing component defaults and v0.4.0 naming remain unchanged.
+
 ## 0.4.0 · 8 September 2026
 
 **Breaking.** See [docs/release-0.4.md](docs/release-0.4.md) for the full migration guide.
