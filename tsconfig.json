@@ -10,7 +10,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@convert/product-ui": ["./src/index.ts"]
+    }
   },
-  "include": ["src", "docs/**/*.tsx", "tests", ".storybook", "*.ts"]
+  "include": ["src", "docs/**/*.tsx", "tests", ".storybook", "*.ts", "examples/react/**/*.tsx", "examples/react/**/*.d.ts"]
 }

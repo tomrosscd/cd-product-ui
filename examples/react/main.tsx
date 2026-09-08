@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { Card, Select } from '@convert/product-ui'
 import '@convert/product-ui/styles.css'
 function App() {
@@ -15,7 +15,7 @@ function App() {
             { value: 'active', label: 'Active projects' },
           ]}
           value={value}
-          onChange={(event) => setValue(event.target.value)}
+          onChange={(event: ChangeEvent<HTMLSelectElement>) => setValue(event.target.value)}
         />
         <p role="status">Showing: {value}</p>
       </Card>
