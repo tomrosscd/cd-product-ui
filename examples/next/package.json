@@ -8,7 +8,7 @@
     "start": "next start --hostname 127.0.0.1"
   },
   "dependencies": {
-    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.2.0.tgz",
+    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.3.0.tgz",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",

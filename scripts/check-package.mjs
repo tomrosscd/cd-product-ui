@@ -12,12 +12,25 @@ assert(
   entries.every((name) => !/local-fonts|node_modules|\.(woff2?|ttf)|reference-baseline|\.stories\./.test(name)),
   'Package includes private fonts or development material',
 )
-for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/styles.css', 'dist/tokens.css', 'dist/tokens.js'])
+for (const required of [
+  'dist/index.js',
+  'dist/index.d.ts',
+  'dist/styles.css',
+  'dist/tokens.css',
+  'dist/tokens.js',
+  'dist/brand-assets.js',
+  'dist/components/primitives/theme.js',
+  'dist/components/primitives/workspace-controls.js',
+  'dist/components/primitives/convert-logo.js',
+])
   assert(entries.includes(`package/${required}`), `Missing ${required}`)
 assert(
   (await readFile('dist/components/primitives/select.js', 'utf8')).includes("'use client'"),
   'Select client boundary was lost',
 )
+const { brandAssets } = await import('../dist/brand-assets.js')
+for (const asset of brandAssets)
+  assert(entries.includes(`package/assets/brand/${asset.file}`), `Missing brand download ${asset.file}`)
 const consumer = await mkdtemp(join(tmpdir(), 'convert-product-ui-consumer-'))
 await copyFile(archive, join(consumer, filename))
 await writeFile(
@@ -43,7 +56,7 @@ execFileSync('pnpm', ['install', '--ignore-scripts', '--store-dir', '/private/tm
 })
 await writeFile(
   join(consumer, 'verify.mjs'),
-  `import assert from 'node:assert/strict';import{createElement}from'react';import{renderToString}from'react-dom/server';import{Card,Select}from'@convert/product-ui';import{tokens}from'@convert/product-ui/tokens';import{readFileSync}from'node:fs';const html=renderToString(createElement(Card,{heading:'Installed package'},createElement(Select,{label:'Project view',options:[{value:'all',label:'All projects'}]})));assert(html.includes('Installed package'));assert(html.includes('<select'));assert.equal(tokens['surface.page'],'#faf9f7');const css=readFileSync(new URL(import.meta.resolve('@convert/product-ui/styles.css')),'utf8');assert(css.includes('.cui-card'));console.log('Packed consumer: React render, token export and compiled CSS passed.');`,
+  `import assert from 'node:assert/strict';import{createElement}from'react';import{renderToString}from'react-dom/server';import{Card,Select,ThemeProvider,ConvertLogo,ActionMenu,SearchSelect,DateRange,ToastRegion,Tooltip,Breadcrumbs}from'@convert/product-ui';import{tokens}from'@convert/product-ui/tokens';import{readFileSync}from'node:fs';for(const Component of [ThemeProvider,ConvertLogo,ActionMenu,SearchSelect,DateRange,ToastRegion,Tooltip,Breadcrumbs])assert.equal(typeof Component,'function');const html=renderToString(createElement(Card,{heading:'Installed package'},createElement(Select,{label:'Project view',options:[{value:'all',label:'All projects'}]})));assert(html.includes('Installed package'));assert(html.includes('<select'));assert.equal(tokens['surface.page'],'#faf9f7');const css=readFileSync(new URL(import.meta.resolve('@convert/product-ui/styles.css')),'utf8');assert(css.includes('.cui-card'));console.log('Packed consumer: React render, token export and compiled CSS passed.');`,
 )
 execFileSync(process.execPath, ['verify.mjs'], { cwd: consumer, stdio: 'inherit' })
 for (const file of ['index.html', 'main.tsx', 'vite.config.ts'])

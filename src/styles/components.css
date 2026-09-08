@@ -30,11 +30,14 @@
 }
 .cui-root :where(a, button, select, input, summary):focus-visible,
 .cui-button:focus-visible,
-.cui-select:focus-visible,
 .cui-card a:focus-visible,
 .cui-card button:focus-visible {
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: var(--cui-focus-offset);
+}
+.cui-select:focus-visible {
+  outline: var(--cui-focus-width) solid var(--cui-focus-colour);
+  outline-offset: 0;
 }
 .cui-root a {
   color: var(--cui-text-accent);
@@ -216,6 +219,15 @@
 .cui-select:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+[data-cui-theme='dark'] .cui-select {
+  border-color: var(--cui-colour-white);
+}
+[data-cui-theme='dark'] .cui-select:hover:not(:disabled) {
+  border-color: var(--cui-colour-white);
+}
+[data-cui-theme='dark'] .cui-select:focus-visible {
+  outline-color: var(--cui-colour-white);
 }
 .cui-select[aria-invalid='true'] {
   border-color: var(--cui-border-error);

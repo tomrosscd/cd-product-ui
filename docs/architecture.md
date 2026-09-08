@@ -33,3 +33,7 @@ The core entry now includes form controls, badges/links, feedback, supporting co
 Chart styling adds seven semantic tokens by aliasing existing Convert colours and establishing stroke/radius roles. No additional palette hues are introduced. The chart recipes provide keyboard interaction, reserved responsive dimensions, a summary and an exact-values table.
 
 The Next.js consumption fixture tests server cards and client charts/forms from the packed archive. The roadmap uses controlled callbacks, with focus restoration after a move. Authentication, workflow rules, persistence and reporting calculations remain outside the library.
+
+## 0.3.0
+
+Theme overrides live on individual tokens in tokens/tokens.json. The generator resolves aliases separately for light/dark and emits complete scope declarations to avoid inherited alias drift in nested themes. React ThemeProvider carries the theme through portal context without global document mutation. Radix supplies menu, tooltip and toast behaviour; SearchSelect and DateRange retain native choice/date controls. Brand metadata and immutable raw assets are shipped alongside components; fonts remain excluded.
