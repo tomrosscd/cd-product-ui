@@ -3,7 +3,17 @@ import hooks from 'eslint-plugin-react-hooks'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import prettier from 'eslint-config-prettier'
 export default tseslint.config(
-  { ignores: ['dist/**', 'storybook-static/**', 'node_modules/**', 'artifacts/**', 'src/tokens.ts', 'examples/**'] },
+  {
+    ignores: [
+      'dist/**',
+      'storybook-static/**',
+      'node_modules/**',
+      'artifacts/**',
+      'coverage/**',
+      'src/tokens.ts',
+      'examples/**',
+    ],
+  },
   ...tseslint.configs.recommended,
   {
     files: ['**/*.tsx'],

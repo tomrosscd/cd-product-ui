@@ -18,6 +18,16 @@ A shared design system for Convert dashboards and internal tools. Install it in 
 
 Koko Monthly Review V4 defines the product visual language. The new Convert website informs technical conventions. This library is independent of both references and contains no client data or business logic.
 
+## Version history
+
+| Version                                     | Date             | Highlights                                                                                                                                                                  |
+| ------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [0.3.0](CHANGELOG.md#030--8-september-2026) | 8 September 2026 | Dark theme, official Convert brand assets and logos, ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect, DateRange                                                 |
+| [0.2.0](CHANGELOG.md#020--8-september-2026) | 8 September 2026 | Forms, Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, feedback components, Metric/Progress, DataTable, optional charts, RoadmapBoard, SignInForm, card compositions |
+| [0.1.0](CHANGELOG.md#010--7-september-2026) | 7 September 2026 | Initial delivery: tokens/foundations, Card, Select, DashboardShell/DashboardSidebar                                                                                         |
+
+Full per-version detail, including every component added and any migration notes, lives in [CHANGELOG.md](CHANGELOG.md).
+
 ## Browse the components locally
 
 Anyone on the team can browse every component, its states, props and code, without installing the package into a project or having a GitHub Pages/Vercel account. This runs Storybook on your own computer.
@@ -207,7 +217,9 @@ Edit `tokens/tokens.json` and run `pnpm tokens` to update generated CSS, respons
 - [Architecture and boundaries](docs/architecture.md)
 - [AI coding guidance and Impeccable review standard](docs/ai-guidance.md), plus [repository rules](AGENTS.md)
 - [Consumer examples](examples/README.md)
-- [Review and release process](docs/release-process.md)
+- [Review and release process](docs/release-process.md), including the backward-compatibility policy for breaking changes
+- [Known consumers](CONSUMERS.md) — check before shipping a breaking change
 - [Validation and current limitations](docs/validation.md)
+- [Roadmap: known gaps and planned work](ROADMAP.md)
 
 This repository contains proprietary Convert Digital code; see [LICENSE](LICENSE). Repository visibility does not grant an open-source licence. `private: true` in the package prevents accidental registry publication and does not prevent the archive installation described above.

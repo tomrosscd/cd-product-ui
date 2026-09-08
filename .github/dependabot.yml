@@ -1,0 +1,25 @@
+# Dependency versions in this repo are pinned exact on purpose (see AGENTS.md).
+# Review each Dependabot PR against docs/release-process.md before merging; don't auto-merge.
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 5
+    groups:
+      storybook:
+        patterns:
+          - '@storybook/*'
+      radix:
+        patterns:
+          - '@radix-ui/*'
+      typescript-eslint:
+        patterns:
+          - 'typescript-eslint'
+          - '@typescript-eslint/*'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
