@@ -29,4 +29,4 @@ The visual language follows the approved Convert tokens: restrained surface, lab
 
 ## Verification and adoption
 
-Review Components / Pass 1 controls, then the dashboard in both themes. Every release must pass API snapshots, browser tests, formatting, lint/types, package and Next.js consumer checks, and CI. Keep the existing v0.4.0 install instructions until the candidate is reviewed and tagged. Current application defaults are deliberately unchanged; adopting the new variants is an explicit application edit.
+Review the new components under their own Components sections (Pagination, Styled select, Calendar, Date picker, Month picker, and the readable-layout story on Data table), then the dashboard in both themes. Every release must pass API snapshots, browser tests, formatting, lint/types, package and Next.js consumer checks, and CI. Keep the existing v0.4.0 install instructions until the candidate is reviewed and tagged. Current application defaults are deliberately unchanged; adopting the new variants is an explicit application edit.

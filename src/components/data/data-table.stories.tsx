@@ -48,3 +48,22 @@ export const NoResults: Story = {
 export const Empty: Story = { args: { data: [] } }
 export const Loading: Story = { args: { state: 'loading' } }
 export const Error: Story = { args: { state: 'error' } }
+export const ReadableLayout: Story = {
+  decorators: [(Story) => <div style={{ maxWidth: 340 }}>{Story()}</div>],
+  args: { tableLayout: 'scroll', pagination: 'full', pageSize: 2 },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Opt in with `tableLayout="scroll"` and `pagination="full"` for a container that stays readable at narrow widths instead of squeezing every column. The table scrolls within its own box; the page does not.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    const table = c.getByRole('table')
+    await expect(table.getBoundingClientRect().width).toBeGreaterThanOrEqual(640)
+    await userEvent.click(c.getByRole('button', { name: 'Next' }))
+    await expect(c.getByRole('status')).toHaveTextContent('3–4 of 5')
+  },
+}

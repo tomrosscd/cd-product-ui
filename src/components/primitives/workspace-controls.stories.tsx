@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { expect, userEvent, within } from 'storybook/test'
-import {
-  ActionMenu,
-  Breadcrumbs,
-  DateRange,
-  SearchSelect,
-  ToastRegion,
-  Tooltip,
-  type ToastMessage,
-} from './workspace-controls.js'
+import { ActionMenu, Breadcrumbs, SearchSelect, ToastRegion, Tooltip, type ToastMessage } from './workspace-controls.js'
 import { Button } from './button.js'
 const meta = {
   title: 'Components/Workspace controls',
@@ -18,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Controlled building blocks for internal tools. Menus support arrow keys and Escape. SearchSelect uses searchable native choices; DateRange uses native date inputs. Tooltips supplement visible labels. ToastRegion is a controlled queue with F8 access and manual dismissal.',
+          'Controlled building blocks for internal tools. Menus support arrow keys and Escape. SearchSelect uses searchable native choices. Tooltips supplement visible labels. ToastRegion is a controlled queue with F8 access and manual dismissal. See Components/Date range and Components/Date picker for date selection.',
       },
     },
   },
@@ -137,20 +129,6 @@ export const MultipleSelection: Story = {
 }
 export const SelectionError: Story = { render: () => <Selection error="Choose a team before continuing." /> }
 export const SelectionDisabled: Story = { render: () => <Selection disabled /> }
-export const Dates: Story = {
-  render: function Example() {
-    const [value, setValue] = useState({ start: '2026-09-01', end: '2026-09-30' })
-    return <DateRange label="Reporting period" value={value} onValueChange={setValue} name="period" />
-  },
-}
-export const InvalidDates: Story = {
-  render: () => (
-    <DateRange label="Reporting period" value={{ start: '2026-09-30', end: '2026-09-01' }} onValueChange={() => {}} />
-  ),
-  play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getByLabelText('End date')).toHaveAttribute('aria-invalid', 'true')
-  },
-}
 export const Notification: Story = {
   render: function Example() {
     const [messages, setMessages] = useState<ToastMessage[]>([])
