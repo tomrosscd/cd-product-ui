@@ -1,7 +1,9 @@
 'use client'
 import { useId, useState, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
+import { describedByIds } from '../../lib/aria.js'
 import { Button } from './button.js'
+import type { ChoiceOption } from './option.js'
 
 export interface FieldProps {
   id?: string
@@ -29,9 +31,7 @@ export function Field({ id, label, hint, error, required, className, describedBy
       </label>
       {children({
         id: controlId,
-        'aria-describedby':
-          [describedBy, hint && `${controlId}-hint`, error && `${controlId}-error`].filter(Boolean).join(' ') ||
-          undefined,
+        'aria-describedby': describedByIds(controlId, hint, error, describedBy),
         'aria-invalid': error ? true : undefined,
       })}
       {hint && (
@@ -193,11 +193,7 @@ export function Checkbox(props: CheckboxProps) {
 export function Switch(props: Omit<CheckboxProps, 'role'>) {
   return <Choice {...props} role="switch" />
 }
-export interface RadioOption {
-  value: string
-  label: string
-  disabled?: boolean
-}
+export type RadioOption = ChoiceOption
 export interface RadioGroupProps {
   label: string
   name?: string
@@ -228,7 +224,7 @@ export function RadioGroup({
       className="cui-field cui-fieldset"
       role="radiogroup"
       disabled={disabled}
-      aria-describedby={[hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined}
+      aria-describedby={describedByIds(id, hint, error)}
       aria-invalid={error ? true : undefined}
     >
       <legend className="cui-label">

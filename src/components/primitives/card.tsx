@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { Skeleton } from './feedback.js'
 const cardVariants = cva('cui-card', {
   variants: {
     density: { comfortable: 'cui-card-comfortable', compact: 'cui-card-compact' },
@@ -45,11 +46,7 @@ export function Card({
       {state === 'ready' ? (
         children
       ) : state === 'loading' ? (
-        <div className="cui-stack" role="status">
-          <span className="cui-sr-only">{message || 'Loading content'}</span>
-          <div className="cui-skeleton" />
-          <div className="cui-skeleton cui-skeleton-short" />
-        </div>
+        <Skeleton label={message || 'Loading content'} lines={2} />
       ) : (
         <div className="cui-stack" role={state === 'error' ? 'alert' : 'status'}>
           <p className={state === 'error' ? 'cui-negative' : 'cui-secondary'}>

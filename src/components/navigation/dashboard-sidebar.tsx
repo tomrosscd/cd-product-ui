@@ -8,6 +8,7 @@ import { tokens } from '../../tokens.js'
 import { ConvertLogo } from '../primitives/convert-logo.js'
 import { ConvertMark } from '../primitives/convert-mark.js'
 import { Icon } from '../primitives/icon.js'
+import { Button } from '../primitives/button.js'
 export interface SidebarItem {
   id: string
   label: string
@@ -94,10 +95,10 @@ export function DashboardSidebar({
             <span>{workspace}</span>
           </div>
           <Dialog.Trigger asChild>
-            <button type="button" className="cui-button cui-button-secondary" aria-label="Open navigation">
+            <Button aria-label="Open navigation">
               <Icon name="menu" />
               <span>Menu</span>
-            </button>
+            </Button>
           </Dialog.Trigger>
         </div>
         <Dialog.Portal>
@@ -105,13 +106,9 @@ export function DashboardSidebar({
           <Dialog.Content data-cui-theme={theme} className="cui-sidebar-drawer cui-root" aria-describedby={undefined}>
             <Dialog.Title className="cui-sr-only">Workspace navigation</Dialog.Title>
             <Dialog.Close asChild>
-              <button
-                type="button"
-                className="cui-button cui-button-quiet cui-drawer-close"
-                aria-label="Close navigation"
-              >
+              <Button variant="quiet" className="cui-drawer-close" aria-label="Close navigation">
                 <Icon name="close" />
-              </button>
+              </Button>
             </Dialog.Close>
             {contents(true)}
           </Dialog.Content>

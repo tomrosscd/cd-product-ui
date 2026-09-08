@@ -1,5 +1,6 @@
 export { Card, type CardProps } from './components/primitives/card.js'
 export { Select, type SelectProps, type SelectOption } from './components/primitives/select.js'
+export type { ChoiceOption } from './components/primitives/option.js'
 export { Button, type ButtonProps } from './components/primitives/button.js'
 export { ConvertMark } from './components/primitives/convert-mark.js'
 export { Icon, type IconName } from './components/primitives/icon.js'
