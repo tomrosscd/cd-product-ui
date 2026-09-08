@@ -20,13 +20,16 @@ export function EmptyState({
   heading,
   description,
   action,
+  live = false,
 }: {
   heading: string
   description?: string
   action?: ReactNode
+  /** Announce this state to screen readers as it appears, for a result that changed dynamically (e.g. a search that now matches nothing). Leave false for a state that's empty from the start. */
+  live?: boolean
 }) {
   return (
-    <div className="cui-empty" role="status">
+    <div className="cui-empty" role={live ? 'status' : undefined}>
       <strong>{heading}</strong>
       {description && <p className="cui-secondary">{description}</p>}
       {action}

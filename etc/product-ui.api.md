@@ -890,6 +890,7 @@ export function EmptyState(input: {
     heading: string;
     description?: string;
     action?: ReactNode;
+    live?: boolean;
 }): JSX.Element;
 
 // @public

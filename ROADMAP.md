@@ -47,11 +47,7 @@ This is a bigger architectural decision than the others on this list (a full i18
 
 ## 4. Accessibility follow-ups (beyond what was already fixed)
 
-The initial review turned up a few more real ARIA issues beyond the ones already fixed in this pass. None are urgent, but they're real:
-
-- **Live-region overuse.** `EmptyState` hardcodes `role="status"` even when its content is static, so `RoadmapBoard` renders one live region _per empty column_ and `DataTable` renders one inside a table cell. Consider making `role="status"` opt-in (e.g. a `live` prop defaulting to `false`) rather than automatic — this needs a per-usage decision (does DataTable's dynamic "no results while searching" case want the announcement even if RoadmapBoard's static "no stages" case doesn't?), not a blanket change.
-- **Duplicate accessible-name announcement** on `Table`: `aria-label={caption + ", scrollable table"}` on the scroll region plus the same text again in the native `<caption>` — a screen reader announces it twice. Minor; consider `aria-labelledby` pointing at the caption instead of duplicating its text, if the region still needs to convey "scrollable" separately.
-- **Dropped `href` on the current breadcrumb.** `Breadcrumbs` gives the last item `aria-current="page"` as a `<span>` and silently discards `item.href` if one was supplied — worth deciding whether that's intentional (current page usually shouldn't be a link) and documenting it, or supporting a linked "current page" for cases where it should still navigate (e.g. a refresh action).
+Fixed alongside the 0.5.0 pass 1 table/select/date-picker work (9 September 2026): `EmptyState`'s `role="status"` is now an opt-in `live` prop instead of automatic (`DataTable`'s dynamic "no matching results" case opts in, its initial "no rows yet" and `RoadmapBoard`'s static empty columns don't); `Table`'s scroll region uses `aria-labelledby` pointing at the caption instead of duplicating its text; `Breadcrumbs` now honours `href` on the current-page item (renders a link with `aria-current="page"`) instead of silently discarding it, unchanged when no `href` is supplied.
 
 ## 5. Testing and tooling, further out
 

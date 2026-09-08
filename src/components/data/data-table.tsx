@@ -141,6 +141,7 @@ export function DataTable<T>({
                     <EmptyState
                       heading={globalFilter ? 'No matching results' : 'No rows yet'}
                       description={globalFilter ? 'Try a different search.' : 'Rows will appear here when available.'}
+                      live={Boolean(globalFilter)}
                     />
                   </td>
                 </tr>

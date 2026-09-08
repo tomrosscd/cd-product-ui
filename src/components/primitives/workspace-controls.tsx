@@ -111,7 +111,13 @@ export function Breadcrumbs({ items, label = 'Breadcrumb' }: { items: readonly B
           <li key={`${index}-${item.label}`}>
             {index > 0 && <span aria-hidden="true">/</span>}
             {index === items.length - 1 ? (
-              <span aria-current="page">{item.label}</span>
+              item.href ? (
+                <TextLink href={item.href} aria-current="page">
+                  {item.label}
+                </TextLink>
+              ) : (
+                <span aria-current="page">{item.label}</span>
+              )
             ) : item.href ? (
               <TextLink href={item.href}>{item.label}</TextLink>
             ) : (

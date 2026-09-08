@@ -9,6 +9,9 @@
 - Fix: the `--cui-focus-offset` token was 4px, giving every focusable element (buttons, links, checkboxes, tabs, StyledSelect/DatePicker triggers, SearchSelect's disclosure) a visibly detached "floating" focus ring — Input and native Select had already been special-cased flush against their border, but the token itself was never corrected. Set to 0px and removed the now-redundant per-component overrides.
 - Fix: StyledSelect and DatePicker's trigger chevron sat too far in from the right edge, because their trigger reused native Select's asymmetric padding (a gutter meant for a browser-drawn arrow). Gave it symmetric padding for its own flex-laid-out icon.
 - Docs: split the "Pass 1 controls" scratch story file into a proper per-component section each (Pagination, Styled select, Calendar, Date picker, Month picker), and moved the existing native DateRange's stories next to the new Date picker instead of an unrelated grab-bag file, so the two aren't mistaken for each other.
+- Fix: `Table`'s scroll region announced its caption twice (once via a duplicated `aria-label`, once via the native `<caption>`) — now uses `aria-labelledby` pointing at the caption, with "scrollable table" conveyed separately via `aria-describedby`.
+- Fix: `Breadcrumbs` silently discarded `href` on the current-page item; if one is supplied it's now rendered as a link with `aria-current="page"` instead of being dropped. Unchanged when no `href` is supplied.
+- `EmptyState` gains an opt-in `live` prop (default `false`) instead of always being a live region — `DataTable` sets it only for its dynamic "no matching results while searching" case, not its initial "no rows yet" state. `RoadmapBoard`'s empty columns are unaffected.
 
 ## 0.4.0 · 8 September 2026
 

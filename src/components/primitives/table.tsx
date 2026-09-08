@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react'
+import { useId, type ComponentProps } from 'react'
 import { cn } from '../../lib/classes.js'
 export interface TableProps extends ComponentProps<'table'> {
   caption: string
@@ -16,14 +16,20 @@ export function Table({
   className,
   ...props
 }: TableProps) {
+  const captionId = useId(),
+    hintId = `${captionId}-hint`
   return (
     <div
       className={cn('cui-root cui-table-scroll', layout === 'scroll' && 'cui-table-readable')}
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- WCAG/APG scrollable-region pattern: keyboard users need tabIndex=0 to reach and arrow-scroll this region
       tabIndex={0}
       role="region"
-      aria-label={`${caption}, scrollable table`}
+      aria-labelledby={captionId}
+      aria-describedby={hintId}
     >
+      <span id={hintId} className="cui-sr-only">
+        Scrollable table
+      </span>
       <table
         {...props}
         style={{
@@ -32,7 +38,7 @@ export function Table({
         }}
         className={cn('cui-table', `cui-table-${density}`, className)}
       >
-        <caption>{caption}</caption>
+        <caption id={captionId}>{caption}</caption>
         {children}
       </table>
     </div>
