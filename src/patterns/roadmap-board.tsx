@@ -38,9 +38,9 @@ export function RoadmapCard({ item, stages, selectId, onStageChange, onPriorityC
           <Badge tone={item.categoryTone}>{item.category}</Badge>
         </div>
       )}
-      <h3 className="cui-roadmap-title">
+      <h4 className="cui-roadmap-title">
         {item.href ? <TextLink href={item.href}>{item.title}</TextLink> : item.title}
-      </h3>
+      </h4>
       {item.description && <p className="cui-caption cui-secondary">{item.description}</p>}
       {item.supportingText && <p className="cui-caption cui-secondary">{item.supportingText}</p>}
       {item.estimate && <p>{item.estimate}</p>}
