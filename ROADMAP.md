@@ -1,5 +1,21 @@
 # Roadmap
 
+## Approved delivery order (9 September 2026)
+
+This sequence incorporates the finance/capacity screenshots and supersedes the ordering of deferred audit items below. Preserve the settled 0.4.0 decisions.
+
+1. **Pass 1, target 0.5.0:** opt-in readable/scrollable tables; branded Select/menu patterns; single-date, combined-range, reporting-preset, month/year and inline calendars; standalone responsive Pagination and DataTable integration.
+2. **Pass 2:** collapsible sidebar/navigation rail and mobile drawer, chips, async single/multiple combobox, segmented controls, responsive filter toolbar.
+3. **Pass 3:** currency/percentage/hours inputs, period navigation, general dialogs/details drawers, editable cells and quick-entry rows.
+4. **Pass 4:** bulk selection/actions, server-driven tables, column configuration and saved-view controls, grouped rows/totals, upload/attachments and wizard/stepper.
+5. **Pass 5:** capacity/overload indicators, labelled status/phase legends, budget-versus-actual chart patterns, Gantt, resource timelines and capacity heatmaps. Evaluate scheduling separately from Recharts.
+6. **Pass 6:** timeline move/resize, roadmap dragging with keyboard alternatives, page header, notification centre, command palette, import/sync patterns and print styles.
+
+Cross-cutting: ship accessibility fixes and interaction tests with affected work; ErrorBoundary and CSS-only branded loader as small independent additions; improve chart types and tooling incrementally. Keep i18n, RTL, Chromatic and animation-library decisions deferred. Product UI private employee font setup uses company-restricted storage, excluded from Git and public packages; document local/deployed use once a storage link is provided.
+
+Each pass can have multiple focused PRs. Keep existing APIs and default behaviour intact where practical through opt-in variants. Every release requires light/dark keyboard/mobile review, API snapshots, full checks, package and Next.js validation, and green CI. Do not merge or tag without user approval.
+
+
 Everything here came out of a full codebase review (8 September 2026) and was deliberately deferred rather than fixed immediately — either because it's a breaking change that needs coordinating with [CONSUMERS.md](CONSUMERS.md) first, or because it's a real feature that deserves its own stories, tests and docs rather than being rushed into a "quick fix" batch. Nothing on this list is urgent; work through it whenever there's appetite. See [docs/release-process.md](docs/release-process.md#backward-compatibility) for how to ship the breaking items safely.
 
 When you pick something up, move it from here into a normal feature branch and PR — don't edit components directly against this list. Delete an item once it ships, and note it in CHANGELOG.md as usual.

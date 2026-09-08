@@ -4,7 +4,9 @@ Last updated: 8 September 2026. Update this file at each meaningful checkpoint a
 
 ## Current state
 
-No active work in progress. `v0.4.0` is merged to `main` and tagged. It was a breaking release (see `docs/release-0.4.md`): `title` → `heading` on Alert/EmptyState/Disclosure/ConfirmationDialog/DataChart/RoadmapBoard/SignInForm, and `SignInForm.pending` → `loading`. It also added an enforced public API check (`pnpm api:check`/`api:update`, backed by `etc/*.api.md`, wired into CI) — read `docs/release-process.md#backward-compatibility` before shipping anything that renames or removes a public export, prop, or CSS class.
+Active work: user approved starting the consolidated passes. Branch `feature/product-ui-0.5-controls`, based on main `ac4367b`. Pass 1 is in progress, target 0.5.0. No implementation checks completed yet. Read the new Approved delivery order in ROADMAP.md; it supersedes the narrower seven-component list below. Next: implement opt-in table responsiveness, Pagination, branded select and date-picker family, then stories, compatibility checks and release PR. No merge or tag is authorised.
+
+Previous release checkpoint: `v0.4.0` is merged to `main` and tagged. It was a breaking release (see `docs/release-0.4.md`): `title` → `heading` on Alert/EmptyState/Disclosure/ConfirmationDialog/DataChart/RoadmapBoard/SignInForm, and `SignInForm.pending` → `loading`. It also added an enforced public API check (`pnpm api:check`/`api:update`, backed by `etc/*.api.md`, wired into CI) — read `docs/release-process.md#backward-compatibility` before shipping anything that renames or removes a public export, prop, or CSS class.
 
 ## User-approved objective for the next session
 
