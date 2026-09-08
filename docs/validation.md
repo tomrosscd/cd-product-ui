@@ -1,5 +1,20 @@
 # Release validation history
 
+## 0.3.1 · 8 September 2026
+
+Patch release with no public API changes, from a full codebase audit (component code quality, test/CI setup, governance docs, security scan). Validated on `feature/product-ui-0.3.1` before merge.
+
+- `pnpm type-check`, `pnpm lint` (including the newly-added `eslint-plugin-jsx-a11y`, which found and required fixing 4 real violations on introduction), `pnpm format:check`: clean.
+- `pnpm test` (158 tests, light theme) and `pnpm test:dark` (134 tests): both clean after the fixes in this release.
+- `pnpm test:coverage`: 97.11% statement coverage, first time this has been measured. This measures code executed, not behaviour asserted — a different, complementary signal to the Storybook interaction-play-function coverage (roughly 19% of stories have a `play` function with real assertions; the rest are visual renders plus the automated accessibility scan).
+- `pnpm check` (full chain including build + build-storybook), `pnpm package:check` (218 package files), `pnpm next:check`: all passed.
+- Manually verified the exact sequence in `.github/workflows/ci.yml` would pass, before it was ever run by GitHub Actions for the first time.
+- Security-relevant fixes verified by reading, not just testing: the `dangerouslySetInnerHTML` in `ConvertLogo` was confirmed to only ever receive one of three hardcoded local SVG strings (not reachable from application input); the new `safeHref()` guard in `TextLink` and the sidebar's nav links was verified to block `javascript:`/`vbscript:`/`data:` schemes while passing through relative paths, `https:`, `mailto:` and `tel:` unchanged.
+
+### Limitations
+
+This pass fixed the audit's quick, non-breaking findings only. The larger breaking naming-consistency refactor and the new components identified in the same audit are intentionally deferred — see [ROADMAP.md](../ROADMAP.md).
+
 ## 0.3.0 · 8 September 2026
 
 Validated locally on the `feature/product-ui-0.3` branch before merge, on top of the 0.1.0 and 0.2.0 results below. A manual review round after the checks below found three issues (input/select focus styling in dark mode, Alert's accent border, and the brand downloads gallery layout); all three were fixed and the full check suite (including `pnpm test:dark`) reran clean afterward.

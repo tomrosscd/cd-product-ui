@@ -2,13 +2,13 @@
 
 A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.
 
-**Current version: 0.3.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
+**Current version: 0.3.1.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
 
 [Browse Storybook](#browse-the-components-locally) · [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ## What is included?
 
-| Area               | Included in 0.3.0                                                                                                      |
+| Area               | Included                                                                                                               |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
 | Foundations        | 92 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout          |
 | Components         | Forms, badges, links, feedback, metrics, progress, tables and supporting content, alongside the original components    |
@@ -22,6 +22,7 @@ Koko Monthly Review V4 defines the product visual language. The new Convert webs
 
 | Version                                     | Date             | Highlights                                                                                                                                                                  |
 | ------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [0.3.1](CHANGELOG.md#031--8-september-2026) | 8 September 2026 | Patch: bug fixes from a full codebase audit, CI/Dependabot, and a backward-compatibility policy. No public API changes.                                                     |
 | [0.3.0](CHANGELOG.md#030--8-september-2026) | 8 September 2026 | Dark theme, official Convert brand assets and logos, ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect, DateRange                                                 |
 | [0.2.0](CHANGELOG.md#020--8-september-2026) | 8 September 2026 | Forms, Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, feedback components, Metric/Progress, DataTable, optional charts, RoadmapBoard, SignInForm, card compositions |
 | [0.1.0](CHANGELOG.md#010--7-september-2026) | 7 September 2026 | Initial delivery: tokens/foundations, Card, Select, DashboardShell/DashboardSidebar                                                                                         |
@@ -56,13 +57,13 @@ You do not need to fork the repository to use the library. Build an archive from
 Use Node **22.22.2** and pnpm **10.33.0**, recorded in this repository. In a terminal, outside your application's folder:
 
 ```sh
-git clone --branch v0.3.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.3.1 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.3.0.tgz`. One team member can build this archive and share it with other authorised projects.
+The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.3.1.tgz`. One team member can build this archive and share it with other authorised projects.
 
 ### 2. Install the archive in your application
 
@@ -70,10 +71,10 @@ Copy the archive into a `vendor` folder in your application. From **your applica
 
 ```sh
 # pnpm
-pnpm add --save-exact ./vendor/convert-product-ui-0.3.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.3.1.tgz
 
 # or npm
-npm install --save-exact ./vendor/convert-product-ui-0.3.0.tgz
+npm install --save-exact ./vendor/convert-product-ui-0.3.1.tgz
 ```
 
 Commit the archive, `package.json` and your lockfile in the consuming project so colleagues and CI install the same package. If that project ignores `*.tgz`, add an exception for this vendor archive. Use a short relative path as shown.
@@ -166,11 +167,11 @@ Library improvements do not automatically change installed applications. Upgrade
 4. Run the application's checks and review important screens, including keyboard navigation, errors, long content and mobile layout.
 5. Commit the new archive, dependency and lockfile changes in an application pull request. Merge after review.
 
-For example, to move a project from 0.2.0 to 0.3.0:
+For example, to move a project from 0.3.0 to 0.3.1:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.3.0.tgz
-# or: npm install --save-exact ./vendor/convert-product-ui-0.3.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.3.1.tgz
+# or: npm install --save-exact ./vendor/convert-product-ui-0.3.1.tgz
 ```
 
 To roll back, revert the application's upgrade commit and reinstall from its restored lockfile. Never replace an existing version's archive with different contents.
