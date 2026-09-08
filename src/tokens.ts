@@ -1,4 +1,4 @@
-// Generated from tokens/tokens.json. Run pnpm tokens.
+// Generated from tokens/tokens.json by generate-tokens.mjs.
 export const tokenReference = [
   {
     "group": "colour",
