@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode 
 import * as Popover from '@radix-ui/react-popover'
 import { useProductTheme } from './theme.js'
 import { Chip } from './chip.js'
+import { Icon } from './icon.js'
 import type { ChoiceOption } from './option.js'
 export interface ComboboxOption extends ChoiceOption {
   avatar?: ReactNode
@@ -146,7 +147,7 @@ export function Combobox(props: ComboboxProps) {
         <Popover.Portal>
           <Popover.Content
             data-cui-theme={theme}
-            className="cui-root cui-select-panel"
+            className="cui-root cui-select-panel cui-combobox-panel"
             align="start"
             sideOffset={4}
             collisionPadding={12}
@@ -164,6 +165,7 @@ export function Combobox(props: ComboboxProps) {
               id={`${id}-listbox`}
               aria-label={label}
               aria-multiselectable={props.multiple || undefined}
+              className="cui-combobox-listbox"
             >
               {!loading &&
                 !error &&
@@ -183,8 +185,8 @@ export function Combobox(props: ComboboxProps) {
                     onClick={() => !option.disabled && select(option.value)}
                   >
                     {option.avatar}
-                    <span>{option.label}</span>
-                    {selectedValues.includes(option.value) && <span aria-hidden="true">✓</span>}
+                    <span className="cui-select-option-label">{option.label}</span>
+                    <Icon name="check" aria-hidden="true" className="cui-select-option-indicator" />
                   </li>
                 ))}
             </ul>

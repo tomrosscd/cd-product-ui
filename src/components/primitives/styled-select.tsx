@@ -86,8 +86,8 @@ export function StyledSelect({
                         disabled={option.disabled}
                         className="cui-select-option"
                       >
-                        <Primitive.ItemText>{option.label}</Primitive.ItemText>
-                        <Primitive.ItemIndicator aria-hidden="true">✓</Primitive.ItemIndicator>
+                        <Primitive.ItemText className="cui-select-option-label">{option.label}</Primitive.ItemText>
+                        <Icon name="check" aria-hidden="true" className="cui-select-option-indicator" />
                       </Primitive.Item>
                     ))}
                 </Primitive.Group>

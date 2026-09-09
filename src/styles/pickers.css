@@ -27,14 +27,45 @@
   min-width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
 }
+/* Combobox is a Radix Popover, not a Radix Select — it shares .cui-select-panel's visual
+   styling but must size against Popover's own injected variables. The Select-specific ones
+   above are simply unset in a Popover, silently dropping both the trigger-width alignment and
+   the available-height constraint (so a long list wouldn't scroll, it would overflow). */
+.cui-combobox-panel {
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+  overflow: auto;
+}
+.cui-combobox-panel .cui-select-option {
+  scroll-margin-block: var(--cui-space-4);
+}
+.cui-combobox-listbox {
+  list-style: none;
+  margin: var(--cui-space-0);
+  padding: var(--cui-space-0);
+}
 .cui-select-option {
   padding: var(--cui-space-12);
   min-height: var(--cui-size-control);
   display: flex;
-  justify-content: space-between;
-  gap: var(--cui-space-16);
+  align-items: center;
+  gap: var(--cui-space-8);
   cursor: pointer;
   border-radius: var(--cui-radius-control);
+}
+/* flex:1 on the label (rather than justify-content: space-between on the row) keeps the
+   indicator in a fixed trailing column regardless of label length or whether an avatar is
+   present, so selected/unselected rows stay aligned with each other. */
+.cui-select-option-label {
+  flex: 1;
+  min-width: 0;
+}
+.cui-select-option-indicator {
+  flex-shrink: 0;
+  visibility: hidden;
+}
+.cui-select-option[data-state='checked'] .cui-select-option-indicator {
+  visibility: visible;
 }
 .cui-select-option[data-highlighted] {
   background: var(--cui-surface-hover);
