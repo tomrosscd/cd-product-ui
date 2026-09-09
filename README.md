@@ -28,13 +28,27 @@ Your application supplies React 19.2. The package name in imports is `@convert/p
 
 ## Install the library
 
-There is no npm registry package to install by name. Build an archive from a version tag, then install that archive into your application.
+Each release attaches a built archive. Install it by URL from your application's folder:
 
-Do not install from a GitHub branch. The repository holds source, and only the archive contains the compiled files your application needs.
+```sh
+pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.8.0/convert-product-ui-0.8.0.tgz
+```
 
-### 1. Build the archive
+Using npm instead:
 
-Run these commands outside your application's folder:
+```sh
+npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.8.0/convert-product-ui-0.8.0.tgz
+```
+
+The URL pins one immutable release, so every colleague and CI run installs identical files. Commit your `package.json` and lockfile.
+
+There is no npm registry package to install by name, and installing from a GitHub branch does not work: the repository holds source, and only the archive contains the compiled files your application needs.
+
+To install a different version, change both version numbers in the URL. Releases are listed on the [releases page](https://github.com/tomrosscd/cd-product-ui/releases).
+
+### Build the archive yourself
+
+Only needed to install a revision that has no release, such as an unreleased branch. Run these outside your application's folder:
 
 ```sh
 git clone --branch v0.8.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
@@ -43,23 +57,13 @@ pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-This creates `artifacts/convert-product-ui-0.8.0.tgz`. One person can build the archive and share it with other authorised projects.
-
-### 2. Add the archive to your application
-
-Copy the archive into a `vendor` folder in your application, then install it from your application's folder:
+Copy the resulting `artifacts/convert-product-ui-0.8.0.tgz` into a `vendor` folder in your application and install it from there:
 
 ```sh
 pnpm add --save-exact ./vendor/convert-product-ui-0.8.0.tgz
 ```
 
-Using npm instead:
-
-```sh
-npm install --save-exact ./vendor/convert-product-ui-0.8.0.tgz
-```
-
-Commit the archive, `package.json` and your lockfile so colleagues and CI install the same files. If your project ignores `*.tgz`, add an exception for the vendor archive.
+Commit the archive alongside your lockfile. If your project ignores `*.tgz`, add an exception for it.
 
 ### Optional: charts
 
@@ -149,10 +153,9 @@ The font stack is Roobert, Geist, Arial, sans-serif. Your application loads its 
 Upgrading is deliberate. A new library version does not reach your application until you install it.
 
 1. Read the [changelog](CHANGELOG.md) and the release notes for the version you are moving to. Check for changed tokens, component APIs and appearance.
-2. Build an archive from that version's tag, using the [install steps](#1-build-the-archive). Keep the previous archive so you can roll back.
-3. Copy the new archive into `vendor` and install its exact filename.
-4. Run your application's checks. Review your main screens, including keyboard navigation, error states, long content and mobile layout.
-5. Commit the archive, dependency and lockfile changes in one pull request.
+2. Install that version's release URL, changing both version numbers. Your lockfile records the previous one, so a revert rolls you back.
+3. Run your application's checks. Review your main screens, including keyboard navigation, error states, long content and mobile layout.
+4. Commit the archive, dependency and lockfile changes in one pull request.
 
 To roll back, revert the upgrade commit and reinstall from the restored lockfile.
 
