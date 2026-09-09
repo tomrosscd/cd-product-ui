@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (207)
+## Classes (225)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -84,6 +84,14 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-combobox-listbox`
 - `cui-combobox-panel`
 - `cui-combobox-tags`
+- `cui-content-list`
+- `cui-content-list-actions`
+- `cui-content-list-compact`
+- `cui-content-list-copy`
+- `cui-content-list-item`
+- `cui-content-list-leading`
+- `cui-content-list-meta`
+- `cui-content-list-title`
 - `cui-dashboard`
 - `cui-dashboard-main`
 - `cui-data-chart`
@@ -117,6 +125,15 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-input-row`
 - `cui-key-values`
 - `cui-label`
+- `cui-layout-grid`
+- `cui-layout-header`
+- `cui-layout-header-actions`
+- `cui-layout-header-copy`
+- `cui-layout-heading`
+- `cui-layout-primary`
+- `cui-layout-secondary`
+- `cui-layout-split`
+- `cui-layout-stack`
 - `cui-legend-dashed`
 - `cui-legend-line`
 - `cui-menu-item`
@@ -147,6 +164,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-progress-fill`
 - `cui-progress-heading`
 - `cui-progress-indeterminate`
+- `cui-progress-limit`
 - `cui-progress-negative`
 - `cui-progress-positive`
 - `cui-progress-target`

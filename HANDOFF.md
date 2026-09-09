@@ -2,6 +2,35 @@
 
 Last updated: 9 September 2026. Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
 
+## Active feature: dashboard composition (branch `feature/dashboard-composition`, PR #12)
+
+User approved implementation on 9 September 2026. Branch based on `3be701c` (0.7.0). No tag, merge or release is authorised by this feature task.
+
+Scope: token-spaced `Stack`/`Grid`/`SplitLayout`/`PageHeader`, flexible `ContentList` rows, explicit read-only roadmap, and a neutral dashboard exercising four metrics, a wide pipeline with supporting card, capacity and dense lists. Legacy layout helpers and editing defaults preserved. No Tailwind directives, no consumer business logic. The coworker's application source was unavailable, so this closes the library's composition gap and supplies an adoption recipe rather than an unverified patch to their app.
+
+**Status: implemented by Codex, independently verified and pushed. Awaiting review.** Codex ran out of context mid-verification; the checks it could not confirm have since been run and passed.
+
+### Verification, re-run rather than inherited
+
+Every gate `.github/workflows/ci.yml` runs was executed fresh against commit `3370a12`, not carried over from Codex's logs:
+
+- `format:check`, `check` (tokens, types, lint, tests, build, CSS surface, static Storybook), `api:check`, `css:check`, `test:dark` (186 stories, 43 files) all pass.
+- **`package:check` and `next:check` are the two Codex left running and could not confirm.** Both pass: 279 package files including the new `docs/dashboard-composition.md`, and the Next.js App Router fixture builds from the packed archive.
+- `test:coverage`: 213 tests, 92.39% statements / 86.51% branches / 92.43% functions / 93.08% lines, matching what Codex recorded.
+
+### Independent review findings
+
+- **Additive, confirmed by diffing both snapshots.** The API report has no removals. The CSS surface gained 17 classes (`cui-content-list-*`, `cui-layout-*`) with none removed; the only `-` line in that diff is the class-count header moving 207 to 224.
+- **`RoadmapBoard`/`RoadmapCard` `readOnly` defaults to `false`**, so existing consumers keep the editing controls they have today. This is the additive shape the roadmap asked for.
+- **Dark theme reviewed and measured, not eyeballed.** Badge text contrast across the new dashboard runs 8.48:1 to 14.37:1. No failure.
+- **320px reflow re-verified independently**: `scrollWidth` equals the 320px viewport, zero elements crossing the boundary, clean single-column stack.
+- Measured badge backgrounds sit at 1.00 to 1.22 against the card behind them, so the chip shape barely reads and only the text colour carries the state. That is the pre-existing issue already logged as item 5 below, not something this branch introduced.
+
+### Known gaps in this branch
+
+- Codex's commit message (`3370a12`) is a single line for a 939-line change, which is thinner than this repository's convention. The reasoning is in the PR description instead. The commit was left unamended so authorship stays accurate.
+- Codex started a second Storybook on port 6020 and did not stop the earlier one on 6017. Both may still be running locally; neither affects the repository.
+
 ## Start here: what to work on next
 
 Read AGENTS.md first, then this section. `main` is at 0.7.0 with PR #10 and PR #11 merged. Nothing is tagged. Do not merge or tag without the user's explicit approval: that standing rule has not changed.
@@ -20,11 +49,11 @@ Once a tag produces a release asset, update the README's install section: it sti
 
 Still entirely placeholder rows. It is the only mechanism protecting consumers from a breaking change: there is no telemetry and no registry download counts. `pnpm api:check` and `pnpm css:check` catch a breaking change mechanically, but only this file says who to warn. Add the coworker's project, contact and installed version the moment they install.
 
-### 3. Read-only list and board patterns (largest real gap)
+### 3. Read-only list and board patterns (implemented on the active branch, pending review)
 
 The first external consumer needed these and got nothing usable, so they hand-composed `Card`, `Badge` and `TextLink` instead. Full context in ROADMAP.md section 2. In short: `ActivityList` and `ResourceList` take fixed, string-only shapes with no way to combine a leading indicator, a per-row action link and trailing metadata; `RoadmapBoard` forces an editable stage `Select` and priority `Checkbox` onto every card, which is wrong for a view nobody edits.
 
-Wanted: a read-only list row that composes indicator, content, action and meta, and a board that renders cards without imposing edit controls. Make `RoadmapBoard`'s editing opt-in rather than built in, additively, so nothing existing breaks.
+PR #12 supplies `ContentList`/`ContentListItem` and explicit `readOnly` props on `RoadmapBoard`/`RoadmapCard`, verified additive. Editing defaults are unchanged, so adopt `readOnly` explicitly. Read the checkpoint above before starting duplicate work.
 
 ### 4. Decide what to do about `assets/` (needs the user, not a coding decision)
 

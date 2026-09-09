@@ -13,11 +13,28 @@ export interface ProgressProps {
 export function Progress({ label, value, max = 100, target, valueLabel, hint, tone = 'neutral' }: ProgressProps) {
   const id = useId()
   const safeMax = Number.isFinite(max) && max > 0 ? max : 100
-  const current = value === undefined || !Number.isFinite(value) ? undefined : Math.max(0, Math.min(value, safeMax))
+  // Deliberately not clamped to safeMax. A capacity bar that caps at its maximum reports 142% of a
+  // team's time and 100% of it as the same reading, which is not a display quirk but a false
+  // number. Values above the maximum instead rescale the track and mark where the maximum sits, so
+  // the overrun is visible and measurable. Values at or below the maximum are unaffected: scale
+  // stays safeMax, so width, label and ARIA values are byte-for-byte what they were before.
+  const current = value === undefined || !Number.isFinite(value) ? undefined : Math.max(0, value)
+  const over = current !== undefined && current > safeMax
+  const scale = over && current !== undefined ? current : safeMax
+  const limitPosition = over ? (safeMax / scale) * 100 : undefined
   const targetPosition =
-    target !== undefined && Number.isFinite(target) ? Math.max(0, Math.min((target / safeMax) * 100, 100)) : undefined
+    target !== undefined && Number.isFinite(target) ? Math.max(0, Math.min((target / scale) * 100, 100)) : undefined
   return (
-    <div className={tone === 'neutral' ? 'cui-root cui-progress' : `cui-root cui-progress cui-progress-${tone}`}>
+    <div
+      className={[
+        'cui-root',
+        'cui-progress',
+        tone === 'neutral' ? undefined : `cui-progress-${tone}`,
+        over ? 'cui-progress-over' : undefined,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <div className="cui-row cui-progress-heading">
         <span id={id} className="cui-label">
           {label}
@@ -31,24 +48,28 @@ export function Progress({ label, value, max = 100, target, valueLabel, hint, to
         role="progressbar"
         aria-labelledby={id}
         aria-valuemin={0}
-        aria-valuemax={safeMax}
+        aria-valuemax={scale}
         aria-valuenow={current}
-        aria-valuetext={valueLabel}
-        aria-describedby={hint || targetPosition !== undefined ? `${id}-hint` : undefined}
+        aria-valuetext={valueLabel || (over ? `${Math.round((current / safeMax) * 100)}% of ${safeMax}` : undefined)}
+        aria-describedby={hint || targetPosition !== undefined || over ? `${id}-hint` : undefined}
       >
         <span
           className={current === undefined ? 'cui-progress-fill cui-progress-indeterminate' : 'cui-progress-fill'}
-          style={{ width: current === undefined ? '40%' : `${(current / safeMax) * 100}%` }}
+          style={{ width: current === undefined ? '40%' : `${(current / scale) * 100}%` }}
         />
+        {limitPosition !== undefined && (
+          <span className="cui-progress-limit" style={{ left: `${limitPosition}%` }} aria-hidden="true" />
+        )}
         {targetPosition !== undefined && (
           <span className="cui-progress-target" style={{ left: `${targetPosition}%` }} />
         )}
       </div>
-      {(hint || targetPosition !== undefined) && (
+      {(hint || targetPosition !== undefined || over) && (
         <p className="cui-caption cui-secondary" id={`${id}-hint`}>
           {hint}
           {hint && targetPosition !== undefined ? ' ' : ''}
           {targetPosition !== undefined && `Target: ${target} of ${safeMax}.`}
+          {over && `${hint || targetPosition !== undefined ? ' ' : ''}Over the maximum of ${safeMax}.`}
         </p>
       )}
     </div>

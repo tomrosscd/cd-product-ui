@@ -1,5 +1,11 @@
 # Roadmap
 
+## Active: dashboard composition (9 September 2026)
+
+Branch `feature/dashboard-composition`. Approved ahead of deferred Pass 3 work after the first consumer dashboard screenshot. Implementation: parent-owned section spacing, responsive equal grids and a two-to-one split, page header, rich content lists, and explicit read-only roadmap controls. The live neutral dashboard exercises the actual content shapes that previously required ad-hoc markup. Verification and PR review remain before release; see HANDOFF.md.
+
+This does not add editable tables, a Gantt scheduler, capacity calculations, another app shell or registry distribution. Existing library defaults remain intact.
+
 ## Approved delivery order (9 September 2026, re-prioritised by the user — supersedes Codex's original ordering below)
 
 The user reviewed Codex's negotiated 30-item pass structure and found the priority and grouping had drifted from what the finance/capacity screenshots actually need. This replacement list is the authoritative one; Codex's original six-pass ordering further down this section is kept only as historical record of what it superseded.
@@ -95,6 +101,37 @@ One item remains, lower priority since it's an internal typing concern rather th
 
 - Consider tightening `ChartConfig`/`ChartDatum` (currently loose index signatures in `src/charts/index.tsx` that force `!` non-null assertions and `unknown` casts elsewhere in the same file).
 
+## 1b. Dashboard and data-density work, from the screen review (9 September 2026)
+
+Sequenced from a review of the supplied Projects, Retainers, Capacity and Timeline screens against the library. Ordered by how much each unblocks a real screen. Items marked done landed in PR #12 and the follow-up; the rest are open.
+
+**Done.** Flexible metric grid (`Grid` with `columns` and `minItemWidth`), adoption inside an existing application shell (`docs/dashboard-composition.md`), `PageHeader`, `ContentList`/`ContentListItem`, `RoadmapBoard readOnly`, `SplitLayout ratio`, and honest over-capacity reporting in `Progress`.
+
+### Next: make `DataTable` carry a real screen
+
+Every remaining screen leans on the table, so it comes first. `DataTableProps` today is `caption`, `data`, `columns`, `pagination`, `tableLayout`, `tableMinWidth`, `pageSize`, `searchable`, `searchLabel`, `state`, `onRetry`, `getRowId`, `density`. Everything below is missing.
+
+1. **Apply TanStack column sizes to rendered cells.** The library already depends on `@tanstack/react-table`, and consumers can already set `size` on a column definition, but nothing reads it, so column widths are ignored today. Start here: it is the smallest change with the widest effect, and it unblocks the pinned-column and financial-table work.
+2. **Numeric and financial cell treatment.** Right-aligned numerals, tabular figures, consistent hours and currency formatting, explicit negative and missing-value rendering. The retainers screen needs all of it, and "missing" must stay visually distinct from zero, per the metric rules in AGENTS.md.
+3. **Controlled state.** Lift sorting, pagination and global filter into optional controlled props alongside the current internal state, so a host can drive them from a URL or a saved view. Additive: uncontrolled stays the default.
+4. **Column visibility and pinning.** A pinned identifier column is what makes a wide table readable while scrolling horizontally. Pair with the existing `tableLayout="scroll"`.
+5. **Server-driven pagination.** `manualPagination` plus a row-count input, for datasets that never arrive whole.
+6. **Optional summary footers and grouped rows.** Totals for the financial view.
+
+### Then: patterns that do not exist yet
+
+7. **Capacity matrix / heatmap.** A weekly grid with readable values in every cell, a legend, a missing-data state, and its own horizontal scroll independent of the page. Colour must never be the only signal: pair each cell with its value.
+8. **Read-only Gantt / timeline.** Grouped rows, sticky row labels, a date scale, a today marker, and an accessible way to inspect a bar that does not depend on hover. Treat drag and resize as out of scope; this is a presentation pattern.
+9. **Categorical legend.** Shared by the heatmap, the timeline and the charts. Small, and it removes hand-rolled legends from three places.
+10. **Details drawer.** A side panel for a selected row, with focus management and Escape handling. `ConfirmationDialog` already establishes the Radix patterns to follow.
+11. **Saved views.** Persisting column visibility, filters and sort belongs to the host application; the library supplies the controls and the controlled props from item 3, not the storage.
+
+### Also open
+
+12. **Nested and collapsible navigation.** `DashboardSidebar` takes a flat `items: readonly SidebarItem[]`. The screens need grouped sections, a collapsible rail and configurable branding. Additive: keep the flat list working.
+13. **Filter toolbar grouping.** `FilterToolbar` squeezes every control onto one line. It needs deliberate wrapping and a separation between filters and primary actions once a screen carries more than about four filters.
+14. **Regroup Storybook.** 31 stories sit in a flat `Components/` section against 6 Foundations and 6 Patterns. Sub-grouping (inputs, data, navigation, feedback) would make it navigable. **Costly in one specific way:** a story's title is its ID, so regrouping changes every URL and breaks bookmarks plus any link in `docs/*.mdx` and README. Do it as its own change, with a pass over the docs links, not folded into a feature.
+
 ## 2. New components
 
 Each of these is a real feature — stories, interaction tests, and a docs/component-catalogue.md entry, not just a source file.
@@ -105,7 +142,7 @@ Each of these is a real feature — stories, interaction tests, and a docs/compo
 - **Wizard / multi-step stepper.** No component or pattern for this today.
 - **File upload / dropzone.** No component for this today — zero references to `type="file"` or drag-drop file handling anywhere in `src/`.
 - **Real drag-and-drop for RoadmapBoard.** Today "moving" a card is a `<Select>` dropdown (`onStageChange`), which is genuinely good for keyboard/touch accessibility and should stay as an option — but a mouse-drag interaction (e.g. via `dnd-kit`, which has good accessibility primitives of its own) is worth adding as a progressive enhancement alongside it, not a replacement.
-- **Read-only list and board patterns.** Reported by the first external consumer, 9 September 2026, while building a status pipeline view. `ActivityList` and `ResourceList` take fixed, string-only shapes: there is no way to combine a per-row action link, a leading indicator and trailing metadata on one row. `RoadmapBoard`, the only board component, forces an editable stage `Select` and a priority `Checkbox` onto every card, which is wrong for a view nobody edits. That consumer hand-composed `Card`, `Badge` and `TextLink` instead for both their Kanban and queue widgets, which is a reasonable escape hatch but means the library gave them nothing. Wanted: a read-only list row that composes indicator, content, action and meta, and a board that renders cards without imposing edit controls. Treat `RoadmapBoard`'s editing as opt-in rather than built in.
+- **Read-only list and board patterns (implemented on `feature/dashboard-composition`, pending review).** Reported by the first external consumer, 9 September 2026, while building a status pipeline view. `ActivityList` and `ResourceList` take fixed, string-only shapes: there is no way to combine a per-row action link, a leading indicator and trailing metadata on one row. `RoadmapBoard`, the only board component, forces an editable stage `Select` and a priority `Checkbox` onto every card, which is wrong for a view nobody edits. That consumer hand-composed `Card`, `Badge` and `TextLink` instead for both their Kanban and queue widgets, which is a reasonable escape hatch but means the library gave them nothing. Wanted: a read-only list row that composes indicator, content, action and meta, and a board that renders cards without imposing edit controls. The branch adds ContentList/ContentListItem and explicit `readOnly` mode, preserving legacy editing defaults. Do not start a second implementation.
 - **Softer negative badge.** Noticed while adding the amber caution state. `.cui-badge-negative` uses `--cui-surface-page` as its background, which is nearly the page colour, so a negative badge reads as bare text next to the tinted positive and warning badges. Giving it a soft tint would make the three-state set coherent. This changes an existing component's default appearance, so it needs the backward-compatibility process rather than a drive-by fix.
 - **Error boundary component.** Components accept `state='error'` props for their own internal error states, but nothing in the library catches a render-time throw from a consumer's own code. A simple `ErrorBoundary` wrapper would round this out.
 

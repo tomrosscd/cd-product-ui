@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The Koko roadmap pattern with configurable columns, counts, badges, metadata and controls. The host owns stage/priority state. Omit callbacks for read-only cards. Moving by dropdown is available to keyboard and touch users. Drag-and-drop is not included. Columns scroll within the board on narrow screens, and focus follows a moved item or returns to the stage filter when that item leaves the filtered view.',
+          'The Koko roadmap pattern with configurable columns, counts, badges, metadata and controls. The host owns stage/priority state. Set readOnly to hide editing controls. Without it, omitted callbacks leave disabled controls visible. Moving by dropdown is available to keyboard and touch users. Drag-and-drop is not included. Columns scroll within the board on narrow screens, and focus follows a moved item or returns to the stage filter when that item leaves the filtered view.',
       },
     },
   },
@@ -20,7 +20,17 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 export const Interactive: Story = { render: () => <RoadmapExample /> }
-export const ReadOnly: Story = {}
+export const ReadOnly: Story = {
+  args: { readOnly: true },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    await expect(c.queryByRole('combobox', { name: /Stage for/ })).not.toBeInTheDocument()
+    await expect(c.queryByRole('checkbox')).not.toBeInTheDocument()
+    await userEvent.selectOptions(c.getByRole('combobox', { name: 'Show stage' }), 'ready')
+    await expect(c.getByRole('region', { name: 'Ready to build' })).toBeVisible()
+  },
+}
+export const DisabledEditing: Story = {}
 export const EmptyColumns: Story = { args: { items: [] } }
 export const Loading: Story = { args: { state: 'loading' } }
 export const Error: Story = { args: { state: 'error' } }

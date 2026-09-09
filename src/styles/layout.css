@@ -1,0 +1,116 @@
+/* Layout belongs to the parent. Card padding does not create section spacing. */
+.cui-layout-stack,
+.cui-layout-grid,
+.cui-layout-split {
+  gap: var(--cui-layout-gap);
+  min-inline-size: 0;
+}
+.cui-layout-stack {
+  display: flex;
+  flex-direction: column;
+}
+.cui-layout-grid {
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      min(
+        100%,
+        max(
+          var(--cui-grid-min),
+          calc((100% - (var(--cui-grid-columns) - 1) * var(--cui-layout-gap)) / var(--cui-grid-columns))
+        )
+      ),
+      1fr
+    )
+  );
+}
+.cui-layout-stack > *,
+.cui-layout-grid > *,
+.cui-layout-split > * {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+.cui-layout-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+/* Growth comes from SplitLayout's ratio prop. The defaults reproduce the original two-to-one
+   split exactly, so a SplitLayout with no ratio renders as it did before the prop existed. */
+.cui-layout-primary {
+  flex: var(--cui-split-primary, 2) 1 480px;
+}
+.cui-layout-secondary {
+  flex: var(--cui-split-secondary, 1) 1 240px;
+}
+.cui-layout-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cui-space-16);
+  min-inline-size: 0;
+}
+.cui-layout-header-copy {
+  display: grid;
+  gap: var(--cui-space-8);
+  flex: 1 1 280px;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.cui-layout-heading {
+  font-family: var(--cui-font-sans);
+  font-size: var(--cui-type-display-mobile);
+  line-height: var(--cui-type-display-mobile-leading);
+}
+.cui-layout-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cui-space-8);
+  max-inline-size: 100%;
+}
+.cui-content-list {
+  list-style: none;
+  padding: var(--cui-space-0);
+  margin: var(--cui-space-0);
+  min-inline-size: 0;
+}
+.cui-content-list-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cui-space-12);
+  padding-block: var(--cui-space-16);
+  min-inline-size: 0;
+}
+.cui-content-list-item + .cui-content-list-item {
+  border-block-start: 1px solid var(--cui-border-subtle);
+}
+.cui-content-list-compact > .cui-content-list-item {
+  padding-block: var(--cui-space-12);
+}
+.cui-content-list-copy {
+  flex: 1 1 160px;
+  min-inline-size: 0;
+  display: grid;
+  gap: var(--cui-space-4);
+  overflow-wrap: anywhere;
+}
+.cui-content-list-title {
+  font-weight: var(--cui-font-medium);
+}
+.cui-content-list-leading,
+.cui-content-list-meta,
+.cui-content-list-actions {
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+.cui-content-list-meta,
+.cui-content-list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cui-space-8);
+}
