@@ -47,16 +47,39 @@ Both were caught by actually installing into a clean scaffolded project and chec
 
 `button` is pinned to `shadcn-ui/ui` commit `3ba91b1cc83e1bbe4ab35a422ff2a694849c5048` (`new-york-v4` style) — same variant names (`default`/`destructive`/`outline`/`secondary`/`ghost`/`link`), same size names, same `asChild` support, same `data-slot`/`data-variant`/`data-size` attributes. `loading` and `leadingIcon` (present on this package's own npm-published `Button`) are deliberately not part of this registry item — see the file's own comment for why.
 
+**Recorded vanilla-source provenance, for reproducibility.** `npx shadcn add button` doesn't itself print what it installed from, so a commit reference alone isn't enough to reproduce the claim — the live default registry (`ui.shadcn.com`) could in principle be serving something other than that exact commit. Verified directly instead of assumed: the file actually installed into the test project by the real CLI, and the file fetched straight from `raw.githubusercontent.com/shadcn-ui/ui/3ba91b1cc83e1bbe4ab35a422ff2a694849c5048/apps/v4/registry/new-york-v4/ui/button.tsx`, both hash to the identical SHA-256:
+
+```
+79dd6f75f8136394442202d6b8b922fb269eaad0a5dba579397c9d5b41f893bb
+```
+
+That confirms `ui.shadcn.com`'s live default registry was serving exactly that commit's content at test time (9 September 2026). If this is re-verified later and the hash differs, that means upstream has moved — re-diff against the new content before assuming `button` is still compatible, rather than trusting the commit reference alone.
+
 Verified directly, not assumed:
 
 - Installed into a clean scaffolded Vite + React + Tailwind v4 project via the real `shadcn` CLI against a locally-served build of this registry.
 - Built and ran that project (`pnpm build`, `pnpm preview`) with the registry server stopped entirely — confirmed copy-in independence, not just reasoned about it.
 - Ran `npx shadcn add button` (default registry, no `@convert/` prefix) with `--overwrite` on the same project. The vanilla file landed at the identical path with the identical import specifier — zero edits needed to `App.tsx` or the composition file. Rendered output was visually identical (Convert's palette still applied, since the vanilla file uses the same Tailwind utility class _names_ our bridge maps colours onto).
-- Confirmed via a direct DOM test that an unmodified-`type` button (what both the Convert and vanilla builds render) correctly triggers form submission on click inside a `<form>`.
-- Confirmed Tab reaches the button correctly in the real keyboard focus order.
-- **Not fully verified:** synthetic Enter/Space key-press activation through this session's browser-automation tooling didn't register a click on a focused button in either build — traced to the automation tool's synthetic keyboard-event dispatch not triggering the browser's native default action for a focused `<button>`, not a defect in either build (neither adds any custom keydown handling, and native `<button>` Enter/Space activation is guaranteed by every browser engine for real keyboard input). Worth a manual real-keyboard check before treating this as fully closed.
+- **Click activation, disabled state, and form submission, checked on both builds individually** (not just once): a plain click fires on both; a `disabled` button (verified by clearing the composition's filter, which disables its Apply button) does not fire a click on either, matching native `<button disabled>` semantics that neither file overrides; and a direct DOM `<form>` test confirms an unmodified-`type` button (what both builds render) triggers real form submission on click, on both builds.
+- Confirmed Tab reaches the button correctly in the real keyboard focus order, on both builds.
+- **Enter/Space keyboard activation could not be verified with the tooling available, despite three separate attempts** (different key-name variants, focus established via Tab vs. via a direct click, tested with a fresh click-listener each time) — none registered a click on either build. This is consistent across both builds and across every variation tried, which points at the browser-automation tool's synthetic key dispatch not triggering the browser's native default action for a focused `<button>`, rather than a defect in either file (neither adds any custom keydown handling, and native `<button>` Enter/Space activation is a baseline guarantee of every browser engine for real keyboard input) — but "consistent with a tooling explanation" is not the same as "verified," and this is being reported as genuinely open, not closed. **This needs an actual person pressing actual keys**: load either build, Tab to a button, press Enter, then Space, confirm both activate it — a 15-second check that no amount of further automation attempts from this session should substitute for.
 
 ## Updating and version selection
+
+To regenerate CSS after editing a token, from your project root:
+
+```sh
+node src/convert-ui/generate-tokens.mjs \
+  --tokens=src/convert-ui/tokens.json \
+  --responsive-template=src/convert-ui/responsive.template.css \
+  --out-css=src/styles/convert-ui/tokens.css \
+  --out-ts=src/convert-ui/tokens.ts \
+  --out-responsive=src/styles/convert-ui/responsive.css
+```
+
+(Adjust the paths if your project's `components.json` aliases don't match the defaults above.) Verified end to end, not just that the flags parse: changed `colour.forest`'s hex value in an installed `tokens.json`, ran the exact command above, and confirmed both that `tokens.css` picked up the new value and that a running dev server's rendered buttons changed colour accordingly — editing the source and regenerating is a real, working path, not just an accepted CLI flag.
+
+Registry items themselves are copied at install time, not fetched again automatically. Re-running `npx shadcn add @convert/<name>` fetches whatever is _currently_ being served and will skip files that are byte-identical, or offer to overwrite ones that differ — it does not silently clobber by default. Before accepting an overwrite on something you've customised, diff what's being offered against what's in your project.
 
 Registry items are copied at install time, not fetched again automatically. Re-running `npx shadcn add @convert/<name>` fetches whatever is _currently_ being served and will skip files that are byte-identical, or offer to overwrite ones that differ — it does not silently clobber by default. Before accepting an overwrite on something you've customised, diff what's being offered against what's in your project.
 
