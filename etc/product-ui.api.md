@@ -1648,6 +1648,25 @@ export interface StackProps extends ComponentProps<'div'> {
 }
 
 // @public
+export function Stepper(input: StepperProps): JSX.Element;
+
+// @public (undocumented)
+export interface StepperProps {
+    // (undocumented)
+    activeId: string;
+    // (undocumented)
+    steps: readonly StepperStep[];
+}
+
+// @public (undocumented)
+export interface StepperStep {
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    label: string;
+}
+
+// @public
 export function StyledSelect(input: StyledSelectProps): JSX.Element;
 
 // @public (undocumented)

@@ -836,6 +836,65 @@
 .cui-skip:focus {
   transform: none;
 }
+/* A step's state comes entirely from its position relative to the active step (done/current/
+   upcoming) — presentation only, like every other component here; step content, next/back
+   navigation and validation stay with the consuming application. */
+.cui-stepper {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: var(--cui-space-0);
+  padding: var(--cui-space-0);
+  overflow-x: auto;
+}
+.cui-stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--cui-space-8);
+  flex-shrink: 0;
+}
+.cui-stepper-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--cui-space-24);
+  height: var(--cui-space-24);
+  border-radius: var(--cui-radius-round);
+  border: var(--cui-border-width) solid var(--cui-border-control);
+  color: var(--cui-text-secondary);
+  font-size: var(--cui-type-caption);
+  font-weight: var(--cui-font-semibold);
+}
+.cui-stepper-step[data-cui-step='current'] .cui-stepper-marker {
+  border-color: var(--cui-accent-primary);
+  border-width: calc(var(--cui-border-width) + 1px);
+  color: var(--cui-accent-primary);
+}
+.cui-stepper-step[data-cui-step='done'] .cui-stepper-marker {
+  background: var(--cui-accent-primary);
+  border-color: var(--cui-accent-primary);
+  color: var(--cui-text-inverse);
+}
+.cui-stepper-label {
+  font-size: var(--cui-type-compact);
+  color: var(--cui-text-secondary);
+  white-space: nowrap;
+}
+.cui-stepper-step[data-cui-step='current'] .cui-stepper-label {
+  color: var(--cui-text-primary);
+  font-weight: var(--cui-font-medium);
+}
+.cui-stepper-connector {
+  width: var(--cui-space-32);
+  height: var(--cui-border-width);
+  margin-inline: var(--cui-space-8);
+  background: var(--cui-border-control);
+  flex-shrink: 0;
+}
+.cui-stepper-step[data-cui-step='done'] .cui-stepper-connector {
+  background: var(--cui-accent-primary);
+}
 @media (prefers-reduced-motion: reduce) {
   .cui-root *,
   .cui-button,
