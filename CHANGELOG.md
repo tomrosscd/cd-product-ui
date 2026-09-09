@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `DataTable` now applies a column definition's `size` to the rendered column. Declaring any size switches the table to fixed layout, so declared widths decide the columns; a table filling its container distributes the surplus proportionally, which makes the sizes ratios rather than absolute pixels. Tables that declare no size are unaffected.
+- Add per-column presentation through a column definition's `meta`: `numeric` aligns the column to the end and switches on tabular figures so digits line up down the column, and `align` sets `start`, `center` or `end`. Typed through TanStack's `ColumnMeta` augmentation. Formatting the value, including currency, hours, negatives and what missing looks like, stays with the application.
+- **Fix:** a `negative` `Badge` used `--cui-surface-page` as its background, within 1.00:1 of the page behind it, so it read as bare text beside the tinted positive and warning badges. Adds `--cui-surface-negative`, measured at 1.20:1 against the page, between warning's 1.17 and positive's 1.37, with 5.16:1 for the text on it.
+
 - **Fix:** a closed `DashboardSidebar` section still rendered its children and kept them in the tab sequence while reporting `aria-expanded="false"`. The list carried the `hidden` attribute, but `.cui-nav-section-list`'s class-based `display: flex` outranks the user agent's `[hidden] { display: none }`, so the attribute had no effect. Reported by the first consumer to adopt 0.8.0.
 - Redesign the sidebar collapse control. Expanded, a quiet panel-collapse button sits on the trailing edge of the branding row, replacing the separate hamburger and "Collapse" row beneath the logo. Collapsed, a panel-expand button sits centred beneath the mark, in the space the workspace block occupies when expanded, so the first destination holds the same vertical position in both states. Branding is never a toggle: clicking the logo does not collapse navigation.
 - Add `sidebar-collapse` and `sidebar-expand` icons.

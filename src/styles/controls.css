@@ -210,9 +210,13 @@
   background: var(--cui-accent-soft);
   color: var(--cui-accent-primary);
 }
+/* A tint, not the page colour. This used --cui-surface-page, which is within 1.00:1 of the page it
+   sits on, so a negative badge read as bare text beside the tinted positive and warning ones and
+   the three-state set looked inconsistent. Measured at #f7e0dc: 1.20 against the page, between
+   warning's 1.17 and positive's 1.37, with 5.16:1 for the text on it. */
 .cui-badge-negative {
   color: var(--cui-text-negative);
-  background: var(--cui-surface-page);
+  background: var(--cui-surface-negative);
 }
 /* Amber, not a grey outline. This tone previously carried only the ordinary text colour and a
    neutral border, so a "warning" badge was visually indistinguishable from a neutral one and the
