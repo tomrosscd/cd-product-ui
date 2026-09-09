@@ -1,14 +1,14 @@
 # Active work and handoff
 
-Last updated: 9 September 2026 (interaction-quality pass, items 1–3 complete). Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
+Last updated: 9 September 2026 (interaction-quality pass, items 1–3 complete; item 4's consolidated states page now done, and a WCAG focus-ring failure found and fixed while building it). Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
 
 ## Active work right now: interaction-quality pass (branch `feature/interaction-quality-pass`)
 
 PR #9 (shadcn registry pilot) is **merged** to `main` (labelled `experimental`, no tag) — the user did the final human keyboard check on a purpose-built test page after this session's browser-automation tooling couldn't exercise real Enter/Space input; see `docs/registry-pilot.md`'s closing note. The 5-step sequence from the prior section of this file is now fully done through step 2.
 
-The user then gave a detailed, four-part interaction-quality brief (focus ownership, dropdown interaction states, icon standardisation, full verification) to do **before** Pass 3, on its own branch, not merged without approval. Items 1–3 are done and verified; item 4 is partially done — read the honest breakdown below before continuing or opening the PR.
+The user then gave a detailed, four-part interaction-quality brief (focus ownership, dropdown interaction states, icon standardisation, full verification) to do **before** Pass 3, on its own branch, not merged without approval. Items 1–3 are done and verified. Item 4 is now closed as far as this environment allows: its one tooling-independent gap (the consolidated states page) is built, and the three remaining gaps are environment- or scope-blocked, listed below. **PR #10 is open and was green on `8b321bc`; two further commits have been pushed since, so re-read CI before drawing conclusions from that earlier green.** Still not merged, per the standing rule.
 
-**Commits on this branch, in order:** `dc5a599` (focus ownership), `2f7ec02` (Combobox popup sizing/indentation/alignment), `5a2b106` (dropdown neutral tokens + hover/keyboard-active model, with a real self-correction — see below), `690193d` (Foundations/Dropdown states story), `c1b45ce` (Lucide icon set + remaining Unicode fixes + search-clear), `c955733` (Foundations/Icons story).
+**Commits on this branch, in order:** `dc5a599` (focus ownership), `2f7ec02` (Combobox popup sizing/indentation/alignment), `5a2b106` (dropdown neutral tokens + hover/keyboard-active model, with a real self-correction — see below), `690193d` (Foundations/Dropdown states story), `c1b45ce` (Lucide icon set + remaining Unicode fixes + search-clear), `c955733` (Foundations/Icons story), `139e831` (primary button focus-ring contrast fix — see item 5 below), `a459b30` (Foundations/Component states page).
 
 ### 1. Focus ownership — done
 
@@ -35,20 +35,45 @@ The user then gave a detailed, four-part interaction-quality brief (focus owners
 - Implemented the search-clear fix on `DataTable`: an accessible `Icon name="close"` button (only rendered once there's a value) that clears the controlled `globalFilter`, resets pagination to page 0, and restores focus to the input — verified directly (`document.activeElement` checked, not assumed) rather than just reasoned about. The native browser clear affordance is hidden only where this replacement exists (`:has([data-cui-search-clear])`), so a plain `type="search"` input elsewhere is unaffected.
 - Added `Foundations/Icons` Storybook page listing every name with usage guidance; the name list is typed as `IconName[]` so an icon added/removed from `icon.tsx` without a matching update here fails type-check.
 
-### 4. Full verification — partially done, be honest about the gap before opening the PR
+### 4. Full verification — the one tooling-independent gap is now closed; three remain blocked
 
 Done: light/dark theme (checked on every change above, not just at the end), keyboard vs. pointer input (including the Select/ActionMenu correction above and the Combobox disabled-option fixes), automated accessibility (Storybook's a11y addon caught a real `aria-required-parent` violation in the new dropdown-states story — fixed, not silenced), narrow screens (375px and the WCAG 320px reflow benchmark, on `DataTable` and the dropdown-states page — no clipping, no horizontal overflow, indicator column held up even with a wrapped two-line label), disabled-state and focus-restoration behaviour (verified programmatically, not just visually).
 
-**Not done — needs its own pass before this is truly "verified," not silently claimed complete:**
+**What was outstanding when items 1–3 were finished** (superseded by the update further down — read that for the current position, this list is kept for the record):
 
-- **No cross-cutting Storybook state reference covering the full list the brief named** (inputs, formatted inputs, search, selects, comboboxes, menus, date pickers, buttons, links, chips, tabs, navigation) — only dropdowns got one. The individual components' existing stories cover most of these already, but there's no single consolidated page.
+- ~~No cross-cutting Storybook state reference covering the full list the brief named~~ — **done**, see the update below (`a459b30`).
 - **Forced colours** — this session's browser tooling has no forced-colors emulation available; the existing `@media (forced-colors: active)` blocks in `data.css`/`controls.css`/`components.css` weren't touched by this pass and weren't re-verified either.
 - **RTL** — genuinely out of scope; this project has no `[dir="rtl"]` support yet (ROADMAP.md section 5, "still deferred"), not something to add as a side effect here.
 - **Real Roobert rendering** — the licensed font files aren't present in this environment (by design, see AGENTS.md/README.md); everything above rendered on the Geist fallback, which is one of the two fonts the brief named but not both.
 - **Zoom** — approximated via the 320px reflow-equivalent width rather than an actual browser zoom control, which this tooling can't drive.
 - No before/after screenshots were saved to a file for the user — every check was done live against a running Storybook instance and described in this file and each commit message instead.
 
-**Recommendation for whoever picks this up:** this is a defensible, real stopping point — three of four sections are genuinely complete and verified, not just attempted. Bring it to the user now for review (labelled clearly as items 1–3 done, item 4 partial) rather than guessing at the remaining scope alone, since the gaps above (forced-colors, RTL, real Roobert) need either different tooling or the user's own judgement on how much further to go before Pass 3. Do not merge or tag without the user's explicit approval, same standing rule as everything else.
+**Update (this session).** The user chose to close the one gap that was not blocked by tooling before bringing the PR back for review. That is now done, and it turned up a real defect.
+
+**Now done:** `Foundations/Component states` (`docs/component-states.stories.tsx`) covers buttons, text inputs, search and password, formatted inputs, textarea, checkbox/switch/radio, selects, comboboxes, menus, date pickers, links, chips, tabs and navigation, in rest, focus, selected, error, loading, read-only and disabled states. Every cell renders the real component in a real state, with two exceptions stated on the page itself: navigation (`.cui-sidebar` is `position: fixed` and cannot sit inline, so those rows use the exact markup `DashboardSidebar` renders, the same approach the dropdown-states page took) and focus (only one element per document can hold it).
+
+The focus preview is a `data-cui-focus-preview` hook in `.storybook/preview.css`, deliberately **not** in `src/styles`, so it does not ship: `dist/styles.css` contains no occurrence of `focus-preview` (checked against a real build, not assumed). Because that hook restates declarations the real rules own, the `Focus ring parity` story asserts a previewed ring computes identically to a genuinely keyboard-focused control. That guard was confirmed load-bearing by breaking each preview rule in turn and watching the test fail, in light and again under `pnpm test:dark` — not assumed to work.
+
+**Still not done, unchanged and still honest:**
+
+- **Forced colours** — no forced-colors emulation in this session's tooling either. The `@media (forced-colors: active)` blocks in `data.css`/`controls.css`/`components.css` remain untouched and unverified by this pass.
+- **RTL** — still genuinely out of scope; no `[dir="rtl"]` support exists yet (ROADMAP.md section 5).
+- **Real Roobert rendering** — licensed font files still absent by design; everything rendered on the Geist fallback.
+- **Zoom** — still approximated via the 320px reflow-equivalent width rather than a real zoom control.
+
+### 5. Primary button focus ring — a defect this branch introduced, now fixed (`139e831`)
+
+Putting every focus state side by side on the new page immediately showed the primary button had no visible focus ring. This was not pre-existing: `dc5a599`, earlier on this same branch, introduced it.
+
+`dc5a599` fixed a real problem — `--cui-focus-colour` equals `--cui-accent-primary` in both themes, so the shared ring sat flush against a border of the identical colour and merely made the button look 2px larger — by recolouring the ring to `--cui-text-inverse`. That reasoning is sound about contrast against the _button_, but with `outline-offset: 0` the ring is drawn entirely _outside_ the border box, so what it must contrast with is the surface behind it. Measured on a genuinely keyboard-focused button in Chromium: **1.00:1** (light, on a card), 1.05:1 (light, on the page), 1.34:1 and 1.04:1 (dark). WCAG 2.2 SC 1.4.11 asks 3:1, so the indicator failed in both themes and was invisible to the eye in light.
+
+The fix separates ring from button with a gap instead of recolouring it: keep `--cui-focus-colour` and set `outline-offset: var(--cui-focus-width)`. That resolves the original merge without giving up contrast — **11.79:1**/12.40:1 in light, 12.01:1/9.34:1 in dark. Verified with real `Tab` presses in Chromium so `:focus-visible` genuinely matched (a synthetic `KeyboardEvent` does _not_ establish keyboard modality — an early attempt this session read `matchesFocusVisible: false` and would have measured the wrong thing). The parity story now pins this rule, so it cannot regress silently.
+
+Worth noting for whoever reviews: this is exactly the class of bug a consolidated states page exists to catch, and it went unnoticed while each component's focus state lived on its own page.
+
+**Checks run this session, all passing:** `format:check`, `tokens:check`, `type-check`, `lint`, `test` (200 tests, 44 files), `test:dark` (176), `build`, `build-storybook`, `api:check`, `test:coverage` (92.26% statements, above the floor), `package:check`, `next:check`. That is every gate `.github/workflows/ci.yml` runs. Storybook's a11y addon on the new page: 0 violations, 29 passes, 1 inconclusive (`aria-hidden` decorative spans containing only non-text characters — benign). No horizontal overflow at the 320px WCAG reflow width (checked programmatically across the full 6717px page, 0 offending elements).
+
+**Next step:** the user's review of PR #10. Do not merge or tag without explicit approval — the standing rule has not changed. The three gaps above need either different tooling (forced colours), the licensed fonts (Roobert), or a scope decision (RTL); none should be guessed at alone.
 
 ## Current state
 
