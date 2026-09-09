@@ -101,7 +101,9 @@
   font-weight: var(--cui-font-semibold);
 }
 .cui-select-scroll {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-block: var(--cui-space-4);
 }
 .cui-date-panel {
   padding: var(--cui-space-16);

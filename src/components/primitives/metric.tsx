@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Card, type CardProps } from './card.js'
+import { Icon, type IconName } from './icon.js'
 import { cn } from '../../lib/classes.js'
 export interface MetricComparison {
   label: string
@@ -14,7 +15,7 @@ export interface MetricProps {
 }
 /** Direction and sentiment are independent. Increasing cost may be negative. */
 export function Metric({ value, unit, comparison, description }: MetricProps) {
-  const arrows = { up: '↑', down: '↓', flat: '→' }
+  const arrows: Record<'up' | 'down' | 'flat', IconName> = { up: 'arrow-up', down: 'arrow-down', flat: 'arrow' }
   return (
     <div className="cui-root cui-stack cui-metric-content">
       <div>
@@ -34,7 +35,7 @@ export function Metric({ value, unit, comparison, description }: MetricProps) {
         >
           {comparison.direction && (
             <>
-              <span aria-hidden="true">{arrows[comparison.direction]} </span>
+              <Icon name={arrows[comparison.direction]} className="cui-icon-inline" />
               <span className="cui-sr-only">
                 {comparison.direction === 'flat'
                   ? 'Unchanged'

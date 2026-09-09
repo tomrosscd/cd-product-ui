@@ -3,6 +3,7 @@ import { useId, useState, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
 import { describedByIds } from '../../lib/aria.js'
 import { Button } from './button.js'
+import { Icon } from './icon.js'
 import type { ChoiceOption } from './option.js'
 
 export interface FieldProps {
@@ -97,7 +98,7 @@ export function PasswordInput(props: Omit<InputProps, 'type' | 'trailingAction'>
           aria-label={visible ? 'Hide password' : 'Show password'}
           onClick={() => setVisible(!visible)}
         >
-          {visible ? 'Hide' : 'Show'}
+          <Icon name={visible ? 'visibility-off' : 'visibility'} />
         </Button>
       }
     />

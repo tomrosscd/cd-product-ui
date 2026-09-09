@@ -1,5 +1,5 @@
 'use client'
-import { useState, useId } from 'react'
+import { useState, useId, useRef } from 'react'
 import {
   useReactTable,
   getCoreRowModel,
@@ -15,6 +15,7 @@ import { Input } from '../primitives/fields.js'
 import { Pagination } from '../primitives/pagination.js'
 import { Button } from '../primitives/button.js'
 import { EmptyState, Alert, Spinner } from '../primitives/feedback.js'
+import { Icon } from '../primitives/icon.js'
 export type { ColumnDef } from '@tanstack/react-table'
 export interface DataTableProps<T> {
   caption: string
@@ -50,6 +51,7 @@ export function DataTable<T>({
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState('')
   const id = useId()
+  const searchRef = useRef<HTMLInputElement>(null)
   const table = useReactTable({
     data,
     columns,
@@ -68,6 +70,7 @@ export function DataTable<T>({
     <div className="cui-root cui-stack cui-data-table">
       {searchable && (
         <Input
+          ref={searchRef}
           label={searchLabel}
           type="search"
           value={globalFilter}
@@ -76,6 +79,23 @@ export function DataTable<T>({
             setGlobalFilter(event.target.value)
             table.setPageIndex(0)
           }}
+          trailingAction={
+            globalFilter ? (
+              <Button
+                variant="quiet"
+                data-cui-search-clear=""
+                aria-label="Clear search"
+                disabled={state !== 'ready'}
+                onClick={() => {
+                  setGlobalFilter('')
+                  table.setPageIndex(0)
+                  searchRef.current?.focus()
+                }}
+              >
+                <Icon name="close" />
+              </Button>
+            ) : undefined
+          }
         />
       )}
       {state === 'loading' ? (
@@ -111,13 +131,16 @@ export function DataTable<T>({
                           onClick={header.column.getToggleSortingHandler()}
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          <span aria-hidden="true">
-                            {header.column.getIsSorted() === 'asc'
-                              ? ' ↑'
-                              : header.column.getIsSorted() === 'desc'
-                                ? ' ↓'
-                                : ' ↕'}
-                          </span>
+                          <Icon
+                            name={
+                              header.column.getIsSorted() === 'asc'
+                                ? 'sort-up'
+                                : header.column.getIsSorted() === 'desc'
+                                  ? 'sort-down'
+                                  : 'sort'
+                            }
+                            className="cui-icon-inline"
+                          />
                         </button>
                       ) : (
                         flexRender(header.column.columnDef.header, header.getContext())

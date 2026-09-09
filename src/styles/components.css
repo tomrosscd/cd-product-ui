@@ -84,6 +84,13 @@
   display: inline-block;
   vertical-align: middle;
 }
+/* For an icon sitting inline in running text (a trend arrow before a caption, a sort indicator
+   in a table header) rather than as its own standalone control — scales with the surrounding
+   text instead of the fixed --cui-size-icon most standalone icon usage wants. */
+.cui-icon-inline {
+  width: 1em;
+  height: 1em;
+}
 .cui-button {
   display: inline-flex;
   justify-content: center;
@@ -138,6 +145,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* Pairs with <Icon name="loading">; the dedicated Spinner primitive remains the simpler default
+   for most loading states, this is for spots that specifically need the curated icon instead. */
+.cui-icon-spin {
+  animation: cui-spin 1s linear infinite;
 }
 .cui-card {
   min-width: 0;

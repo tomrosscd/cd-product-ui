@@ -24,6 +24,12 @@
   flex-shrink: 0;
   white-space: nowrap;
 }
+/* Only hide the browser's own inconsistent, unstylable search-cancel affordance where an
+   accessible replacement (the [data-cui-search-clear] trailingAction button) is actually present
+   — a plain type="search" input elsewhere keeps its native one. */
+.cui-input-row:has([data-cui-search-clear]) input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
 .cui-input {
   box-sizing: border-box;
   width: 100%;
@@ -176,6 +182,9 @@
   text-underline-offset: var(--cui-space-4);
   text-decoration: underline;
   overflow-wrap: anywhere;
+}
+.cui-text-link-inline .cui-icon-inline {
+  margin-inline-start: var(--cui-space-4);
 }
 .cui-text-link-standalone {
   display: inline-flex;

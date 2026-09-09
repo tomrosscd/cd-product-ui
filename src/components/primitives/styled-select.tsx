@@ -72,7 +72,9 @@ export function StyledSelect({
             sideOffset={4}
             collisionPadding={12}
           >
-            <Primitive.ScrollUpButton className="cui-select-scroll">↑</Primitive.ScrollUpButton>
+            <Primitive.ScrollUpButton className="cui-select-scroll">
+              <Icon name="chevron-up" />
+            </Primitive.ScrollUpButton>
             <Primitive.Viewport>
               {groups.map((group) => (
                 <Primitive.Group key={group}>
@@ -93,7 +95,9 @@ export function StyledSelect({
                 </Primitive.Group>
               ))}
             </Primitive.Viewport>
-            <Primitive.ScrollDownButton className="cui-select-scroll">↓</Primitive.ScrollDownButton>
+            <Primitive.ScrollDownButton className="cui-select-scroll">
+              <Icon name="chevron" />
+            </Primitive.ScrollDownButton>
           </Primitive.Content>
         </Primitive.Portal>
       </Primitive.Root>

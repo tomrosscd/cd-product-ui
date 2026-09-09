@@ -15,6 +15,7 @@ import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { JSX } from 'react';
 import { JSXElementConstructor } from 'react';
+import { LucideIcon } from 'lucide-react';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import * as Primitive from '@radix-ui/react-tabs';
 import { ReactElement } from 'react';
@@ -1067,10 +1068,10 @@ export function Icon(input: SVGProps<SVGSVGElement> & {
     name: IconName;
 }): JSX.Element;
 
-// Warning: (ae-forgotten-export) The symbol "paths" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "icons" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)
-export type IconName = keyof typeof paths;
+export type IconName = keyof typeof icons;
 
 // @public (undocumented)
 export function Input(input: InputProps): JSX.Element;
