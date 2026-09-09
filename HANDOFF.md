@@ -1,14 +1,39 @@
 # Active work and handoff
 
-Last updated: 9 September 2026 (interaction-quality pass, items 1–3 complete; item 4's consolidated states page now done, and a WCAG focus-ring failure found and fixed while building it). Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
+Last updated: 9 September 2026. Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
 
-## Active work right now: interaction-quality pass (branch `feature/interaction-quality-pass`)
+## Active work right now: pre-share hardening (branch `feature/pre-share-hardening`, PR #11)
 
-PR #9 (shadcn registry pilot) is **merged** to `main` (labelled `experimental`, no tag) — the user did the final human keyboard check on a purpose-built test page after this session's browser-automation tooling couldn't exercise real Enter/Space input; see `docs/registry-pilot.md`'s closing note. The 5-step sequence from the prior section of this file is now fully done through step 2.
+**PR #10 is merged.** `main` carries the interaction-quality pass, the primary-button focus-ring fix, `Foundations/Component states` and 0.7.0 release preparation. **`v0.7.0` is prepared but not tagged.** The README already references that tag, which is normal for release-process step 5 and resolves when step 6 runs.
 
-The user then gave a detailed, four-part interaction-quality brief (focus ownership, dropdown interaction states, icon standardisation, full verification) to do **before** Pass 3, on its own branch, not merged without approval. Items 1–3 are done and verified. Item 4 is now closed as far as this environment allows: its one tooling-independent gap (the consolidated states page) is built, and the three remaining gaps are environment- or scope-blocked, listed below. **PR #10 is open and was green on `8b321bc`; two further commits have been pushed since, so re-read CI before drawing conclusions from that earlier green.** Still not merged, per the standing rule.
+PR #11 is open and green, not merged. It exists because the user asked whether the library is ready for a coworker to use, and because the first external consumer reported four real conflicts against 0.6.0.
 
-**Commits on this branch, in order:** `dc5a599` (focus ownership), `2f7ec02` (Combobox popup sizing/indentation/alignment), `5a2b106` (dropdown neutral tokens + hover/keyboard-active model, with a real self-correction — see below), `690193d` (Foundations/Dropdown states story), `c1b45ce` (Lucide icon set + remaining Unicode fixes + search-clear), `c955733` (Foundations/Icons story), `139e831` (primary button focus-ring contrast fix — see item 5 below), `a459b30` (Foundations/Component states page).
+### The consumer's four issues
+
+1. **Tailwind v3 vs v4 CSS conflict, fixed.** The distributed stylesheet carried `@layer` at-rules from Tailwind v4, and Next.js runs `node_modules` CSS through the application's PostCSS pipeline, so a v3 consumer's build hard-failed. Reproduced with `tailwindcss@3.4.17` before fixing, not assumed. Cause: `src/styles/index.css` imported Tailwind's theme and utilities under the `cdu` prefix for authoring. **No `cdu-` class was ever used anywhere in this repository**, so the layer was vestigial and is gone. Built CSS now contains no `@layer`, `@property`, `color-mix`, `oklch` or `@supports`. AGENTS.md's `cdu` rule was updated to record the change, as that file requires for intentional rule changes.
+2. **No amber, fixed.** Added `colour.warning`, `text.warning` and `surface.warning` with measured contrast. `.cui-badge-warning` previously set only the ordinary text colour and a grey border, so a warning badge was indistinguishable from a neutral one.
+3. **No read-only list/board patterns, not fixed.** Recorded on ROADMAP.md section 2 with full context. Component work that needs its own stories, tests and catalogue entries.
+4. **Progress single-colour, fixed.** New `tone` prop, defaulting to `neutral` so nothing existing changes.
+
+### Other work on this branch
+
+- **`pnpm css:check`/`css:update`**, snapshot in `etc/product-ui.css.md`. Closes a documented but unenforced gap: the release process calls a renamed `.cui-*` class as breaking as a renamed prop, but only the TypeScript surface was guarded. Confirmed it fails on a real rename rather than assuming.
+- **README and Using the library rewritten** in Google developer documentation style. Fixed the Storybook Welcome page's hardcoded `0.4.0`, wrong since 0.5.0; it now reads `pkg.version`.
+- **`engines.node` widened** from `>=22.22.2 <23`. Measured with a probe package: pnpm ignores the bound, npm prints `EBADENGINE`. Noise rather than a blocker, now gone.
+- **`.github/workflows/release.yml`** builds the archive on a `v*` tag and attaches it to the GitHub Release, after verifying the tag matches `package.json`. Publishes to no registry. Note: it was swept into commit `abf3b5f` by a broad `git add`, so that commit message does not mention it.
+
+### What still blocks a coworker adopting this
+
+1. **PR #11 is not merged**, and **`v0.7.0` is not tagged.** Both the user's call.
+2. **CONSUMERS.md is still entirely placeholder rows.** It is the only mechanism protecting consumers from breaking changes. The coworker needs a real row on install.
+3. **The README still documents the clone-and-pack install.** Once a tag is pushed with `release.yml` in place, a release asset exists and the install collapses to one command. Update the README then, not before, so it never documents a URL that 404s.
+4. **The registry path is still not ready**, unchanged: hosting, immutable version URLs, install/update docs and a token-drift check are all not started, and the registry's own `button`/`chip` never received the interaction-quality pass.
+
+Tell any new consumer that Roobert is not bundled, so they render on the Geist/Arial fallback, and that forced-colours mode and RTL remain unverified and unsupported.
+
+## Interaction-quality pass detail (merged in PR #10)
+
+**Note:** item 1 below describes the primary button's focus ring using `--cui-text-inverse`. That was later found to fail WCAG 1.4.11 and was replaced by an offset ring in `139e831`. See section 5.
 
 ### 1. Focus ownership — done
 
