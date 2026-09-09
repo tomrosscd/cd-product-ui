@@ -105,7 +105,7 @@ One item remains, lower priority since it's an internal typing concern rather th
 
 Sequenced from a review of the supplied Projects, Retainers, Capacity and Timeline screens against the library. Ordered by how much each unblocks a real screen. Items marked done landed in PR #12 and the follow-up; the rest are open.
 
-**Done.** Flexible metric grid (`Grid` with `columns` and `minItemWidth`), adoption inside an existing application shell (`docs/dashboard-composition.md`), `PageHeader`, `ContentList`/`ContentListItem`, `RoadmapBoard readOnly`, `SplitLayout ratio`, and honest over-capacity reporting in `Progress`.
+**Done.** Flexible metric grid (`Grid` with `columns` and `minItemWidth`), adoption inside an existing application shell (`docs/dashboard-composition.md`), `PageHeader`, `ContentList`/`ContentListItem`, `RoadmapBoard readOnly`, `SplitLayout ratio`, and honest over-capacity reporting in `Progress`, and nested plus collapsible navigation.
 
 ### Next: make `DataTable` carry a real screen
 
@@ -128,7 +128,7 @@ Every remaining screen leans on the table, so it comes first. `DataTableProps` t
 
 ### Also open
 
-12. **Nested and collapsible navigation.** `DashboardSidebar` takes a flat `items: readonly SidebarItem[]`. The screens need grouped sections, a collapsible rail and configurable branding. Additive: keep the flat list working.
+12. ~~**Nested and collapsible navigation.**~~ **Done.** `DashboardSidebar` takes `SidebarEntry[]`, mixing flat destinations with collapsible `SidebarSection` groups, and `collapsible` gives an icon-only rail. A flat `SidebarItem[]` still works unchanged. Configurable branding beyond the Convert mark is still open.
 13. **Filter toolbar grouping.** `FilterToolbar` squeezes every control onto one line. It needs deliberate wrapping and a separation between filters and primary actions once a screen carries more than about four filters.
 14. **Regroup Storybook.** 31 stories sit in a flat `Components/` section against 6 Foundations and 6 Patterns. Sub-grouping (inputs, data, navigation, feedback) would make it navigable. **Costly in one specific way:** a story's title is its ID, so regrouping changes every URL and breaks bookmarks plus any link in `docs/*.mdx` and README. Do it as its own change, with a pass over the docs links, not folded into a feature.
 

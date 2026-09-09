@@ -844,6 +844,16 @@ export const tokenReference = [
   },
   {
     "group": "size",
+    "name": "rail",
+    "key": "size.rail",
+    "css": "--cui-size-rail",
+    "value": "64px",
+    "description": "Collapsed navigation rail width, icons only",
+    "resolved": "64px",
+    "darkResolved": "64px"
+  },
+  {
+    "group": "size",
     "name": "content",
     "key": "size.content",
     "css": "--cui-size-content",
@@ -1079,6 +1089,7 @@ export const tokens = {
   "size.icon-small": "16px",
   "size.brand": "24px",
   "size.sidebar": "208px",
+  "size.rail": "64px",
   "size.content": "1280px",
   "motion.duration": "160ms",
   "motion.easing": "ease-out",
@@ -1178,6 +1189,7 @@ export const darkTokens = {
   "size.icon-small": "16px",
   "size.brand": "24px",
   "size.sidebar": "208px",
+  "size.rail": "64px",
   "size.content": "1280px",
   "motion.duration": "160ms",
   "motion.easing": "ease-out",

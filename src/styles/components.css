@@ -352,6 +352,53 @@
   cursor: not-allowed;
   background: transparent;
 }
+/* Nested sections and the collapsed rail. Structure follows Material Design 3's expanded navigation
+   rail, which reveals secondary destinations a collapsed rail has no room for; the appearance stays
+   on Convert's own tokens rather than Material's. */
+.cui-nav-section-trigger {
+  width: 100%;
+  background: none;
+  border: 0;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.cui-nav-section-marker {
+  margin-inline-start: auto;
+  width: var(--cui-size-icon-small);
+  height: var(--cui-size-icon-small);
+}
+.cui-nav-section-list {
+  list-style: none;
+  margin: var(--cui-space-0);
+  padding-inline-start: var(--cui-space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-4);
+}
+/* The group holding the current page stays legible when its children are hidden. */
+.cui-nav-section[data-cui-current-section] > .cui-nav-section-trigger {
+  color: var(--cui-accent-primary) !important;
+}
+.cui-nav-toggle {
+  justify-content: flex-start;
+  gap: var(--cui-space-8);
+}
+.cui-sidebar-root[data-cui-nav='collapsed'] .cui-sidebar {
+  width: var(--cui-size-rail);
+  padding-inline: var(--cui-space-8);
+}
+.cui-sidebar-root[data-cui-nav='collapsed'] .cui-nav-item {
+  justify-content: center;
+  padding-inline: var(--cui-space-0);
+}
+.cui-sidebar-root[data-cui-nav='collapsed'] .cui-brand,
+.cui-sidebar-root[data-cui-nav='collapsed'] .cui-nav-toggle {
+  justify-content: center;
+}
+.cui-dashboard[data-cui-nav='collapsed'] .cui-dashboard-main {
+  margin-inline-start: var(--cui-size-rail);
+}
 .cui-sidebar-footer {
   margin-top: auto;
   padding-top: var(--cui-space-16);

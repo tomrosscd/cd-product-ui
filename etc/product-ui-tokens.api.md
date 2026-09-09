@@ -88,6 +88,7 @@ export const darkTokens: {
     readonly "size.icon-small": "16px";
     readonly "size.brand": "24px";
     readonly "size.sidebar": "208px";
+    readonly "size.rail": "64px";
     readonly "size.content": "1280px";
     readonly "motion.duration": "160ms";
     readonly "motion.easing": "ease-out";
@@ -871,6 +872,15 @@ export const tokenReference: readonly [{
     readonly darkResolved: "208px";
 }, {
     readonly group: "size";
+    readonly name: "rail";
+    readonly key: "size.rail";
+    readonly css: "--cui-size-rail";
+    readonly value: "64px";
+    readonly description: "Collapsed navigation rail width, icons only";
+    readonly resolved: "64px";
+    readonly darkResolved: "64px";
+}, {
+    readonly group: "size";
     readonly name: "content";
     readonly key: "size.content";
     readonly css: "--cui-size-content";
@@ -1093,6 +1103,7 @@ export const tokens: {
     readonly "size.icon-small": "16px";
     readonly "size.brand": "24px";
     readonly "size.sidebar": "208px";
+    readonly "size.rail": "64px";
     readonly "size.content": "1280px";
     readonly "motion.duration": "160ms";
     readonly "motion.easing": "ease-out";
