@@ -73,7 +73,28 @@ Worth noting for whoever reviews: this is exactly the class of bug a consolidate
 
 **Checks run this session, all passing:** `format:check`, `tokens:check`, `type-check`, `lint`, `test` (200 tests, 44 files), `test:dark` (176), `build`, `build-storybook`, `api:check`, `test:coverage` (92.26% statements, above the floor), `package:check`, `next:check`. That is every gate `.github/workflows/ci.yml` runs. Storybook's a11y addon on the new page: 0 violations, 29 passes, 1 inconclusive (`aria-hidden` decorative spans containing only non-text characters — benign). No horizontal overflow at the 320px WCAG reflow width (checked programmatically across the full 6717px page, 0 offending elements).
 
-**Next step:** the user's review of PR #10. Do not merge or tag without explicit approval — the standing rule has not changed. The three gaps above need either different tooling (forced colours), the licensed fonts (Roobert), or a scope decision (RTL); none should be guessed at alone.
+### 6. 0.7.0 release preparation — done up to the tag (`6a45143`)
+
+The user asked whether this is ready for a coworker to use, and chose to have the release prepared now but stopped before merge and tag. Release-process steps 1–5 are done on this branch; **steps 6 and 7 (tag, build and share the archive) are deliberately not done.**
+
+- `package.json` is `0.7.0`, and `docs/release-0.7.md` was added to `files` — without that the release notes would not ship. Packed archive: 269 → 270 files, containing that doc.
+- README's current-version line, version-history row, versioned clone command and both vendor-archive install paths now say 0.7.0. `pnpm pack` really emits `convert-product-ui-0.7.0.tgz`, so the documented filenames are accurate.
+- **The README now references the `v0.7.0` tag, which does not exist yet.** That is inherent to the process ordering (labels in step 5, tag in step 6) and resolves on tagging. If the release is abandoned rather than completed, that reference has to be reverted.
+- Version choice was verified, not assumed: the API diff against `main` is two added tokens, one narrowed token description and a widened `IconName`. Comparing icon names either side of the branch gives 23 added, **zero removed**. Additive plus fixes, so minor.
+- Archive inspected for fonts, credentials, client material and the registry pilot: none present.
+
+**Blocking a coworker actually using this, in order:**
+
+1. **PR #10 is not merged.** Still the user's call, standing rule unchanged.
+2. **Release-process step 3 wants another developer to review** API, visual and accessibility changes. Not satisfied by an AI session, and this PR changes a focus ring every primary button inherits.
+3. **Tag `v0.7.0`** on the approved commit, then build the archive from that tagged revision (step 7).
+4. **`CONSUMERS.md` is still entirely placeholder rows.** It is the only mechanism protecting consumers from breaking changes — no telemetry, no download counts. The coworker needs a real row the moment they install, or the backward-compatibility process degrades to "hope nobody's using it".
+
+**If the coworker wants `npx shadcn add` instead of the archive, none of the above is enough** — see step 4 of the registry sequence below: hosting, immutable version URLs, install/update docs and a token-drift check are all still **not started**, `public/r/` is gitignored so there is nothing hosted to point at, and the registry's own `button`/`chip` copies never received the interaction-quality pass. The user has not yet decided which path the coworker takes.
+
+Also worth telling any new consumer: Roobert is not bundled (licensing), so they render on the Geist/Arial fallback, and forced-colours mode and RTL are unverified/unsupported.
+
+**Next step:** the user's decision on merge, and on which consumption path the coworker needs. Do not merge or tag without explicit approval — the standing rule has not changed.
 
 ## Current state
 
