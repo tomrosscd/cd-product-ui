@@ -11,7 +11,7 @@ Do not convert a whole screen in one change. Each step below is independently sh
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
 
    ```sh
-   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.8.0/convert-product-ui-0.8.0.tgz
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.9.0/convert-product-ui-0.9.0.tgz
    ```
 
    ```tsx
@@ -120,11 +120,15 @@ Use `Table` or `DataTable` as they are. Be aware of what they do not yet do: no 
 
 To roll back, revert that commit and reinstall from the restored lockfile.
 
-### Upgrading to 0.8.0 specifically
+### Upgrading to 0.9.0 specifically
 
-Everything is additive except one change: `Progress` no longer clamps a value to `max`. If you pass values above `max` anywhere, those bars will now show the true overrun instead of a full bar. That is the intended fix, but look at those screens before you ship.
+Everything is additive, but three defaults change what an existing screen looks like. Check these before you ship:
 
-If you were clamping values yourself before passing them in, stop. Pass the real number.
+- **`Badge tone="negative"`** now has a soft red tint. It previously used the page colour, so it read as bare text.
+- **A closed `SidebarSection`** now actually hides its children. They were still visible and still reachable by Tab, despite the section reporting itself closed.
+- **A `DataTable` column that declares a `size`** now gets that size, and the table switches to fixed layout. If you set sizes previously and saw no effect, you will now.
+
+From 0.8.0 there is also one earlier change worth repeating: `Progress` no longer clamps a value to `max`, so a bar above its maximum shows the true overrun. If you were clamping values yourself before passing them in, stop. Pass the real number.
 
 ## When something is missing
 
