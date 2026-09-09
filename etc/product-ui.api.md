@@ -1547,8 +1547,7 @@ export interface SidebarSection {
     icon?: ReactNode;
     // (undocumented)
     id: string;
-    // (undocumented)
-    items: readonly SidebarItem[];
+    items: readonly SidebarEntry[];
     // (undocumented)
     label: string;
 }

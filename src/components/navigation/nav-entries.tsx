@@ -1,6 +1,7 @@
 'use client'
 import { useId, useState, type MouseEvent, type ReactNode } from 'react'
 import { safeHref } from '../../lib/href.js'
+import { cn } from '../../lib/classes.js'
 import { Icon } from '../primitives/icon.js'
 
 export interface SidebarItem {
@@ -20,7 +21,13 @@ export interface SidebarSection {
   id: string
   label: string
   icon?: ReactNode
-  items: readonly SidebarItem[]
+  /**
+   * Destinations, or nested sub-sections for a second level of grouping (e.g. "Allocation" holding
+   * separate "FE" and "BE" sub-groups). Nesting is not depth-limited, but keep it to two levels in
+   * practice — a third level has no established visual treatment and starts to fight the rail's
+   * job of staying scannable.
+   */
+  items: readonly SidebarEntry[]
   /** Open on first render. A section holding the active destination opens regardless. */
   defaultOpen?: boolean
 }
@@ -29,8 +36,8 @@ export type SidebarEntry = SidebarItem | SidebarSection
 export function isSection(entry: SidebarEntry): entry is SidebarSection {
   return Array.isArray((entry as SidebarSection).items)
 }
-export function sectionHoldsActive(section: SidebarSection, activeId: string) {
-  return section.items.some((item) => item.id === activeId)
+export function sectionHoldsActive(section: SidebarSection, activeId: string): boolean {
+  return section.items.some((entry) => (isSection(entry) ? sectionHoldsActive(entry, activeId) : entry.id === activeId))
 }
 
 interface NavLinkProps {
@@ -72,12 +79,23 @@ interface NavSectionProps {
   collapsed: boolean
   onExpandRail?: () => void
   onNavigate?: (item: SidebarItem, event: MouseEvent<HTMLAnchorElement>) => void
+  /** True for a section rendered inside another section's list (one level of nesting only ever
+   * renders here — a nested section's own children are always further-nested `NavSection`s, not a
+   * separate concept). Only affects sizing/indent; behaviour is identical at any depth. */
+  nested?: boolean
 }
 /**
  * A disclosure, not a link. The button owns the expanded state and the list it controls, which is
  * the standard pattern for nested navigation and keeps the whole group reachable by keyboard.
  */
-export function NavSection({ section, activeId, collapsed, onExpandRail, onNavigate }: NavSectionProps) {
+export function NavSection({
+  section,
+  activeId,
+  collapsed,
+  onExpandRail,
+  onNavigate,
+  nested = false,
+}: NavSectionProps) {
   const listId = useId()
   const holdsActive = sectionHoldsActive(section, activeId)
   const [open, setOpen] = useState(section.defaultOpen || holdsActive)
@@ -90,10 +108,16 @@ export function NavSection({ section, activeId, collapsed, onExpandRail, onNavig
     if (holdsActive) setOpen(true)
   }
   // A collapsed rail has no room for child destinations, so the section expands the rail instead of
-  // opening in place. M3 treats revealing secondary destinations as the expanded rail's job.
+  // opening in place. M3 treats revealing secondary destinations as the expanded rail's job. Only
+  // the outermost section can be rendered inside a collapsed rail — a nested section only ever
+  // renders once its parent's list is already showing, which itself requires the rail to be
+  // expanded — so `collapsed` is always false by the time a nested NavSection mounts.
   const expanded = collapsed ? false : open
   return (
-    <div className="cui-nav-section" data-cui-current-section={holdsActive ? '' : undefined}>
+    <div
+      className={cn('cui-nav-section', nested && 'cui-nav-section-nested')}
+      data-cui-current-section={holdsActive ? '' : undefined}
+    >
       <button
         type="button"
         className="cui-nav-item cui-nav-section-trigger"
@@ -113,11 +137,17 @@ export function NavSection({ section, activeId, collapsed, onExpandRail, onNavig
       </button>
       {!collapsed && (
         <ul id={listId} className="cui-nav-section-list" hidden={!expanded}>
-          {section.items.map((item) => (
-            <li key={item.id}>
-              <NavLink item={item} activeId={activeId} collapsed={false} onNavigate={onNavigate} />
-            </li>
-          ))}
+          {section.items.map((entry) =>
+            isSection(entry) ? (
+              <li key={entry.id}>
+                <NavSection section={entry} activeId={activeId} collapsed={false} onNavigate={onNavigate} nested />
+              </li>
+            ) : (
+              <li key={entry.id}>
+                <NavLink item={entry} activeId={activeId} collapsed={false} onNavigate={onNavigate} />
+              </li>
+            ),
+          )}
         </ul>
       )}
     </div>

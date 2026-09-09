@@ -88,6 +88,71 @@ export const NestedSections: Story = {
   },
 }
 
+const deeplyNestedNavigation: readonly SidebarEntry[] = [
+  { id: 'overview', label: 'Dashboard', href: '#overview', icon: <Icon name="overview" /> },
+  {
+    id: 'allocation',
+    label: 'Allocation',
+    icon: <Icon name="users" />,
+    items: [
+      {
+        id: 'allocation-fe',
+        label: 'FE',
+        items: [
+          { id: 'allocation-fe-lead', label: 'FE Lead', href: '#allocation-fe-lead' },
+          { id: 'allocation-fe-overall', label: 'Frontend overall', href: '#allocation-fe-overall' },
+        ],
+      },
+      {
+        id: 'allocation-be',
+        label: 'BE',
+        items: [
+          { id: 'allocation-be-lead', label: 'BE Lead', href: '#allocation-be-lead' },
+          { id: 'allocation-be-overall', label: 'Backend overall', href: '#allocation-be-overall' },
+        ],
+      },
+      { id: 'allocation-qa', label: 'QA', href: '#allocation-qa' },
+    ],
+  },
+  { id: 'invoicing', label: 'Invoicing', href: '#invoicing', icon: <Icon name="status" /> },
+]
+
+/**
+ * A section's items can themselves be sections — "Allocation" holds separate "FE" and "BE"
+ * sub-groups, each with their own destinations, alongside a flat "QA" destination at the same
+ * level. This is the structure a real consumer (an internal capacity-planning tool) needed and
+ * could not express with a single level of grouping.
+ */
+export const DeeplyNestedSections: Story = {
+  args: { items: deeplyNestedNavigation, activeId: 'allocation-fe-lead' },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    // The active destination sits two levels down — both its immediate parent (FE) and the
+    // grandparent (Allocation) must auto-open, not just the immediate one.
+    const allocation = c.getByRole('button', { name: 'Allocation' })
+    await expect(allocation).toHaveAttribute('aria-expanded', 'true')
+    const fe = c.getByRole('button', { name: 'FE' })
+    await expect(fe).toHaveAttribute('aria-expanded', 'true')
+    await expect(c.getByRole('link', { name: 'FE Lead' })).toBeVisible()
+
+    // BE did not hold the active destination, so it starts closed — nesting does not force every
+    // sibling open, only the branch that actually holds the current page.
+    const be = c.getByRole('button', { name: 'BE' })
+    await expect(be).toHaveAttribute('aria-expanded', 'false')
+    const beList = canvasElement.ownerDocument.getElementById(be.getAttribute('aria-controls') || '')
+    await expect((beList as HTMLElement).querySelector('a')?.offsetParent).toBeNull()
+
+    // Opening BE independently does not disturb FE, which is still showing its own active item.
+    be.click()
+    await waitFor(async () => {
+      await expect(be).toHaveAttribute('aria-expanded', 'true')
+    })
+    await expect(c.getByRole('link', { name: 'BE Lead' })).toBeVisible()
+    await expect(fe).toHaveAttribute('aria-expanded', 'true')
+    await expect(c.getByRole('link', { name: 'FE Lead' })).toBeVisible()
+  },
+}
+
 /**
  * Starts expanded. The collapse control sits on the trailing edge of the branding row, so the logo
  * stays a logo and never doubles as a button. Compare with **Collapsed by default** below: the
