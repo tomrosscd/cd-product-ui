@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, waitFor, within } from 'storybook/test'
 import { DashboardShell } from '../../patterns/dashboard-shell.js'
 import { DashboardSidebar, type SidebarEntry } from './dashboard-sidebar.js'
 import { Icon } from '../primitives/icon.js'
@@ -71,14 +72,85 @@ const groupedNavigation: readonly SidebarEntry[] = [
 /** Sections are disclosures, not links. The one holding the current page opens on load and stays marked. */
 export const NestedSections: Story = {
   args: { items: groupedNavigation, activeId: 'allocation-queue' },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    // Runs in a real browser on purpose. A closed section carries the `hidden` attribute, but a
+    // class-based `display` value outranks the user-agent's [hidden] rule, so the attribute alone
+    // proves nothing: this once left a closed section's children visible and tabbable while it
+    // reported aria-expanded="false". jsdom applies no user-agent stylesheet and cannot catch it.
+    const projects = c.getAllByRole('button', { name: 'Projects' })[0] as HTMLElement
+    await expect(projects).toHaveAttribute('aria-expanded', 'false')
+    const list = canvasElement.ownerDocument.getElementById(projects.getAttribute('aria-controls') || '')
+    await expect(list).not.toBeNull()
+    await expect(getComputedStyle(list as HTMLElement).display).toBe('none')
+    // offsetParent is null only when an ancestor is display:none, so this is the rendered truth.
+    await expect((list as HTMLElement).querySelector('a')?.offsetParent).toBeNull()
+  },
 }
 
-/** `collapsible` adds a menu button that reduces the rail to icons. A section has no room for its
- *  children there, so choosing one expands the rail rather than opening in place. */
+/**
+ * Starts expanded. The collapse control sits on the trailing edge of the branding row, so the logo
+ * stays a logo and never doubles as a button. Compare with **Collapsed by default** below: the
+ * first destination holds the same vertical position in both states, because the expand control
+ * takes the space the workspace block occupies when expanded.
+ *
+ * A section has no room for its children in the rail, so choosing one expands the rail rather than
+ * opening in place.
+ */
 export const CollapsibleRail: Story = {
   args: { items: groupedNavigation, activeId: 'allocation-queue', collapsible: true },
+  play: async ({ canvasElement }) => {
+    const doc = canvasElement.ownerDocument
+    const firstNavTop = () =>
+      (doc.querySelector('.cui-sidebar .cui-nav-item') as HTMLElement).getBoundingClientRect().top
+    const sidebar = () => (doc.querySelector('.cui-sidebar') as HTMLElement).getBoundingClientRect()
+
+    const expandedTop = firstNavTop()
+    await expect(Math.round(sidebar().width)).toBe(208)
+
+    const collapse = doc.querySelector('button[aria-label="Collapse navigation"]') as HTMLElement
+    await expect(collapse).toHaveAttribute('aria-expanded', 'true')
+    collapse.click()
+
+    const expand = await waitFor(() => {
+      const el = doc.querySelector('button[aria-label="Expand navigation"]') as HTMLElement
+      if (!el) throw new Error('expand control not rendered')
+      return el
+    })
+    await expect(expand).toHaveAttribute('aria-expanded', 'false')
+    await expect(Math.round(sidebar().width)).toBe(64)
+
+    // The point of putting the expand control in the workspace block's space: no vertical jump.
+    await expect(Math.round(firstNavTop())).toBe(Math.round(expandedTop))
+
+    // Entirely inside the rail, centred, and a real pointer target rather than a bare icon.
+    const rail = sidebar()
+    const box = expand.getBoundingClientRect()
+    await expect(box.left >= rail.left && box.right <= rail.right).toBe(true)
+    await expect(Math.abs(box.left - rail.left - (rail.right - box.right)) <= 2).toBe(true)
+    await expect(box.height).toBeGreaterThanOrEqual(44)
+
+    expand.click()
+    await waitFor(() => {
+      if (!doc.querySelector('button[aria-label="Collapse navigation"]')) throw new Error('did not expand back')
+    })
+  },
 }
 
+/** The same navigation starting collapsed, for comparing the two states side by side. */
 export const CollapsedByDefault: Story = {
   args: { items: groupedNavigation, activeId: 'overview', collapsible: true, defaultCollapsed: true },
+}
+
+/** `brand` and `brandMark` let a product sit inside the Convert system without forking the
+ *  component. The mark is used where a wordmark will not fit: the collapsed rail and the mobile bar. */
+export const ProductBranding: Story = {
+  args: {
+    items: groupedNavigation,
+    activeId: 'overview',
+    collapsible: true,
+    workspace: 'Planwerk',
+    brand: <strong style={{ fontSize: '1.125rem' }}>Planwerk</strong>,
+    brandMark: <strong>PW</strong>,
+  },
 }

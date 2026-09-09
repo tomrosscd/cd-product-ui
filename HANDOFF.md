@@ -31,6 +31,26 @@ Every gate `.github/workflows/ci.yml` runs was executed fresh against commit `33
 - Codex's commit message (`3370a12`) is a single line for a 939-line change, which is thinner than this repository's convention. The reasoning is in the PR description instead. The commit was left unamended so authorship stays accurate.
 - Codex started a second Storybook on port 6020 and did not stop the earlier one on 6017. Both may still be running locally; neither affects the repository.
 
+## Active: sidebar collapse control redesign (branch `feature/sidebar-brand-slot`, PR #16)
+
+Open and green, not merged. Started as the consumer's four adoption findings, then took the user's collapse-control redesign brief.
+
+**Fixed a defect the consumer did not report but would have hit.** A closed section still rendered its children and kept them in the tab sequence while reporting `aria-expanded="false"`: `.cui-nav-section-list` sets `display: flex` in a class rule, which outranks the user agent's `[hidden] { display: none }`. The unit test written with the feature asserted `hasAttribute('hidden')` and passed throughout, because jsdom applies no user-agent stylesheet. The regression test now lives in a story play function running in real Chromium, and was confirmed to fail without the fix.
+
+**Collapse control redesign, to the user's brief.** Expanded: a quiet panel-collapse button on the trailing edge of the branding row; the old hamburger and "Collapse" row is gone. Collapsed: a panel-expand button centred beneath the mark, occupying the workspace block's space. Branding is never a toggle.
+
+Measured in a real browser rather than eyeballed: the first destination sits at 192px in **both** states (drift 0, previously 32px), widths stay at the approved 208px and 64px tokens, the control is 47x48 so the pointer target clears 44px, it sits entirely inside the rail and is centred to within 1px. A play test pins the zero-drift invariant and was confirmed to fail (168 vs 192) when the alignment rule is removed.
+
+Also added `brand`/`brandMark`, closing the last open part of navigation on ROADMAP.md, and `sidebar-collapse`/`sidebar-expand` icons.
+
+**Consumer findings, resolved:** the brand slot and the section defect are fixed; collapse persistence was never a library gap and the adoption guide now shows the `collapsed`/`onCollapsedChange` wiring with code; two-level nesting remains a real limit, recorded on the roadmap with the note that a third level is worth questioning before building.
+
+**Verified here, because the consumer's app is auth-gated and their agent has no browser:** full keyboard walk of the rail, closed sections absent from the tab order, both toggle directions, light and dark, and the mobile drawer at 320px with no horizontal overflow.
+
+Checks: format:check, check, api:check, css:check, test:dark (192), package:check (285 files), next:check. Snapshots additive, nothing removed.
+
+**Next on this branch:** finish the shadcn registry (the four prerequisites at item 6 below), which the user approved as the home for Planwerk-shaped components that are not yet proven generic.
+
 ## Start here: what to work on next
 
 Read AGENTS.md first, then this section. `main` is at 0.7.0 with PR #10 and PR #11 merged. Nothing is tagged. Do not merge or tag without the user's explicit approval: that standing rule has not changed.
