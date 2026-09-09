@@ -3,6 +3,7 @@ import { expect, waitFor, within } from 'storybook/test'
 import { DashboardShell } from '../../patterns/dashboard-shell.js'
 import { DashboardSidebar, type SidebarEntry } from './dashboard-sidebar.js'
 import { Icon } from '../primitives/icon.js'
+import { Badge } from '../primitives/badge.js'
 import { demoNavigation } from '../../../docs/dashboard-example.js'
 const meta = {
   title: 'Components/Dashboard sidebar',
@@ -33,6 +34,14 @@ export const Default: Story = {}
 export const CurrentPage: Story = { args: { activeId: 'projects' } }
 export const UnavailableDestination: Story = {
   args: { items: [...demoNavigation, { id: 'settings', label: 'Settings', href: '#settings', disabled: true }] },
+}
+export const BadgedDestination: Story = {
+  args: {
+    items: [
+      ...demoNavigation,
+      { id: 'forecasting', label: 'Forecasting', href: '#forecasting', badge: <Badge tone="accent">Beta</Badge> },
+    ],
+  },
 }
 export const LongLabels: Story = {
   args: {

@@ -10,6 +10,8 @@ export interface SidebarItem {
   href: string
   icon?: ReactNode
   disabled?: boolean
+  /** A short trailing marker, e.g. a "Beta" tag. Hidden in the collapsed icon-only rail. */
+  badge?: ReactNode
 }
 /**
  * A collapsible group of destinations. Modelled on Material Design 3's expanded navigation rail,
@@ -69,6 +71,7 @@ export function NavLink({ item, activeId, collapsed, onNavigate }: NavLinkProps)
     >
       {item.icon}
       {label}
+      {!collapsed && item.badge && <span className="cui-nav-item-badge">{item.badge}</span>}
     </a>
   )
 }
