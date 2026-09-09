@@ -1,20 +1,17 @@
 # Changelog
 
-## Unreleased
+## 0.8.0 · 9 September 2026
 
-- Add collapsible sections to `DashboardSidebar`. `items` now accepts `SidebarEntry`, a union of the existing `SidebarItem` and a new `SidebarSection` carrying child destinations. A flat `SidebarItem[]` is still valid and renders exactly as before. Sections are disclosures with `aria-expanded`; the one holding the current page opens on load and reopens if the route moves into it, but can still be closed.
+Composition and navigation: the pieces needed to build a real dashboard out of the library rather than around it. Everything is additive except one `Progress` behaviour change, called out below. See [docs/release-0.8.md](docs/release-0.8.md).
+
+0.7.0 was prepared but never tagged, so its changes ship here too. Its changelog section and [release notes](docs/release-0.7.md) are kept below as the record of what it covered.
+
+- Add `Stack`, `Grid`, `SplitLayout` and `PageHeader` layout primitives. `Grid` takes `columns` (1 to 4) and `minItemWidth`; `SplitLayout` takes `ratio` (`primary`, `balanced`, `secondary`), with `primary` reproducing the original two-to-one split.
+- Add `ContentList` and `ContentListItem`: a row composing a leading indicator, title, supporting content, trailing metadata and actions. The row is deliberately not a click target, so links and actions stay separate.
+- Add `readOnly` to `RoadmapBoard` and `RoadmapCard`, hiding the stage and priority controls. Defaults to `false`, so existing consumers keep today's editing controls.
+- Add collapsible sections to `DashboardSidebar`. `items` now accepts `SidebarEntry`, a union of the existing `SidebarItem` and a new `SidebarSection` holding child destinations. A flat `SidebarItem[]` is still valid and renders exactly as before. Sections are disclosures with `aria-expanded`, never links.
 - Add `collapsible`, `collapsed`, `defaultCollapsed` and `onCollapsedChange` to `DashboardSidebar` and `DashboardShell`, giving an icon-only rail at the new `--cui-size-rail` width. Off by default. Structure follows Material Design 3's collapsed and expanded navigation rail; the appearance stays on Convert's tokens.
-
-- Add Stack, Grid, SplitLayout and PageHeader for token-spaced, container-responsive dashboard composition.
-- Add ContentList and ContentListItem with flexible metadata and separate actions.
-- Add explicit readOnly mode to RoadmapBoard and RoadmapCard, preserving existing defaults.
-- Add a neutral dashboard example, adoption guidance and responsive layout regression checks.
-
-## Unreleased
-
-- Add `Stack`, `Grid`, `SplitLayout` and `PageHeader` layout primitives, and `ContentList`/`ContentListItem` for a row composing a leading indicator, title, supporting content, metadata and actions. See [docs/dashboard-composition.md](docs/dashboard-composition.md).
-- Add `readOnly` to `RoadmapBoard` and `RoadmapCard`, hiding the stage and priority controls. Defaults to `false`, so existing consumers are unaffected.
-- Add `SplitLayout`'s `ratio` (`primary`, `balanced`, `secondary`). `primary` is the default and reproduces the original two-to-one split.
+- Add a neutral dashboard composition example, an adoption guide and responsive layout regression checks.
 - **Behaviour change:** `Progress` no longer clamps a value to `max`. A value above the maximum previously reported the same width and percentage as the maximum itself, so 142 of 100 and 100 of 100 were indistinguishable. The track now rescales, a marker shows where the maximum sits, and the percentage reads above 100. Values at or below the maximum are unchanged, including their ARIA values. Only inputs that previously produced a false reading behave differently.
 
 ## 0.7.0 · 9 September 2026
