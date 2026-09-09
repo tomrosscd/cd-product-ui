@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (271)
+## Classes (277)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -90,6 +90,12 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-chip-select`
 - `cui-chip-selected`
 - `cui-choice`
+- `cui-column-config-group`
+- `cui-column-config-label`
+- `cui-column-config-locked-row`
+- `cui-column-config-reorder`
+- `cui-column-config-reorder-button`
+- `cui-column-config-row`
 - `cui-combobox`
 - `cui-combobox-listbox`
 - `cui-combobox-panel`
@@ -382,10 +388,11 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-type-tracking-display`
 - `--cui-type-tracking-heading`
 
-## Data attributes (5)
+## Data attributes (6)
 
 - `data-cui-current-section`
 - `data-cui-nav`
 - `data-cui-search-clear`
 - `data-cui-step`
 - `data-cui-theme`
+- `data-cui-visible`
