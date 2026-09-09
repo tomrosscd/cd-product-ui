@@ -78,6 +78,8 @@
   --cui-focus-width: 1px;
   --cui-focus-offset: 0px;
   --cui-size-control: 40px;
+  --cui-size-control-sm: 32px;
+  --cui-size-control-lg: 44px;
   --cui-size-touch: 48px;
   --cui-size-row: 44px;
   --cui-size-icon: 20px;
@@ -180,6 +182,8 @@
   --cui-focus-width: 1px;
   --cui-focus-offset: 0px;
   --cui-size-control: 40px;
+  --cui-size-control-sm: 32px;
+  --cui-size-control-lg: 44px;
   --cui-size-touch: 48px;
   --cui-size-row: 44px;
   --cui-size-icon: 20px;

@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (238)
+## Classes (244)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -36,8 +36,14 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-brand-preview-inverse`
 - `cui-breadcrumbs`
 - `cui-button`
+- `cui-button-destructive`
+- `cui-button-icon`
+- `cui-button-lg`
+- `cui-button-link`
+- `cui-button-outline`
 - `cui-button-primary`
 - `cui-button-quiet`
+- `cui-button-sm`
 - `cui-calendar-button_next`
 - `cui-calendar-button_previous`
 - `cui-calendar-chevron`
@@ -245,7 +251,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-tooltip`
 - `cui-workspace`
 
-## Custom properties (99)
+## Custom properties (101)
 
 - `--cui-accent-chart`
 - `--cui-accent-primary`
@@ -299,6 +305,8 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-size-brand`
 - `--cui-size-content`
 - `--cui-size-control`
+- `--cui-size-control-lg`
+- `--cui-size-control-sm`
 - `--cui-size-icon`
 - `--cui-size-icon-small`
 - `--cui-size-rail`

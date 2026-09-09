@@ -83,6 +83,8 @@ export const darkTokens: {
     readonly "focus.width": "1px";
     readonly "focus.offset": "0px";
     readonly "size.control": "40px";
+    readonly "size.control-sm": "32px";
+    readonly "size.control-lg": "44px";
     readonly "size.touch": "48px";
     readonly "size.row": "44px";
     readonly "size.icon": "20px";
@@ -829,6 +831,24 @@ export const tokenReference: readonly [{
     readonly darkResolved: "40px";
 }, {
     readonly group: "size";
+    readonly name: "control-sm";
+    readonly key: "size.control-sm";
+    readonly css: "--cui-size-control-sm";
+    readonly value: "32px";
+    readonly description: "Compact control, e.g. Button size=\"sm\". Below this, use an icon-only control instead.";
+    readonly resolved: "32px";
+    readonly darkResolved: "32px";
+}, {
+    readonly group: "size";
+    readonly name: "control-lg";
+    readonly key: "size.control-lg";
+    readonly css: "--cui-size-control-lg";
+    readonly value: "44px";
+    readonly description: "Emphasised control, e.g. Button size=\"lg\"";
+    readonly resolved: "44px";
+    readonly darkResolved: "44px";
+}, {
+    readonly group: "size";
     readonly name: "touch";
     readonly key: "size.touch";
     readonly css: "--cui-size-touch";
@@ -1109,6 +1129,8 @@ export const tokens: {
     readonly "focus.width": "1px";
     readonly "focus.offset": "0px";
     readonly "size.control": "40px";
+    readonly "size.control-sm": "32px";
+    readonly "size.control-lg": "44px";
     readonly "size.touch": "48px";
     readonly "size.row": "44px";
     readonly "size.icon": "20px";
