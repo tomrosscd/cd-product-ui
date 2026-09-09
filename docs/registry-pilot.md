@@ -84,3 +84,64 @@ Registry items themselves are copied at install time, not fetched again automati
 ## The registry-unavailable clarification
 
 Once installed, this project has **no runtime dependency on the Convert registry being reachable** — the code is already copied in. It still has entirely ordinary dependencies on the npm packages each component imports (React, `class-variance-authority`, `radix-ui`, `clsx`, `tailwind-merge`, etc.) — those must stay installed exactly like any other package your project depends on. Losing access to the registry and losing access to npm are two different failure modes; only the first one is what "copy-in, zero runtime coupling" is a claim about.
+
+## Installing from the registry
+
+Registry items are **copied into your project**, not installed as a dependency. You own the copy and can edit it. Nothing fetches it again unless you ask.
+
+Use the registry when you want a component you will modify. Use the npm package (`@convert/product-ui`) when you want a component that improves as the library does. Most consumers want the package.
+
+### Point at a pinned version
+
+Add the namespace to your `components.json`, using an **immutable versioned path**:
+
+```json
+{
+  "registries": {
+    "@convert": "https://tomrosscd.github.io/cd-product-ui/r/v0.8.0/{name}.json"
+  }
+}
+```
+
+Then add an item:
+
+```sh
+pnpm dlx shadcn@latest add @convert/button
+```
+
+A `/r/latest/` path is also published. **Do not pin to it.** It moves with every release, so an install is not reproducible: two colleagues running the same command a week apart can get different files. It exists for trying things out.
+
+### Updating
+
+Change the version in the path, then re-run `add` for the items you want to move. The CLI skips files that are byte-identical and offers to overwrite ones that differ. It does not clobber silently.
+
+Before accepting an overwrite on a file you have customised, diff what is offered against what you have. That is the cost of owning the copy.
+
+### Regenerating tokens after an edit
+
+The registry ships the token source and the generator, so you can change a token and rebuild the CSS without the npm package:
+
+```sh
+node src/convert-ui/generate-tokens.mjs \
+  --tokens=src/convert-ui/tokens.json \
+  --responsive-template=src/convert-ui/responsive.template.css \
+  --out-css=src/styles/convert-ui/tokens.css \
+  --out-ts=src/convert-ui/tokens.ts \
+  --out-responsive=src/styles/convert-ui/responsive.css
+```
+
+Adjust the paths to match your `components.json` aliases.
+
+### How the registry stays honest
+
+The registry carries its own copy of the token source, which is exactly the kind of thing that drifts. `pnpm registry:check` compares that copy against the canonical `tokens/tokens.json`, generator and responsive template, and fails CI on any difference. `pnpm registry:sync` copies the canonical files across when a change is intentional.
+
+This was added after the copy had already fallen six tokens behind, which nothing had noticed. The publish workflow runs the same check and refuses to publish a drifted registry.
+
+## When to put something here instead of the package
+
+Three homes, one question each:
+
+- **Would a second Convert product want this?** Put it in the npm package.
+- **Is it specific to one product's domain or composition?** Put it in that product's own repository.
+- **Probably reusable, not yet proven?** Put it here. A consumer copies it in and owns it, and it can be promoted into the package later once a second product wants it, without having bloated the package in the meantime.

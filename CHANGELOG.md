@@ -6,6 +6,8 @@
 - Redesign the sidebar collapse control. Expanded, a quiet panel-collapse button sits on the trailing edge of the branding row, replacing the separate hamburger and "Collapse" row beneath the logo. Collapsed, a panel-expand button sits centred beneath the mark, in the space the workspace block occupies when expanded, so the first destination holds the same vertical position in both states. Branding is never a toggle: clicking the logo does not collapse navigation.
 - Add `sidebar-collapse` and `sidebar-expand` icons.
 - Add `brand` and `brandMark` to `DashboardSidebar` and `DashboardShell`, so a product can show its own wordmark inside the Convert system. `brand` replaces the logo in the expanded sidebar; `brandMark` replaces the mark in the collapsed rail and the mobile bar, where a wordmark does not fit. Both fall back to Convert's own.
+- Add `pnpm registry:check` and `pnpm registry:sync`, guarding the shadcn registry's copy of the token source, generator and responsive template against the canonical files. Wired into CI. The copy had already fallen six tokens behind (`colour.warning`, `text.warning`, `surface.warning`, `dropdown.hover`, `dropdown.selected`, `size.rail`) with a stale `surface.selected` description; it is now synced and its CSS regenerated.
+- Add `.github/workflows/registry.yml`, publishing the registry to GitHub Pages on a version tag at an immutable `/r/v<version>/` path plus a `/r/latest/` alias, after verifying the tag matches `package.json` and that the token copy has not drifted. Requires GitHub Pages to be enabled on the repository, which the workflow deliberately does not do for you.
 
 ## 0.8.0 · 9 September 2026
 

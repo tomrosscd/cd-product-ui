@@ -44,6 +44,9 @@ jobs:
       - name: Public API surface check
         run: pnpm api:check
 
+      - name: Registry token drift check
+        run: pnpm registry:check
+
       - name: Dark-theme story tests
         run: pnpm test:dark
 
