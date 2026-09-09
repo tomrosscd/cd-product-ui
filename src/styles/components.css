@@ -376,6 +376,12 @@
   flex-direction: column;
   gap: var(--cui-space-4);
 }
+/* A class-based display value outranks the user-agent's [hidden] { display: none }, so without this
+   a closed section kept rendering its children and kept them in the tab order while reporting
+   aria-expanded="false". The accessibility state and the visible state have to agree. */
+.cui-nav-section-list[hidden] {
+  display: none;
+}
 /* The group holding the current page stays legible when its children are hidden. */
 .cui-nav-section[data-cui-current-section] > .cui-nav-section-trigger {
   color: var(--cui-accent-primary) !important;

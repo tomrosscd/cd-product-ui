@@ -75,7 +75,27 @@ Use `DashboardSidebar`. `items` accepts a mix of:
 - `SidebarItem` for a destination: `{ id, label, href, icon?, disabled? }`
 - `SidebarSection` for a group: `{ id, label, icon?, items, defaultOpen? }`
 
-Set `collapsible` for a menu button that reduces the rail to icons, and `defaultCollapsed` to start collapsed. Use `collapsed` with `onCollapsedChange` to drive it from your own state.
+Set `collapsible` for a menu button that reduces the rail to icons, and `defaultCollapsed` to start collapsed.
+
+**To remember the collapsed state across reloads, drive it yourself.** The library holds no persistence, by design, so pass `collapsed` and `onCollapsedChange` and store the value wherever your application already stores preferences:
+
+```tsx
+const [collapsed, setCollapsed] = useState(() => readNavPreference())
+
+<DashboardSidebar
+  collapsible
+  collapsed={collapsed}
+  onCollapsedChange={(next) => {
+    setCollapsed(next)
+    writeNavPreference(next)
+  }}
+  {...rest}
+/>
+```
+
+Without those two props the state is in-memory and resets on reload, which is the expected uncontrolled behaviour rather than a limitation.
+
+To put your own logo in the header, pass `brand`. The collapsed rail and the mobile bar have no room for a wordmark, so pass `brandMark` for those. Both fall back to Convert's own logo.
 
 Use `DashboardShell` only if you do not already have an application shell. It renders its own fixed sidebar and offsets the main region. **If you already have a shell, use `DashboardSidebar` on its own** and keep your existing layout, or you will nest two shells.
 

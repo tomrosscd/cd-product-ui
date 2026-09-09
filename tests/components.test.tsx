@@ -126,6 +126,20 @@ describe('Sidebar interactions', () => {
     const list = document.getElementById(trigger.getAttribute('aria-controls') || '')
     expect(list?.hasAttribute('hidden')).toBe(true)
   })
+  it('takes a product wordmark without losing the Convert mark on the rail', () => {
+    render(
+      <DashboardSidebar
+        items={grouped}
+        activeId="overview"
+        collapsible
+        brand={<img src="/planwerk.svg" alt="Planwerk" />}
+        brandMark={<span data-testid="mark">PW</span>}
+      />,
+    )
+    expect(screen.getAllByAltText('Planwerk').length).toBeGreaterThan(0)
+    // The mobile bar has no room for a wordmark, so it takes the mark instead.
+    expect(screen.getAllByTestId('mark').length).toBeGreaterThan(0)
+  })
   it('collapses to a rail and expands it again rather than opening a section in place', async () => {
     render(<DashboardSidebar items={grouped} activeId="overview" collapsible defaultCollapsed />)
     const expand = screen.getAllByRole('button', { name: 'Expand navigation' })[0] as HTMLElement

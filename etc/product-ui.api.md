@@ -863,6 +863,8 @@ export function DashboardSidebar(input: DashboardSidebarProps): JSX.Element;
 export interface DashboardSidebarProps {
     // (undocumented)
     activeId: string;
+    brand?: ReactNode;
+    brandMark?: ReactNode;
     // (undocumented)
     className?: string;
     collapsed?: boolean;

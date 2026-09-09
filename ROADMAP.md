@@ -128,7 +128,10 @@ Every remaining screen leans on the table, so it comes first. `DataTableProps` t
 
 ### Also open
 
-12. ~~**Nested and collapsible navigation.**~~ **Done.** `DashboardSidebar` takes `SidebarEntry[]`, mixing flat destinations with collapsible `SidebarSection` groups, and `collapsible` gives an icon-only rail. A flat `SidebarItem[]` still works unchanged. Configurable branding beyond the Convert mark is still open.
+12. ~~**Nested and collapsible navigation.**~~ **Done.** `DashboardSidebar` takes `SidebarEntry[]`, mixing flat destinations with collapsible `SidebarSection` groups, and `collapsible` gives an icon-only rail. A flat `SidebarItem[]` still works unchanged. Branding is configurable through `brand` and `brandMark`.
+
+    Still open, reported by the first consumer to adopt it: `SidebarSection` holds `SidebarItem` children only, so navigation is two levels deep. A three-level tree has to be flattened into parallel top-level sections. Before deepening it, weigh whether a third level is wanted at all: Material Design 3 does not specify one, and the consumer who hit this reported the flattened version as still fully reachable.
+
 13. **Filter toolbar grouping.** `FilterToolbar` squeezes every control onto one line. It needs deliberate wrapping and a separation between filters and primary actions once a screen carries more than about four filters.
 14. **Regroup Storybook.** 31 stories sit in a flat `Components/` section against 6 Foundations and 6 Patterns. Sub-grouping (inputs, data, navigation, feedback) would make it navigable. **Costly in one specific way:** a story's title is its ID, so regrouping changes every URL and breaks bookmarks plus any link in `docs/*.mdx` and README. Do it as its own change, with a pass over the docs links, not folded into a feature.
 

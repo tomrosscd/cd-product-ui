@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Fix:** a closed `DashboardSidebar` section still rendered its children and kept them in the tab sequence while reporting `aria-expanded="false"`. The list carried the `hidden` attribute, but `.cui-nav-section-list`'s class-based `display: flex` outranks the user agent's `[hidden] { display: none }`, so the attribute had no effect. Reported by the first consumer to adopt 0.8.0.
+- Add `brand` and `brandMark` to `DashboardSidebar` and `DashboardShell`, so a product can show its own wordmark inside the Convert system. `brand` replaces the logo in the expanded sidebar; `brandMark` replaces the mark in the collapsed rail and the mobile bar, where a wordmark does not fit. Both fall back to Convert's own.
+
 ## 0.8.0 · 9 September 2026
 
 Composition and navigation: the pieces needed to build a real dashboard out of the library rather than around it. Everything is additive except one `Progress` behaviour change, called out below. See [docs/release-0.8.md](docs/release-0.8.md).

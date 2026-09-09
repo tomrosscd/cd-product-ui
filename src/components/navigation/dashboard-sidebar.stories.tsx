@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 import { DashboardShell } from '../../patterns/dashboard-shell.js'
 import { DashboardSidebar, type SidebarEntry } from './dashboard-sidebar.js'
 import { Icon } from '../primitives/icon.js'
@@ -71,6 +72,20 @@ const groupedNavigation: readonly SidebarEntry[] = [
 /** Sections are disclosures, not links. The one holding the current page opens on load and stays marked. */
 export const NestedSections: Story = {
   args: { items: groupedNavigation, activeId: 'allocation-queue' },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    // Runs in a real browser on purpose. A closed section carries the `hidden` attribute, but a
+    // class-based `display` value outranks the user-agent's [hidden] rule, so the attribute alone
+    // proves nothing: this once left a closed section's children visible and tabbable while it
+    // reported aria-expanded="false". jsdom applies no user-agent stylesheet and cannot catch it.
+    const projects = c.getAllByRole('button', { name: 'Projects' })[0] as HTMLElement
+    await expect(projects).toHaveAttribute('aria-expanded', 'false')
+    const list = canvasElement.ownerDocument.getElementById(projects.getAttribute('aria-controls') || '')
+    await expect(list).not.toBeNull()
+    await expect(getComputedStyle(list as HTMLElement).display).toBe('none')
+    // offsetParent is null only when an ancestor is display:none, so this is the rendered truth.
+    await expect((list as HTMLElement).querySelector('a')?.offsetParent).toBeNull()
+  },
 }
 
 /** `collapsible` adds a menu button that reduces the rail to icons. A section has no room for its
@@ -81,4 +96,17 @@ export const CollapsibleRail: Story = {
 
 export const CollapsedByDefault: Story = {
   args: { items: groupedNavigation, activeId: 'overview', collapsible: true, defaultCollapsed: true },
+}
+
+/** `brand` and `brandMark` let a product sit inside the Convert system without forking the
+ *  component. The mark is used where a wordmark will not fit: the collapsed rail and the mobile bar. */
+export const ProductBranding: Story = {
+  args: {
+    items: groupedNavigation,
+    activeId: 'overview',
+    collapsible: true,
+    workspace: 'Planwerk',
+    brand: <strong style={{ fontSize: '1.125rem' }}>Planwerk</strong>,
+    brandMark: <strong>PW</strong>,
+  },
 }

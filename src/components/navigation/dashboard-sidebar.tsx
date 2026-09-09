@@ -22,6 +22,14 @@ export interface DashboardSidebarProps {
   onCollapsedChange?: (collapsed: boolean) => void
   workspace?: string
   workspaceDescription?: string
+  /**
+   * Replaces Convert's logo in the expanded sidebar. Use it for a product wordmark sitting inside
+   * the Convert system. Keep it to a logo: it is not an interactive slot, and a control here reads
+   * as a menu button rather than branding.
+   */
+  brand?: ReactNode
+  /** Replaces the Convert mark in the collapsed rail and the mobile bar, where there is no room for a wordmark. */
+  brandMark?: ReactNode
   footer?: ReactNode
   onNavigate?: (item: SidebarItem, event: MouseEvent<HTMLAnchorElement>) => void
   className?: string
@@ -31,6 +39,8 @@ export function DashboardSidebar({
   activeId,
   workspace = 'Workspace',
   workspaceDescription = 'Product workspace',
+  brand,
+  brandMark,
   footer,
   onNavigate,
   className,
@@ -60,7 +70,9 @@ export function DashboardSidebar({
     return (
       <>
         <div className="cui-brand">
-          {rail ? <ConvertMark /> : <ConvertLogo variant="straight" label="Convert" className="cui-brand-logo" />}
+          {rail
+            ? brandMark || <ConvertMark />
+            : brand || <ConvertLogo variant="straight" label="Convert" className="cui-brand-logo" />}
         </div>
         {collapsible && !mobile && (
           <Button
@@ -120,7 +132,7 @@ export function DashboardSidebar({
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <div className="cui-mobile-bar">
           <div className="cui-brand">
-            <ConvertMark />
+            {brandMark || <ConvertMark />}
             <span>{workspace}</span>
           </div>
           <Dialog.Trigger asChild>
