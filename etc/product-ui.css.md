@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (265)
+## Classes (269)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -130,6 +130,10 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-icon`
 - `cui-icon-inline`
 - `cui-icon-spin`
+- `cui-inline-edit-control`
+- `cui-inline-edit-display`
+- `cui-inline-edit-editor`
+- `cui-inline-edit-trigger`
 - `cui-input`
 - `cui-input-affix`
 - `cui-input-row`

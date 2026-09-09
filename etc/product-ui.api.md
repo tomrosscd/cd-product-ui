@@ -1115,6 +1115,32 @@ export function Icon(input: SVGProps<SVGSVGElement> & {
 // @public (undocumented)
 export type IconName = keyof typeof icons;
 
+// @public
+export function InlineEdit(input: InlineEditProps): JSX.Element;
+
+// @public (undocumented)
+export interface InlineEditProps {
+    children: (props: InlineEditRenderProps) => ReactNode;
+    // (undocumented)
+    disabled?: boolean;
+    displayValue?: string;
+    label: string;
+    // (undocumented)
+    onSave: (value: string | null) => Promise<void>;
+    // (undocumented)
+    placeholder?: string;
+    // (undocumented)
+    value: string | null;
+}
+
+// @public (undocumented)
+export interface InlineEditRenderProps {
+    cancel: () => void;
+    commit: (value: string | null) => Promise<void>;
+    // (undocumented)
+    saving: boolean;
+}
+
 // @public (undocumented)
 export function Input(input: InputProps): JSX.Element;
 
