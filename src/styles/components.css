@@ -386,9 +386,33 @@
 .cui-nav-section[data-cui-current-section] > .cui-nav-section-trigger {
   color: var(--cui-accent-primary) !important;
 }
+/* A quiet square control, not a labelled row. Sized to --cui-size-touch so the pointer target
+   stays adequate in the 64px rail, where the icon alone would be far too small to hit. */
 .cui-nav-toggle {
-  justify-content: flex-start;
-  gap: var(--cui-space-8);
+  flex-shrink: 0;
+  justify-content: center;
+  min-height: var(--cui-size-touch);
+  width: var(--cui-size-touch);
+  padding: var(--cui-space-0);
+  border-radius: var(--cui-radius-control);
+}
+/* Expanded, the toggle sits on the trailing edge of the branding row. */
+.cui-brand > .cui-nav-toggle {
+  margin-inline-start: auto;
+}
+.cui-sidebar .cui-brand {
+  min-height: var(--cui-size-touch);
+}
+/* Collapsed, it takes the vertical space the workspace block occupies when expanded, so the first
+   destination keeps the same baseline in both states instead of jumping as the rail narrows.
+   Measured: the expanded workspace block is 72px with a one-line name and description, which is
+   --cui-size-touch plus --cui-space-24. Longer names wrap and grow that block, so the match is
+   exact for typical content and close otherwise, which is the point: no visible jump. */
+.cui-nav-toggle-rail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(var(--cui-size-touch) + var(--cui-space-24));
 }
 .cui-sidebar-root[data-cui-nav='collapsed'] .cui-sidebar {
   width: var(--cui-size-rail);
@@ -398,8 +422,7 @@
   justify-content: center;
   padding-inline: var(--cui-space-0);
 }
-.cui-sidebar-root[data-cui-nav='collapsed'] .cui-brand,
-.cui-sidebar-root[data-cui-nav='collapsed'] .cui-nav-toggle {
+.cui-sidebar-root[data-cui-nav='collapsed'] .cui-brand {
   justify-content: center;
 }
 .cui-dashboard[data-cui-nav='collapsed'] .cui-dashboard-main {

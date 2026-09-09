@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, within } from 'storybook/test'
+import { expect, waitFor, within } from 'storybook/test'
 import { DashboardShell } from '../../patterns/dashboard-shell.js'
 import { DashboardSidebar, type SidebarEntry } from './dashboard-sidebar.js'
 import { Icon } from '../primitives/icon.js'
@@ -88,12 +88,56 @@ export const NestedSections: Story = {
   },
 }
 
-/** `collapsible` adds a menu button that reduces the rail to icons. A section has no room for its
- *  children there, so choosing one expands the rail rather than opening in place. */
+/**
+ * Starts expanded. The collapse control sits on the trailing edge of the branding row, so the logo
+ * stays a logo and never doubles as a button. Compare with **Collapsed by default** below: the
+ * first destination holds the same vertical position in both states, because the expand control
+ * takes the space the workspace block occupies when expanded.
+ *
+ * A section has no room for its children in the rail, so choosing one expands the rail rather than
+ * opening in place.
+ */
 export const CollapsibleRail: Story = {
   args: { items: groupedNavigation, activeId: 'allocation-queue', collapsible: true },
+  play: async ({ canvasElement }) => {
+    const doc = canvasElement.ownerDocument
+    const firstNavTop = () =>
+      (doc.querySelector('.cui-sidebar .cui-nav-item') as HTMLElement).getBoundingClientRect().top
+    const sidebar = () => (doc.querySelector('.cui-sidebar') as HTMLElement).getBoundingClientRect()
+
+    const expandedTop = firstNavTop()
+    await expect(Math.round(sidebar().width)).toBe(208)
+
+    const collapse = doc.querySelector('button[aria-label="Collapse navigation"]') as HTMLElement
+    await expect(collapse).toHaveAttribute('aria-expanded', 'true')
+    collapse.click()
+
+    const expand = await waitFor(() => {
+      const el = doc.querySelector('button[aria-label="Expand navigation"]') as HTMLElement
+      if (!el) throw new Error('expand control not rendered')
+      return el
+    })
+    await expect(expand).toHaveAttribute('aria-expanded', 'false')
+    await expect(Math.round(sidebar().width)).toBe(64)
+
+    // The point of putting the expand control in the workspace block's space: no vertical jump.
+    await expect(Math.round(firstNavTop())).toBe(Math.round(expandedTop))
+
+    // Entirely inside the rail, centred, and a real pointer target rather than a bare icon.
+    const rail = sidebar()
+    const box = expand.getBoundingClientRect()
+    await expect(box.left >= rail.left && box.right <= rail.right).toBe(true)
+    await expect(Math.abs(box.left - rail.left - (rail.right - box.right)) <= 2).toBe(true)
+    await expect(box.height).toBeGreaterThanOrEqual(44)
+
+    expand.click()
+    await waitFor(() => {
+      if (!doc.querySelector('button[aria-label="Collapse navigation"]')) throw new Error('did not expand back')
+    })
+  },
 }
 
+/** The same navigation starting collapsed, for comparing the two states side by side. */
 export const CollapsedByDefault: Story = {
   args: { items: groupedNavigation, activeId: 'overview', collapsible: true, defaultCollapsed: true },
 }

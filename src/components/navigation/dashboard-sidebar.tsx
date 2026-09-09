@@ -69,22 +69,41 @@ export function DashboardSidebar({
     const rail = isCollapsed && !mobile
     return (
       <>
+        {/* Branding and the toggle are separate controls on purpose: the logo is not a button, so
+            clicking it never collapses navigation. Expanded, the toggle sits beside the logo on the
+            trailing edge; collapsed, it moves below the mark into the space the workspace block
+            occupies when expanded, which keeps the first destination on the same baseline in both
+            states rather than jumping as the rail changes width. */}
         <div className="cui-brand">
           {rail
             ? brandMark || <ConvertMark />
             : brand || <ConvertLogo variant="straight" label="Convert" className="cui-brand-logo" />}
+          {collapsible && !mobile && !rail && (
+            <Button
+              variant="quiet"
+              className="cui-nav-toggle"
+              aria-expanded
+              aria-label="Collapse navigation"
+              title="Collapse navigation"
+              onClick={() => setCollapsed(true)}
+            >
+              <Icon name="sidebar-collapse" />
+            </Button>
+          )}
         </div>
-        {collapsible && !mobile && (
-          <Button
-            variant="quiet"
-            className="cui-nav-toggle"
-            aria-expanded={!rail}
-            aria-label={rail ? 'Expand navigation' : 'Collapse navigation'}
-            onClick={() => setCollapsed(!rail)}
-          >
-            <Icon name="menu" />
-            {!rail && <span>Collapse</span>}
-          </Button>
+        {collapsible && !mobile && rail && (
+          <div className="cui-nav-toggle-rail">
+            <Button
+              variant="quiet"
+              className="cui-nav-toggle"
+              aria-expanded={false}
+              aria-label="Expand navigation"
+              title="Expand navigation"
+              onClick={() => setCollapsed(false)}
+            >
+              <Icon name="sidebar-expand" />
+            </Button>
+          </div>
         )}
         {!rail && (
           <div className="cui-workspace">
