@@ -81,8 +81,6 @@ node src/convert-ui/generate-tokens.mjs \
 
 Registry items themselves are copied at install time, not fetched again automatically. Re-running `npx shadcn add @convert/<name>` fetches whatever is _currently_ being served and will skip files that are byte-identical, or offer to overwrite ones that differ — it does not silently clobber by default. Before accepting an overwrite on something you've customised, diff what's being offered against what's in your project.
 
-Registry items are copied at install time, not fetched again automatically. Re-running `npx shadcn add @convert/<name>` fetches whatever is _currently_ being served and will skip files that are byte-identical, or offer to overwrite ones that differ — it does not silently clobber by default. Before accepting an overwrite on something you've customised, diff what's being offered against what's in your project.
-
 ## The registry-unavailable clarification
 
 Once installed, this project has **no runtime dependency on the Convert registry being reachable** — the code is already copied in. It still has entirely ordinary dependencies on the npm packages each component imports (React, `class-variance-authority`, `radix-ui`, `clsx`, `tailwind-merge`, etc.) — those must stay installed exactly like any other package your project depends on. Losing access to the registry and losing access to npm are two different failure modes; only the first one is what "copy-in, zero runtime coupling" is a claim about.
