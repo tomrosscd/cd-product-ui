@@ -10,9 +10,15 @@ This page does not name a version number, so it cannot go stale. The [GitHub REA
 
 ## Install
 
-Build an archive from a version tag, then install that archive into your application.
+Each release attaches a built archive. Install it by URL, replacing both version numbers with the release you want:
 
-Run these commands outside your application's folder, replacing `VERSION_TAG` with the tag you want:
+```sh
+pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/VERSION_TAG/convert-product-ui-VERSION.tgz
+```
+
+The URL pins one immutable release. Commit your `package.json` and lockfile.
+
+To install a revision with no release, such as an unreleased branch, build the archive yourself outside your application's folder:
 
 ```sh
 git clone --branch VERSION_TAG --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui

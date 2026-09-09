@@ -9,6 +9,15 @@ Read [the composition guide](dashboard-composition.md) for worked layout code, a
 Do not convert a whole screen in one change. Each step below is independently shippable and independently revertable.
 
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
+
+   ```sh
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.8.0/convert-product-ui-0.8.0.tgz
+   ```
+
+   ```tsx
+   import '@convert/product-ui/styles.css'
+   ```
+
 2. Replace tokens. Swap hard-coded colours, spacing and type for `--cui-*` variables. This is the highest-value step and the lowest risk.
 3. Replace layout. `Stack`, `Grid`, `SplitLayout`, `PageHeader`.
 4. Replace rows and cards. `ContentList`, `Card`, `Metric`.
