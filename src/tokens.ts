@@ -187,6 +187,17 @@ export const tokenReference = [
   },
   {
     "group": "surface",
+    "name": "negative",
+    "key": "surface.negative",
+    "css": "--cui-surface-negative",
+    "value": "#f7e0dc",
+    "description": "Soft error background behind text.negative",
+    "dark": "#3a201c",
+    "resolved": "#f7e0dc",
+    "darkResolved": "#3a201c"
+  },
+  {
+    "group": "surface",
     "name": "hover",
     "key": "surface.hover",
     "css": "--cui-surface-hover",
@@ -1025,6 +1036,7 @@ export const tokens = {
   "surface.card": "#ffffff",
   "surface.selected": "#c9deb6",
   "surface.warning": "#f7e6c8",
+  "surface.negative": "#f7e0dc",
   "surface.hover": "#eef0ec",
   "dropdown.hover": "#eef0ec",
   "dropdown.selected": "#dce2db",
@@ -1125,6 +1137,7 @@ export const darkTokens = {
   "surface.card": "#28312b",
   "surface.selected": "#27382f",
   "surface.warning": "#3a2e18",
+  "surface.negative": "#3a201c",
   "surface.hover": "#344139",
   "dropdown.hover": "#344139",
   "dropdown.selected": "#47574b",

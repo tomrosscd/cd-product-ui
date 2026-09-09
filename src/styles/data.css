@@ -290,3 +290,29 @@
     display: inline;
   }
 }
+
+/* Applied only when a column definition declares a size, so an undeclared table is unaffected. */
+.cui-table-sized {
+  table-layout: fixed;
+}
+/* Per-column cell treatment, driven by a column definition's meta. Tabular figures are the point of
+   the numeric variant: without them digit glyphs vary in width and a column of currency or hours
+   fails to line up, which is exactly where a dense financial table becomes hard to scan. */
+.cui-cell-numeric {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+.cui-cell-end {
+  text-align: end;
+}
+.cui-cell-center {
+  text-align: center;
+}
+/* The sort control is a flex row, so aligning the cell alone would leave the header label put. */
+.cui-cell-numeric .cui-table-sort,
+.cui-cell-end .cui-table-sort {
+  justify-content: flex-end;
+}
+.cui-cell-center .cui-table-sort {
+  justify-content: center;
+}

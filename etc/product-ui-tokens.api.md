@@ -24,6 +24,7 @@ export const darkTokens: {
     readonly "surface.card": "#28312b";
     readonly "surface.selected": "#27382f";
     readonly "surface.warning": "#3a2e18";
+    readonly "surface.negative": "#3a201c";
     readonly "surface.hover": "#344139";
     readonly "dropdown.hover": "#344139";
     readonly "dropdown.selected": "#47574b";
@@ -277,6 +278,16 @@ export const tokenReference: readonly [{
     readonly dark: "#3a2e18";
     readonly resolved: "#f7e6c8";
     readonly darkResolved: "#3a2e18";
+}, {
+    readonly group: "surface";
+    readonly name: "negative";
+    readonly key: "surface.negative";
+    readonly css: "--cui-surface-negative";
+    readonly value: "#f7e0dc";
+    readonly description: "Soft error background behind text.negative";
+    readonly dark: "#3a201c";
+    readonly resolved: "#f7e0dc";
+    readonly darkResolved: "#3a201c";
 }, {
     readonly group: "surface";
     readonly name: "hover";
@@ -1039,6 +1050,7 @@ export const tokens: {
     readonly "surface.card": "#ffffff";
     readonly "surface.selected": "#c9deb6";
     readonly "surface.warning": "#f7e6c8";
+    readonly "surface.negative": "#f7e0dc";
     readonly "surface.hover": "#eef0ec";
     readonly "dropdown.hover": "#eef0ec";
     readonly "dropdown.selected": "#dce2db";

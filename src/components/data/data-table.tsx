@@ -7,7 +7,9 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   flexRender,
+  type Column,
   type ColumnDef,
+  type RowData,
   type SortingState,
 } from '@tanstack/react-table'
 import { Table } from '../primitives/table.js'
@@ -17,6 +19,35 @@ import { Button } from '../primitives/button.js'
 import { EmptyState, Alert, Spinner } from '../primitives/feedback.js'
 import { Icon } from '../primitives/icon.js'
 export type { ColumnDef } from '@tanstack/react-table'
+
+/**
+ * Per-column presentation, set through a column definition's `meta`. TanStack's documented
+ * augmentation point, so a consumer gets these typed on their own column definitions.
+ *
+ * `numeric` is the one that matters for a financial table: it aligns the column to the end and
+ * switches on tabular figures, so digits line up down the column instead of drifting with glyph
+ * width. Formatting the value itself, including currency, hours, negatives and what "missing"
+ * looks like, stays with the application, per the boundaries in AGENTS.md.
+ */
+declare module '@tanstack/react-table' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- both parameters are required by the interface being augmented
+  interface ColumnMeta<TData extends RowData, TValue> {
+    align?: 'start' | 'center' | 'end'
+    numeric?: boolean
+  }
+}
+
+/** Column definitions may declare a `size`; TanStack fills in a default for the rest, so only an
+ *  explicitly declared width is applied. Otherwise every column would be pinned to 150px. */
+function columnWidth<T>(column: Column<T, unknown>) {
+  return column.columnDef.size === undefined ? undefined : { width: column.getSize() }
+}
+function cellClass<T>(column: Column<T, unknown>) {
+  const meta = column.columnDef.meta
+  if (!meta) return undefined
+  if (meta.numeric) return 'cui-cell-numeric'
+  return meta.align && meta.align !== 'start' ? `cui-cell-${meta.align}` : undefined
+}
 export interface DataTableProps<T> {
   caption: string
   data: T[]
@@ -106,7 +137,18 @@ export function DataTable<T>({
         </Alert>
       ) : (
         <>
-          <Table caption={caption} density={density} layout={tableLayout} minWidth={tableMinWidth}>
+          <Table
+            caption={caption}
+            density={density}
+            layout={tableLayout}
+            minWidth={tableMinWidth}
+            // A declared width is only a hint under the browser's default auto layout, which is to
+            // say it is often ignored. Fixed layout makes declared sizes decide the columns: a
+            // table filling its container distributes any surplus proportionally, so the sizes act
+            // as ratios rather than absolute pixels. This only applies when a column actually asks
+            // for a width, so tables that declare none keep the automatic sizing they have today.
+            className={columns.some((column) => column.size !== undefined) ? 'cui-table-sized' : undefined}
+          >
             <thead>
               {table.getHeaderGroups().map((group) => (
                 <tr key={group.id}>
@@ -114,6 +156,8 @@ export function DataTable<T>({
                     <th
                       key={header.id}
                       scope="col"
+                      style={columnWidth(header.column)}
+                      className={cellClass(header.column)}
                       aria-sort={
                         header.column.getCanSort()
                           ? header.column.getIsSorted() === 'asc'
@@ -154,7 +198,9 @@ export function DataTable<T>({
               {table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                    <td key={cell.id} className={cellClass(cell.column)}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
                   ))}
                 </tr>
               ))}
