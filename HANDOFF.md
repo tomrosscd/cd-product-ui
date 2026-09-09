@@ -65,9 +65,15 @@ Do not just delete them. `./assets/brand/*` is a declared export in `package.jso
 
 `.cui-badge-negative` uses `--cui-surface-page` as its background, which is nearly the page colour, so it reads as bare text beside the now-tinted positive and warning badges. Giving it a soft tint would make the three-state set coherent. This changes an existing component's default appearance, so it needs the backward-compatibility process rather than a drive-by fix.
 
-### 6. Registry hardening, only if the coworker wants `npx shadcn add`
+### 6. Registry hardening, mostly done
 
-Unchanged and still not started: real hosting, immutable version URLs, install/update docs, and a token-drift check comparing the registry's shipped tokens against a fresh generation. `public/r/` is gitignored, so nothing is hosted to point at. The registry's own `button` and `chip` never received the interaction-quality pass. The user has not yet decided whether the coworker takes this path or the archive path; ask before building any of it.
+The user approved the registry as the home for components that are probably reusable but not yet proven, with a promotion path into the package. Three of the four prerequisites are done on `feature/registry-hosting` (PR pending):
+
+- `pnpm registry:check`/`registry:sync` guard the registry's token copy against canonical, wired into CI. **This found real drift on the first run**: six tokens behind, plus a stale description. Fixed.
+- `.github/workflows/registry.yml` publishes immutable `/r/v<version>/` paths plus a `/r/latest/` alias on a version tag, refusing to publish a drifted registry.
+- Install, update and promotion docs are in `docs/registry-pilot.md`.
+
+**Remaining: enable GitHub Pages on the repository.** That is a settings change and a decision to host a public site, so it is left to the owner. Until then the workflow will fail if a tag is pushed. The registry's own `button`/`chip` still have not had the interaction-quality pass.
 
 ### 7. Then Pass 3
 

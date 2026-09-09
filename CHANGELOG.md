@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add `pnpm registry:check` and `pnpm registry:sync`, guarding the shadcn registry's copy of the token source, generator and responsive template against the canonical files. Wired into CI. The copy had already fallen six tokens behind (`colour.warning`, `text.warning`, `surface.warning`, `dropdown.hover`, `dropdown.selected`, `size.rail`) with a stale `surface.selected` description; it is now synced and its CSS regenerated.
+- Add `.github/workflows/registry.yml`, publishing the registry to GitHub Pages on a version tag at an immutable `/r/v<version>/` path plus a `/r/latest/` alias, after verifying the tag matches `package.json` and that the token copy has not drifted. Requires GitHub Pages to be enabled on the repository, which the workflow deliberately does not do for you.
+
 ## 0.8.0 · 9 September 2026
 
 Composition and navigation: the pieces needed to build a real dashboard out of the library rather than around it. Everything is additive except one `Progress` behaviour change, called out below. See [docs/release-0.8.md](docs/release-0.8.md).
