@@ -1,0 +1,55 @@
+# Builds the installable archive from a pushed version tag and attaches it to the matching GitHub
+# Release. Until this existed, every consumer had to clone the repository, install its dev
+# dependencies and run pnpm pack themselves before they could install anything, which is a lot of
+# setup to ask of someone who only wants to use the library, and it produced a separate archive per
+# person with no guarantee they matched.
+#
+# This does not publish to any package registry. package.json keeps private: true, and
+# docs/release-process.md step 7 still governs who may install the result.
+name: Release archive
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    name: Build and attach archive
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The tag is the contract. If package.json disagrees with it, the archive would be named
+      # after one version while claiming to be another, so fail here rather than publish that.
+      - name: Verify the tag matches package.json
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $PKG." >&2
+            exit 1
+          fi
+          echo "Tag and package.json agree on $PKG."
+
+      - name: Build the archive
+        run: pnpm pack --pack-destination artifacts
+
+      - name: Attach the archive to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*.tgz
+          generate_release_notes: true
+          fail_on_unmatched_files: true

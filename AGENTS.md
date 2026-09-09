@@ -9,7 +9,7 @@ These instructions apply to this repository. Product UI version: 0.4.0. The user
 - Use tokens/tokens.json as the only token source. Edit semantic roles, not generated outputs. Run pnpm tokens and commit generated changes.
 - Use existing components before introducing a new abstraction. Keep exported components generic and typed; colocate stories.
 - Use named exports, kebab-case filenames, strict TypeScript, single quotes and no semicolons. Run the formatter.
-- Use cui-prefixed component classes and variables. Tailwind authoring utilities have the separate cdu prefix. Do not ship a global reset or unprefixed colour tokens.
+- Use cui-prefixed component classes and variables. Do not ship a global reset or unprefixed colour tokens. The distributed stylesheet is plain CSS on purpose: it carries no Tailwind directives, `@layer`, `@property`, `color-mix` or `oklch`, so a consumer on any PostCSS pipeline (including Tailwind v3) can process it. The cdu-prefixed Tailwind authoring layer was removed in 0.8.0 after a consumer's Next.js build hard-failed on it; nothing in the library had ever used a cdu- class. Do not reintroduce Tailwind into `src/styles/index.css` without solving that compatibility problem first.
 - Every margin, padding and gap uses the approved spacing scale. Keep Roobert with Geist fallback and the neutral page/band/card hierarchy. Avoid large green content areas and nested elevated cards.
 - Preserve native control semantics, visible labels, associated errors, focus outlines, current-page semantics, disabled states and reduced motion. Test real browser interactions.
 - Use Australian English and no em dashes in interface copy. Keep examples neutral and illustrative.
