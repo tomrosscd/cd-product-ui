@@ -108,6 +108,13 @@
   color: var(--cui-text-inverse);
   border-color: var(--cui-accent-primary);
 }
+/* --cui-focus-colour equals --cui-accent-primary in both themes, so the shared global
+   focus-visible outline would sit flush against a border of the identical colour, with no
+   visible boundary. --cui-text-inverse is already the token chosen per theme to contrast with
+   --cui-accent-primary (it is this button's own text colour), so reuse it for the outline too. */
+.cui-button-primary:focus-visible {
+  outline-color: var(--cui-text-inverse);
+}
 .cui-button-primary:hover:not(:disabled) {
   background: var(--cui-text-primary);
 }

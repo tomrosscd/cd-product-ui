@@ -80,6 +80,12 @@
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: var(--cui-focus-offset);
 }
+/* The wrapper's :focus-within outline is the field's one coherent perimeter, covering the
+   prefix/suffix too. Suppress the inner input's own focus-visible outline (inherited from the
+   global input rule in components.css) so focusing it doesn't draw a second, nested ring. */
+.cui-affixed-input input:focus-visible {
+  outline: none;
+}
 .cui-affixed-input:has(input[aria-invalid='true']) {
   border-color: var(--cui-border-error);
 }
