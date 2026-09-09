@@ -1,6 +1,100 @@
 # Active work and handoff
 
-Last updated: 9 September 2026. Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
+Last updated: 9 September 2026 (interaction-quality pass, items 1–3 complete; item 4's consolidated states page now done, and a WCAG focus-ring failure found and fixed while building it). Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
+
+## Active work right now: interaction-quality pass (branch `feature/interaction-quality-pass`)
+
+PR #9 (shadcn registry pilot) is **merged** to `main` (labelled `experimental`, no tag) — the user did the final human keyboard check on a purpose-built test page after this session's browser-automation tooling couldn't exercise real Enter/Space input; see `docs/registry-pilot.md`'s closing note. The 5-step sequence from the prior section of this file is now fully done through step 2.
+
+The user then gave a detailed, four-part interaction-quality brief (focus ownership, dropdown interaction states, icon standardisation, full verification) to do **before** Pass 3, on its own branch, not merged without approval. Items 1–3 are done and verified. Item 4 is now closed as far as this environment allows: its one tooling-independent gap (the consolidated states page) is built, and the three remaining gaps are environment- or scope-blocked, listed below. **PR #10 is open and was green on `8b321bc`; two further commits have been pushed since, so re-read CI before drawing conclusions from that earlier green.** Still not merged, per the standing rule.
+
+**Commits on this branch, in order:** `dc5a599` (focus ownership), `2f7ec02` (Combobox popup sizing/indentation/alignment), `5a2b106` (dropdown neutral tokens + hover/keyboard-active model, with a real self-correction — see below), `690193d` (Foundations/Dropdown states story), `c1b45ce` (Lucide icon set + remaining Unicode fixes + search-clear), `c955733` (Foundations/Icons story), `139e831` (primary button focus-ring contrast fix — see item 5 below), `a459b30` (Foundations/Component states page).
+
+### 1. Focus ownership — done
+
+- Formatted inputs (`CurrencyInput`/`PercentageInput`/`HoursInput`) drew two outlines on focus — the `.cui-affixed-input` wrapper's own `:focus-within` perimeter (correct, covers prefix/suffix) plus a second, redundant one on the inner `<input>`. Suppressed the inner one.
+- `.cui-button-primary`'s focus outline used `--cui-focus-colour`, which equals `--cui-accent-primary` in both themes — the same colour as the button's own border/background, so the ring barely stood out. Reused `--cui-text-inverse` (already the token chosen per theme to contrast with `--cui-accent-primary`).
+- Audited and found already correct, not touched: no global outline removal anywhere; light theme uses dark-neutral focus (`forest`), dark theme uses light-neutral focus (`sage`); chip/password-reveal buttons already get visible focus via the existing global button rule; every portal (`Select`/`Combobox`/`DatePicker`/dropdown-menu/tooltip/sidebar drawer) already applies `cui-root` and `data-cui-theme` directly on the portaled content, not just an outer wrapper.
+- Reviewed, not changed: invalid-field border vs. focus colour contrast is ~2:1 in light theme — meets AA visible-focus, below the AAA Focus Appearance 3:1 target. A fix means picking a new token, a design decision of its own, not a drive-by change.
+
+### 2. Dropdown interaction states — done, including a real self-correction worth reading
+
+- `Combobox` (Radix Popover) reused `.cui-select-panel`, sized with `--radix-select-*` variables that don't exist on a Popover — silently no width alignment, no height constraint (a long list would overflow, not scroll). Added `.cui-combobox-panel` using the `--radix-popover-*` equivalents.
+- `Combobox`'s hand-rolled `<ul>/<li>` inherited the browser's default list indentation (no global reset in this project). Added `.cui-combobox-listbox` to clear it.
+- Replaced the conditionally-rendered `"✓"` character in `Combobox` and `StyledSelect` with `Icon name="check"`, always present, visibility toggled by `[data-state='checked']` — label/indicator columns now stay aligned regardless of avatars or label length.
+- Added `dropdown.hover`/`dropdown.selected` to `tokens/tokens.json` (regenerated via `pnpm tokens`) — Select/Combobox/ActionMenu previously reused `--cui-surface-selected`, the brand-green token nav's `aria-current` and calendar range selection also use, for their own "this option is picked" background. Selected rows are now neutral; the existing checkmark carries the "selected" meaning, not the row colour.
+- **Real mistake caught by testing, not assumed correct:** first attempt split hover vs. keyboard-active via `:hover`/`:not(:hover)` CSS on `data-highlighted`, for Select, Combobox and ActionMenu alike. Verified in the browser this actively breaks Select and ActionMenu — Radix moves real DOM focus onto the highlighted item, including on pointer hover, so a plain mouse hover already satisfies native `:focus-visible`, and the CSS `:hover` heuristic disagreed with the browser's own correct one. Reverted those two to one consistent `data-highlighted` treatment. Combobox is different — hand-rolled, DOM focus never leaves the input — so the hover/keyboard split is real and correct there; verified by keyboard-navigating to a row, hovering a different row with the mouse, and confirming the keyboard row's ring survived while the hovered row showed only the plain background.
+- Also fixed while in this code: `Combobox`'s `onMouseEnter` could highlight a disabled option (looked interactive despite being unselectable), and ArrowUp/ArrowDown could land keyboard focus on a disabled option instead of skipping it. Both fixed and verified.
+- Added `Foundations/Dropdown states` Storybook page — static reference using the real classes/data-attributes, covering default/hover/selected/keyboard-active (including "already selected AND keyboard-active" at once)/disabled, verified in both themes and at 320px width (see item 4 below).
+
+### 3. Icons — done
+
+- Added `lucide-react` as a real dependency (explicit named imports only, never the dynamic catalogue) after asking the user directly whether to add a new runtime dependency for this vs. hand-rolling a few more one-off SVGs vs. deferring — user chose to add it properly now.
+- `Icon`'s existing names (`overview`/`activity`/`projects`/`team`/`menu`/`close`/`arrow`/`chevron`/`check`/`help`) now resolve to Lucide equivalents instead of hand-drawn paths — same names, so no existing call site broke. Added the rest of the brief's curated set (`chevron-up`, `arrow-up`/`down`, `search`, `filter`, `sort(-up/-down)`, `plus`, `minus`, `calendar`, `clock`, `edit`, `delete`, `upload`, `download`, `copy`, `external-link`, `settings`, `users`, `status`, `overflow`, `visibility(-off)`, `loading`), plus a `.cui-icon-spin` utility and a `.cui-icon-inline` sizing variant for icons in running text.
+- Fixed every remaining literal Unicode symbol in `src/` (excluding stories/tests): `StyledSelect`'s scroll-button arrows, `Metric`'s trend arrows, `DataTable`'s sort indicators, `TextLink`'s external-link marker. Also swapped `PasswordInput`'s literal "Show"/"Hide" text for `visibility`/`visibility-off` icons (the `aria-label` already carried the accessible name).
+- Implemented the search-clear fix on `DataTable`: an accessible `Icon name="close"` button (only rendered once there's a value) that clears the controlled `globalFilter`, resets pagination to page 0, and restores focus to the input — verified directly (`document.activeElement` checked, not assumed) rather than just reasoned about. The native browser clear affordance is hidden only where this replacement exists (`:has([data-cui-search-clear])`), so a plain `type="search"` input elsewhere is unaffected.
+- Added `Foundations/Icons` Storybook page listing every name with usage guidance; the name list is typed as `IconName[]` so an icon added/removed from `icon.tsx` without a matching update here fails type-check.
+
+### 4. Full verification — the one tooling-independent gap is now closed; three remain blocked
+
+Done: light/dark theme (checked on every change above, not just at the end), keyboard vs. pointer input (including the Select/ActionMenu correction above and the Combobox disabled-option fixes), automated accessibility (Storybook's a11y addon caught a real `aria-required-parent` violation in the new dropdown-states story — fixed, not silenced), narrow screens (375px and the WCAG 320px reflow benchmark, on `DataTable` and the dropdown-states page — no clipping, no horizontal overflow, indicator column held up even with a wrapped two-line label), disabled-state and focus-restoration behaviour (verified programmatically, not just visually).
+
+**What was outstanding when items 1–3 were finished** (superseded by the update further down — read that for the current position, this list is kept for the record):
+
+- ~~No cross-cutting Storybook state reference covering the full list the brief named~~ — **done**, see the update below (`a459b30`).
+- **Forced colours** — this session's browser tooling has no forced-colors emulation available; the existing `@media (forced-colors: active)` blocks in `data.css`/`controls.css`/`components.css` weren't touched by this pass and weren't re-verified either.
+- **RTL** — genuinely out of scope; this project has no `[dir="rtl"]` support yet (ROADMAP.md section 5, "still deferred"), not something to add as a side effect here.
+- **Real Roobert rendering** — the licensed font files aren't present in this environment (by design, see AGENTS.md/README.md); everything above rendered on the Geist fallback, which is one of the two fonts the brief named but not both.
+- **Zoom** — approximated via the 320px reflow-equivalent width rather than an actual browser zoom control, which this tooling can't drive.
+- No before/after screenshots were saved to a file for the user — every check was done live against a running Storybook instance and described in this file and each commit message instead.
+
+**Update (this session).** The user chose to close the one gap that was not blocked by tooling before bringing the PR back for review. That is now done, and it turned up a real defect.
+
+**Now done:** `Foundations/Component states` (`docs/component-states.stories.tsx`) covers buttons, text inputs, search and password, formatted inputs, textarea, checkbox/switch/radio, selects, comboboxes, menus, date pickers, links, chips, tabs and navigation, in rest, focus, selected, error, loading, read-only and disabled states. Every cell renders the real component in a real state, with two exceptions stated on the page itself: navigation (`.cui-sidebar` is `position: fixed` and cannot sit inline, so those rows use the exact markup `DashboardSidebar` renders, the same approach the dropdown-states page took) and focus (only one element per document can hold it).
+
+The focus preview is a `data-cui-focus-preview` hook in `.storybook/preview.css`, deliberately **not** in `src/styles`, so it does not ship: `dist/styles.css` contains no occurrence of `focus-preview` (checked against a real build, not assumed). Because that hook restates declarations the real rules own, the `Focus ring parity` story asserts a previewed ring computes identically to a genuinely keyboard-focused control. That guard was confirmed load-bearing by breaking each preview rule in turn and watching the test fail, in light and again under `pnpm test:dark` — not assumed to work.
+
+**Still not done, unchanged and still honest:**
+
+- **Forced colours** — no forced-colors emulation in this session's tooling either. The `@media (forced-colors: active)` blocks in `data.css`/`controls.css`/`components.css` remain untouched and unverified by this pass.
+- **RTL** — still genuinely out of scope; no `[dir="rtl"]` support exists yet (ROADMAP.md section 5).
+- **Real Roobert rendering** — licensed font files still absent by design; everything rendered on the Geist fallback.
+- **Zoom** — still approximated via the 320px reflow-equivalent width rather than a real zoom control.
+
+### 5. Primary button focus ring — a defect this branch introduced, now fixed (`139e831`)
+
+Putting every focus state side by side on the new page immediately showed the primary button had no visible focus ring. This was not pre-existing: `dc5a599`, earlier on this same branch, introduced it.
+
+`dc5a599` fixed a real problem — `--cui-focus-colour` equals `--cui-accent-primary` in both themes, so the shared ring sat flush against a border of the identical colour and merely made the button look 2px larger — by recolouring the ring to `--cui-text-inverse`. That reasoning is sound about contrast against the _button_, but with `outline-offset: 0` the ring is drawn entirely _outside_ the border box, so what it must contrast with is the surface behind it. Measured on a genuinely keyboard-focused button in Chromium: **1.00:1** (light, on a card), 1.05:1 (light, on the page), 1.34:1 and 1.04:1 (dark). WCAG 2.2 SC 1.4.11 asks 3:1, so the indicator failed in both themes and was invisible to the eye in light.
+
+The fix separates ring from button with a gap instead of recolouring it: keep `--cui-focus-colour` and set `outline-offset: var(--cui-focus-width)`. That resolves the original merge without giving up contrast — **11.79:1**/12.40:1 in light, 12.01:1/9.34:1 in dark. Verified with real `Tab` presses in Chromium so `:focus-visible` genuinely matched (a synthetic `KeyboardEvent` does _not_ establish keyboard modality — an early attempt this session read `matchesFocusVisible: false` and would have measured the wrong thing). The parity story now pins this rule, so it cannot regress silently.
+
+Worth noting for whoever reviews: this is exactly the class of bug a consolidated states page exists to catch, and it went unnoticed while each component's focus state lived on its own page.
+
+**Checks run this session, all passing:** `format:check`, `tokens:check`, `type-check`, `lint`, `test` (200 tests, 44 files), `test:dark` (176), `build`, `build-storybook`, `api:check`, `test:coverage` (92.26% statements, above the floor), `package:check`, `next:check`. That is every gate `.github/workflows/ci.yml` runs. Storybook's a11y addon on the new page: 0 violations, 29 passes, 1 inconclusive (`aria-hidden` decorative spans containing only non-text characters — benign). No horizontal overflow at the 320px WCAG reflow width (checked programmatically across the full 6717px page, 0 offending elements).
+
+### 6. 0.7.0 release preparation — done up to the tag (`6a45143`)
+
+The user asked whether this is ready for a coworker to use, and chose to have the release prepared now but stopped before merge and tag. Release-process steps 1–5 are done on this branch; **steps 6 and 7 (tag, build and share the archive) are deliberately not done.**
+
+- `package.json` is `0.7.0`, and `docs/release-0.7.md` was added to `files` — without that the release notes would not ship. Packed archive: 269 → 270 files, containing that doc.
+- README's current-version line, version-history row, versioned clone command and both vendor-archive install paths now say 0.7.0. `pnpm pack` really emits `convert-product-ui-0.7.0.tgz`, so the documented filenames are accurate.
+- **The README now references the `v0.7.0` tag, which does not exist yet.** That is inherent to the process ordering (labels in step 5, tag in step 6) and resolves on tagging. If the release is abandoned rather than completed, that reference has to be reverted.
+- Version choice was verified, not assumed: the API diff against `main` is two added tokens, one narrowed token description and a widened `IconName`. Comparing icon names either side of the branch gives 23 added, **zero removed**. Additive plus fixes, so minor.
+- Archive inspected for fonts, credentials, client material and the registry pilot: none present.
+
+**Blocking a coworker actually using this, in order:**
+
+1. **PR #10 is not merged.** Still the user's call, standing rule unchanged.
+2. **Release-process step 3 wants another developer to review** API, visual and accessibility changes. Not satisfied by an AI session, and this PR changes a focus ring every primary button inherits.
+3. **Tag `v0.7.0`** on the approved commit, then build the archive from that tagged revision (step 7).
+4. **`CONSUMERS.md` is still entirely placeholder rows.** It is the only mechanism protecting consumers from breaking changes — no telemetry, no download counts. The coworker needs a real row the moment they install, or the backward-compatibility process degrades to "hope nobody's using it".
+
+**If the coworker wants `npx shadcn add` instead of the archive, none of the above is enough** — see step 4 of the registry sequence below: hosting, immutable version URLs, install/update docs and a token-drift check are all still **not started**, `public/r/` is gitignored so there is nothing hosted to point at, and the registry's own `button`/`chip` copies never received the interaction-quality pass. The user has not yet decided which path the coworker takes.
+
+Also worth telling any new consumer: Roobert is not bundled (licensing), so they render on the Geist/Arial fallback, and forced-colours mode and RTL are unverified/unsupported.
+
+**Next step:** the user's decision on merge, and on which consumption path the coworker needs. Do not merge or tag without explicit approval — the standing rule has not changed.
 
 ## Current state
 
@@ -12,17 +106,17 @@ Last updated: 9 September 2026. Update this file at each meaningful checkpoint a
 
 Previous release checkpoint before this one: `v0.4.0` — a breaking release (see `docs/release-0.4.md`): `title` → `heading` on Alert/EmptyState/Disclosure/ConfirmationDialog/DataChart/RoadmapBoard/SignInForm, and `SignInForm.pending` → `loading`. It also added an enforced public API check (`pnpm api:check`/`api:update`, backed by `etc/*.api.md`, wired into CI) — read `docs/release-process.md#backward-compatibility` before shipping anything that renames or removes a public export, prop, or CSS class.
 
-## Active work right now: shadcn registry pilot (separate from ROADMAP.md's component passes)
+## shadcn registry pilot — PR #9 merged, sequence continues (separate from ROADMAP.md's component passes)
 
-Before continuing to Pass 3, the user asked for an audit + pilot of converting this project into a distributable shadcn registry, so coworkers (and their coding agents) can pull components via `npx shadcn add` instead of hand-rolling or waiting on the npm-tarball flow. This is tracked on its own branch, `feature/shadcn-registry-pilot`, based on `main` at `v0.6.0` — **not** a continuation of the component-pass branches above. See the dedicated checkpoint section below for full detail.
+The user asked for an audit + pilot of converting this project into a distributable shadcn registry, so coworkers (and their coding agents) can pull components via `npx shadcn add` instead of hand-rolling or waiting on the npm-tarball flow. Tracked on `feature/shadcn-registry-pilot` (based on `main` at `v0.6.0`), merged into `main` on 9 September 2026 as **PR #9**, labelled `experimental`, **no version tag published**. See the dedicated checkpoint section below for full history.
 
-**Exact sequence the user set, in order — do not skip or reorder this:**
+**The sequence the user set, and where it actually stands:**
 
-1. Close three specific gaps in the pilot's own verification (keyboard check, a real regenerate-tokens test, recording the exact vanilla Button provenance) — done, see the checkpoint section below for what's actually closed vs. still genuinely open.
-2. Wait for green CI on [PR #9](https://github.com/tomrosscd/cd-product-ui/pull/9), then the user reviews and merges it themselves, **keeping it labelled experimental**. Not this session's call to merge.
-3. **A focus/neutral-dropdown/icon interaction-quality pass, applied to both the released library and the registry pilot's components** — the user referred to "the prompt we prepared" for this; that prompt has not appeared in this session's visible context (likely from a part of the conversation this session doesn't have — possibly compacted out, or something the user has ready but hasn't sent yet). **Ask the user for it explicitly rather than guessing its scope from the name alone** — "focus, neutral dropdown and icon quality" is a real, specific brief the user already has in mind, not something to reconstruct from this repo's own known focus-ring/icon bugs fixed earlier this session (those were fixed already; this pass is described as a separate, deliberate follow-up, so treat it as new work with its own prompt, not a re-run of past fixes).
-4. Before any coworker actually adopts the registry: real hosting (GitHub Pages was the audit's recommendation), immutable version URLs (not just an alias that can silently move), clear install/update docs, and a check that prevents the registry's copied tokens from drifting from the canonical `tokens/tokens.json` source of truth (not built yet — needs its own design: likely a script comparing the registry's shipped `tokens.json`/`tokens.css` against a fresh generation from the canonical source, run in CI).
-5. **Only then** resume Pass 3.
+1. Close three specific gaps in the pilot's own verification (keyboard check, a real regenerate-tokens test, recording the exact vanilla Button provenance) — **done**.
+2. Wait for green CI on PR #9, then the user reviews and merges — **done, 9 September 2026**. The last open item (real human Enter/Space keyboard verification, since this session's browser-automation tooling couldn't exercise it) was closed with a purpose-built standalone test page (Convert Button, pinned vanilla Button, native `<button>` control, each with a visible activation/submit counter) that the user tested directly; see `docs/registry-pilot.md`'s closing note for the result.
+3. **A focus/neutral-dropdown/icon interaction-quality pass, applied to both the released library and the registry pilot's components** — the user supplied the detailed brief. Items 1–3 (focus, dropdown states, icons) are **done** on `feature/interaction-quality-pass`; item 4 (full verification) is **partial** — see the section above this one for exactly what's covered and what isn't. Not yet applied to the registry pilot's own copy of `button`/`chip` — those were pinned/adapted separately and weren't in scope for this pass's file changes; revisit if the registry expands.
+4. Before any coworker actually adopts the registry: real hosting (GitHub Pages was the audit's recommendation), immutable version URLs (not just an alias that can silently move), clear install/update docs, and a token-drift check comparing the registry's shipped `tokens.json`/`tokens.css` against a fresh generation from the canonical source. **Not started** — the user explicitly said this doesn't need to block Pass 3, but must land before coworkers adopt the public registry.
+5. **Only then** resume Pass 3 — also not yet started, queued behind the interaction-quality pass.
 
 "No need to expand the registry to every component yet" — the user was explicit that reliability of this small install path and interaction consistency come first, before any wider component-classification work from `docs/shadcn-registry-audit.md`.
 

@@ -84,6 +84,13 @@
   display: inline-block;
   vertical-align: middle;
 }
+/* For an icon sitting inline in running text (a trend arrow before a caption, a sort indicator
+   in a table header) rather than as its own standalone control — scales with the surrounding
+   text instead of the fixed --cui-size-icon most standalone icon usage wants. */
+.cui-icon-inline {
+  width: 1em;
+  height: 1em;
+}
 .cui-button {
   display: inline-flex;
   justify-content: center;
@@ -108,6 +115,21 @@
   color: var(--cui-text-inverse);
   border-color: var(--cui-accent-primary);
 }
+/* --cui-focus-colour equals --cui-accent-primary in both themes, so a flush ring in the shared
+   colour would merge into this button's own border and just make the button look slightly larger.
+   Separate the two with a gap instead of recolouring the ring: offsetting it by its own width
+   leaves a band of the surrounding surface between button and ring, so the boundary is obvious
+   while the ring keeps the one colour picked to contrast with the page.
+   Recolouring it to --cui-text-inverse instead, as this rule did until now, did fix the merge but
+   only by making the ring invisible against everything else: the ring is drawn entirely outside
+   the border box at offset 0, so what it must contrast with is the surface behind it, not the
+   button. That gave a near-white ring on a near-white surface in light (1.00:1 on a card, 1.05:1
+   on the page) and a near-black ring on a near-black surface in dark (1.34:1 and 1.04:1), all far
+   below the 3:1 WCAG 2.2 SC 1.4.11 asks of a focus indicator. The offset version measures between
+   9.34:1 and 12.40:1 across both themes on both surfaces. */
+.cui-button-primary:focus-visible {
+  outline-offset: var(--cui-focus-width);
+}
 .cui-button-primary:hover:not(:disabled) {
   background: var(--cui-text-primary);
 }
@@ -131,6 +153,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* Pairs with <Icon name="loading">; the dedicated Spinner primitive remains the simpler default
+   for most loading states, this is for spots that specifically need the curated icon instead. */
+.cui-icon-spin {
+  animation: cui-spin 1s linear infinite;
 }
 .cui-card {
   min-width: 0;

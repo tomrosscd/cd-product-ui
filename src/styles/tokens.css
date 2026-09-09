@@ -17,6 +17,8 @@
   --cui-surface-card: var(--cui-colour-white);
   --cui-surface-selected: var(--cui-colour-sage);
   --cui-surface-hover: var(--cui-colour-band);
+  --cui-dropdown-hover: var(--cui-colour-band);
+  --cui-dropdown-selected: var(--cui-colour-line);
   --cui-text-primary: var(--cui-colour-ink);
   --cui-text-secondary: var(--cui-colour-muted);
   --cui-text-inverse: var(--cui-colour-white);
@@ -112,6 +114,8 @@
   --cui-surface-card: #28312b;
   --cui-surface-selected: var(--cui-colour-forest);
   --cui-surface-hover: #344139;
+  --cui-dropdown-hover: #344139;
+  --cui-dropdown-selected: #47574b;
   --cui-text-primary: var(--cui-colour-paper);
   --cui-text-secondary: #bdc7bf;
   --cui-text-inverse: var(--cui-colour-ink);

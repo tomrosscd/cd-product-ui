@@ -159,7 +159,7 @@ export const tokenReference = [
     "key": "surface.selected",
     "css": "--cui-surface-selected",
     "value": "{colour.sage}",
-    "description": "Current navigation and selection",
+    "description": "Current navigation (aria-current) and calendar range selection. Not for dropdown/listbox options — see dropdown.selected.",
     "dark": "{colour.forest}",
     "resolved": "#c9deb6",
     "darkResolved": "#27382f"
@@ -174,6 +174,28 @@ export const tokenReference = [
     "dark": "#344139",
     "resolved": "#eef0ec",
     "darkResolved": "#344139"
+  },
+  {
+    "group": "dropdown",
+    "name": "hover",
+    "key": "dropdown.hover",
+    "css": "--cui-dropdown-hover",
+    "value": "{colour.band}",
+    "description": "Dropdown/listbox option hover — scoped separately from surface.hover so tuning it never touches buttons, tabs or menus",
+    "dark": "#344139",
+    "resolved": "#eef0ec",
+    "darkResolved": "#344139"
+  },
+  {
+    "group": "dropdown",
+    "name": "selected",
+    "key": "dropdown.selected",
+    "css": "--cui-dropdown-selected",
+    "value": "{colour.line}",
+    "description": "Dropdown/listbox option's own selected-row background. Deliberately neutral, not surface.selected's brand green — the option's checkmark carries the 'this is selected' meaning, not the row colour, so it never collides with navigation's current-page tint",
+    "dark": "#47574b",
+    "resolved": "#dce2db",
+    "darkResolved": "#47574b"
   },
   {
     "group": "text",
@@ -960,6 +982,8 @@ export const tokens = {
   "surface.card": "#ffffff",
   "surface.selected": "#c9deb6",
   "surface.hover": "#eef0ec",
+  "dropdown.hover": "#eef0ec",
+  "dropdown.selected": "#dce2db",
   "text.primary": "#171717",
   "text.secondary": "#5e665f",
   "text.inverse": "#ffffff",
@@ -1054,6 +1078,8 @@ export const darkTokens = {
   "surface.card": "#28312b",
   "surface.selected": "#27382f",
   "surface.hover": "#344139",
+  "dropdown.hover": "#344139",
+  "dropdown.selected": "#47574b",
   "text.primary": "#faf9f7",
   "text.secondary": "#bdc7bf",
   "text.inverse": "#171717",

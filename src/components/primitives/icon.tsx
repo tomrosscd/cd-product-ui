@@ -1,33 +1,93 @@
 import type { SVGProps } from 'react'
+import {
+  Activity,
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  ArrowUpDown,
+  Calendar,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  Circle,
+  CircleQuestionMark,
+  Clock,
+  Copy,
+  Download,
+  Ellipsis,
+  ExternalLink,
+  Eye,
+  EyeOff,
+  Folder,
+  ListFilter,
+  LoaderCircle,
+  Menu,
+  Minus,
+  Pencil,
+  Plus,
+  Search,
+  Settings,
+  Trash,
+  Upload,
+  Users,
+  X,
+} from 'lucide-react'
 import { cn } from '../../lib/classes.js'
-const paths = {
-  overview: 'M3 3h6v6H3z M15 3h6v6h-6z M3 15h6v6H3z M15 15h6v6h-6z',
-  activity: 'M3 18V6m0 12h18M6 14l4-5 4 3 6-8',
-  projects: 'M3 6h7l2 3h9v11H3z',
-  team: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3a4 4 0 0 1 0 8m6 10v-2a4 4 0 0 0-3-3.87 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0',
-  menu: 'M4 6h16M4 12h16M4 18h16',
-  close: 'm6 6 12 12M6 18 18 6',
-  arrow: 'M4 12h16m-6-6 6 6-6 6',
-  chevron: 'm6 9 6 6 6-6',
-  check: 'm5 12 4 4L19 6',
-  help: 'M9 9a3 3 0 1 1 5 2c-2 1-2 2-2 3m0 3h.01 M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0',
+
+/**
+ * Curated Lucide set (https://lucide.dev/guide/react), explicit imports only — never the whole
+ * dynamic icon catalogue — so unused icons tree-shake out of consumers' bundles. Names predate
+ * this file's move to Lucide (see git history for the original hand-drawn paths); kept stable so
+ * `<Icon name="chevron">` etc. in existing applications and stories keeps resolving to a sensible
+ * equivalent rather than a breaking rename.
+ */
+const icons = {
+  overview: Activity,
+  activity: Activity,
+  projects: Folder,
+  team: Users,
+  users: Users,
+  menu: Menu,
+  close: X,
+  arrow: ArrowRight,
+  'arrow-up': ArrowUp,
+  'arrow-down': ArrowDown,
+  chevron: ChevronDown,
+  'chevron-up': ChevronUp,
+  check: Check,
+  help: CircleQuestionMark,
+  search: Search,
+  filter: ListFilter,
+  sort: ArrowUpDown,
+  'sort-up': ArrowUp,
+  'sort-down': ArrowDown,
+  plus: Plus,
+  minus: Minus,
+  calendar: Calendar,
+  clock: Clock,
+  edit: Pencil,
+  delete: Trash,
+  upload: Upload,
+  download: Download,
+  copy: Copy,
+  'external-link': ExternalLink,
+  settings: Settings,
+  status: Circle,
+  overflow: Ellipsis,
+  visibility: Eye,
+  'visibility-off': EyeOff,
+  loading: LoaderCircle,
 } as const
-export type IconName = keyof typeof paths
+export type IconName = keyof typeof icons
 export function Icon({ name, className, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
+  const Component = icons[name]
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <Component
+      strokeWidth={1.5}
       aria-hidden="true"
       focusable="false"
       {...props}
       className={cn('cui-icon', className)}
-    >
-      <path d={paths[name]} />
-    </svg>
+    />
   )
 }

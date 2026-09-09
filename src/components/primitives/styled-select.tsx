@@ -72,7 +72,9 @@ export function StyledSelect({
             sideOffset={4}
             collisionPadding={12}
           >
-            <Primitive.ScrollUpButton className="cui-select-scroll">↑</Primitive.ScrollUpButton>
+            <Primitive.ScrollUpButton className="cui-select-scroll">
+              <Icon name="chevron-up" />
+            </Primitive.ScrollUpButton>
             <Primitive.Viewport>
               {groups.map((group) => (
                 <Primitive.Group key={group}>
@@ -86,14 +88,16 @@ export function StyledSelect({
                         disabled={option.disabled}
                         className="cui-select-option"
                       >
-                        <Primitive.ItemText>{option.label}</Primitive.ItemText>
-                        <Primitive.ItemIndicator aria-hidden="true">✓</Primitive.ItemIndicator>
+                        <Primitive.ItemText className="cui-select-option-label">{option.label}</Primitive.ItemText>
+                        <Icon name="check" aria-hidden="true" className="cui-select-option-indicator" />
                       </Primitive.Item>
                     ))}
                 </Primitive.Group>
               ))}
             </Primitive.Viewport>
-            <Primitive.ScrollDownButton className="cui-select-scroll">↓</Primitive.ScrollDownButton>
+            <Primitive.ScrollDownButton className="cui-select-scroll">
+              <Icon name="chevron" />
+            </Primitive.ScrollDownButton>
           </Primitive.Content>
         </Primitive.Portal>
       </Primitive.Root>

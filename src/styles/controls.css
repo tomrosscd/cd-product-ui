@@ -24,6 +24,12 @@
   flex-shrink: 0;
   white-space: nowrap;
 }
+/* Only hide the browser's own inconsistent, unstylable search-cancel affordance where an
+   accessible replacement (the [data-cui-search-clear] trailingAction button) is actually present
+   — a plain type="search" input elsewhere keeps its native one. */
+.cui-input-row:has([data-cui-search-clear]) input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
 .cui-input {
   box-sizing: border-box;
   width: 100%;
@@ -79,6 +85,12 @@
 .cui-affixed-input:focus-within {
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: var(--cui-focus-offset);
+}
+/* The wrapper's :focus-within outline is the field's one coherent perimeter, covering the
+   prefix/suffix too. Suppress the inner input's own focus-visible outline (inherited from the
+   global input rule in components.css) so focusing it doesn't draw a second, nested ring. */
+.cui-affixed-input input:focus-visible {
+  outline: none;
 }
 .cui-affixed-input:has(input[aria-invalid='true']) {
   border-color: var(--cui-border-error);
@@ -170,6 +182,9 @@
   text-underline-offset: var(--cui-space-4);
   text-decoration: underline;
   overflow-wrap: anywhere;
+}
+.cui-text-link-inline .cui-icon-inline {
+  margin-inline-start: var(--cui-space-4);
 }
 .cui-text-link-standalone {
   display: inline-flex;

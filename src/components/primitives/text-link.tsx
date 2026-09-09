@@ -1,6 +1,7 @@
 import type { ComponentProps } from 'react'
 import { cn } from '../../lib/classes.js'
 import { safeHref } from '../../lib/href.js'
+import { Icon } from './icon.js'
 export interface TextLinkProps extends ComponentProps<'a'> {
   href: string
   external?: boolean
@@ -26,7 +27,7 @@ export function TextLink({
       className={cn('cui-text-link', `cui-text-link-${variant}`, className)}
     >
       {children}
-      {external && <span aria-hidden="true"> ↗</span>}
+      {external && <Icon name="external-link" className="cui-icon-inline" />}
       {newTab && <span className="cui-sr-only"> (opens in a new tab)</span>}
     </a>
   )

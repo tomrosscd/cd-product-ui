@@ -218,3 +218,66 @@ body {
 .cui-type-specimen > .cui-row > strong {
   text-transform: capitalize;
 }
+
+/* Documentation only, and deliberately in this Storybook-only stylesheet rather than in src/styles
+   so none of it reaches the shipped package. Foundations/Component states needs to show the focus
+   ring beside the other states, but only one element in a document can genuinely hold focus, so
+   that page marks one element per row with data-cui-focus-preview instead. These declarations are
+   the same token expressions the real rules use (components.css, controls.css), and the page's
+   Focus ring parity story asserts a previewed ring computes identically to a really focused
+   control in both themes, so this copy cannot drift from the real one without failing CI. */
+[data-cui-focus-preview] {
+  outline: var(--cui-focus-width) solid var(--cui-focus-colour);
+  outline-offset: var(--cui-focus-offset);
+}
+.cui-button-primary[data-cui-focus-preview] {
+  outline-offset: var(--cui-focus-width);
+}
+[data-cui-theme='dark'] .cui-input[data-cui-focus-preview] {
+  outline-color: var(--cui-colour-white);
+}
+.cui-states-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-40);
+}
+.cui-states-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-16);
+  border-top: var(--cui-border-width) solid var(--cui-border-subtle);
+  padding-top: var(--cui-space-16);
+}
+.cui-states-group > header > h3 {
+  margin: var(--cui-space-0);
+  font-size: var(--cui-type-compact);
+  line-height: var(--cui-type-compact-leading);
+}
+.cui-states-group > header > p {
+  margin: var(--cui-space-4) var(--cui-space-0) var(--cui-space-0);
+  font-size: var(--cui-type-caption);
+  line-height: var(--cui-type-caption-leading);
+  max-width: 60ch;
+}
+.cui-states-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: var(--cui-space-16);
+  align-items: start;
+}
+.cui-states-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-8);
+  padding: var(--cui-space-16);
+  border: var(--cui-border-width) solid var(--cui-border-subtle);
+  border-radius: var(--cui-radius-control);
+  background: var(--cui-surface-card);
+  min-width: 0;
+}
+.cui-states-caption {
+  font-size: var(--cui-type-caption);
+  line-height: var(--cui-type-caption-leading);
+  color: var(--cui-text-secondary);
+  overflow-wrap: anywhere;
+}

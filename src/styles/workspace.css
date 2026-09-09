@@ -31,8 +31,11 @@
   cursor: pointer;
   border-radius: var(--cui-radius-control);
 }
-.cui-menu-item[data-highlighted] {
-  background: var(--cui-surface-hover);
+/* Radix DropdownMenu, like Select, moves real DOM focus onto the highlighted item on pointer
+   hover too — see the longer note beside .cui-select-option in pickers.css for why :hover can't
+   be used to separate mouse from keyboard here. One consistent indicator for both. */
+.cui-menu-item[data-highlighted]:not([data-disabled]) {
+  background: var(--cui-dropdown-hover);
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: -2px;
 }

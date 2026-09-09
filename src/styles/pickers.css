@@ -27,23 +27,69 @@
   min-width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
 }
+/* Combobox is a Radix Popover, not a Radix Select — it shares .cui-select-panel's visual
+   styling but must size against Popover's own injected variables. The Select-specific ones
+   above are simply unset in a Popover, silently dropping both the trigger-width alignment and
+   the available-height constraint (so a long list wouldn't scroll, it would overflow). */
+.cui-combobox-panel {
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+  overflow: auto;
+}
+.cui-combobox-panel .cui-select-option {
+  scroll-margin-block: var(--cui-space-4);
+}
+.cui-combobox-listbox {
+  list-style: none;
+  margin: var(--cui-space-0);
+  padding: var(--cui-space-0);
+}
 .cui-select-option {
   padding: var(--cui-space-12);
   min-height: var(--cui-size-control);
   display: flex;
-  justify-content: space-between;
-  gap: var(--cui-space-16);
+  align-items: center;
+  gap: var(--cui-space-8);
   cursor: pointer;
   border-radius: var(--cui-radius-control);
 }
-.cui-select-option[data-highlighted] {
-  background: var(--cui-surface-hover);
+/* flex:1 on the label (rather than justify-content: space-between on the row) keeps the
+   indicator in a fixed trailing column regardless of label length or whether an avatar is
+   present, so selected/unselected rows stay aligned with each other. */
+.cui-select-option-label {
+  flex: 1;
+  min-width: 0;
+}
+.cui-select-option-indicator {
+  flex-shrink: 0;
+  visibility: hidden;
+}
+.cui-select-option[data-state='checked'] .cui-select-option-indicator {
+  visibility: visible;
+}
+/* Radix Select moves real DOM focus onto whichever item is data-highlighted, including on
+   pointer hover — so :hover and native :focus-visible modality can't be used here to separate
+   "mouse" from "keyboard": a plain hover already carries real, spec-correct :focus-visible (this
+   matches native <select>, where opening it or hovering an item both mark a "current" item ready
+   for arrow keys). Give every highlighted row this one indicator, consistently. */
+.cui-select-option[data-highlighted]:not([data-disabled]) {
+  background: var(--cui-dropdown-hover);
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: -2px;
 }
+/* Combobox is different: it's hand-rolled, and DOM focus never leaves the input (the active
+   option is only ever exposed via aria-activedescendant) — so unlike Select, a real mouse :hover
+   here has no competing focus semantics to fight, and is a reliable, unambiguous "pointer, not
+   keyboard" signal. Only here can hover justify a visibly lighter treatment than keyboard nav. */
+.cui-combobox-panel .cui-select-option:hover:not([data-disabled]) {
+  outline: none;
+}
+/* The checkmark (.cui-select-option-indicator) already carries the "this is selected" meaning —
+   this uses a neutral background, never the brand-green surface.selected token nav/calendar use
+   for "current". The hover/highlighted rule above is more specific, so hovering or
+   keyboard-navigating onto an already-selected row still shows that feedback over this one. */
 .cui-select-option[data-state='checked'] {
-  background: var(--cui-surface-selected);
-  color: var(--cui-text-accent);
+  background: var(--cui-dropdown-selected);
 }
 .cui-select-option[data-disabled] {
   opacity: 0.5;
@@ -55,7 +101,9 @@
   font-weight: var(--cui-font-semibold);
 }
 .cui-select-scroll {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-block: var(--cui-space-4);
 }
 .cui-date-panel {
   padding: var(--cui-space-16);
