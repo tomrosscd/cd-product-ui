@@ -51,7 +51,12 @@ export function Combobox(props: ComboboxProps) {
   const filtered = onSearchChange
     ? options
     : options.filter((option) => option.label.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
-  useEffect(() => setActiveIndex(0), [query, open])
+  useEffect(() => {
+    const firstEnabled = filtered.findIndex((option) => !option.disabled)
+    setActiveIndex(firstEnabled === -1 ? 0 : firstEnabled)
+    // Deliberately re-run only on query/open, not `filtered` (a new array reference every render).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, open])
   function select(optionValue: string) {
     if (props.multiple) {
       props.onValueChange(
@@ -67,14 +72,20 @@ export function Combobox(props: ComboboxProps) {
       inputRef.current?.focus()
     }
   }
+  function nextEnabledIndex(from: number, step: 1 | -1) {
+    for (let index = from + step; index >= 0 && index < filtered.length; index += step) {
+      if (!filtered[index]?.disabled) return index
+    }
+    return from
+  }
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       setOpen(true)
-      setActiveIndex((index) => Math.min(index + 1, filtered.length - 1))
+      setActiveIndex((index) => nextEnabledIndex(index, 1))
     } else if (event.key === 'ArrowUp') {
       event.preventDefault()
-      setActiveIndex((index) => Math.max(index - 1, 0))
+      setActiveIndex((index) => nextEnabledIndex(index, -1))
     } else if (event.key === 'Enter') {
       event.preventDefault()
       const option = filtered[activeIndex]
@@ -181,7 +192,7 @@ export function Combobox(props: ComboboxProps) {
                     data-state={selectedValues.includes(option.value) ? 'checked' : undefined}
                     data-disabled={option.disabled ? '' : undefined}
                     className="cui-select-option"
-                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseEnter={() => !option.disabled && setActiveIndex(index)}
                     onClick={() => !option.disabled && select(option.value)}
                   >
                     {option.avatar}

@@ -23,6 +23,8 @@ export const darkTokens: {
     readonly "surface.card": "#28312b";
     readonly "surface.selected": "#27382f";
     readonly "surface.hover": "#344139";
+    readonly "dropdown.hover": "#344139";
+    readonly "dropdown.selected": "#47574b";
     readonly "text.primary": "#faf9f7";
     readonly "text.secondary": "#bdc7bf";
     readonly "text.inverse": "#171717";
@@ -248,7 +250,7 @@ export const tokenReference: readonly [{
     readonly key: "surface.selected";
     readonly css: "--cui-surface-selected";
     readonly value: "{colour.sage}";
-    readonly description: "Current navigation and selection";
+    readonly description: "Current navigation (aria-current) and calendar range selection. Not for dropdown/listbox options — see dropdown.selected.";
     readonly dark: "{colour.forest}";
     readonly resolved: "#c9deb6";
     readonly darkResolved: "#27382f";
@@ -262,6 +264,26 @@ export const tokenReference: readonly [{
     readonly dark: "#344139";
     readonly resolved: "#eef0ec";
     readonly darkResolved: "#344139";
+}, {
+    readonly group: "dropdown";
+    readonly name: "hover";
+    readonly key: "dropdown.hover";
+    readonly css: "--cui-dropdown-hover";
+    readonly value: "{colour.band}";
+    readonly description: "Dropdown/listbox option hover — scoped separately from surface.hover so tuning it never touches buttons, tabs or menus";
+    readonly dark: "#344139";
+    readonly resolved: "#eef0ec";
+    readonly darkResolved: "#344139";
+}, {
+    readonly group: "dropdown";
+    readonly name: "selected";
+    readonly key: "dropdown.selected";
+    readonly css: "--cui-dropdown-selected";
+    readonly value: "{colour.line}";
+    readonly description: "Dropdown/listbox option's own selected-row background. Deliberately neutral, not surface.selected's brand green — the option's checkmark carries the 'this is selected' meaning, not the row colour, so it never collides with navigation's current-page tint";
+    readonly dark: "#47574b";
+    readonly resolved: "#dce2db";
+    readonly darkResolved: "#47574b";
 }, {
     readonly group: "text";
     readonly name: "primary";
@@ -974,6 +996,8 @@ export const tokens: {
     readonly "surface.card": "#ffffff";
     readonly "surface.selected": "#c9deb6";
     readonly "surface.hover": "#eef0ec";
+    readonly "dropdown.hover": "#eef0ec";
+    readonly "dropdown.selected": "#dce2db";
     readonly "text.primary": "#171717";
     readonly "text.secondary": "#5e665f";
     readonly "text.inverse": "#ffffff";

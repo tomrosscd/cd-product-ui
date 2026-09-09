@@ -67,14 +67,29 @@
 .cui-select-option[data-state='checked'] .cui-select-option-indicator {
   visibility: visible;
 }
-.cui-select-option[data-highlighted] {
-  background: var(--cui-surface-hover);
+/* Radix Select moves real DOM focus onto whichever item is data-highlighted, including on
+   pointer hover — so :hover and native :focus-visible modality can't be used here to separate
+   "mouse" from "keyboard": a plain hover already carries real, spec-correct :focus-visible (this
+   matches native <select>, where opening it or hovering an item both mark a "current" item ready
+   for arrow keys). Give every highlighted row this one indicator, consistently. */
+.cui-select-option[data-highlighted]:not([data-disabled]) {
+  background: var(--cui-dropdown-hover);
   outline: var(--cui-focus-width) solid var(--cui-focus-colour);
   outline-offset: -2px;
 }
+/* Combobox is different: it's hand-rolled, and DOM focus never leaves the input (the active
+   option is only ever exposed via aria-activedescendant) — so unlike Select, a real mouse :hover
+   here has no competing focus semantics to fight, and is a reliable, unambiguous "pointer, not
+   keyboard" signal. Only here can hover justify a visibly lighter treatment than keyboard nav. */
+.cui-combobox-panel .cui-select-option:hover:not([data-disabled]) {
+  outline: none;
+}
+/* The checkmark (.cui-select-option-indicator) already carries the "this is selected" meaning —
+   this uses a neutral background, never the brand-green surface.selected token nav/calendar use
+   for "current". The hover/highlighted rule above is more specific, so hovering or
+   keyboard-navigating onto an already-selected row still shows that feedback over this one. */
 .cui-select-option[data-state='checked'] {
-  background: var(--cui-surface-selected);
-  color: var(--cui-text-accent);
+  background: var(--cui-dropdown-selected);
 }
 .cui-select-option[data-disabled] {
   opacity: 0.5;
