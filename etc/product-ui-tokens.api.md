@@ -80,7 +80,7 @@ export const darkTokens: {
     readonly "shadow.card": "0 4px 12px rgba(0, 0, 0, 0.2)";
     readonly "shadow.none": "none";
     readonly "focus.colour": "#c9deb6";
-    readonly "focus.width": "2px";
+    readonly "focus.width": "1px";
     readonly "focus.offset": "0px";
     readonly "size.control": "40px";
     readonly "size.control-sm": "32px";
@@ -807,10 +807,10 @@ export const tokenReference: readonly [{
     readonly name: "width";
     readonly key: "focus.width";
     readonly css: "--cui-focus-width";
-    readonly value: "2px";
+    readonly value: "1px";
     readonly description: "Outline width";
-    readonly resolved: "2px";
-    readonly darkResolved: "2px";
+    readonly resolved: "1px";
+    readonly darkResolved: "1px";
 }, {
     readonly group: "focus";
     readonly name: "offset";
@@ -1126,7 +1126,7 @@ export const tokens: {
     readonly "shadow.card": "0 4px 12px rgba(23, 23, 23, 0.06)";
     readonly "shadow.none": "none";
     readonly "focus.colour": "#27382f";
-    readonly "focus.width": "2px";
+    readonly "focus.width": "1px";
     readonly "focus.offset": "0px";
     readonly "size.control": "40px";
     readonly "size.control-sm": "32px";

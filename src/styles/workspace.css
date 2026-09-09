@@ -34,10 +34,12 @@
 /* Radix DropdownMenu, like Select, moves real DOM focus onto the highlighted item on pointer
    hover too — see the longer note beside .cui-select-option in pickers.css for why :hover can't
    be used to separate mouse from keyboard here. One consistent indicator for both. */
+/* box-shadow, not outline — see the matching note beside .cui-select-option in pickers.css: a
+   negative outline-offset doesn't shrink its own corner radius to match, so it clips at the
+   corners against a rounded box. box-shadow's inset ring follows the radius exactly. */
 .cui-menu-item[data-highlighted]:not([data-disabled]) {
   background: var(--cui-dropdown-hover);
-  outline: var(--cui-focus-width) solid var(--cui-focus-colour);
-  outline-offset: -2px;
+  box-shadow: inset 0 0 0 var(--cui-focus-width) var(--cui-focus-colour);
 }
 .cui-menu-item[data-disabled] {
   opacity: 0.5;

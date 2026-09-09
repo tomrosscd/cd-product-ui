@@ -768,10 +768,10 @@ export const tokenReference = [
     "name": "width",
     "key": "focus.width",
     "css": "--cui-focus-width",
-    "value": "2px",
+    "value": "1px",
     "description": "Outline width",
-    "resolved": "2px",
-    "darkResolved": "2px"
+    "resolved": "1px",
+    "darkResolved": "1px"
   },
   {
     "group": "focus",
@@ -1112,7 +1112,7 @@ export const tokens = {
   "shadow.card": "0 4px 12px rgba(23, 23, 23, 0.06)",
   "shadow.none": "none",
   "focus.colour": "#27382f",
-  "focus.width": "2px",
+  "focus.width": "1px",
   "focus.offset": "0px",
   "size.control": "40px",
   "size.control-sm": "32px",
@@ -1215,7 +1215,7 @@ export const darkTokens = {
   "shadow.card": "0 4px 12px rgba(0, 0, 0, 0.2)",
   "shadow.none": "none",
   "focus.colour": "#c9deb6",
-  "focus.width": "2px",
+  "focus.width": "1px",
   "focus.offset": "0px",
   "size.control": "40px",
   "size.control-sm": "32px",

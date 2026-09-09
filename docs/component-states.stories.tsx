@@ -480,7 +480,7 @@ export const FocusRingParity: Story = {
     // The offset gap is the whole reason the primary button needs its own rule, so assert it is
     // actually applied rather than the button quietly falling back to the shared flush ring, which
     // would put a ring the same colour as the button hard against the button's own border.
-    await expect(ring(previewButton).offset).toEqual('2px')
+    await expect(ring(previewButton).offset).toEqual('1px')
     await expect(ring(previewButton).offset).not.toEqual(ring(previewInput).offset)
   },
 }

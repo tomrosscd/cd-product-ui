@@ -74,7 +74,7 @@
   --cui-shadow-card: 0 4px 12px rgba(23, 23, 23, 0.06);
   --cui-shadow-none: none;
   --cui-focus-colour: var(--cui-colour-forest);
-  --cui-focus-width: 2px;
+  --cui-focus-width: 1px;
   --cui-focus-offset: 0px;
   --cui-size-control: 40px;
   --cui-size-control-sm: 32px;
@@ -178,7 +178,7 @@
   --cui-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.2);
   --cui-shadow-none: none;
   --cui-focus-colour: var(--cui-colour-sage);
-  --cui-focus-width: 2px;
+  --cui-focus-width: 1px;
   --cui-focus-offset: 0px;
   --cui-size-control: 40px;
   --cui-size-control-sm: 32px;

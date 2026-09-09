@@ -368,7 +368,7 @@
   flex-direction: column;
   gap: var(--cui-space-4);
   border-radius: var(--cui-radius-control);
-  padding: var(--cui-space-16) var(--cui-space-8);
+  padding: var(--cui-space-12) var(--cui-space-8);
   background: var(--cui-surface-page);
   overflow-wrap: anywhere;
 }
@@ -449,6 +449,15 @@
 .cui-nav-section[data-cui-current-section] > .cui-nav-section-trigger {
   color: var(--cui-accent-primary) !important;
 }
+/* A second level of grouping (e.g. "FE"/"BE" inside "Allocation") indents further automatically —
+   .cui-nav-section-list's padding-inline-start applies at every depth, compounding on its own — so
+   this only needs to shrink the row itself, keeping the visual hierarchy legible without a second
+   indent scale. */
+.cui-nav-section-nested > .cui-nav-section-trigger {
+  min-height: var(--cui-space-32);
+  padding-block: var(--cui-space-8);
+  font-size: var(--cui-type-caption);
+}
 /* A quiet square control, not a labelled row. Sized to --cui-size-touch so the pointer target
    stays adequate in the 64px rail, where the icon alone would be far too small to hit. */
 .cui-nav-toggle {
@@ -459,23 +468,32 @@
   padding: var(--cui-space-0);
   border-radius: var(--cui-radius-control);
 }
-/* Expanded, the toggle sits on the trailing edge of the branding row. */
+/* Expanded, the toggle sits on the trailing edge of the branding row. At the full --cui-size-touch
+   (48px), the logo (144px) plus this button overflow the sidebar's own content width (176px at
+   the current --cui-size-sidebar) by 24px — measured, not assumed. "Small, quiet" was the brief
+   for this specific control anyway, unlike the 48px targets used for primary actions elsewhere, so
+   it gets its own smaller footprint here rather than growing the sidebar or shrinking the logo.
+   32px clears WCAG 2.2's 24px minimum target size with room to spare — this control sits alone at
+   the row's end, not adjacent to another target, so the spacing exception isn't even needed. */
 .cui-brand > .cui-nav-toggle {
   margin-inline-start: auto;
+  min-height: 32px;
+  width: 32px;
 }
 .cui-sidebar .cui-brand {
   min-height: var(--cui-size-touch);
+  gap: var(--cui-space-4);
 }
 /* Collapsed, it takes the vertical space the workspace block occupies when expanded, so the first
    destination keeps the same baseline in both states instead of jumping as the rail narrows.
-   Measured: the expanded workspace block is 72px with a one-line name and description, which is
-   --cui-size-touch plus --cui-space-24. Longer names wrap and grow that block, so the match is
+   Measured: the expanded workspace block is 64px with a one-line name and description, which is
+   --cui-size-touch plus --cui-space-16. Longer names wrap and grow that block, so the match is
    exact for typical content and close otherwise, which is the point: no visible jump. */
 .cui-nav-toggle-rail {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(var(--cui-size-touch) + var(--cui-space-24));
+  min-height: calc(var(--cui-size-touch) + var(--cui-space-16));
 }
 .cui-sidebar-root[data-cui-nav='collapsed'] .cui-sidebar {
   width: var(--cui-size-rail);
