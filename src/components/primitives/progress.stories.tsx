@@ -20,6 +20,17 @@ export const Default: Story = {}
 export const Complete: Story = { args: { value: 100, hint: 'All items reviewed.' } }
 export const NotStarted: Story = { args: { value: 0, hint: 'Review has not started.' } }
 export const Indeterminate: Story = { args: { value: undefined, target: undefined, hint: 'Preparing the workspace.' } }
+/** Values above `max` are not capped. The track rescales and a marker shows where the maximum sits,
+ *  so an overrun is visible and measurable rather than reading as a full bar at exactly 100%. */
+export const OverCapacity: Story = {
+  render: () => (
+    <div className="cui-stack">
+      <Progress label="Studio team" value={100} max={100} tone="warning" hint="Fully allocated." />
+      <Progress label="Delivery team" value={142} max={100} tone="negative" hint="Allocated beyond capacity." />
+      <Progress label="Research team" value={168} max={100} tone="negative" hint="Allocated beyond capacity." />
+    </div>
+  ),
+}
 /** Colour the fill by state for a red/amber/green capacity view. Colour is never the only signal:
  *  each bar keeps a text label saying what the state is. */
 export const Tones: Story = {

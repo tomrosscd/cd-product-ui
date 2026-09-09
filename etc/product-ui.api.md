@@ -1574,8 +1574,13 @@ export interface SplitLayoutProps extends Omit<StackProps, 'children'> {
     // (undocumented)
     primary: ReactNode;
     // (undocumented)
+    ratio?: SplitRatio;
+    // (undocumented)
     secondary: ReactNode;
 }
+
+// @public
+export type SplitRatio = 'primary' | 'balanced' | 'secondary';
 
 // @public (undocumented)
 export function Stack(input: StackProps): JSX.Element;

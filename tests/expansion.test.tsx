@@ -48,9 +48,26 @@ describe('expanded component contracts', () => {
     expect(data.get('password')).toBe('Example only')
     expect(data.get('notify')).toBe('on')
   })
-  it('clamps determinate progress and omits the current value for unknown progress', () => {
+  it('reports progress past the maximum honestly and omits the current value for unknown progress', () => {
+    // This asserted clamping to 100 until 0.8.0. Capping meant 150 of 100 and 100 of 100 produced
+    // an identical reading, which is a false number rather than a display quirk.
     const { rerender } = render(<Progress label="Review" value={150} max={100} />)
-    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('100')
+    const over = screen.getByRole('progressbar')
+    expect(over.getAttribute('aria-valuenow')).toBe('150')
+    // valuemax widens with the value so valuenow stays inside the range ARIA requires.
+    expect(over.getAttribute('aria-valuemax')).toBe('150')
+    expect(over.getAttribute('aria-valuetext')).toBe('150% of 100')
+    expect(screen.getByText('150%')).toBeTruthy()
+    expect(over.parentElement?.className).toContain('cui-progress-over')
+
+    // At or below the maximum nothing moved: same valuenow, same valuemax, no overflow marker.
+    rerender(<Progress label="Review" value={65} max={100} />)
+    const within = screen.getByRole('progressbar')
+    expect(within.getAttribute('aria-valuenow')).toBe('65')
+    expect(within.getAttribute('aria-valuemax')).toBe('100')
+    expect(within.hasAttribute('aria-valuetext')).toBe(false)
+    expect(within.parentElement?.className).not.toContain('cui-progress-over')
+
     rerender(<Progress label="Review" />)
     expect(screen.getByRole('progressbar').hasAttribute('aria-valuenow')).toBe(false)
   })

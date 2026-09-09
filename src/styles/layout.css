@@ -37,11 +37,13 @@
   flex-wrap: wrap;
   align-items: flex-start;
 }
+/* Growth comes from SplitLayout's ratio prop. The defaults reproduce the original two-to-one
+   split exactly, so a SplitLayout with no ratio renders as it did before the prop existed. */
 .cui-layout-primary {
-  flex: 2 1 480px;
+  flex: var(--cui-split-primary, 2) 1 480px;
 }
 .cui-layout-secondary {
-  flex: 1 1 240px;
+  flex: var(--cui-split-secondary, 1) 1 240px;
 }
 .cui-layout-header {
   display: flex;

@@ -40,3 +40,20 @@ export const SectionSpacing: Story = {
     </Stack>
   ),
 }
+
+/** `ratio` decides which panel takes the extra width. The default, `primary`, is the original
+ *  two-to-one split, so an existing SplitLayout is unaffected. */
+export const SplitRatios: Story = {
+  render: () => (
+    <div className="cui-stack">
+      {(['primary', 'balanced', 'secondary'] as const).map((ratio) => (
+        <SplitLayout
+          key={ratio}
+          ratio={ratio}
+          primary={<Card heading={`Primary (${ratio})`}>Wider under primary, even under balanced.</Card>}
+          secondary={<Card heading="Secondary">Supporting panel.</Card>}
+        />
+      ))}
+    </div>
+  ),
+}

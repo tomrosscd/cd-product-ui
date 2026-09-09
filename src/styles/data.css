@@ -54,6 +54,16 @@
   background: var(--cui-text-primary);
   transform: translateX(-50%);
 }
+/* Where the stated maximum sits, drawn only when the value has gone past it. The track rescales in
+   that case, so without this marker a full bar at 142% and a full bar at 100% would look alike. */
+.cui-progress-limit {
+  position: absolute;
+  top: calc(var(--cui-space-4) * -1);
+  height: var(--cui-space-16);
+  width: var(--cui-focus-width);
+  background: var(--cui-text-primary);
+  transform: translateX(-50%);
+}
 .cui-allocation {
   display: flex;
   flex-direction: column;

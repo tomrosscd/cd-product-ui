@@ -7,6 +7,13 @@
 - Add explicit readOnly mode to RoadmapBoard and RoadmapCard, preserving existing defaults.
 - Add a neutral dashboard example, adoption guidance and responsive layout regression checks.
 
+## Unreleased
+
+- Add `Stack`, `Grid`, `SplitLayout` and `PageHeader` layout primitives, and `ContentList`/`ContentListItem` for a row composing a leading indicator, title, supporting content, metadata and actions. See [docs/dashboard-composition.md](docs/dashboard-composition.md).
+- Add `readOnly` to `RoadmapBoard` and `RoadmapCard`, hiding the stage and priority controls. Defaults to `false`, so existing consumers are unaffected.
+- Add `SplitLayout`'s `ratio` (`primary`, `balanced`, `secondary`). `primary` is the default and reproduces the original two-to-one split.
+- **Behaviour change:** `Progress` no longer clamps a value to `max`. A value above the maximum previously reported the same width and percentage as the maximum itself, so 142 of 100 and 100 of 100 were indistinguishable. The track now rescales, a marker shows where the maximum sits, and the percentage reads above 100. Values at or below the maximum are unchanged, including their ARIA values. Only inputs that previously produced a false reading behave differently.
+
 ## 0.7.0 · 9 September 2026
 
 Interaction quality: focus, dropdown states and iconography made consistent across the library. No new components, and nothing removed or renamed — upgrading from 0.6.0 needs no code changes. See [docs/release-0.7.md](docs/release-0.7.md) for the full contracts and the list of visible changes to review first.

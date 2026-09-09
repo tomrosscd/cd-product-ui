@@ -36,17 +36,41 @@ export function Grid({ columns = 3, minItemWidth = 240, gap = 16, className, sty
     />
   )
 }
+/** Which panel takes the extra width. 'primary' is the default and matches the original two-to-one split. */
+export type SplitRatio = 'primary' | 'balanced' | 'secondary'
+const splitGrow: Record<SplitRatio, [number, number]> = {
+  primary: [2, 1],
+  balanced: [1, 1],
+  secondary: [1, 2],
+}
 export interface SplitLayoutProps extends Omit<StackProps, 'children'> {
   primary: ReactNode
   secondary: ReactNode
+  ratio?: SplitRatio
 }
-/** A two-to-one split that wraps in reading order when its parent becomes narrow. */
-export function SplitLayout({ primary, secondary, gap = 24, className, style, ...props }: SplitLayoutProps) {
+/** A split that wraps in reading order when its parent becomes narrow. */
+export function SplitLayout({
+  primary,
+  secondary,
+  ratio = 'primary',
+  gap = 24,
+  className,
+  style,
+  ...props
+}: SplitLayoutProps) {
+  const [primaryGrow, secondaryGrow] = splitGrow[ratio] ?? splitGrow.primary
   return (
     <div
       {...props}
       className={cn('cui-root cui-layout-split', className)}
-      style={{ '--cui-layout-gap': `var(--cui-space-${gap})`, ...style } as CSSProperties}
+      style={
+        {
+          '--cui-layout-gap': `var(--cui-space-${gap})`,
+          '--cui-split-primary': primaryGrow,
+          '--cui-split-secondary': secondaryGrow,
+          ...style,
+        } as CSSProperties
+      }
     >
       <div className="cui-layout-primary">{primary}</div>
       <div className="cui-layout-secondary">{secondary}</div>
