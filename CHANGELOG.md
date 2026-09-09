@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add `meta: { sticky: true }` to pin a leading `DataTable` column while the table scrolls horizontally, so a row's identifier stays readable. Pair it with `tableLayout="scroll"` and a declared `size`; the offset of a second pinned column is computed from the widths before it.
+- `DataTable` renders a `tfoot` when a column definition declares a `footer`, using TanStack's own field rather than a second API. Tables that declare none are unchanged.
+
 - `DataTable` now applies a column definition's `size` to the rendered column. Declaring any size switches the table to fixed layout, so declared widths decide the columns; a table filling its container distributes the surplus proportionally, which makes the sizes ratios rather than absolute pixels. Tables that declare no size are unaffected.
 - Add per-column presentation through a column definition's `meta`: `numeric` aligns the column to the end and switches on tabular figures so digits line up down the column, and `align` sets `start`, `center` or `end`. Typed through TanStack's `ColumnMeta` augmentation. Formatting the value, including currency, hours, negatives and what missing looks like, stays with the application.
 - **Fix:** a `negative` `Badge` used `--cui-surface-page` as its background, within 1.00:1 of the page behind it, so it read as bare text beside the tinted positive and warning badges. Adds `--cui-surface-negative`, measured at 1.20:1 against the page, between warning's 1.17 and positive's 1.37, with 5.16:1 for the text on it.
