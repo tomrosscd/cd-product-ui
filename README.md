@@ -2,7 +2,7 @@
 
 A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.
 
-**Current version: 0.6.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
+**Current version: 0.7.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
 
 [Browse Storybook](#browse-the-components-locally) · [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
@@ -20,15 +20,16 @@ Koko Monthly Review V4 defines the product visual language. The new Convert webs
 
 ## Version history
 
-| Version                                     | Date             | Highlights                                                                                                                                                                  |
-| ------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [0.6.0](CHANGELOG.md#060--9-september-2026) | 9 September 2026 | Chip, SegmentedControl, Combobox, formatted inputs (currency/percentage/hours), PeriodNavigator, FilterToolbar pattern. See [release notes](docs/release-0.6.md).           |
-| [0.5.0](CHANGELOG.md#050--9-september-2026) | 9 September 2026 | Standalone Pagination, StyledSelect, Calendar/DatePicker/MonthPicker, opt-in readable table layout. See [release notes](docs/release-0.5.md).                               |
-| [0.4.0](CHANGELOG.md#040--8-september-2026) | 8 September 2026 | **Breaking** — see [migration guide](docs/release-0.4.md). Renames `title` to `heading` on 7 components; adds an enforced public API surface check.                         |
-| [0.3.1](CHANGELOG.md#031--8-september-2026) | 8 September 2026 | Patch: bug fixes from a full codebase audit, CI/Dependabot, and a backward-compatibility policy. No public API changes.                                                     |
-| [0.3.0](CHANGELOG.md#030--8-september-2026) | 8 September 2026 | Dark theme, official Convert brand assets and logos, ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect, DateRange                                                 |
-| [0.2.0](CHANGELOG.md#020--8-september-2026) | 8 September 2026 | Forms, Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, feedback components, Metric/Progress, DataTable, optional charts, RoadmapBoard, SignInForm, card compositions |
-| [0.1.0](CHANGELOG.md#010--7-september-2026) | 7 September 2026 | Initial delivery: tokens/foundations, Card, Select, DashboardShell/DashboardSidebar                                                                                         |
+| Version                                     | Date             | Highlights                                                                                                                                                                               |
+| ------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [0.7.0](CHANGELOG.md#070--9-september-2026) | 9 September 2026 | Interaction quality: focus ring contrast fix, neutral dropdown/menu state tokens, Lucide icon set, component-states reference. No API changes. See [release notes](docs/release-0.7.md). |
+| [0.6.0](CHANGELOG.md#060--9-september-2026) | 9 September 2026 | Chip, SegmentedControl, Combobox, formatted inputs (currency/percentage/hours), PeriodNavigator, FilterToolbar pattern. See [release notes](docs/release-0.6.md).                        |
+| [0.5.0](CHANGELOG.md#050--9-september-2026) | 9 September 2026 | Standalone Pagination, StyledSelect, Calendar/DatePicker/MonthPicker, opt-in readable table layout. See [release notes](docs/release-0.5.md).                                            |
+| [0.4.0](CHANGELOG.md#040--8-september-2026) | 8 September 2026 | **Breaking** — see [migration guide](docs/release-0.4.md). Renames `title` to `heading` on 7 components; adds an enforced public API surface check.                                      |
+| [0.3.1](CHANGELOG.md#031--8-september-2026) | 8 September 2026 | Patch: bug fixes from a full codebase audit, CI/Dependabot, and a backward-compatibility policy. No public API changes.                                                                  |
+| [0.3.0](CHANGELOG.md#030--8-september-2026) | 8 September 2026 | Dark theme, official Convert brand assets and logos, ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect, DateRange                                                              |
+| [0.2.0](CHANGELOG.md#020--8-september-2026) | 8 September 2026 | Forms, Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, feedback components, Metric/Progress, DataTable, optional charts, RoadmapBoard, SignInForm, card compositions              |
+| [0.1.0](CHANGELOG.md#010--7-september-2026) | 7 September 2026 | Initial delivery: tokens/foundations, Card, Select, DashboardShell/DashboardSidebar                                                                                                      |
 
 Full per-version detail, including every component added and any migration notes, lives in [CHANGELOG.md](CHANGELOG.md).
 
@@ -60,13 +61,13 @@ You do not need to fork the repository to use the library. Build an archive from
 Use Node **22.22.2** and pnpm **10.33.0**, recorded in this repository. In a terminal, outside your application's folder:
 
 ```sh
-git clone --branch v0.6.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.7.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.6.0.tgz`. One team member can build this archive and share it with other authorised projects.
+The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.7.0.tgz`. One team member can build this archive and share it with other authorised projects.
 
 ### 2. Install the archive in your application
 
@@ -74,10 +75,10 @@ Copy the archive into a `vendor` folder in your application. From **your applica
 
 ```sh
 # pnpm
-pnpm add --save-exact ./vendor/convert-product-ui-0.6.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.7.0.tgz
 
 # or npm
-npm install --save-exact ./vendor/convert-product-ui-0.6.0.tgz
+npm install --save-exact ./vendor/convert-product-ui-0.7.0.tgz
 ```
 
 Commit the archive, `package.json` and your lockfile in the consuming project so colleagues and CI install the same package. If that project ignores `*.tgz`, add an exception for this vendor archive. Use a short relative path as shown.
@@ -217,6 +218,7 @@ Edit `tokens/tokens.json` and run `pnpm tokens` to update generated CSS, respons
 
 ## Further guidance
 
+- [0.7.0 release notes](docs/release-0.7.md) — focus ring contrast fix, neutral dropdown state tokens, Lucide icons, component-states reference
 - [0.6.0 release notes](docs/release-0.6.md) — Chip, SegmentedControl, Combobox, formatted inputs, PeriodNavigator, FilterToolbar
 - [0.5.0 release notes](docs/release-0.5.md) — Pagination, StyledSelect, Calendar/DatePicker/MonthPicker, readable tables
 - [0.4.0 migration guide](docs/release-0.4.md) — read this before upgrading, it has a breaking rename

@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.7.0 · 9 September 2026
+
+Interaction quality: focus, dropdown states and iconography made consistent across the library. No new components, and nothing removed or renamed — upgrading from 0.6.0 needs no code changes. See [docs/release-0.7.md](docs/release-0.7.md) for the full contracts and the list of visible changes to review first.
+
+- Fix: the primary button's focus ring was effectively invisible, measuring 1.00:1 against a card in light and 1.04:1 against the page in dark, where WCAG 2.2 SC 1.4.11 asks 3:1. The ring is drawn outside the border box, so it has to contrast with the surface behind it, not with the button. It now keeps `--cui-focus-colour` and offsets by its own width: 11.79:1 and 12.40:1 in light, 12.01:1 and 9.34:1 in dark.
+- Fix: formatted inputs (`CurrencyInput`/`PercentageInput`/`HoursInput`) drew two nested focus outlines. The wrapper's perimeter, which covers the prefix and suffix, is now the only one.
+- Fix: `Combobox`'s popup was unsized and inherited page list indentation, so its panel did not align with its own trigger. Selection-column alignment and disabled-option behaviour fixed with it.
+- Add `--cui-dropdown-hover` and `--cui-dropdown-selected`: dropdown and menu options no longer borrow `--cui-surface-selected`, the brand green that navigation uses for the current page. `--cui-surface-selected` keeps its value and every existing use; only its description narrowed.
+- `Icon` moves onto a curated Lucide set, preserving all ten existing names and adding 23 more (`search`, `filter`, `sort`, `plus`, `calendar`, `edit`, `delete`, `settings`, `visibility`, `loading` among them). Adds `lucide-react` as a runtime dependency, imported by explicit name so bundlers tree-shake it.
+- Replace the remaining literal Unicode symbols: `StyledSelect` scroll arrows, `Metric` trend arrows, `DataTable` sort indicators, `TextLink`'s external-link marker, and `PasswordInput`'s "Show"/"Hide" text.
+- Add an accessible clear button to `DataTable`'s search: resets pagination to page 0 and returns focus to the input.
+- Add Storybook references: `Foundations/Component states` (rest, focus, selected, error, loading, read-only and disabled across fifteen component families), `Foundations/Dropdown states` and `Foundations/Icons`.
+- Also on `main` since 0.6.0, not shipped in the package: an experimental shadcn registry pilot (`registry/`) and its audit. Not part of the installable library and not yet ready for adoption — see HANDOFF.md.
+
 ## 0.6.0 · 9 September 2026
 
 Pass 2 of the user's re-prioritised roadmap: "everyday controls". See [docs/release-0.6.md](docs/release-0.6.md) for full contracts.
