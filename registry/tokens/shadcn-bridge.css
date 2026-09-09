@@ -1,0 +1,86 @@
+/* Hand-written, not generated. Maps the shadcn/ui standard CSS variable names (the ones every
+   Tailwind-utility-styled shadcn component reads, e.g. `bg-primary`) onto Convert's own --cui-*
+   tokens from tokens.css, which must be imported before this file.
+
+   This exists only for registry items that preserve an upstream Tailwind-utility component (like
+   the pilot Button) — it lets them render in Convert's palette without rewriting their className
+   strings. It intentionally does not replace tokens.css or the --cui-* variables, which remain the
+   source of truth and the only thing this package's own npm-published components read.
+
+   Dark mode: reacts to both this project's own [data-cui-theme="dark"] attribute and the .dark
+   class convention used by next-themes/shadcn's own dark-mode setup, since a consumer's project
+   may already use either. If neither is present, light values apply.
+
+   Tailwind v4 note, found the hard way during the pilot: defining --primary etc. as plain :root
+   custom properties is NOT enough to make `bg-primary`/`text-primary-foreground` exist as real
+   utility classes — Tailwind only generates utilities for names registered in its own @theme
+   namespace. The @theme inline block below (matching upstream shadcn's own globals.css exactly)
+   is what actually makes the utility classes compile; without it every colour utility silently
+   resolves to transparent while the CSS variable itself still looks fine in devtools. */
+:root {
+  --background: var(--cui-surface-page);
+  --foreground: var(--cui-text-primary);
+  --card: var(--cui-surface-card);
+  --card-foreground: var(--cui-text-primary);
+  --popover: var(--cui-surface-card);
+  --popover-foreground: var(--cui-text-primary);
+  --primary: var(--cui-accent-primary);
+  --primary-foreground: var(--cui-text-inverse);
+  --secondary: var(--cui-surface-band);
+  --secondary-foreground: var(--cui-text-primary);
+  --muted: var(--cui-surface-band);
+  --muted-foreground: var(--cui-text-secondary);
+  --accent: var(--cui-surface-hover);
+  --accent-foreground: var(--cui-text-primary);
+  --destructive: var(--cui-colour-negative);
+  --border: var(--cui-border-control);
+  --input: var(--cui-border-control);
+  --ring: var(--cui-focus-colour);
+  --radius: var(--cui-radius-control);
+}
+[data-cui-theme='dark'],
+.dark {
+  --background: var(--cui-surface-page);
+  --foreground: var(--cui-text-primary);
+  --card: var(--cui-surface-card);
+  --card-foreground: var(--cui-text-primary);
+  --popover: var(--cui-surface-card);
+  --popover-foreground: var(--cui-text-primary);
+  --primary: var(--cui-accent-primary);
+  --primary-foreground: var(--cui-text-inverse);
+  --secondary: var(--cui-surface-band);
+  --secondary-foreground: var(--cui-text-primary);
+  --muted: var(--cui-surface-band);
+  --muted-foreground: var(--cui-text-secondary);
+  --accent: var(--cui-surface-hover);
+  --accent-foreground: var(--cui-text-primary);
+  --destructive: var(--cui-colour-negative);
+  --border: var(--cui-colour-white);
+  --input: var(--cui-colour-white);
+  --ring: var(--cui-colour-white);
+  --radius: var(--cui-radius-control);
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}

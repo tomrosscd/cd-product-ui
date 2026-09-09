@@ -1,0 +1,101 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "convert-ui",
+  "homepage": "https://github.com/tomrosscd/cd-product-ui",
+  "items": [
+    {
+      "name": "cn",
+      "type": "registry:lib",
+      "title": "Convert UI class helper",
+      "description": "clsx + tailwind-merge, scoped to registry items that use Tailwind utility classNames. Separate from this package's own npm-published cn().",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "tokens",
+      "type": "registry:file",
+      "title": "Convert UI tokens",
+      "description": "Editable token source, a portable generator, compiled CSS custom properties, and a bridge mapping them onto the standard shadcn CSS variable names for upstream-compatible components. No licensed font binaries.",
+      "files": [
+        { "path": "registry/tokens/tokens.json", "type": "registry:file", "target": "convert-ui/tokens.json" },
+        {
+          "path": "registry/tokens/generate-tokens.mjs",
+          "type": "registry:file",
+          "target": "convert-ui/generate-tokens.mjs"
+        },
+        {
+          "path": "registry/tokens/responsive.template.css",
+          "type": "registry:file",
+          "target": "convert-ui/responsive.template.css"
+        },
+        { "path": "registry/tokens/tokens.css", "type": "registry:file", "target": "styles/convert-ui/tokens.css" },
+        {
+          "path": "registry/tokens/responsive.css",
+          "type": "registry:file",
+          "target": "styles/convert-ui/responsive.css"
+        },
+        {
+          "path": "registry/tokens/shadcn-bridge.css",
+          "type": "registry:file",
+          "target": "styles/convert-ui/shadcn-bridge.css"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Upstream-compatible with shadcn/ui's Button (pinned to shadcn-ui/ui commit 3ba91b1cc83e1bbe4ab35a422ff2a694849c5048, new-york-v4 style) — same variant/size names, same asChild support. Convert styling comes entirely from the tokens item's shadcn-bridge.css.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": ["@convert/cn", "@convert/tokens"],
+      "files": [
+        {
+          "path": "registry/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "Selectable and/or removable interactive tag. A Convert pattern with no upstream shadcn equivalent — no compatibility claim.",
+      "registryDependencies": ["@convert/cn", "@convert/tokens"],
+      "files": [
+        { "path": "registry/ui/chip.tsx", "type": "registry:ui" },
+        { "path": "registry/ui/chip.css", "type": "registry:file", "target": "styles/convert-ui/chip.css" }
+      ]
+    },
+    {
+      "name": "task-filter-example",
+      "type": "registry:block",
+      "title": "Task filter example",
+      "description": "A small composition proving button, chip and tokens work together in one real file, not three isolated islands.",
+      "registryDependencies": ["@convert/button", "@convert/chip"],
+      "files": [
+        {
+          "path": "registry/examples/task-filter-example.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "agents",
+      "type": "registry:file",
+      "title": "Convert UI agent guidance",
+      "description": "Scoped guidance for coding agents working in a project that has installed Convert UI components. Does not overwrite a project's own root AGENTS.md.",
+      "files": [
+        {
+          "path": "registry/guidance/convert-ui-agents.md",
+          "type": "registry:file",
+          "target": "convert-ui-agents.md"
+        }
+      ]
+    }
+  ]
+}

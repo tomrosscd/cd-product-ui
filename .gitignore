@@ -1,6 +1,7 @@
 node_modules/
 dist/
 storybook-static/
+public/r/
 local-fonts/
 artifacts/
 coverage/
