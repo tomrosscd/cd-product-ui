@@ -50,9 +50,7 @@ export function ColumnConfigPanel({
     return [...ordered, ...rest]
   }
   const [order, setOrder] = useState<string[]>(initialOrder)
-  const [visible, setVisible] = useState<Set<string>>(
-    () => new Set(visibleKeys.filter((k) => !lockedKeys.includes(k))),
-  )
+  const [visible, setVisible] = useState<Set<string>>(() => new Set(visibleKeys.filter((k) => !lockedKeys.includes(k))))
 
   function commit(nextOrder: string[], nextVisible: Set<string>) {
     setOrder(nextOrder)
