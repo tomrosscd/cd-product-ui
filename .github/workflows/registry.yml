@@ -1,0 +1,79 @@
+# Publishes the shadcn registry to GitHub Pages on a version tag.
+#
+# Two paths are published for every release:
+#   /r/v<version>/*.json  an immutable snapshot, safe to pin
+#   /r/latest/*.json      an alias that moves with each release
+#
+# The immutable path is the point. docs/shadcn-registry-audit.md called out that an alias which can
+# silently move is not a version: a consumer who installs from /r/latest gets whatever is being
+# served that day, with no way to reproduce an earlier install. Pin the versioned path in
+# components.json and treat /r/latest as a convenience for trying things out.
+#
+# GitHub Pages must be enabled for the repository before this can run. It is deliberately not
+# enabled by this workflow: turning on a public site is a decision for the repository owner, not a
+# side effect of a merge.
+name: Publish registry
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build and publish to Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # A registry serving tokens that disagree with the package is worse than no registry, so this
+      # blocks the publish rather than warning about it.
+      - name: Check the registry token source matches canonical
+        run: pnpm registry:check
+
+      - name: Build the registry
+        run: pnpm registry:build
+
+      - name: Lay out immutable and alias paths
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          TAG="${GITHUB_REF_NAME:-v$VERSION}"
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "Tag $TAG does not match package.json version $VERSION." >&2
+            exit 1
+          fi
+          mkdir -p site/r/"v$VERSION" site/r/latest
+          cp public/r/*.json site/r/"v$VERSION"/
+          cp public/r/*.json site/r/latest/
+          echo "Published $(ls public/r/*.json | wc -l) registry items at /r/v$VERSION and /r/latest."
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

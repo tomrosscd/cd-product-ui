@@ -82,6 +82,8 @@
     "prepack": "pnpm build",
     "next:check": "node scripts/check-next.mjs",
     "registry:build": "shadcn build",
+    "registry:check": "node scripts/check-registry-drift.mjs",
+    "registry:sync": "node scripts/check-registry-drift.mjs --sync",
     "test:dark": "VITE_CUI_THEME=dark vitest run --project storybook"
   },
   "dependencies": {
