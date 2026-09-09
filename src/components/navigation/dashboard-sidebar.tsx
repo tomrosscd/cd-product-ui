@@ -3,22 +3,23 @@ import { useProductTheme } from '../primitives/theme.js'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useEffect, useState, type MouseEvent, type ReactNode } from 'react'
 import { cn } from '../../lib/classes.js'
-import { safeHref } from '../../lib/href.js'
 import { tokens } from '../../tokens.js'
 import { ConvertLogo } from '../primitives/convert-logo.js'
 import { ConvertMark } from '../primitives/convert-mark.js'
 import { Icon } from '../primitives/icon.js'
 import { Button } from '../primitives/button.js'
-export interface SidebarItem {
-  id: string
-  label: string
-  href: string
-  icon?: ReactNode
-  disabled?: boolean
-}
+import { NavLink, NavSection, isSection, type SidebarEntry, type SidebarItem } from './nav-entries.js'
+export type { SidebarItem, SidebarSection, SidebarEntry } from './nav-entries.js'
 export interface DashboardSidebarProps {
-  items: readonly SidebarItem[]
+  /** A flat list of destinations, or a mix of destinations and collapsible sections. */
+  items: readonly SidebarEntry[]
   activeId: string
+  /** Show a menu button that collapses the rail to icons. Off by default, so existing usage is unchanged. */
+  collapsible?: boolean
+  /** Controlled collapsed state. Supply `onCollapsedChange` with it. */
+  collapsed?: boolean
+  defaultCollapsed?: boolean
+  onCollapsedChange?: (collapsed: boolean) => void
   workspace?: string
   workspaceDescription?: string
   footer?: ReactNode
@@ -33,9 +34,19 @@ export function DashboardSidebar({
   footer,
   onNavigate,
   className,
+  collapsible = false,
+  collapsed,
+  defaultCollapsed = false,
+  onCollapsedChange,
 }: DashboardSidebarProps) {
   const theme = useProductTheme()
   const [open, setOpen] = useState(false)
+  const [selfCollapsed, setSelfCollapsed] = useState(defaultCollapsed)
+  const isCollapsed = collapsible && (collapsed === undefined ? selfCollapsed : collapsed)
+  function setCollapsed(next: boolean) {
+    if (collapsed === undefined) setSelfCollapsed(next)
+    onCollapsedChange?.(next)
+  }
   useEffect(() => {
     const media = window.matchMedia(`(min-width: ${tokens['breakpoint.sidebar']})`)
     const closeOnDesktop = () => {
@@ -45,37 +56,55 @@ export function DashboardSidebar({
     return () => media.removeEventListener('change', closeOnDesktop)
   }, [])
   function contents(mobile: boolean) {
+    const rail = isCollapsed && !mobile
     return (
       <>
         <div className="cui-brand">
-          <ConvertLogo variant="straight" label="Convert" className="cui-brand-logo" />
+          {rail ? <ConvertMark /> : <ConvertLogo variant="straight" label="Convert" className="cui-brand-logo" />}
         </div>
-        <div className="cui-workspace">
-          <strong>{workspace}</strong>
-          <span>{workspaceDescription}</span>
-        </div>
+        {collapsible && !mobile && (
+          <Button
+            variant="quiet"
+            className="cui-nav-toggle"
+            aria-expanded={!rail}
+            aria-label={rail ? 'Expand navigation' : 'Collapse navigation'}
+            onClick={() => setCollapsed(!rail)}
+          >
+            <Icon name="menu" />
+            {!rail && <span>Collapse</span>}
+          </Button>
+        )}
+        {!rail && (
+          <div className="cui-workspace">
+            <strong>{workspace}</strong>
+            <span>{workspaceDescription}</span>
+          </div>
+        )}
         <nav className="cui-nav" aria-label={mobile ? 'Mobile navigation' : 'Main navigation'}>
-          {items.map((item) =>
-            item.disabled ? (
-              <span key={item.id} className="cui-nav-item" aria-disabled="true">
-                {item.icon}
-                <span>{item.label}</span>
-                <span className="cui-sr-only">, unavailable</span>
-              </span>
-            ) : (
-              <a
-                key={item.id}
-                href={safeHref(item.href)}
-                className="cui-nav-item"
-                aria-current={activeId === item.id ? 'page' : undefined}
-                onClick={(event) => {
+          {items.map((entry) =>
+            isSection(entry) ? (
+              <NavSection
+                key={entry.id}
+                section={entry}
+                activeId={activeId}
+                collapsed={rail}
+                onExpandRail={() => setCollapsed(false)}
+                onNavigate={(item, event) => {
                   onNavigate?.(item, event)
                   setOpen(false)
                 }}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </a>
+              />
+            ) : (
+              <NavLink
+                key={entry.id}
+                item={entry}
+                activeId={activeId}
+                collapsed={rail}
+                onNavigate={(item, event) => {
+                  onNavigate?.(item, event)
+                  setOpen(false)
+                }}
+              />
             ),
           )}
         </nav>
@@ -84,7 +113,7 @@ export function DashboardSidebar({
     )
   }
   return (
-    <div className={cn('cui-sidebar-root', className)}>
+    <div className={cn('cui-sidebar-root', className)} data-cui-nav={isCollapsed ? 'collapsed' : undefined}>
       <aside className="cui-sidebar cui-root" aria-label="Workspace sidebar">
         {contents(false)}
       </aside>

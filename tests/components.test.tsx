@@ -104,6 +104,38 @@ describe('Sidebar interactions', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
     expect(document.activeElement).toBe(trigger)
   })
+  const grouped = [
+    { id: 'overview', label: 'Overview', href: '#overview' },
+    {
+      id: 'allocation',
+      label: 'Allocation',
+      items: [
+        { id: 'capacity', label: 'Capacity', href: '#capacity' },
+        { id: 'queue', label: 'Queue', href: '#queue' },
+      ],
+    },
+  ]
+  it('opens the section holding the current page and keeps its children reachable', async () => {
+    render(<DashboardSidebar items={grouped} activeId="queue" />)
+    const trigger = screen.getAllByRole('button', { name: 'Allocation' })[0] as HTMLElement
+    expect(trigger.getAttribute('aria-expanded')).toBe('true')
+    expect(screen.getAllByRole('link', { name: 'Queue' })[0]?.getAttribute('aria-current')).toBe('page')
+    // The disclosure closes on demand, and the list it controls goes with it.
+    await userEvent.click(trigger)
+    expect(trigger.getAttribute('aria-expanded')).toBe('false')
+    const list = document.getElementById(trigger.getAttribute('aria-controls') || '')
+    expect(list?.hasAttribute('hidden')).toBe(true)
+  })
+  it('collapses to a rail and expands it again rather than opening a section in place', async () => {
+    render(<DashboardSidebar items={grouped} activeId="overview" collapsible defaultCollapsed />)
+    const expand = screen.getAllByRole('button', { name: 'Expand navigation' })[0] as HTMLElement
+    expect(expand.getAttribute('aria-expanded')).toBe('false')
+    // A collapsed section is a rail-expander, so it carries no aria-expanded of its own.
+    const section = screen.getAllByRole('button', { name: 'Allocation' })[0] as HTMLElement
+    expect(section.hasAttribute('aria-expanded')).toBe(false)
+    await userEvent.click(section)
+    expect(screen.getAllByRole('button', { name: 'Collapse navigation' })[0]).toBeTruthy()
+  })
   it('supports router integration and closes after a destination is selected', async () => {
     const navigate = vi.fn((_item, event) => event.preventDefault())
     render(<DashboardSidebar items={items} activeId="overview" onNavigate={navigate} />)

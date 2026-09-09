@@ -845,7 +845,7 @@ export interface CurrencyInputProps extends FormattedInputSharedProps {
     locale?: string;
 }
 
-// @public (undocumented)
+// @public
 export function DashboardShell(input: DashboardShellProps): JSX.Element;
 
 // @public (undocumented)
@@ -865,10 +865,15 @@ export interface DashboardSidebarProps {
     activeId: string;
     // (undocumented)
     className?: string;
+    collapsed?: boolean;
+    collapsible?: boolean;
+    // (undocumented)
+    defaultCollapsed?: boolean;
     // (undocumented)
     footer?: ReactNode;
+    items: readonly SidebarEntry[];
     // (undocumented)
-    items: readonly SidebarItem[];
+    onCollapsedChange?: (collapsed: boolean) => void;
     // (undocumented)
     onNavigate?: (item: SidebarItem, event: MouseEvent_2<HTMLAnchorElement>) => void;
     // (undocumented)
@@ -1517,6 +1522,9 @@ export interface SelectProps extends Omit<ComponentProps<'select'>, 'children' |
 }
 
 // @public (undocumented)
+export type SidebarEntry = SidebarItem | SidebarSection;
+
+// @public (undocumented)
 export interface SidebarItem {
     // (undocumented)
     disabled?: boolean;
@@ -1526,6 +1534,19 @@ export interface SidebarItem {
     icon?: ReactNode;
     // (undocumented)
     id: string;
+    // (undocumented)
+    label: string;
+}
+
+// @public
+export interface SidebarSection {
+    defaultOpen?: boolean;
+    // (undocumented)
+    icon?: ReactNode;
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    items: readonly SidebarItem[];
     // (undocumented)
     label: string;
 }

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { DashboardShell } from '../../patterns/dashboard-shell.js'
-import { DashboardSidebar } from './dashboard-sidebar.js'
+import { DashboardSidebar, type SidebarEntry } from './dashboard-sidebar.js'
+import { Icon } from '../primitives/icon.js'
 import { demoNavigation } from '../../../docs/dashboard-example.js'
 const meta = {
   title: 'Components/Dashboard sidebar',
@@ -42,3 +43,42 @@ export const LongLabels: Story = {
   },
 }
 export const Mobile: Story = { globals: { viewport: { value: 'mobile', isRotated: false } } }
+
+const groupedNavigation: readonly SidebarEntry[] = [
+  { id: 'overview', label: 'Dashboard', href: '#overview', icon: <Icon name="overview" /> },
+  {
+    id: 'projects',
+    label: 'Projects',
+    icon: <Icon name="projects" />,
+    items: [
+      { id: 'projects-active', label: 'Active', href: '#projects-active' },
+      { id: 'projects-archive', label: 'Archive', href: '#projects-archive' },
+    ],
+  },
+  {
+    id: 'allocation',
+    label: 'Allocation',
+    icon: <Icon name="users" />,
+    items: [
+      { id: 'allocation-capacity', label: 'Capacity', href: '#allocation-capacity' },
+      { id: 'allocation-queue', label: 'Over-allocation', href: '#allocation-queue' },
+    ],
+  },
+  { id: 'invoicing', label: 'Invoicing', href: '#invoicing', icon: <Icon name="status" /> },
+  { id: 'config', label: 'Config', href: '#config', icon: <Icon name="settings" />, disabled: true },
+]
+
+/** Sections are disclosures, not links. The one holding the current page opens on load and stays marked. */
+export const NestedSections: Story = {
+  args: { items: groupedNavigation, activeId: 'allocation-queue' },
+}
+
+/** `collapsible` adds a menu button that reduces the rail to icons. A section has no room for its
+ *  children there, so choosing one expands the rail rather than opening in place. */
+export const CollapsibleRail: Story = {
+  args: { items: groupedNavigation, activeId: 'allocation-queue', collapsible: true },
+}
+
+export const CollapsedByDefault: Story = {
+  args: { items: groupedNavigation, activeId: 'overview', collapsible: true, defaultCollapsed: true },
+}

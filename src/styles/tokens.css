@@ -82,6 +82,7 @@
   --cui-size-icon-small: 16px;
   --cui-size-brand: 24px;
   --cui-size-sidebar: 208px;
+  --cui-size-rail: 64px;
   --cui-size-content: 1280px;
   --cui-motion-duration: 160ms;
   --cui-motion-easing: ease-out;
@@ -182,6 +183,7 @@
   --cui-size-icon-small: 16px;
   --cui-size-brand: 24px;
   --cui-size-sidebar: 208px;
+  --cui-size-rail: 64px;
   --cui-size-content: 1280px;
   --cui-motion-duration: 160ms;
   --cui-motion-easing: ease-out;

@@ -8,6 +8,8 @@ export {
   DashboardSidebar,
   type DashboardSidebarProps,
   type SidebarItem,
+  type SidebarSection,
+  type SidebarEntry,
 } from './components/navigation/dashboard-sidebar.js'
 export { DashboardShell, type DashboardShellProps } from './patterns/dashboard-shell.js'
 export * from './components/primitives/fields.js'

@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (225)
+## Classes (231)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -144,6 +144,11 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-mobile-bar`
 - `cui-nav`
 - `cui-nav-item`
+- `cui-nav-section`
+- `cui-nav-section-list`
+- `cui-nav-section-marker`
+- `cui-nav-section-trigger`
+- `cui-nav-toggle`
 - `cui-negative`
 - `cui-numeric`
 - `cui-page`
@@ -202,6 +207,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-sidebar-drawer`
 - `cui-sidebar-footer`
 - `cui-sidebar-overlay`
+- `cui-sidebar-root`
 - `cui-sign-in`
 - `cui-skeleton`
 - `cui-skeleton-short`
@@ -232,7 +238,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-tooltip`
 - `cui-workspace`
 
-## Custom properties (97)
+## Custom properties (98)
 
 - `--cui-accent-chart`
 - `--cui-accent-primary`
@@ -288,6 +294,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-size-control`
 - `--cui-size-icon`
 - `--cui-size-icon-small`
+- `--cui-size-rail`
 - `--cui-size-row`
 - `--cui-size-sidebar`
 - `--cui-size-touch`
@@ -332,7 +339,9 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-type-tracking-display`
 - `--cui-type-tracking-heading`
 
-## Data attributes (2)
+## Data attributes (4)
 
+- `data-cui-current-section`
+- `data-cui-nav`
 - `data-cui-search-clear`
 - `data-cui-theme`

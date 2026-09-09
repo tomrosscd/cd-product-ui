@@ -1,0 +1,125 @@
+'use client'
+import { useId, useState, type MouseEvent, type ReactNode } from 'react'
+import { safeHref } from '../../lib/href.js'
+import { Icon } from '../primitives/icon.js'
+
+export interface SidebarItem {
+  id: string
+  label: string
+  href: string
+  icon?: ReactNode
+  disabled?: boolean
+}
+/**
+ * A collapsible group of destinations. Modelled on Material Design 3's expanded navigation rail,
+ * which reveals secondary destinations that a collapsed rail cannot show
+ * (https://m3.material.io/components/navigation-rail/guidelines, read 9 September 2026). The
+ * structure and interaction model come from there; the appearance stays on Convert's own tokens.
+ */
+export interface SidebarSection {
+  id: string
+  label: string
+  icon?: ReactNode
+  items: readonly SidebarItem[]
+  /** Open on first render. A section holding the active destination opens regardless. */
+  defaultOpen?: boolean
+}
+export type SidebarEntry = SidebarItem | SidebarSection
+
+export function isSection(entry: SidebarEntry): entry is SidebarSection {
+  return Array.isArray((entry as SidebarSection).items)
+}
+export function sectionHoldsActive(section: SidebarSection, activeId: string) {
+  return section.items.some((item) => item.id === activeId)
+}
+
+interface NavLinkProps {
+  item: SidebarItem
+  activeId: string
+  collapsed: boolean
+  onNavigate?: (item: SidebarItem, event: MouseEvent<HTMLAnchorElement>) => void
+}
+/** A disabled destination stays out of the tab sequence: it renders as text, never a link. */
+export function NavLink({ item, activeId, collapsed, onNavigate }: NavLinkProps) {
+  const label = collapsed ? undefined : <span>{item.label}</span>
+  if (item.disabled) {
+    return (
+      <span className="cui-nav-item" aria-disabled="true" title={collapsed ? item.label : undefined}>
+        {item.icon}
+        {label}
+        <span className="cui-sr-only">{collapsed ? `${item.label}, ` : ''}unavailable</span>
+      </span>
+    )
+  }
+  return (
+    <a
+      href={safeHref(item.href)}
+      className="cui-nav-item"
+      aria-current={activeId === item.id ? 'page' : undefined}
+      aria-label={collapsed ? item.label : undefined}
+      title={collapsed ? item.label : undefined}
+      onClick={(event) => onNavigate?.(item, event)}
+    >
+      {item.icon}
+      {label}
+    </a>
+  )
+}
+
+interface NavSectionProps {
+  section: SidebarSection
+  activeId: string
+  collapsed: boolean
+  onExpandRail?: () => void
+  onNavigate?: (item: SidebarItem, event: MouseEvent<HTMLAnchorElement>) => void
+}
+/**
+ * A disclosure, not a link. The button owns the expanded state and the list it controls, which is
+ * the standard pattern for nested navigation and keeps the whole group reachable by keyboard.
+ */
+export function NavSection({ section, activeId, collapsed, onExpandRail, onNavigate }: NavSectionProps) {
+  const listId = useId()
+  const holdsActive = sectionHoldsActive(section, activeId)
+  const [open, setOpen] = useState(section.defaultOpen || holdsActive)
+  // Holding the current page decides the *initial* state and reopens the section if the route later
+  // moves into it. It must not force the section open, or a reader could never collapse the group
+  // they are currently in. This is React's adjust-state-during-render pattern, not an effect.
+  const [wasActive, setWasActive] = useState(holdsActive)
+  if (holdsActive !== wasActive) {
+    setWasActive(holdsActive)
+    if (holdsActive) setOpen(true)
+  }
+  // A collapsed rail has no room for child destinations, so the section expands the rail instead of
+  // opening in place. M3 treats revealing secondary destinations as the expanded rail's job.
+  const expanded = collapsed ? false : open
+  return (
+    <div className="cui-nav-section" data-cui-current-section={holdsActive ? '' : undefined}>
+      <button
+        type="button"
+        className="cui-nav-item cui-nav-section-trigger"
+        aria-expanded={collapsed ? undefined : expanded}
+        aria-controls={collapsed ? undefined : listId}
+        aria-label={collapsed ? section.label : undefined}
+        title={collapsed ? section.label : undefined}
+        onClick={() => (collapsed ? onExpandRail?.() : setOpen(!expanded))}
+      >
+        {section.icon}
+        {!collapsed && (
+          <>
+            <span>{section.label}</span>
+            <Icon name={expanded ? 'chevron-up' : 'chevron'} className="cui-nav-section-marker" aria-hidden="true" />
+          </>
+        )}
+      </button>
+      {!collapsed && (
+        <ul id={listId} className="cui-nav-section-list" hidden={!expanded}>
+          {section.items.map((item) => (
+            <li key={item.id}>
+              <NavLink item={item} activeId={activeId} collapsed={false} onNavigate={onNavigate} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}

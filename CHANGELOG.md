@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add collapsible sections to `DashboardSidebar`. `items` now accepts `SidebarEntry`, a union of the existing `SidebarItem` and a new `SidebarSection` carrying child destinations. A flat `SidebarItem[]` is still valid and renders exactly as before. Sections are disclosures with `aria-expanded`; the one holding the current page opens on load and reopens if the route moves into it, but can still be closed.
+- Add `collapsible`, `collapsed`, `defaultCollapsed` and `onCollapsedChange` to `DashboardSidebar` and `DashboardShell`, giving an icon-only rail at the new `--cui-size-rail` width. Off by default. Structure follows Material Design 3's collapsed and expanded navigation rail; the appearance stays on Convert's tokens.
+
 - Add Stack, Grid, SplitLayout and PageHeader for token-spaced, container-responsive dashboard composition.
 - Add ContentList and ContentListItem with flexible metadata and separate actions.
 - Add explicit readOnly mode to RoadmapBoard and RoadmapCard, preserving existing defaults.
