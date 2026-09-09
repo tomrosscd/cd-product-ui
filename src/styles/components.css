@@ -137,6 +137,69 @@
   background: transparent;
   border-color: transparent;
 }
+/* Bordered but unfilled, unlike secondary's card-surface fill — for an action that should read as
+   present but not compete with a nearby primary/secondary button for visual weight. */
+.cui-button-outline {
+  background: transparent;
+}
+.cui-button-outline:hover:not(:disabled) {
+  background: var(--cui-surface-hover);
+}
+/* --cui-colour-negative is the one constant "this is dangerous" red — unlike --cui-accent-primary,
+   it does not invert per theme, so its own contrasting label colour cannot reuse --cui-text-inverse
+   (that token is picked to contrast with accent-primary specifically, and in dark theme resolves to
+   a near-black that would sit on this same dark red with poor contrast). White reads clearly on it
+   in both themes. */
+.cui-button-destructive {
+  background: var(--cui-colour-negative);
+  color: var(--cui-colour-white);
+  border-color: var(--cui-colour-negative);
+}
+.cui-button-destructive:hover:not(:disabled) {
+  background: var(--cui-colour-negative);
+  opacity: 0.85;
+}
+.cui-button-destructive:focus-visible {
+  outline-color: var(--cui-colour-white);
+  outline-offset: var(--cui-focus-width);
+}
+/* Reads as inline text, not a control — for a tertiary action that shouldn't look like a button at
+   all (e.g. "Cancel" beside a primary submit). Matches TextLink's own colour and underline. */
+.cui-button-link {
+  min-height: 0;
+  padding: var(--cui-space-0);
+  background: transparent;
+  border-color: transparent;
+  color: var(--cui-text-accent);
+  text-decoration: underline;
+  text-underline-offset: var(--cui-space-4);
+  font-weight: var(--cui-font-regular);
+}
+.cui-button-link:hover:not(:disabled) {
+  background: transparent;
+}
+.cui-button-sm {
+  min-height: var(--cui-size-control-sm);
+  padding: var(--cui-space-4) var(--cui-space-12);
+  gap: var(--cui-space-4);
+}
+.cui-button-lg {
+  min-height: var(--cui-size-control-lg);
+  padding: var(--cui-space-12) var(--cui-space-20);
+}
+/* Square, for an icon with no visible label — pair with an aria-label, the way the sidebar's own
+   icon-only controls (collapse/expand, drawer close) already do. */
+.cui-button-icon {
+  min-height: var(--cui-size-control);
+  width: var(--cui-size-control);
+  padding: var(--cui-space-0);
+}
+.cui-button-icon.cui-button-sm {
+  width: var(--cui-size-control-sm);
+}
+.cui-button-icon.cui-button-lg {
+  width: var(--cui-size-control-lg);
+}
 .cui-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
