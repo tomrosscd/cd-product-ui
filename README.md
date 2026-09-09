@@ -213,3 +213,7 @@ For licensed preview fonts, put `Roobert-Regular.woff2`, `Roobert-Medium.woff2` 
 Koko Monthly Review V4 defines the product visual language. The Convert website informs technical conventions. This library is independent of both.
 
 This repository contains proprietary Convert Digital code. See [LICENSE](LICENSE). Repository visibility does not grant an open-source licence. The `private: true` field prevents accidental publication to a registry and does not affect the archive install described above.
+
+### Dashboard composition (unreleased)
+
+The next additive update includes token-spaced layout components, flexible list rows and read-only roadmaps. See [the dashboard composition guide](./docs/dashboard-composition.md) and Storybook **Patterns / Dashboard composition** for an example embedded inside an existing app shell. These additions are not included in 0.7.0; use the reviewed branch archive until a release containing them is published.

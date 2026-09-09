@@ -793,6 +793,32 @@ export interface ConfirmationDialogProps {
 }
 
 // @public
+export function ContentList(input: ContentListProps): JSX.Element;
+
+// @public
+export function ContentListItem(input: ContentListItemProps): JSX.Element;
+
+// @public (undocumented)
+export interface ContentListItemProps extends Omit<ComponentProps<'li'>, 'title' | 'children'> {
+    // (undocumented)
+    actions?: ReactNode;
+    // (undocumented)
+    description?: ReactNode;
+    // (undocumented)
+    leading?: ReactNode;
+    // (undocumented)
+    meta?: ReactNode;
+    // (undocumented)
+    title: ReactNode;
+}
+
+// @public (undocumented)
+export interface ContentListProps extends ComponentProps<'ul'> {
+    // (undocumented)
+    density?: 'comfortable' | 'compact';
+}
+
+// @public
 export function ConvertLogo(input: ConvertLogoProps): JSX.Element;
 
 // @public (undocumented)
@@ -1054,6 +1080,15 @@ export interface FilterToolbarProps {
     searchValue: string;
 }
 
+// @public (undocumented)
+export function Grid(input: GridProps): JSX.Element;
+
+// @public (undocumented)
+export interface GridProps extends StackProps {
+    columns?: 1 | 2 | 3 | 4;
+    minItemWidth?: number;
+}
+
 // @public
 export function HoursInput(input: HoursInputProps): JSX.Element;
 
@@ -1102,6 +1137,9 @@ export interface KeyValueItem {
 export function KeyValueList(input: {
     items: readonly KeyValueItem[];
 }): JSX.Element;
+
+// @public (undocumented)
+export type LayoutGap = 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 64;
 
 // @public
 export function Metric(input: MetricProps): JSX.Element;
@@ -1154,6 +1192,23 @@ export interface MonthPickerProps {
     startYear: number;
     // (undocumented)
     value: string;
+}
+
+// @public (undocumented)
+export function PageHeader(input: PageHeaderProps): JSX.Element;
+
+// @public (undocumented)
+export interface PageHeaderProps extends Omit<ComponentProps<'header'>, 'children'> {
+    // (undocumented)
+    actions?: ReactNode;
+    // (undocumented)
+    context?: ReactNode;
+    // (undocumented)
+    description?: ReactNode;
+    // (undocumented)
+    heading: string;
+    // (undocumented)
+    headingLevel?: 1 | 2;
 }
 
 // @public
@@ -1319,6 +1374,7 @@ export interface RoadmapBoardProps {
     onRetry?: () => void;
     // (undocumented)
     onStageChange?: (id: string, stage: string) => void;
+    readOnly?: boolean;
     // (undocumented)
     state?: 'ready' | 'loading' | 'error';
 }
@@ -1334,6 +1390,8 @@ export interface RoadmapCardProps {
     onPriorityChange?: (priority: boolean) => void;
     // (undocumented)
     onStageChange?: (stage: string) => void;
+    // (undocumented)
+    readOnly?: boolean;
     // (undocumented)
     selectId?: string;
     // (undocumented)
@@ -1507,6 +1565,26 @@ export function Skeleton(input: {
 export function Spinner(input: {
     label?: string;
 }): JSX.Element;
+
+// @public
+export function SplitLayout(input: SplitLayoutProps): JSX.Element;
+
+// @public (undocumented)
+export interface SplitLayoutProps extends Omit<StackProps, 'children'> {
+    // (undocumented)
+    primary: ReactNode;
+    // (undocumented)
+    secondary: ReactNode;
+}
+
+// @public (undocumented)
+export function Stack(input: StackProps): JSX.Element;
+
+// @public (undocumented)
+export interface StackProps extends ComponentProps<'div'> {
+    // (undocumented)
+    gap?: LayoutGap;
+}
 
 // @public
 export function StyledSelect(input: StyledSelectProps): JSX.Element;

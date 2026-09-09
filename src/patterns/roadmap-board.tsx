@@ -26,11 +26,19 @@ export interface RoadmapColumn {
 export interface RoadmapCardProps {
   item: RoadmapItem
   stages: readonly SelectOption[]
+  readOnly?: boolean
   selectId?: string
   onStageChange?: (stage: string) => void
   onPriorityChange?: (priority: boolean) => void
 }
-export function RoadmapCard({ item, stages, selectId, onStageChange, onPriorityChange }: RoadmapCardProps) {
+export function RoadmapCard({
+  item,
+  stages,
+  selectId,
+  onStageChange,
+  onPriorityChange,
+  readOnly = false,
+}: RoadmapCardProps) {
   return (
     <article className="cui-root cui-roadmap-card">
       {item.category && (
@@ -44,22 +52,26 @@ export function RoadmapCard({ item, stages, selectId, onStageChange, onPriorityC
       {item.description && <p className="cui-caption cui-secondary">{item.description}</p>}
       {item.supportingText && <p className="cui-caption cui-secondary">{item.supportingText}</p>}
       {item.estimate && <p>{item.estimate}</p>}
-      <Select
-        id={selectId}
-        label="Stage"
-        aria-label={`Stage for ${item.title}`}
-        options={stages}
-        value={item.stage}
-        disabled={item.disabled || !onStageChange}
-        onChange={(event) => onStageChange?.(event.target.value)}
-      />
-      <Checkbox
-        label="Prioritise next"
-        aria-label={`Prioritise next: ${item.title}`}
-        checked={item.priority || false}
-        disabled={item.disabled || !onPriorityChange}
-        onChange={(event) => onPriorityChange?.(event.target.checked)}
-      />
+      {!readOnly && (
+        <>
+          <Select
+            id={selectId}
+            label="Stage"
+            aria-label={`Stage for ${item.title}`}
+            options={stages}
+            value={item.stage}
+            disabled={item.disabled || !onStageChange}
+            onChange={(event) => onStageChange?.(event.target.value)}
+          />
+          <Checkbox
+            label="Prioritise next"
+            aria-label={`Prioritise next: ${item.title}`}
+            checked={item.priority || false}
+            disabled={item.disabled || !onPriorityChange}
+            onChange={(event) => onPriorityChange?.(event.target.checked)}
+          />
+        </>
+      )}
     </article>
   )
 }
@@ -68,6 +80,8 @@ export interface RoadmapBoardProps {
   columns: readonly RoadmapColumn[]
   items: readonly RoadmapItem[]
   actions?: ReactNode
+  /** Hide stage and priority controls. Existing editing defaults are preserved. */
+  readOnly?: boolean
   onStageChange?: (id: string, stage: string) => void
   onPriorityChange?: (id: string, priority: boolean) => void
   state?: 'ready' | 'loading' | 'error'
@@ -83,6 +97,7 @@ export function RoadmapBoard({
   onPriorityChange,
   state = 'ready',
   onRetry,
+  readOnly = false,
 }: RoadmapBoardProps) {
   const id = useId()
   const [filter, setFilter] = useState('')
@@ -159,6 +174,7 @@ export function RoadmapBoard({
                       <RoadmapCard
                         key={item.id}
                         item={item}
+                        readOnly={readOnly}
                         stages={options}
                         selectId={`${id}-${item.id}-stage`}
                         onStageChange={

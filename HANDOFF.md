@@ -2,6 +2,25 @@
 
 Last updated: 9 September 2026. Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
 
+## Active feature: dashboard composition
+
+User approved implementation on 9 September. Branch: `feature/dashboard-composition`, based on `3be701c` (0.7.0). No tag, merge or release is authorised by this feature task.
+
+Scope: token-spaced Stack/Grid/SplitLayout/PageHeader, flexible ContentList rows, explicit read-only roadmap, and a realistic neutral dashboard exercising four metrics, a wide pipeline with supporting card, capacity and dense lists. Preserve legacy layout helpers and editing defaults. No Tailwind directives or consumer business logic. The coworker’s app source is unavailable, so this fixes the library’s composition gap and provides an adoption recipe, not an unverified app patch.
+
+Checkpoint: components, styles, stories, adoption guide and packed-consumer example are implemented. Implementation is ready for the first feature commit; final verification will be recorded in a follow-up documentation commit. TypeScript and lint passed before the last test/doc additions. Focused Chromium Storybook suite: 18/18 passed, including measured 24px section gaps, no horizontal overflow at container widths 320/390/768/1024/1440, four-column metric limits, split wrapping, and explicit read-only filtering. Visually reviewed desktop and 320px parent in Chrome; list metadata/actions wrap and sections stay separated. Uses Geist fallback, not licensed Roobert.
+
+Resume here:
+
+1. API and CSS snapshots regenerated and reviewed: additions only, no removals. Generated API report retains the existing CRLF format; `git -c core.whitespace=cr-at-eol diff --check` is clean.
+2. Passed: full `pnpm check`, `pnpm format:check`, `pnpm api:check`, `pnpm test:dark` (186 stories), `pnpm test:coverage` (92.39% statements, 86.51% branches, 92.43% functions, 93.08% lines). `pnpm package:check` and then `pnpm next:check` are running in the sequential check chain. Logs: `/tmp/cui-{check,api-check,dark,coverage,package,next}.log`. Browser/server checks need permission to bind localhost. The initial sandbox-only browser attempt failed with EPERM before running tests; elevated runs passed.
+3. Review dark rendering, run any necessary corrections and keep this checkpoint accurate. New contract tests are `tests/dashboard-composition.test.tsx`.
+4. Commit focused changes, push `feature/dashboard-composition`, open a PR and inspect CI. Do not merge or tag. Record final results here.
+
+Current review server: http://localhost:6020/?path=/story/patterns-dashboard-composition--overview (started by Codex). The original 6017 server was not stopped. Key implementation files: `src/components/primitives/layout.tsx`, `content-list.tsx`, `src/styles/layout.css`, `src/patterns/roadmap-board.tsx`. Full example: `docs/dashboard-composition-example.tsx`; usage: `docs/dashboard-composition.md`. No version bump; CHANGELOG labels additions Unreleased and README explicitly says they are not in 0.7.0. The new guide is included in the package archive.
+
+Next agent should finish this branch before the deferred release chores below. Do not interpret the older priority list as permission to tag 0.7.0.
+
 ## Start here: what to work on next
 
 Read AGENTS.md first, then this section. `main` is at 0.7.0 with PR #10 and PR #11 merged. Nothing is tagged. Do not merge or tag without the user's explicit approval: that standing rule has not changed.
@@ -20,11 +39,11 @@ Once a tag produces a release asset, update the README's install section: it sti
 
 Still entirely placeholder rows. It is the only mechanism protecting consumers from a breaking change: there is no telemetry and no registry download counts. `pnpm api:check` and `pnpm css:check` catch a breaking change mechanically, but only this file says who to warn. Add the coworker's project, contact and installed version the moment they install.
 
-### 3. Read-only list and board patterns (largest real gap)
+### 3. Read-only list and board patterns (implemented on the active branch, pending review)
 
 The first external consumer needed these and got nothing usable, so they hand-composed `Card`, `Badge` and `TextLink` instead. Full context in ROADMAP.md section 2. In short: `ActivityList` and `ResourceList` take fixed, string-only shapes with no way to combine a leading indicator, a per-row action link and trailing metadata; `RoadmapBoard` forces an editable stage `Select` and priority `Checkbox` onto every card, which is wrong for a view nobody edits.
 
-Wanted: a read-only list row that composes indicator, content, action and meta, and a board that renders cards without imposing edit controls. Make `RoadmapBoard`'s editing opt-in rather than built in, additively, so nothing existing breaks.
+The active branch supplies ContentList/ContentListItem and explicit `readOnly` props on RoadmapBoard/RoadmapCard. Editing defaults remain unchanged to protect existing consumers; adopt `readOnly` explicitly. See the checkpoint above before starting duplicate work.
 
 ### 4. Decide what to do about `assets/` (needs the user, not a coding decision)
 

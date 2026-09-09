@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Add Stack, Grid, SplitLayout and PageHeader for token-spaced, container-responsive dashboard composition.
+- Add ContentList and ContentListItem with flexible metadata and separate actions.
+- Add explicit readOnly mode to RoadmapBoard and RoadmapCard, preserving existing defaults.
+- Add a neutral dashboard example, adoption guidance and responsive layout regression checks.
+
 ## 0.7.0 · 9 September 2026
 
 Interaction quality: focus, dropdown states and iconography made consistent across the library. No new components, and nothing removed or renamed — upgrading from 0.6.0 needs no code changes. See [docs/release-0.7.md](docs/release-0.7.md) for the full contracts and the list of visible changes to review first.

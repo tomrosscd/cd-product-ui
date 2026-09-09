@@ -26,7 +26,8 @@
     "docs/release-0.4.md",
     "docs/release-0.5.md",
     "docs/release-0.6.md",
-    "docs/release-0.7.md"
+    "docs/release-0.7.md",
+    "docs/dashboard-composition.md"
   ],
   "exports": {
     ".": {

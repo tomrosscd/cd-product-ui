@@ -34,3 +34,7 @@ Use controlled RoadmapBoard data and callbacks. Column names, permissions and sa
 ## Themes and workspace controls
 
 For 0.3.0, read release-0.3.md. Wrap React content in ThemeProvider for dark mode and portal inheritance. Use semantic tokens rather than raw palette colours. Reuse official ConvertLogo artwork and the supplied brandAssets manifest. Use ActionMenu for commands, Breadcrumbs for location, SearchSelect for searchable native choices, DateRange for date-only periods, and ToastRegion for transient feedback. Keep all authentication, preference storage and application data outside the library.
+
+## Dashboard composition
+
+Read `docs/dashboard-composition.md` before assembling a dashboard. Use Stack for section gaps, Grid for repeated panels and SplitLayout for a wide summary with supporting content. Their responsiveness is based on parent width. Card only supplies internal spacing. Do not add another DashboardShell inside an existing app shell. Use ContentList/ContentListItem for rich read-only rows and RoadmapBoard readOnly to hide edit controls; retain DataTable when column comparison matters. Use actual component props rather than reconstructing layouts from a screenshot. These APIs require the additive dashboard-composition update, not the original 0.7.0 package.

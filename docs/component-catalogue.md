@@ -134,3 +134,10 @@ Pagination, StyledSelect, Calendar, DatePicker and MonthPicker plus opt-in table
 ## 0.6.0 candidate additions
 
 Chip/ChipGroup, SegmentedControl/SegmentedMultiControl, Combobox, CurrencyInput/PercentageInput/HoursInput, PeriodNavigator and the FilterToolbar pattern are documented in [release-0.6.md](release-0.6.md).
+
+## Dashboard composition additions (unreleased)
+
+- `Stack`, `Grid`, `SplitLayout`, `PageHeader`: parent-owned spacing and responsive content layout.
+- `ContentList`, `ContentListItem`: flexible leading content, title, description, metadata and separate actions, with comfortable and compact density.
+- `RoadmapBoard` / `RoadmapCard` `readOnly`: hide editing controls explicitly while preserving legacy defaults.
+- Storybook **Patterns / Dashboard composition** is the complete adoption example. See [composition guidance](./dashboard-composition.md).
