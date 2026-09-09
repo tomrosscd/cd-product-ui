@@ -4,7 +4,7 @@ A shared design system for Convert dashboards and internal tools. It gives you c
 
 Each project stays on the version it installed until you decide to upgrade.
 
-Version 0.7.0. See the [changelog](CHANGELOG.md) for what changed in each version.
+Version 0.8.0. See the [changelog](CHANGELOG.md) for what changed in each version.
 
 [Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components-locally) · [Contribute](CONTRIBUTING.md)
 
@@ -37,26 +37,26 @@ Do not install from a GitHub branch. The repository holds source, and only the a
 Run these commands outside your application's folder:
 
 ```sh
-git clone --branch v0.7.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.8.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-This creates `artifacts/convert-product-ui-0.7.0.tgz`. One person can build the archive and share it with other authorised projects.
+This creates `artifacts/convert-product-ui-0.8.0.tgz`. One person can build the archive and share it with other authorised projects.
 
 ### 2. Add the archive to your application
 
 Copy the archive into a `vendor` folder in your application, then install it from your application's folder:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.7.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.8.0.tgz
 ```
 
 Using npm instead:
 
 ```sh
-npm install --save-exact ./vendor/convert-product-ui-0.7.0.tgz
+npm install --save-exact ./vendor/convert-product-ui-0.8.0.tgz
 ```
 
 Commit the archive, `package.json` and your lockfile so colleagues and CI install the same files. If your project ignores `*.tgz`, add an exception for the vendor archive.
@@ -201,7 +201,8 @@ For licensed preview fonts, put `Roobert-Regular.woff2`, `Roobert-Medium.woff2` 
 ## Reference
 
 - [Component guide](docs/component-catalogue.md): every component, its API and its boundaries
-- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.7.md)
+- [Adoption brief](docs/adopting-in-an-app.md): which component to use for what, and how to upgrade safely
+- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.8.md)
 - [Architecture and boundaries](docs/architecture.md)
 - [Review and release process](docs/release-process.md)
 - [Known consumers](CONSUMERS.md): check before shipping a breaking change
@@ -216,4 +217,4 @@ This repository contains proprietary Convert Digital code. See [LICENSE](LICENSE
 
 ### Dashboard composition (unreleased)
 
-The next additive update includes token-spaced layout components, flexible list rows and read-only roadmaps. See [the dashboard composition guide](./docs/dashboard-composition.md) and Storybook **Patterns / Dashboard composition** for an example embedded inside an existing app shell. These additions are not included in 0.7.0; use the reviewed branch archive until a release containing them is published.
+For token-spaced layout components, flexible list rows, read-only roadmaps and nested navigation, see [the dashboard composition guide](./docs/dashboard-composition.md), [the adoption brief](./docs/adopting-in-an-app.md) and Storybook **Patterns / Dashboard composition**. These ship in 0.8.0.
