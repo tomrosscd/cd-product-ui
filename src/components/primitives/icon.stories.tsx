@@ -40,6 +40,8 @@ const allNames: IconName[] = [
   'visibility',
   'visibility-off',
   'loading',
+  'sidebar-collapse',
+  'sidebar-expand',
 ]
 function IconReference() {
   return (

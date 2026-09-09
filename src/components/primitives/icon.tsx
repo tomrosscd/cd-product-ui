@@ -23,6 +23,8 @@ import {
   LoaderCircle,
   Menu,
   Minus,
+  PanelLeftClose,
+  PanelLeftOpen,
   Pencil,
   Plus,
   Search,
@@ -77,6 +79,8 @@ const icons = {
   visibility: Eye,
   'visibility-off': EyeOff,
   loading: LoaderCircle,
+  'sidebar-collapse': PanelLeftClose,
+  'sidebar-expand': PanelLeftOpen,
 } as const
 export type IconName = keyof typeof icons
 export function Icon({ name, className, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
