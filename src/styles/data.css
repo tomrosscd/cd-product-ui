@@ -28,6 +28,17 @@
   background: var(--cui-chart-series-primary);
   border-radius: inherit;
 }
+/* Colour the fill by state. Without this the bar is one colour regardless of value, so a consumer
+   showing capacity had to put a Badge next to a neutral bar instead of colouring the bar itself. */
+.cui-progress-positive .cui-progress-fill {
+  background: var(--cui-text-positive);
+}
+.cui-progress-warning .cui-progress-fill {
+  background: var(--cui-text-warning);
+}
+.cui-progress-negative .cui-progress-fill {
+  background: var(--cui-text-negative);
+}
 .cui-progress-indeterminate {
   background: repeating-linear-gradient(
     45deg,

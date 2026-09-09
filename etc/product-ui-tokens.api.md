@@ -17,11 +17,13 @@ export const darkTokens: {
     readonly "colour.sage": "#c9deb6";
     readonly "colour.chart": "#499e6b";
     readonly "colour.positive": "#2f6b45";
+    readonly "colour.warning": "#8a5a1a";
     readonly "colour.negative": "#a13d32";
     readonly "surface.page": "#171c19";
     readonly "surface.band": "#202823";
     readonly "surface.card": "#28312b";
     readonly "surface.selected": "#27382f";
+    readonly "surface.warning": "#3a2e18";
     readonly "surface.hover": "#344139";
     readonly "dropdown.hover": "#344139";
     readonly "dropdown.selected": "#47574b";
@@ -30,6 +32,7 @@ export const darkTokens: {
     readonly "text.inverse": "#171717";
     readonly "text.accent": "#c9deb6";
     readonly "text.positive": "#a3d8b4";
+    readonly "text.warning": "#f0c98a";
     readonly "text.negative": "#ffb4a8";
     readonly "border.subtle": "#47574b";
     readonly "border.control": "#95a78f";
@@ -207,6 +210,15 @@ export const tokenReference: readonly [{
     readonly darkResolved: "#2f6b45";
 }, {
     readonly group: "colour";
+    readonly name: "warning";
+    readonly key: "colour.warning";
+    readonly css: "--cui-colour-warning";
+    readonly value: "#8a5a1a";
+    readonly description: "Caution text; the amber of a three-state red/amber/green status";
+    readonly resolved: "#8a5a1a";
+    readonly darkResolved: "#8a5a1a";
+}, {
+    readonly group: "colour";
     readonly name: "negative";
     readonly key: "colour.negative";
     readonly css: "--cui-colour-negative";
@@ -254,6 +266,16 @@ export const tokenReference: readonly [{
     readonly dark: "{colour.forest}";
     readonly resolved: "#c9deb6";
     readonly darkResolved: "#27382f";
+}, {
+    readonly group: "surface";
+    readonly name: "warning";
+    readonly key: "surface.warning";
+    readonly css: "--cui-surface-warning";
+    readonly value: "#f7e6c8";
+    readonly description: "Soft caution background behind text.warning";
+    readonly dark: "#3a2e18";
+    readonly resolved: "#f7e6c8";
+    readonly darkResolved: "#3a2e18";
 }, {
     readonly group: "surface";
     readonly name: "hover";
@@ -334,6 +356,16 @@ export const tokenReference: readonly [{
     readonly dark: "#a3d8b4";
     readonly resolved: "#2f6b45";
     readonly darkResolved: "#a3d8b4";
+}, {
+    readonly group: "text";
+    readonly name: "warning";
+    readonly key: "text.warning";
+    readonly css: "--cui-text-warning";
+    readonly value: "{colour.warning}";
+    readonly description: "Caution status with a text label";
+    readonly dark: "#f0c98a";
+    readonly resolved: "#8a5a1a";
+    readonly darkResolved: "#f0c98a";
 }, {
     readonly group: "text";
     readonly name: "negative";
@@ -990,11 +1022,13 @@ export const tokens: {
     readonly "colour.sage": "#c9deb6";
     readonly "colour.chart": "#499e6b";
     readonly "colour.positive": "#2f6b45";
+    readonly "colour.warning": "#8a5a1a";
     readonly "colour.negative": "#a13d32";
     readonly "surface.page": "#faf9f7";
     readonly "surface.band": "#eef0ec";
     readonly "surface.card": "#ffffff";
     readonly "surface.selected": "#c9deb6";
+    readonly "surface.warning": "#f7e6c8";
     readonly "surface.hover": "#eef0ec";
     readonly "dropdown.hover": "#eef0ec";
     readonly "dropdown.selected": "#dce2db";
@@ -1003,6 +1037,7 @@ export const tokens: {
     readonly "text.inverse": "#ffffff";
     readonly "text.accent": "#27382f";
     readonly "text.positive": "#2f6b45";
+    readonly "text.warning": "#8a5a1a";
     readonly "text.negative": "#a13d32";
     readonly "border.subtle": "#dce2db";
     readonly "border.control": "#829080";

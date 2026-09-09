@@ -214,9 +214,14 @@
   color: var(--cui-text-negative);
   background: var(--cui-surface-page);
 }
+/* Amber, not a grey outline. This tone previously carried only the ordinary text colour and a
+   neutral border, so a "warning" badge was visually indistinguishable from a neutral one and the
+   library had no third state between positive and negative at all. A consumer building a
+   red/amber/green pipeline view reported exactly that gap. */
 .cui-badge-warning {
-  color: var(--cui-text-primary);
-  border-color: var(--cui-border-control);
+  color: var(--cui-text-warning);
+  background: var(--cui-surface-warning);
+  border-color: var(--cui-text-warning);
 }
 .cui-badge-outline {
   background: transparent;

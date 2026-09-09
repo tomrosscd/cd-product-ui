@@ -1242,11 +1242,15 @@ export interface ProgressProps {
     max?: number;
     // (undocumented)
     target?: number;
+    tone?: ProgressTone;
     // (undocumented)
     value?: number;
     // (undocumented)
     valueLabel?: string;
 }
+
+// @public (undocumented)
+export type ProgressTone = 'neutral' | 'positive' | 'warning' | 'negative';
 
 // @public (undocumented)
 export function RadioGroup(input: RadioGroupProps): JSX.Element;

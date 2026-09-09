@@ -11,11 +11,13 @@
   --cui-colour-sage: #c9deb6;
   --cui-colour-chart: #499e6b;
   --cui-colour-positive: #2f6b45;
+  --cui-colour-warning: #8a5a1a;
   --cui-colour-negative: #a13d32;
   --cui-surface-page: var(--cui-colour-paper);
   --cui-surface-band: var(--cui-colour-band);
   --cui-surface-card: var(--cui-colour-white);
   --cui-surface-selected: var(--cui-colour-sage);
+  --cui-surface-warning: #f7e6c8;
   --cui-surface-hover: var(--cui-colour-band);
   --cui-dropdown-hover: var(--cui-colour-band);
   --cui-dropdown-selected: var(--cui-colour-line);
@@ -24,6 +26,7 @@
   --cui-text-inverse: var(--cui-colour-white);
   --cui-text-accent: var(--cui-colour-forest);
   --cui-text-positive: var(--cui-colour-positive);
+  --cui-text-warning: var(--cui-colour-warning);
   --cui-text-negative: var(--cui-colour-negative);
   --cui-border-subtle: var(--cui-colour-line);
   --cui-border-control: var(--cui-colour-control);
@@ -108,11 +111,13 @@
   --cui-colour-sage: #c9deb6;
   --cui-colour-chart: #499e6b;
   --cui-colour-positive: #2f6b45;
+  --cui-colour-warning: #8a5a1a;
   --cui-colour-negative: #a13d32;
   --cui-surface-page: #171c19;
   --cui-surface-band: #202823;
   --cui-surface-card: #28312b;
   --cui-surface-selected: var(--cui-colour-forest);
+  --cui-surface-warning: #3a2e18;
   --cui-surface-hover: #344139;
   --cui-dropdown-hover: #344139;
   --cui-dropdown-selected: #47574b;
@@ -121,6 +126,7 @@
   --cui-text-inverse: var(--cui-colour-ink);
   --cui-text-accent: var(--cui-colour-sage);
   --cui-text-positive: #a3d8b4;
+  --cui-text-warning: #f0c98a;
   --cui-text-negative: #ffb4a8;
   --cui-border-subtle: #47574b;
   --cui-border-control: #95a78f;

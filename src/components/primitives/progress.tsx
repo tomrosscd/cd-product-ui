@@ -1,20 +1,23 @@
 import { useId } from 'react'
+export type ProgressTone = 'neutral' | 'positive' | 'warning' | 'negative'
 export interface ProgressProps {
   label: string
+  /** Colours the filled portion. Pair it with `valueLabel` or `hint`, since colour alone is not an accessible signal. */
+  tone?: ProgressTone
   value?: number
   max?: number
   target?: number
   valueLabel?: string
   hint?: string
 }
-export function Progress({ label, value, max = 100, target, valueLabel, hint }: ProgressProps) {
+export function Progress({ label, value, max = 100, target, valueLabel, hint, tone = 'neutral' }: ProgressProps) {
   const id = useId()
   const safeMax = Number.isFinite(max) && max > 0 ? max : 100
   const current = value === undefined || !Number.isFinite(value) ? undefined : Math.max(0, Math.min(value, safeMax))
   const targetPosition =
     target !== undefined && Number.isFinite(target) ? Math.max(0, Math.min((target / safeMax) * 100, 100)) : undefined
   return (
-    <div className="cui-root cui-progress">
+    <div className={tone === 'neutral' ? 'cui-root cui-progress' : `cui-root cui-progress cui-progress-${tone}`}>
       <div className="cui-row cui-progress-heading">
         <span id={id} className="cui-label">
           {label}

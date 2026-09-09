@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (204)
+## Classes (207)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -147,8 +147,11 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-progress-fill`
 - `cui-progress-heading`
 - `cui-progress-indeterminate`
+- `cui-progress-negative`
+- `cui-progress-positive`
 - `cui-progress-target`
 - `cui-progress-track`
+- `cui-progress-warning`
 - `cui-project-list`
 - `cui-resource-list`
 - `cui-roadmap`
@@ -211,7 +214,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-tooltip`
 - `cui-workspace`
 
-## Custom properties (94)
+## Custom properties (97)
 
 - `--cui-accent-chart`
 - `--cui-accent-primary`
@@ -240,6 +243,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-colour-paper`
 - `--cui-colour-positive`
 - `--cui-colour-sage`
+- `--cui-colour-warning`
 - `--cui-colour-white`
 - `--cui-dropdown-hover`
 - `--cui-dropdown-selected`
@@ -285,12 +289,14 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-surface-hover`
 - `--cui-surface-page`
 - `--cui-surface-selected`
+- `--cui-surface-warning`
 - `--cui-text-accent`
 - `--cui-text-inverse`
 - `--cui-text-negative`
 - `--cui-text-positive`
 - `--cui-text-primary`
 - `--cui-text-secondary`
+- `--cui-text-warning`
 - `--cui-type-body`
 - `--cui-type-body-leading`
 - `--cui-type-caption`
