@@ -34,6 +34,13 @@ declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
     align?: 'start' | 'center' | 'end'
     numeric?: boolean
+    /**
+     * Pins the column while the table scrolls horizontally, so an identifier stays readable. Only
+     * useful with `tableLayout="scroll"`, and only on leading columns: a pinned column in the
+     * middle would detach from its neighbours. Declare a `size` alongside it, since the offset of
+     * a second pinned column is computed from the widths of the ones before it.
+     */
+    sticky?: boolean
   }
 }
 
@@ -45,8 +52,18 @@ function columnWidth<T>(column: Column<T, unknown>) {
 function cellClass<T>(column: Column<T, unknown>) {
   const meta = column.columnDef.meta
   if (!meta) return undefined
-  if (meta.numeric) return 'cui-cell-numeric'
-  return meta.align && meta.align !== 'start' ? `cui-cell-${meta.align}` : undefined
+  const alignment = meta.numeric
+    ? 'cui-cell-numeric'
+    : meta.align && meta.align !== 'start'
+      ? `cui-cell-${meta.align}`
+      : ''
+  return [alignment, meta.sticky ? 'cui-cell-sticky' : ''].filter(Boolean).join(' ') || undefined
+}
+/** A pinned column sits after the pinned columns before it, so the offset is their combined width. */
+function stickyOffset<T>(column: Column<T, unknown>, all: Column<T, unknown>[]) {
+  if (!column.columnDef.meta?.sticky) return undefined
+  const before = all.slice(0, all.indexOf(column)).filter((other) => other.columnDef.meta?.sticky)
+  return { insetInlineStart: before.reduce((total, other) => total + other.getSize(), 0) }
 }
 export interface DataTableProps<T> {
   caption: string
@@ -97,6 +114,9 @@ export function DataTable<T>({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
+  const leafColumns = table.getAllLeafColumns()
+  // A totals row only appears when a column asks for one, so no existing table gains a tfoot.
+  const hasFooter = columns.some((column) => column.footer !== undefined)
   return (
     <div className="cui-root cui-stack cui-data-table">
       {searchable && (
@@ -156,7 +176,7 @@ export function DataTable<T>({
                     <th
                       key={header.id}
                       scope="col"
-                      style={columnWidth(header.column)}
+                      style={{ ...columnWidth(header.column), ...stickyOffset(header.column, leafColumns) }}
                       className={cellClass(header.column)}
                       aria-sort={
                         header.column.getCanSort()
@@ -198,7 +218,7 @@ export function DataTable<T>({
               {table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className={cellClass(cell.column)}>
+                    <td key={cell.id} className={cellClass(cell.column)} style={stickyOffset(cell.column, leafColumns)}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -216,6 +236,23 @@ export function DataTable<T>({
                 </tr>
               )}
             </tbody>
+            {hasFooter && (
+              <tfoot>
+                {table.getFooterGroups().map((group) => (
+                  <tr key={group.id}>
+                    {group.headers.map((header) => (
+                      <td
+                        key={header.id}
+                        className={cellClass(header.column)}
+                        style={stickyOffset(header.column, leafColumns)}
+                      >
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.footer, header.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tfoot>
+            )}
           </Table>
           <nav
             hidden={pagination === 'full'}

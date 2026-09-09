@@ -146,3 +146,91 @@ export const NumericColumns: Story = {
     await expect(c.getByText('Not recorded')).toBeVisible()
   },
 }
+
+const totalHours = retainerRows.reduce((sum, row) => sum + row.hours, 0)
+const totalBudget = retainerRows.reduce((sum, row) => sum + row.budget, 0)
+// Rows with no variance recorded are excluded from the total rather than counted as zero, and the
+// footer says so, because a total that quietly swallows missing data is a wrong number.
+const recorded = retainerRows.filter((row) => row.variance !== null)
+const totalVariance = recorded.reduce((sum, row) => sum + (row.variance ?? 0), 0)
+
+const wideColumns: ColumnDef<RetainerRow>[] = [
+  {
+    accessorKey: 'client',
+    header: 'Client',
+    size: 220,
+    meta: { sticky: true },
+    footer: () => 'Total',
+  },
+  {
+    accessorKey: 'hours',
+    header: 'Hours',
+    size: 160,
+    meta: { numeric: true },
+    cell: (c) => hours.format(c.getValue<number>()),
+    footer: () => hours.format(totalHours),
+  },
+  {
+    accessorKey: 'budget',
+    header: 'Budget',
+    size: 200,
+    meta: { numeric: true },
+    cell: (c) => money.format(c.getValue<number>()),
+    footer: () => money.format(totalBudget),
+  },
+  {
+    accessorKey: 'variance',
+    header: 'Variance',
+    size: 200,
+    meta: { numeric: true },
+    cell: (c) => {
+      const value = c.getValue<number | null>()
+      if (value === null) return <span className="cui-secondary">Not recorded</span>
+      return <span className={value < 0 ? 'cui-negative' : undefined}>{money.format(value)}</span>
+    },
+    footer: () => (
+      <span title={`${recorded.length} of ${retainerRows.length} rows have a variance recorded`}>
+        {money.format(totalVariance)}
+      </span>
+    ),
+  },
+]
+
+/**
+ * A wide financial table. The client column is pinned with `meta: { sticky: true }`, so the row's
+ * identifier stays readable while the figures scroll. Totals come from each column's own `footer`,
+ * which is TanStack's existing field rather than a second API. Scroll the table sideways to see the
+ * pinned column hold.
+ */
+export const StickyColumnAndTotals: Story = {
+  args: {
+    caption: 'Retainer usage by client',
+    data: retainerRows as never,
+    columns: wideColumns as never,
+    searchable: false,
+    pageSize: 10,
+    tableLayout: 'scroll',
+    tableMinWidth: 900,
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    const client = c.getByRole('columnheader', { name: /Client/ })
+    await expect(getComputedStyle(client).position).toBe('sticky')
+
+    // A pinned cell needs an opaque background, or the scrolled figures show through it.
+    const firstCell = c.getByText('Vets Love Pets').closest('td') as HTMLElement
+    await expect(getComputedStyle(firstCell).position).toBe('sticky')
+    await expect(getComputedStyle(firstCell).backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
+
+    // The pin holds its place when the region scrolls sideways.
+    const region = client.closest('.cui-table-scroll') as HTMLElement
+    const before = firstCell.getBoundingClientRect().left
+    region.scrollLeft = 300
+    await new Promise((resolve) => requestAnimationFrame(resolve))
+    await expect(Math.abs(firstCell.getBoundingClientRect().left - before)).toBeLessThan(2)
+
+    // Totals exclude the row with no variance recorded rather than counting it as zero.
+    await expect(c.getByText('Total')).toBeVisible()
+    await expect(c.getByText(money.format(totalVariance))).toBeVisible()
+  },
+}

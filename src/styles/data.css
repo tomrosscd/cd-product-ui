@@ -316,3 +316,28 @@
 .cui-cell-center .cui-table-sort {
   justify-content: center;
 }
+
+/* A pinned column stays put while the table scrolls sideways, so the row's identifier never leaves
+   the screen. It needs its own background or the scrolled cells show through it, and inset-inline
+   rather than left so it pins to the leading edge in either writing direction. */
+.cui-cell-sticky {
+  position: sticky;
+  background: var(--cui-surface-card);
+  z-index: 1;
+}
+/* The seam tells the reader the column is pinned rather than simply first. */
+.cui-table tr > .cui-cell-sticky:last-of-type,
+.cui-table tr > .cui-cell-sticky + :not(.cui-cell-sticky) {
+  border-inline-start: var(--cui-border-width) solid var(--cui-border-subtle);
+}
+.cui-table tfoot td {
+  border-top: var(--cui-border-width) solid var(--cui-border-control);
+  font-weight: var(--cui-font-medium);
+}
+/* Totals sit above the pinned column, and the footer's own background must win over it. */
+.cui-table tfoot .cui-cell-sticky {
+  background: var(--cui-surface-band);
+}
+.cui-table tfoot {
+  background: var(--cui-surface-band);
+}
