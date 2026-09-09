@@ -4,7 +4,7 @@ A shared design system for Convert dashboards and internal tools. It gives you c
 
 Each project stays on the version it installed until you decide to upgrade.
 
-Version 0.8.0. See the [changelog](CHANGELOG.md) for what changed in each version.
+Version 0.9.0. See the [changelog](CHANGELOG.md) for what changed in each version.
 
 [Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components-locally) · [Contribute](CONTRIBUTING.md)
 
@@ -31,13 +31,13 @@ Your application supplies React 19.2. The package name in imports is `@convert/p
 Each release attaches a built archive. Install it by URL from your application's folder:
 
 ```sh
-pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.8.0/convert-product-ui-0.8.0.tgz
+pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.9.0/convert-product-ui-0.9.0.tgz
 ```
 
 Using npm instead:
 
 ```sh
-npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.8.0/convert-product-ui-0.8.0.tgz
+npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.9.0/convert-product-ui-0.9.0.tgz
 ```
 
 The URL pins one immutable release, so every colleague and CI run installs identical files. Commit your `package.json` and lockfile.
@@ -51,16 +51,16 @@ To install a different version, change both version numbers in the URL. Releases
 Only needed to install a revision that has no release, such as an unreleased branch. Run these outside your application's folder:
 
 ```sh
-git clone --branch v0.8.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.9.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-Copy the resulting `artifacts/convert-product-ui-0.8.0.tgz` into a `vendor` folder in your application and install it from there:
+Copy the resulting `artifacts/convert-product-ui-0.9.0.tgz` into a `vendor` folder in your application and install it from there:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.8.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.9.0.tgz
 ```
 
 Commit the archive alongside your lockfile. If your project ignores `*.tgz`, add an exception for it.
@@ -205,7 +205,7 @@ For licensed preview fonts, put `Roobert-Regular.woff2`, `Roobert-Medium.woff2` 
 
 - [Component guide](docs/component-catalogue.md): every component, its API and its boundaries
 - [Adoption brief](docs/adopting-in-an-app.md): which component to use for what, and how to upgrade safely
-- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.8.md)
+- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.9.md)
 - [Architecture and boundaries](docs/architecture.md)
 - [Review and release process](docs/release-process.md)
 - [Known consumers](CONSUMERS.md): check before shipping a breaking change

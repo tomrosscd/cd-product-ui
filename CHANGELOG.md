@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.9.0 · 9 September 2026
+
+Tables that carry real data, and the navigation and status fixes the first external consumer found while adopting 0.8.0. Everything is additive; two existing default appearances change, both called out below. See [docs/release-0.9.md](docs/release-0.9.md).
 
 - Add `meta: { sticky: true }` to pin a leading `DataTable` column while the table scrolls horizontally, so a row's identifier stays readable. Pair it with `tableLayout="scroll"` and a declared `size`; the offset of a second pinned column is computed from the widths before it.
 - `DataTable` renders a `tfoot` when a column definition declares a `footer`, using TanStack's own field rather than a second API. Tables that declare none are unchanged.
