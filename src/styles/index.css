@@ -1,6 +1,4 @@
 @import './tokens.css';
-@import 'tailwindcss/theme.css' layer(theme) prefix(cdu);
-@import 'tailwindcss/utilities.css' layer(utilities) prefix(cdu);
 @import './components.css';
 @import './controls.css';
 @import './data.css';
@@ -8,14 +6,3 @@
 @import './workspace.css';
 @import './pickers.css';
 @import './responsive.css';
-@source '../';
-@theme {
-  --color-*: initial;
-}
-@theme inline {
-  --color-product-page: var(--cui-surface-page);
-  --color-product-card: var(--cui-surface-card);
-  --color-product-ink: var(--cui-text-primary);
-  --color-product-accent: var(--cui-accent-primary);
-  --font-product: var(--cui-font-sans);
-}

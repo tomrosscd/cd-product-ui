@@ -38,7 +38,7 @@ jobs:
       - name: Formatting
         run: pnpm format:check
 
-      - name: Tokens, types, lint, unit/browser tests, build, static Storybook
+      - name: Tokens, types, lint, unit/browser tests, build, CSS surface, static Storybook
         run: pnpm check
 
       - name: Public API surface check

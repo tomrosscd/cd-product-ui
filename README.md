@@ -1,64 +1,40 @@
 # Convert Product UI
 
-A shared design system for Convert dashboards and internal tools. Install it in your project to reuse consistent colours, spacing, typography and interactive components. Each project stays on its chosen version until its developers decide to upgrade.
+A shared design system for Convert dashboards and internal tools. It gives you consistent colours, spacing, typography and interactive components, as React components and as framework-neutral CSS.
 
-**Current version: 0.7.0.** React components, framework-neutral tokens and compiled CSS are available now. Storybook runs locally; a hosted catalogue and package registry are not yet configured.
+Each project stays on the version it installed until you decide to upgrade.
 
-[Browse Storybook](#browse-the-components-locally) · [Install](#install-in-your-project) · [React](#use-with-react) · [Tokens and CSS](#use-tokens-and-css-in-other-frameworks) · [Updates](#update-an-existing-project) · [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+Version 0.7.0. See the [changelog](CHANGELOG.md) for what changed in each version.
 
-## What is included?
+[Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components-locally) · [Contribute](CONTRIBUTING.md)
 
-| Area               | Included                                                                                                               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Foundations        | 92 documented tokens for colours, surfaces, spacing, typography, borders, focus, motion and responsive layout          |
-| Components         | Forms, badges, links, feedback, metrics, progress, tables and supporting content, alongside the original components    |
-| Layout             | DashboardShell, roadmap board, sign-in form and reusable card compositions                                             |
-| Storybook          | Searchable token reference, five chart recipes, interactive states and neutral dashboard, roadmap and sign-in examples |
-| Developer guidance | Typed APIs, consumption examples, release checks and instructions for AI coding tools                                  |
+## What you get
 
-Koko Monthly Review V4 defines the product visual language. The new Convert website informs technical conventions. This library is independent of both references and contains no client data or business logic.
+| Area       | What it covers                                                                                         |
+| ---------- | ------------------------------------------------------------------------------------------------------ |
+| Tokens     | 94 tokens for colour, surface, spacing, typography, borders, focus, motion and breakpoints             |
+| Components | Forms, selects, tables, tabs, chips, dialogs, feedback, metrics, progress, navigation and date pickers |
+| Patterns   | `DashboardShell`, roadmap board, sign-in form, filter toolbar and card compositions                    |
+| Charts     | Five Recharts recipes behind an optional entry point                                                   |
+| Storybook  | Every component with its states, props and source, plus token and icon references                      |
 
-## Version history
+The library holds no client data, API calls, authentication or business logic. Your application owns all of that.
 
-| Version                                     | Date             | Highlights                                                                                                                                                                               |
-| ------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [0.7.0](CHANGELOG.md#070--9-september-2026) | 9 September 2026 | Interaction quality: focus ring contrast fix, neutral dropdown/menu state tokens, Lucide icon set, component-states reference. No API changes. See [release notes](docs/release-0.7.md). |
-| [0.6.0](CHANGELOG.md#060--9-september-2026) | 9 September 2026 | Chip, SegmentedControl, Combobox, formatted inputs (currency/percentage/hours), PeriodNavigator, FilterToolbar pattern. See [release notes](docs/release-0.6.md).                        |
-| [0.5.0](CHANGELOG.md#050--9-september-2026) | 9 September 2026 | Standalone Pagination, StyledSelect, Calendar/DatePicker/MonthPicker, opt-in readable table layout. See [release notes](docs/release-0.5.md).                                            |
-| [0.4.0](CHANGELOG.md#040--8-september-2026) | 8 September 2026 | **Breaking** — see [migration guide](docs/release-0.4.md). Renames `title` to `heading` on 7 components; adds an enforced public API surface check.                                      |
-| [0.3.1](CHANGELOG.md#031--8-september-2026) | 8 September 2026 | Patch: bug fixes from a full codebase audit, CI/Dependabot, and a backward-compatibility policy. No public API changes.                                                                  |
-| [0.3.0](CHANGELOG.md#030--8-september-2026) | 8 September 2026 | Dark theme, official Convert brand assets and logos, ActionMenu, Tooltip, ToastRegion, Breadcrumbs, SearchSelect, DateRange                                                              |
-| [0.2.0](CHANGELOG.md#020--8-september-2026) | 8 September 2026 | Forms, Badge, TextLink, Tabs, Disclosure, ConfirmationDialog, feedback components, Metric/Progress, DataTable, optional charts, RoadmapBoard, SignInForm, card compositions              |
-| [0.1.0](CHANGELOG.md#010--7-september-2026) | 7 September 2026 | Initial delivery: tokens/foundations, Card, Select, DashboardShell/DashboardSidebar                                                                                                      |
+## Before you start
 
-Full per-version detail, including every component added and any migration notes, lives in [CHANGELOG.md](CHANGELOG.md).
+You need Node 22.22.2 and pnpm 10.33.0. To install pnpm, run `corepack enable` once.
 
-## Browse the components locally
+Your application supplies React 19.2. The package name in imports is `@convert/product-ui`, although the repository is called `cd-product-ui`.
 
-Anyone on the team can browse every component, its states, props and code, without installing the package into a project or having a GitHub Pages/Vercel account. This runs Storybook on your own computer.
+## Install the library
 
-Prerequisites: Node **22.22.2** and pnpm **10.33.0** (this repository pins the exact version; run `corepack enable` once if `pnpm` isn't already available).
+There is no npm registry package to install by name. Build an archive from a version tag, then install that archive into your application.
 
-```sh
-git clone https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
-cd convert-product-ui
-pnpm install --frozen-lockfile
-pnpm storybook
-```
+Do not install from a GitHub branch. The repository holds source, and only the archive contains the compiled files your application needs.
 
-Open [http://127.0.0.1:6006](http://127.0.0.1:6006/?path=/docs/start-here-welcome--docs) in a browser once the terminal shows it's ready. Storybook watches the source, so it updates live if you pull later changes. Stop it with Ctrl+C when you're done.
+### 1. Build the archive
 
-Start with **Start here → Welcome**, then **Start here → Component guide** for what to use and when, and **Patterns → Dashboard** to see components working together in a realistic screen. No fonts, build step or account are required; without licensed Roobert files installed locally, headings and body text fall back to Geist and Arial, which is expected.
-
-This clone is read-only browsing. To use components in your own project instead, install the packaged release below.
-
-## Install in your project
-
-You do not need to fork the repository to use the library. Build an archive from a fixed version, then install that archive as a dependency in your application. There is no npm registry package to install by name yet.
-
-### 1. Build the selected library version
-
-Use Node **22.22.2** and pnpm **10.33.0**, recorded in this repository. In a terminal, outside your application's folder:
+Run these commands outside your application's folder:
 
 ```sh
 git clone --branch v0.7.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
@@ -67,50 +43,47 @@ pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-The version tag selects a fixed source revision. Packing builds the library and creates `artifacts/convert-product-ui-0.7.0.tgz`. One team member can build this archive and share it with other authorised projects.
+This creates `artifacts/convert-product-ui-0.7.0.tgz`. One person can build the archive and share it with other authorised projects.
 
-### 2. Install the archive in your application
+### 2. Add the archive to your application
 
-Copy the archive into a `vendor` folder in your application. From **your application's folder**, choose its package manager:
+Copy the archive into a `vendor` folder in your application, then install it from your application's folder:
 
 ```sh
-# pnpm
 pnpm add --save-exact ./vendor/convert-product-ui-0.7.0.tgz
+```
 
-# or npm
+Using npm instead:
+
+```sh
 npm install --save-exact ./vendor/convert-product-ui-0.7.0.tgz
 ```
 
-Commit the archive, `package.json` and your lockfile in the consuming project so colleagues and CI install the same package. If that project ignores `*.tgz`, add an exception for this vendor archive. Use a short relative path as shown.
+Commit the archive, `package.json` and your lockfile so colleagues and CI install the same files. If your project ignores `*.tgz`, add an exception for the vendor archive.
 
-Do not install directly from the GitHub branch: the repository contains source, and the archive supplies the compiled files applications need. The package name in imports is **`@convert/product-ui`**, even though the repository is called **`cd-product-ui`**.
+### Optional: charts
 
-See the [component guide](docs/component-catalogue.md) for the full API, examples and boundaries.
-
-### Optional charts
-
-Only applications using `@convert/product-ui/charts` need the chart peers:
+Install the chart peers only if you import from `@convert/product-ui/charts`:
 
 ```sh
 pnpm add --save-exact recharts@3.10.1 react-is@19.2.8
-# or: npm install --save-exact recharts@3.10.1 react-is@19.2.8
 ```
 
-Match react-is to your application's React version. These pins match the tested React 19.2.8 setup. Import `DataChart`, `Sparkline`, `ChartContainer`, `ChartTooltipContent` or `ChartLegend` from `@convert/product-ui/charts`. The core component entry does not import Recharts.
+Match `react-is` to your application's React version. The main entry point never imports Recharts, so applications that skip charts do not pay for them.
 
-## Use with React
+## Use the components with React
 
-The complete component implementation supports **React 19.2**. Your application supplies React and React DOM. Import the compiled stylesheet once at the application root:
+Import the stylesheet once at your application root, then import components by name:
 
 ```tsx
 import '@convert/product-ui/styles.css'
-import { Card, Select } from '@convert/product-ui'
+import { Card, StyledSelect } from '@convert/product-ui'
 
 export function Projects() {
   return (
     <div className="cui-root">
       <Card heading="Projects" description="A clear view of current work.">
-        <Select
+        <StyledSelect
           label="Project view"
           defaultValue="all"
           options={[
@@ -124,17 +97,23 @@ export function Projects() {
 }
 ```
 
-The example supplies a styled native select. Connect its value and change handler to your application's filtering logic. The library does not fetch or store project data.
+Wrap product content in `cui-root` to apply the scoped base styles. `DashboardShell` applies it for you.
 
-Use `DashboardShell` for the responsive page frame. It already applies `cui-root`. Storybook shows the sidebar, layout and component states; [the separate React example](examples/react) demonstrates package imports.
+Connect each component's value and change handler to your application's own logic.
 
-In Next.js, import CSS in the root layout and add `'use client'` to consuming components that use state or event handlers. Interactive library modules retain their client directives. Card and static primitives support server rendering. The expanded package has been built in a Next.js 16.3.4 App Router application with React 19.2.8, including server-rendered cards and client charts/forms.
+For the full API of every component, see the [component guide](docs/component-catalogue.md).
 
-Your application does **not** need Tailwind or Storybook to use this package.
+### Next.js
 
-## Use tokens and CSS in other frameworks
+Import the CSS in your root layout. Add `'use client'` to your own components that use state or event handlers. Library modules that need it already carry their own client directives, and `Card` and the static primitives render on the server.
 
-Plain HTML, Vue and other frameworks can use the same foundations. Import the token stylesheet in your application's stylesheet entry:
+The packed archive builds in a Next.js 16.3.4 App Router application on React 19.2.8, including server-rendered cards and client-side charts and forms.
+
+Your application does not need Tailwind or Storybook to use this package.
+
+## Use the tokens without React
+
+Plain HTML, Vue and other frameworks can use the same foundations. Import the token stylesheet in your stylesheet entry:
 
 ```css
 @import '@convert/product-ui/tokens.css';
@@ -149,87 +128,88 @@ Plain HTML, Vue and other frameworks can use the same foundations. Import the to
 }
 ```
 
-Alternatively, import `@convert/product-ui/styles.css` for the tokens and ready-made component classes. See [the plain HTML example](examples/html/index.html). Typed token data is available from `@convert/product-ui/tokens`.
+To get the ready-made component classes as well, import `@convert/product-ui/styles.css` instead. For typed token data in JavaScript, import from `@convert/product-ui/tokens`. See the [plain HTML example](examples/html/index.html).
 
-React components require React. Importing CSS alone does not supply drawer behaviour, focus management or framework bindings. Other frameworks provide their own interactions. This first release keeps one package and version for foundations and React; it does not yet offer separate Vue or Web Component implementations.
+Importing CSS gives you appearance only. Drawer behaviour, focus management and keyboard handling come from the React components.
 
-## Styling and fonts
+### Class and token naming
 
-Use semantic tokens rather than copying colour values. The system uses a warm neutral page, muted section bands and white cards, with restrained forest and sage accents. Keep client branding and business-specific styling in the consuming application.
+Component classes and CSS variables use the `cui` prefix. The library's internal Tailwind authoring utilities use a separate `cdu` prefix, which you can ignore.
 
-Component classes and CSS variables use the `cui` prefix. Wrap custom product content in `cui-root` to apply the scoped base styles. There is no global reset. The library's Tailwind authoring utilities use a separate `cdu` prefix.
+The library ships no global reset. It styles only what sits inside `cui-root`.
 
-The font stack is **Roobert, Geist, Arial, sans-serif**. Applications load their own licensed Roobert and Geist fonts. Font files are excluded from Git and the installable package; without them, the browser uses the next available fallback.
+Use the semantic tokens rather than copying colour values, so a theme change reaches your application on upgrade. Keep client branding in your own application.
 
-## Update an existing project
+### Fonts
 
-Library improvements do not automatically change installed applications. Upgrade each project deliberately:
+The font stack is Roobert, Geist, Arial, sans-serif. Your application loads its own licensed Roobert and Geist files. Font files are excluded from Git and from the package, so without them the browser uses the next fallback. That fallback is expected, not a fault.
 
-1. Read the [changelog](CHANGELOG.md) and migration notes for the selected version. Review any changed tokens, component APIs or appearance.
-2. Build an archive from that version's Git tag using the installation steps above. Keep the previous archive available for rollback.
-3. Copy the new archive into the application's `vendor` folder and install its exact filename.
-4. Run the application's checks and review important screens, including keyboard navigation, errors, long content and mobile layout.
-5. Commit the new archive, dependency and lockfile changes in an application pull request. Merge after review.
+## Upgrade a project
 
-For example, to move a project from 0.3.1 to 0.4.0:
+Upgrading is deliberate. A new library version does not reach your application until you install it.
+
+1. Read the [changelog](CHANGELOG.md) and the release notes for the version you are moving to. Check for changed tokens, component APIs and appearance.
+2. Build an archive from that version's tag, using the [install steps](#1-build-the-archive). Keep the previous archive so you can roll back.
+3. Copy the new archive into `vendor` and install its exact filename.
+4. Run your application's checks. Review your main screens, including keyboard navigation, error states, long content and mobile layout.
+5. Commit the archive, dependency and lockfile changes in one pull request.
+
+To roll back, revert the upgrade commit and reinstall from the restored lockfile.
+
+Never replace an existing archive with different contents under the same filename.
+
+During 0.x, a minor version can contain a breaking change, so read its release notes before upgrading. Every breaking change is listed in the [backward-compatibility policy](docs/release-process.md#backward-compatibility) and coordinated with the projects in [CONSUMERS.md](CONSUMERS.md) first.
+
+## Browse the components locally
+
+To see every component, its states and its source without installing anything, run Storybook from a clone:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.4.0.tgz
-# or: npm install --save-exact ./vendor/convert-product-ui-0.4.0.tgz
+git clone https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+cd convert-product-ui
+pnpm install --frozen-lockfile
+pnpm storybook
 ```
 
-To roll back, revert the application's upgrade commit and reinstall from its restored lockfile. Never replace an existing version's archive with different contents.
+Open <http://127.0.0.1:6006> when the terminal says it is ready. Storybook reloads as you pull changes. Press Ctrl+C to stop it.
 
-During 0.x, a minor version can include breaking changes, so read its migration notes. A future registry can simplify installation, while keeping the same deliberate upgrade process. Maintainers follow the [release process](docs/release-process.md).
+Start at **Start here > Welcome**, then **Start here > Component guide** for what to use and when. **Patterns > Dashboard** shows the components working together in a realistic screen.
 
-## Suggest features, report bugs or contribute
+## Report a bug or suggest a component
 
-- **Feature or improvement idea:** [open a feature request](https://github.com/tomrosscd/cd-product-ui/issues/new?template=feature-request.yml). Describe the internal-tool use case and where the existing system falls short. Code is not required.
-- **Something broken:** [report a bug](https://github.com/tomrosscd/cd-product-ui/issues/new?template=bug-report.yml) with the library version, reproduction steps and expected behaviour.
-- **Code or documentation change:** follow [CONTRIBUTING.md](CONTRIBUTING.md). Team members with write access use a branch; contributors without write access can fork and submit a pull request back to this repository.
+- To report something broken, [open a bug report](https://github.com/tomrosscd/cd-product-ui/issues/new?template=bug-report.yml) with the library version, reproduction steps and what you expected.
+- To suggest a component or improvement, [open a feature request](https://github.com/tomrosscd/cd-product-ui/issues/new?template=feature-request.yml). Describe the internal-tool problem you are solving. You do not need to write code.
+- To contribute a change, follow [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Search [existing issues](https://github.com/tomrosscd/cd-product-ui/issues) first. Discuss new components or breaking changes before building them. Use neutral examples and remove client information from screenshots and reports. Maintainers review contributions before they enter a release; accepted code reaches applications when those projects upgrade.
+Search [existing issues](https://github.com/tomrosscd/cd-product-ui/issues) first. Discuss new components and breaking changes before building them. Keep client information out of examples, screenshots and reports.
 
-## Develop the library and run release checks
+## Develop the library
 
-Building or changing components needs the same clone as [browsing Storybook](#browse-the-components-locally), plus the checks below before proposing a change. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
+To change the library rather than use it, see [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow, and [docs/release-process.md](docs/release-process.md) for how a version ships.
 
-For licensed local preview fonts, place these files in the ignored `local-fonts/` folder:
-
-- `Roobert-Regular.woff2`, `Roobert-Medium.woff2`, `Roobert-SemiBold.woff2`
-- Geist regular, medium and semibold named `font-0.ttf`, `font-1.ttf`, `font-2.ttf`
-
-Storybook also runs without these files. A static Storybook build includes preview fonts when present; confirm distribution rights before hosting that build.
-
-Install Chromium once for browser tests, then run the release checks:
+Install Chromium once, then run the checks CI runs:
 
 ```sh
 pnpm exec playwright install chromium
-pnpm check
-pnpm format:check
-pnpm package:check
-pnpm next:check
-pnpm api:check
+pnpm check && pnpm format:check && pnpm api:check && pnpm css:check && pnpm test:dark && pnpm package:check && pnpm next:check
 ```
 
-`check` verifies generated tokens, types, lint, unit contracts, browser stories, automated accessibility, the library build and static Storybook. `package:check` installs the actual archive into an isolated consumer and verifies exports, server rendering and a Vite production build. It needs registry access if dependencies are not cached. `next:check` then builds the packed archive in a separate Next.js application. `api:check` diffs the compiled public API against `etc/*.api.md` and fails if it changed unexpectedly; run `pnpm api:update` and commit the result when a change is intentional (see [the backward-compatibility policy](docs/release-process.md#backward-compatibility)).
+To edit a token, change `tokens/tokens.json` and run `pnpm tokens`. Commit the generated files with your source change.
 
-Edit `tokens/tokens.json` and run `pnpm tokens` to update generated CSS, responsive breakpoints and typed data. Storybook's live token reference uses that same generated source. Commit generated changes with the source change.
+For licensed preview fonts, put `Roobert-Regular.woff2`, `Roobert-Medium.woff2` and `Roobert-SemiBold.woff2` in the ignored `local-fonts/` folder, along with Geist regular, medium and semibold named `font-0.ttf`, `font-1.ttf` and `font-2.ttf`. Storybook runs without them. Confirm distribution rights before hosting a static Storybook build that includes them.
 
-## Further guidance
+## Reference
 
-- [0.7.0 release notes](docs/release-0.7.md) — focus ring contrast fix, neutral dropdown state tokens, Lucide icons, component-states reference
-- [0.6.0 release notes](docs/release-0.6.md) — Chip, SegmentedControl, Combobox, formatted inputs, PeriodNavigator, FilterToolbar
-- [0.5.0 release notes](docs/release-0.5.md) — Pagination, StyledSelect, Calendar/DatePicker/MonthPicker, readable tables
-- [0.4.0 migration guide](docs/release-0.4.md) — read this before upgrading, it has a breaking rename
-- [0.3.0 usage and migration](docs/release-0.3.md)
-- [Expanded component guide](docs/component-catalogue.md)
+- [Component guide](docs/component-catalogue.md): every component, its API and its boundaries
+- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.7.md)
 - [Architecture and boundaries](docs/architecture.md)
-- [AI coding guidance and Impeccable review standard](docs/ai-guidance.md), plus [repository rules](AGENTS.md)
+- [Review and release process](docs/release-process.md)
+- [Known consumers](CONSUMERS.md): check before shipping a breaking change
+- [Validation and limitations](docs/validation.md)
+- [Roadmap](ROADMAP.md)
+- [AI coding guidance](docs/ai-guidance.md) and [repository rules](AGENTS.md)
 - [Consumer examples](examples/README.md)
-- [Review and release process](docs/release-process.md), including the backward-compatibility policy for breaking changes
-- [Known consumers](CONSUMERS.md) — check before shipping a breaking change
-- [Validation and current limitations](docs/validation.md)
-- [Roadmap: known gaps and planned work](ROADMAP.md)
 
-This repository contains proprietary Convert Digital code; see [LICENSE](LICENSE). Repository visibility does not grant an open-source licence. `private: true` in the package prevents accidental registry publication and does not prevent the archive installation described above.
+Koko Monthly Review V4 defines the product visual language. The Convert website informs technical conventions. This library is independent of both.
+
+This repository contains proprietary Convert Digital code. See [LICENSE](LICENSE). Repository visibility does not grant an open-source licence. The `private: true` field prevents accidental publication to a registry and does not affect the archive install described above.

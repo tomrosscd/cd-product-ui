@@ -1,14 +1,64 @@
 # Active work and handoff
 
-Last updated: 9 September 2026 (interaction-quality pass, items 1–3 complete; item 4's consolidated states page now done, and a WCAG focus-ring failure found and fixed while building it). Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
+Last updated: 9 September 2026. Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
 
-## Active work right now: interaction-quality pass (branch `feature/interaction-quality-pass`)
+## Start here: what to work on next
 
-PR #9 (shadcn registry pilot) is **merged** to `main` (labelled `experimental`, no tag) — the user did the final human keyboard check on a purpose-built test page after this session's browser-automation tooling couldn't exercise real Enter/Space input; see `docs/registry-pilot.md`'s closing note. The 5-step sequence from the prior section of this file is now fully done through step 2.
+Read AGENTS.md first, then this section. `main` is at 0.7.0 with PR #10 and PR #11 merged. Nothing is tagged. Do not merge or tag without the user's explicit approval: that standing rule has not changed.
 
-The user then gave a detailed, four-part interaction-quality brief (focus ownership, dropdown interaction states, icon standardisation, full verification) to do **before** Pass 3, on its own branch, not merged without approval. Items 1–3 are done and verified. Item 4 is now closed as far as this environment allows: its one tooling-independent gap (the consolidated states page) is built, and the three remaining gaps are environment- or scope-blocked, listed below. **PR #10 is open and was green on `8b321bc`; two further commits have been pushed since, so re-read CI before drawing conclusions from that earlier green.** Still not merged, per the standing rule.
+The library works and is internally consistent. What follows is ordered by what unblocks the first coworker actually using it, not by size.
 
-**Commits on this branch, in order:** `dc5a599` (focus ownership), `2f7ec02` (Combobox popup sizing/indentation/alignment), `5a2b106` (dropdown neutral tokens + hover/keyboard-active model, with a real self-correction — see below), `690193d` (Foundations/Dropdown states story), `c1b45ce` (Lucide icon set + remaining Unicode fixes + search-clear), `c955733` (Foundations/Icons story), `139e831` (primary button focus-ring contrast fix — see item 5 below), `a459b30` (Foundations/Component states page).
+### 1. Tag the release, then simplify the install (highest value, small)
+
+`v0.7.0` is fully prepared: `package.json`, `CHANGELOG.md`, `docs/release-0.7.md` and the README version labels are all done, and every CI gate passes. Only steps 6 and 7 of `docs/release-process.md` remain, and both need the user.
+
+`.github/workflows/release.yml` builds the archive on a `v*` tag and attaches it to the GitHub Release, after checking the tag matches `package.json`. It has never run, because no tag has been pushed since it landed. **Watch its first run.**
+
+Once a tag produces a release asset, update the README's install section: it still documents clone, install, pack, copy, install. With an asset it collapses to a single `pnpm add <release asset URL>`. **Do not make that edit before the asset exists**, or the README documents a URL that 404s.
+
+### 2. Fill in CONSUMERS.md (small, and it protects everything else)
+
+Still entirely placeholder rows. It is the only mechanism protecting consumers from a breaking change: there is no telemetry and no registry download counts. `pnpm api:check` and `pnpm css:check` catch a breaking change mechanically, but only this file says who to warn. Add the coworker's project, contact and installed version the moment they install.
+
+### 3. Read-only list and board patterns (largest real gap)
+
+The first external consumer needed these and got nothing usable, so they hand-composed `Card`, `Badge` and `TextLink` instead. Full context in ROADMAP.md section 2. In short: `ActivityList` and `ResourceList` take fixed, string-only shapes with no way to combine a leading indicator, a per-row action link and trailing metadata; `RoadmapBoard` forces an editable stage `Select` and priority `Checkbox` onto every card, which is wrong for a view nobody edits.
+
+Wanted: a read-only list row that composes indicator, content, action and meta, and a board that renders cards without imposing edit controls. Make `RoadmapBoard`'s editing opt-in rather than built in, additively, so nothing existing breaks.
+
+### 4. Decide what to do about `assets/` (needs the user, not a coding decision)
+
+`assets/` is 4.8MB of a 5.7MB installed package. The library itself is 940KB, so 84% of what every consumer installs is brand imagery: 26 JPEGs and 30 PNGs totalling 4.6MB, against 24 SVGs totalling 30KB.
+
+Do not just delete them. `./assets/brand/*` is a declared export in `package.json`, so removing it is a breaking change under the backward-compatibility policy. `src/brand-assets.ts` is a provenance manifest whose header says paths are "relative to your hosted asset base", which suggests consumers may be expected to host these themselves. Options worth putting to the user: ship SVG only, drop the raster downloads to a separate archive, or keep as is and accept the weight.
+
+### 5. Softer negative badge (small, but changes an existing default)
+
+`.cui-badge-negative` uses `--cui-surface-page` as its background, which is nearly the page colour, so it reads as bare text beside the now-tinted positive and warning badges. Giving it a soft tint would make the three-state set coherent. This changes an existing component's default appearance, so it needs the backward-compatibility process rather than a drive-by fix.
+
+### 6. Registry hardening, only if the coworker wants `npx shadcn add`
+
+Unchanged and still not started: real hosting, immutable version URLs, install/update docs, and a token-drift check comparing the registry's shipped tokens against a fresh generation. `public/r/` is gitignored, so nothing is hosted to point at. The registry's own `button` and `chip` never received the interaction-quality pass. The user has not yet decided whether the coworker takes this path or the archive path; ask before building any of it.
+
+### 7. Then Pass 3
+
+ROADMAP.md's "make tables and editing useful for real work": `DataTable` expansion, column configuration, grouped rows, a details drawer, editable cells, file upload, wizard/stepper. Branch off `main` as `feature/product-ui-0.8-tables` or similar.
+
+### Known gaps that are not scheduled
+
+- **Forced colours.** The `@media (forced-colors: active)` blocks in `data.css`, `controls.css` and `components.css` have not been verified in this or the previous two sessions, because no session's tooling could emulate the mode. Needs a real Windows high-contrast check.
+- **RTL.** No `[dir="rtl"]` support exists. Out of scope until someone decides to add it (ROADMAP.md section 5).
+- **Real Roobert rendering.** The licensed files are deliberately absent, so everything has been reviewed on the Geist fallback.
+
+### Conventions worth knowing before you change anything
+
+- `pnpm api:check` guards the TypeScript surface, `pnpm css:check` guards the CSS surface (classes, `--cui-*` properties, `data-cui-*` attributes). Both fail CI on an unaccepted change. Run `pnpm api:update` or `pnpm css:update` and commit the snapshot when a change is intentional.
+- The distributed stylesheet is plain CSS on purpose. Do not reintroduce Tailwind into `src/styles/index.css`: a consumer's Next.js build hard-failed on the `@layer` at-rules it used to emit. AGENTS.md records this.
+- Verify claims rather than reasoning about them. Several defects this session were only found by measuring: the focus ring that computed 1.00:1, the Tailwind failure reproduced against a real v3 pipeline, the `engines` warning that turned out to be noise rather than a blocker.
+
+## Interaction-quality pass detail (merged in PR #10)
+
+**Note:** item 1 below describes the primary button's focus ring using `--cui-text-inverse`. That was later found to fail WCAG 1.4.11 and was replaced by an offset ring in `139e831`. See section 5.
 
 ### 1. Focus ownership — done
 
