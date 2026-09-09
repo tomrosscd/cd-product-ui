@@ -72,6 +72,137 @@
   padding: var(--cui-space-16);
   font-family: var(--cui-font-sans);
 }
+/* A real Radix Popover, not DropdownMenu — .cui-popover above sizes itself with
+   --radix-dropdown-menu-content-available-height, which Radix never sets on a Popover (the same
+   gap Combobox's own panel had against Select — see the note beside .cui-combobox-panel in
+   pickers.css). Its own class with the Popover-specific variable instead. */
+.cui-notification-panel {
+  background: var(--cui-surface-card);
+  color: var(--cui-text-primary);
+  border: var(--cui-border-width) solid var(--cui-border-control);
+  border-radius: var(--cui-radius-card);
+  box-shadow: var(--cui-shadow-card);
+  z-index: var(--cui-layer-dialog);
+  width: min(360px, calc(100vw - var(--cui-space-32)));
+  max-height: min(480px, var(--radix-popover-content-available-height));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cui-notification-trigger {
+  position: relative;
+  display: inline-flex;
+}
+.cui-notification-badge {
+  position: absolute;
+  top: calc(-1 * var(--cui-space-4));
+  right: calc(-1 * var(--cui-space-4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--cui-space-16);
+  height: var(--cui-space-16);
+  padding-inline: var(--cui-space-4);
+  border-radius: var(--cui-radius-round);
+  background: var(--cui-colour-negative);
+  color: var(--cui-colour-white);
+  font-size: 10px;
+  font-weight: var(--cui-font-semibold);
+  line-height: 1;
+}
+.cui-notification-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cui-space-8);
+  padding: var(--cui-space-12) var(--cui-space-16);
+  border-bottom: var(--cui-border-width) solid var(--cui-border-subtle);
+  flex-shrink: 0;
+}
+.cui-notification-heading {
+  font-weight: var(--cui-font-semibold);
+}
+.cui-notification-mark-all {
+  background: none;
+  border: 0;
+  padding: var(--cui-space-0);
+  color: var(--cui-text-accent);
+  font: inherit;
+  font-size: var(--cui-type-caption);
+  cursor: pointer;
+}
+.cui-notification-mark-all:hover {
+  text-decoration: underline;
+}
+.cui-notification-list {
+  list-style: none;
+  margin: var(--cui-space-0);
+  padding: var(--cui-space-0);
+  overflow-y: auto;
+}
+.cui-notification-empty {
+  padding: var(--cui-space-32) var(--cui-space-16);
+  text-align: center;
+  color: var(--cui-text-secondary);
+}
+.cui-notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cui-space-12);
+  width: 100%;
+  padding: var(--cui-space-12) var(--cui-space-16);
+  border: 0;
+  background: none;
+  color: inherit;
+  text-decoration: none;
+  text-align: start;
+  cursor: pointer;
+  border-bottom: var(--cui-border-width) solid var(--cui-border-subtle);
+}
+.cui-notification-item:last-child {
+  border-bottom: 0;
+}
+.cui-notification-item:hover {
+  background: var(--cui-dropdown-hover);
+}
+.cui-notification-icon {
+  flex-shrink: 0;
+  margin-top: var(--cui-space-4);
+}
+.cui-notification-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-4);
+  min-width: 0;
+}
+.cui-notification-title {
+  display: flex;
+  align-items: center;
+  gap: var(--cui-space-8);
+  font-weight: var(--cui-font-medium);
+  font-size: var(--cui-type-compact);
+}
+.cui-notification-dot {
+  flex-shrink: 0;
+  width: var(--cui-space-8);
+  height: var(--cui-space-8);
+  border-radius: var(--cui-radius-round);
+  background: var(--cui-accent-primary);
+}
+.cui-notification-description {
+  color: var(--cui-text-secondary);
+  font-size: var(--cui-type-caption);
+}
+.cui-notification-timestamp {
+  color: var(--cui-text-secondary);
+  font-size: var(--cui-type-caption);
+}
+.cui-notification-footer {
+  padding: var(--cui-space-8) var(--cui-space-16);
+  border-top: var(--cui-border-width) solid var(--cui-border-subtle);
+  text-align: center;
+  flex-shrink: 0;
+}
 .cui-breadcrumbs,
 .cui-breadcrumbs li {
   display: flex;

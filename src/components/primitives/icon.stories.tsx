@@ -42,6 +42,7 @@ const allNames: IconName[] = [
   'loading',
   'sidebar-collapse',
   'sidebar-expand',
+  'notifications',
 ]
 function IconReference() {
   return (

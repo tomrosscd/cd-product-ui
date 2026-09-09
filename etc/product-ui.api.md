@@ -1201,6 +1201,40 @@ export interface MonthPickerProps {
     value: string;
 }
 
+// @public
+export function NotificationCentre(input: NotificationCentreProps): JSX.Element;
+
+// @public (undocumented)
+export interface NotificationCentreProps {
+    // (undocumented)
+    emptyLabel?: string;
+    // (undocumented)
+    footer?: ReactNode;
+    // (undocumented)
+    items: readonly NotificationItem[];
+    label?: string;
+    // (undocumented)
+    onItemClick?: (item: NotificationItem) => void;
+    // (undocumented)
+    onMarkAllRead?: () => void;
+}
+
+// @public (undocumented)
+export interface NotificationItem {
+    // (undocumented)
+    description?: string;
+    // (undocumented)
+    href?: string;
+    icon?: ReactNode;
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    read?: boolean;
+    timestamp?: string;
+    // (undocumented)
+    title: string;
+}
+
 // @public (undocumented)
 export function PageHeader(input: PageHeaderProps): JSX.Element;
 

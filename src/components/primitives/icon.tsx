@@ -5,6 +5,7 @@ import {
   ArrowRight,
   ArrowUp,
   ArrowUpDown,
+  Bell,
   Calendar,
   Check,
   ChevronDown,
@@ -81,6 +82,7 @@ const icons = {
   loading: LoaderCircle,
   'sidebar-collapse': PanelLeftClose,
   'sidebar-expand': PanelLeftOpen,
+  notifications: Bell,
 } as const
 export type IconName = keyof typeof icons
 export function Icon({ name, className, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
