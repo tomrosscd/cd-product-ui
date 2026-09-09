@@ -1,10 +1,28 @@
 # Active work and handoff
 
-Last updated: 9 September 2026. Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
+Last updated: 9 September 2026 (post-0.9.0, two open PRs awaiting review). Update this file at each meaningful checkpoint and before stopping or handing off. Read AGENTS.md and the linked release documentation before editing.
 
-## Active feature: dashboard composition (branch `feature/dashboard-composition`, PR #12)
+## Current release: v0.9.0 on `main`. Two PRs open, both green, neither merged
 
-User approved implementation on 9 September 2026. Branch based on `3be701c` (0.7.0). No tag, merge or release is authorised by this feature task.
+`main` is at `v0.9.0` ("tables that carry real data" — see `docs/release-0.9.md`). PRs #12, #16–#21 are all merged; treat `main`/`CHANGELOG.md`/git log as the source of truth for released work, not this file's older sections below (kept for history).
+
+The first real external consumer, **Sebastian's `cd_capacity` app (Planwerk)**, was cloned read-only into a scratchpad (never pushed to, per explicit instruction) and used to drive this round of work: installed the real `v0.9.0` release, ran its build and test suite, and read its actual source for genuine adoption friction rather than guessing at gaps.
+
+**Two branches, both CI-green, both awaiting the user's review before merge:**
+
+1. **[PR #22](https://github.com/tomrosscd/cd-product-ui/pull/22)** (`feature/sidebar-nested-sections`) — `DashboardSidebar`'s `SidebarSection.items` now accepts `SidebarEntry[]` (sections can nest), because the consumer's real "Allocation" group needed separate "FE"/"BE" sub-groups and the previous single level of grouping couldn't express that. Also fixed three real bugs found via live visual QA against a running Storybook, each verified by measurement, not assumption: the brand-row collapse toggle (48px) overflowed the sidebar's own content width by 24px against the real `ConvertLogo` (now 32px, still clears WCAG's 24px minimum target size); the collapsed rail's reserved space for the expand button read as excessive (workspace-block padding and the matching reserved space both shrunk together, keeping the "no vertical jump between states" guarantee); dropdown rows' keyboard-active ring used `outline` with a negative offset, which doesn't shrink its own corner radius to match, so it clipped at the corners (switched to an inset `box-shadow`, which follows border-radius exactly). Also reduced `--cui-focus-width` 2px → 1px per direct visual feedback.
+2. **[PR #23](https://github.com/tomrosscd/cd-product-ui/pull/23)** (`feature/button-variants-sizes`) — `Button` gained `outline`/`destructive`/`link` variants and `sm`/`lg`/`icon` sizes, additive to the existing `primary`/`secondary`/`quiet`. Confirmed, not speculative: the consumer's own `SheetsImportPanel.tsx` uses `variant="outline"` on its own local shadcn Button specifically because this library's `Button` never had that variant or any size prop — a concrete reason a coworker reaches for a second, parallel button implementation instead of this one.
+
+**Both branches needed two follow-up fixes after the first CI run failed, worth knowing about for next time:**
+
+- `etc/product-ui.css.md` is a CSS-class-surface snapshot (parallel to `api:check`'s API snapshot) — `pnpm css:update` regenerates it, needed whenever a new `.cui-*` class is added (`css:check` is part of the CI job named "Tokens, types, lint, unit/browser tests, build, CSS surface, static Storybook").
+- `registry/tokens/tokens.json`/`tokens.css` are the shadcn registry pilot's own copy of the canonical token source, checked for drift by a dedicated CI job ("Registry token drift check", `pnpm registry:check`/`registry:sync`). Any change to `tokens/tokens.json` needs `pnpm registry:sync` (updates the JSON) followed by manually regenerating `registry/tokens/tokens.css` from it (the registry's own portable `generate-tokens.mjs`, then `pnpm exec prettier --write` to match the committed formatting) and committing both. `pnpm check` alone does not catch either of these two — always also run `pnpm css:check` and `pnpm registry:check` before pushing a branch that touches tokens or adds a class.
+
+**Two roadmap items have real, verified justification from this same consumer** (not speculative — Sebastian built local equivalents because nothing in the library covered them): **Notification centre** (ROADMAP.md #27, his own `NotificationBell.tsx`) and **Wizard/stepper** (ROADMAP.md #16, his own `WizardStepIndicator.tsx`). The user's explicit sequencing choice: review/merge the two open PRs above before starting either of these, to avoid the branch backlog growing further. Do not start them until told to.
+
+The GitHub Pages / shadcn-registry-hosting approach was tried and abandoned this session: two successful Actions deployments never actually took effect on the live site (stale content served despite the API reporting success — a genuine, unresolved platform issue, not a config mistake), and the user explicitly chose to drop it in favour of the GitHub Release `.tgz` install method, which is what the real consumer actually uses and what was verified working end-to-end. GitHub Pages has been disabled on the repository. The registry pilot's source files remain in the repo (registry hardening from PR #17 is still real, useful work), but hosting it is no longer the plan — don't resume that thread without the user raising it again.
+
+## Historical: dashboard composition (branch `feature/dashboard-composition`, PR #12) — merged
 
 Scope: token-spaced `Stack`/`Grid`/`SplitLayout`/`PageHeader`, flexible `ContentList` rows, explicit read-only roadmap, and a neutral dashboard exercising four metrics, a wide pipeline with supporting card, capacity and dense lists. Legacy layout helpers and editing defaults preserved. No Tailwind directives, no consumer business logic. The coworker's application source was unavailable, so this closes the library's composition gap and supplies an adoption recipe rather than an unverified patch to their app.
 
