@@ -18,7 +18,7 @@ The initial package exports React modules and separate tokens/styles entry point
 
 ## Isolation
 
-Semantic variables and component selectors use `cui`. Optional Tailwind utilities use `cdu`. The build omits Tailwind preflight and applies base rules only within Product UI scopes. Portalled drawer content has its own scope. Consumer resets and CSS can still affect native elements; validate important host screens when adopting the package.
+Semantic variables and component selectors use `cui`. The distributed CSS has no Tailwind directives or global reset. Base rules apply within Product UI scopes. Portalled drawer content has its own scope. Consumer resets and CSS can still affect native elements; validate important host screens when adopting the package.
 
 The package contains no licensed fonts, client data or reference source files. The local catalogue may include ignored fonts for inspection. Font distribution rights must be resolved before hosting that font-containing build.
 

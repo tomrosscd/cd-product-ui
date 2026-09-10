@@ -48,3 +48,6 @@ export * from './components/primitives/content-list.js'
 export * from './components/primitives/drawer.js'
 export * from './components/primitives/column-config-panel.js'
 export * from './components/primitives/inline-edit.js'
+
+export * from './components/primitives/file-upload.js'
+export * from './patterns/wizard.js'

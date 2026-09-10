@@ -4,7 +4,7 @@ A shared design system for Convert dashboards and internal tools. It gives you c
 
 Each project stays on the version it installed until you decide to upgrade.
 
-Version 0.9.0. See the [changelog](CHANGELOG.md) for what changed in each version.
+Version: **0.10.0**. See the [changelog](CHANGELOG.md) for what changed in each version.
 
 [Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components-locally) · [Contribute](CONTRIBUTING.md)
 
@@ -12,7 +12,7 @@ Version 0.9.0. See the [changelog](CHANGELOG.md) for what changed in each versio
 
 | Area       | What it covers                                                                                         |
 | ---------- | ------------------------------------------------------------------------------------------------------ |
-| Tokens     | 94 tokens for colour, surface, spacing, typography, borders, focus, motion and breakpoints             |
+| Tokens     | 101 tokens for colour, surface, spacing, typography, borders, focus, motion and breakpoints            |
 | Components | Forms, selects, tables, tabs, chips, dialogs, feedback, metrics, progress, navigation and date pickers |
 | Patterns   | `DashboardShell`, roadmap board, sign-in form, filter toolbar and card compositions                    |
 | Charts     | Five Recharts recipes behind an optional entry point                                                   |
@@ -22,7 +22,7 @@ The library holds no client data, API calls, authentication or business logic. Y
 
 ## Before you start
 
-You need Node 22.22.2 and pnpm 10.33.0. To install pnpm, run `corepack enable` once.
+Use Node 22.22.2 or later. Library development uses pnpm 10.33.0; applications can use npm or pnpm. Keep one authoritative lockfile and use its frozen install command in CI.
 
 Your application supplies React 19.2. The package name in imports is `@convert/product-ui`, although the repository is called `cd-product-ui`.
 
@@ -31,16 +31,16 @@ Your application supplies React 19.2. The package name in imports is `@convert/p
 Each release attaches a built archive. Install it by URL from your application's folder:
 
 ```sh
-pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.9.0/convert-product-ui-0.9.0.tgz
+pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.10.0/convert-product-ui-0.10.0.tgz
 ```
 
 Using npm instead:
 
 ```sh
-npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.9.0/convert-product-ui-0.9.0.tgz
+npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.10.0/convert-product-ui-0.10.0.tgz
 ```
 
-The URL pins one immutable release, so every colleague and CI run installs identical files. Commit your `package.json` and lockfile.
+The URL identifies one release. Commit `package.json` and its lockfile to retain the archive integrity hash. Release immutability is a project policy; the 0.9.0 hosting metadata does not enforce it.
 
 There is no npm registry package to install by name, and installing from a GitHub branch does not work: the repository holds source, and only the archive contains the compiled files your application needs.
 
@@ -48,19 +48,19 @@ To install a different version, change both version numbers in the URL. Releases
 
 ### Build the archive yourself
 
-Only needed to install a revision that has no release, such as an unreleased branch. Run these outside your application's folder:
+To reproduce the released archive, run these outside your application's folder. Read the [0.10 upgrade notes](docs/release-0.10.md) before adoption.
 
 ```sh
-git clone --branch v0.9.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.10.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-Copy the resulting `artifacts/convert-product-ui-0.9.0.tgz` into a `vendor` folder in your application and install it from there:
+Copy the resulting `artifacts/convert-product-ui-0.10.0.tgz` into a `vendor` folder in your application and install it from there:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.9.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.10.0.tgz
 ```
 
 Commit the archive alongside your lockfile. If your project ignores `*.tgz`, add an exception for it.
@@ -111,7 +111,7 @@ For the full API of every component, see the [component guide](docs/component-ca
 
 Import the CSS in your root layout. Add `'use client'` to your own components that use state or event handlers. Library modules that need it already carry their own client directives, and `Card` and the static primitives render on the server.
 
-The packed archive builds in a Next.js 16.3.4 App Router application on React 19.2.8, including server-rendered cards and client-side charts and forms.
+The compatibility checks cover React/Vite and Next.js App Router. See [validation](docs/validation.md) for exact tested versions and remaining limits.
 
 Your application does not need Tailwind or Storybook to use this package.
 
@@ -138,7 +138,7 @@ Importing CSS gives you appearance only. Drawer behaviour, focus management and 
 
 ### Class and token naming
 
-Component classes and CSS variables use the `cui` prefix. The library's internal Tailwind authoring utilities use a separate `cdu` prefix, which you can ignore.
+Component classes and CSS variables use the `cui` prefix. The distributed stylesheet contains plain CSS and no Tailwind utility layer.
 
 The library ships no global reset. It styles only what sits inside `cui-root`.
 
@@ -194,7 +194,7 @@ Install Chromium once, then run the checks CI runs:
 
 ```sh
 pnpm exec playwright install chromium
-pnpm check && pnpm format:check && pnpm api:check && pnpm css:check && pnpm test:dark && pnpm package:check && pnpm next:check
+pnpm check && pnpm format:check && pnpm api:check && pnpm css:check && pnpm test:dark && pnpm package:check && pnpm next:check && pnpm compatibility:check
 ```
 
 To edit a token, change `tokens/tokens.json` and run `pnpm tokens`. Commit the generated files with your source change.
@@ -205,7 +205,7 @@ For licensed preview fonts, put `Roobert-Regular.woff2`, `Roobert-Medium.woff2` 
 
 - [Component guide](docs/component-catalogue.md): every component, its API and its boundaries
 - [Adoption brief](docs/adopting-in-an-app.md): which component to use for what, and how to upgrade safely
-- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.9.md)
+- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.10.md)
 - [Architecture and boundaries](docs/architecture.md)
 - [Review and release process](docs/release-process.md)
 - [Known consumers](CONSUMERS.md): check before shipping a breaking change
@@ -218,6 +218,6 @@ Koko Monthly Review V4 defines the product visual language. The Convert website 
 
 This repository contains proprietary Convert Digital code. See [LICENSE](LICENSE). Repository visibility does not grant an open-source licence. The `private: true` field prevents accidental publication to a registry and does not affect the archive install described above.
 
-### Dashboard composition (unreleased)
+### Dashboard composition (0.8.0)
 
-For token-spaced layout components, flexible list rows, read-only roadmaps and nested navigation, see [the dashboard composition guide](./docs/dashboard-composition.md), [the adoption brief](./docs/adopting-in-an-app.md) and Storybook **Patterns / Dashboard composition**. These ship in 0.8.0.
+For token-spaced layout components, flexible list rows, read-only roadmaps and nested navigation, see [the dashboard composition guide](./docs/dashboard-composition.md), [the adoption brief](./docs/adopting-in-an-app.md) and Storybook **Patterns / Dashboard composition**. These components shipped in 0.8.0.

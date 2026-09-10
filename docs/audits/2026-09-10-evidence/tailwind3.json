@@ -1,0 +1,10 @@
+{
+  "baseline": {
+    "status": "fail",
+    "reason": "`@layer utilities` is used but no matching `@tailwind utilities` directive is present."
+  },
+  "main": {
+    "status": "pass",
+    "bytes": 58792
+  }
+}

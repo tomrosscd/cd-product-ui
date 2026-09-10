@@ -6,10 +6,13 @@
 
 import { ClassProp } from 'class-variance-authority/types';
 import { ColumnDef } from '@tanstack/react-table';
+import { ColumnOrderState } from '@tanstack/react-table';
+import { ColumnPinningState } from '@tanstack/react-table';
 import { Component } from 'react';
 import { ComponentProps } from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
 import { ErrorInfo } from 'react';
+import { ExpandedState } from '@tanstack/react-table';
 import type { FormEventHandler } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
@@ -17,13 +20,19 @@ import { JSX } from 'react';
 import { JSXElementConstructor } from 'react';
 import { LucideIcon } from 'lucide-react';
 import { MouseEvent as MouseEvent_2 } from 'react';
+import { OnChangeFn } from '@tanstack/react-table';
+import { PaginationState } from '@tanstack/react-table';
 import * as Primitive from '@radix-ui/react-tabs';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { ReactPortal } from 'react';
 import { RefAttributes } from 'react';
+import { RefObject } from 'react';
+import { RowSelectionState } from '@tanstack/react-table';
+import { SortingState } from '@tanstack/react-table';
 import type { SVGProps } from 'react';
 import { VariantProps } from 'class-variance-authority';
+import { VisibilityState } from '@tanstack/react-table';
 
 // @public (undocumented)
 export function ActionCard(input: CardProps & {
@@ -929,24 +938,62 @@ export interface DataTableProps<T> {
     data: T[];
     // (undocumented)
     density?: 'comfortable' | 'compact';
+    enableRowSelection?: boolean;
     // (undocumented)
     getRowId?: (row: T) => string;
     // (undocumented)
+    getRowLabel?: (row: T) => string;
+    getSubRows?: (row: T) => T[] | undefined;
+    // (undocumented)
+    initialTableState?: Partial<DataTableState>;
+    // (undocumented)
+    manualFiltering?: boolean;
+    manualPagination?: boolean;
+    // (undocumented)
+    manualSorting?: boolean;
+    // (undocumented)
     onRetry?: () => void;
+    // (undocumented)
+    onTableStateChange?: OnChangeFn<Partial<DataTableState>>;
     // (undocumented)
     pageSize?: number;
     // (undocumented)
     pagination?: 'legacy' | 'full';
     // (undocumented)
+    rowCount?: number;
+    // (undocumented)
     searchable?: boolean;
     // (undocumented)
     searchLabel?: string;
+    // (undocumented)
+    selectionActions?: (selectedIds: readonly string[]) => ReactNode;
     // (undocumented)
     state?: 'ready' | 'loading' | 'error';
     // (undocumented)
     tableLayout?: 'legacy' | 'scroll';
     // (undocumented)
     tableMinWidth?: number;
+    tableState?: Partial<DataTableState>;
+}
+
+// @public (undocumented)
+export interface DataTableState {
+    // (undocumented)
+    columnOrder: ColumnOrderState;
+    // (undocumented)
+    columnPinning: ColumnPinningState;
+    // (undocumented)
+    columnVisibility: VisibilityState;
+    // (undocumented)
+    expanded: ExpandedState;
+    // (undocumented)
+    globalFilter: string;
+    // (undocumented)
+    pagination: PaginationState;
+    // (undocumented)
+    rowSelection: RowSelectionState;
+    // (undocumented)
+    sorting: SortingState;
 }
 
 // @public
@@ -1050,6 +1097,7 @@ export interface DrawerProps {
     onOpenChange?: (open: boolean) => void;
     // (undocumented)
     open?: boolean;
+    returnFocusRef?: RefObject<HTMLElement | null>;
     trigger?: ReactNode;
 }
 
@@ -1118,10 +1166,38 @@ export interface FieldProps {
 }
 
 // @public
+export function FileUpload(input: FileUploadProps): JSX.Element;
+
+// @public (undocumented)
+export interface FileUploadProps {
+    // (undocumented)
+    accept?: string;
+    // (undocumented)
+    attachments: readonly UploadAttachment[];
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    hint?: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    multiple?: boolean;
+    // (undocumented)
+    onFilesSelected: (files: File[]) => void;
+    // (undocumented)
+    onRemove?: (id: string) => void;
+    // (undocumented)
+    onRetry?: (id: string) => void;
+}
+
+// @public
 export function FilterToolbar(input: FilterToolbarProps): JSX.Element;
 
 // @public (undocumented)
 export interface FilterToolbarProps {
+    actions?: ReactNode;
     // (undocumented)
     activeFilters?: readonly ActiveFilter[];
     filters?: ReactNode;
@@ -1184,6 +1260,8 @@ export interface InlineEditProps {
     // (undocumented)
     placeholder?: string;
     // (undocumented)
+    saveErrorLabel?: string;
+    // (undocumented)
     value: string | null;
 }
 
@@ -1191,6 +1269,7 @@ export interface InlineEditProps {
 export interface InlineEditRenderProps {
     cancel: () => void;
     commit: (value: string | null) => Promise<void>;
+    error?: string;
     // (undocumented)
     saving: boolean;
 }
@@ -1878,7 +1957,49 @@ export function Tooltip(input: {
 }): JSX.Element;
 
 // @public (undocumented)
+export interface UploadAttachment {
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    name: string;
+    progress?: number;
+    // (undocumented)
+    state: 'queued' | 'uploading' | 'complete' | 'error';
+}
+
+// @public (undocumented)
 export function useProductTheme(): ProductTheme;
+
+// @public
+export function Wizard(input: WizardProps): JSX.Element;
+
+// @public (undocumented)
+export interface WizardProps {
+    // (undocumented)
+    activeId: string;
+    // (undocumented)
+    backLabel?: string;
+    // (undocumented)
+    cancelLabel?: string;
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    loading?: boolean;
+    // (undocumented)
+    nextLabel?: string;
+    // (undocumented)
+    onBack?: () => void;
+    // (undocumented)
+    onCancel?: () => void;
+    // (undocumented)
+    onNext: () => void;
+    // (undocumented)
+    steps: readonly StepperStep[];
+}
 
 // (No @packageDocumentation comment for this package)
 

@@ -10,8 +10,8 @@ const meta = {
   tags: ['autodocs'],
   args: {
     trigger: <Button>View project</Button>,
-    heading: 'Vets Love Pets — Lyppard',
-    description: 'PW-118',
+    heading: 'Sample inventory review',
+    description: 'SAMPLE-118',
     children: (
       <>
         <p className="cui-secondary">
@@ -45,7 +45,7 @@ export const OpenAndClose: Story = {
     const trigger = c.getByRole('button', { name: 'View project' })
     await userEvent.click(trigger)
     const body = within(canvasElement.ownerDocument.body)
-    await expect(body.getByRole('dialog', { name: 'Vets Love Pets — Lyppard' })).toBeVisible()
+    await expect(body.getByRole('dialog', { name: 'Sample inventory review' })).toBeVisible()
     await userEvent.keyboard('{Escape}')
     await expect(body.queryByRole('dialog')).not.toBeInTheDocument()
     await expect(trigger).toHaveFocus()

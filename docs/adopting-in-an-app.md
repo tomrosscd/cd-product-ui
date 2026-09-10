@@ -11,7 +11,7 @@ Do not convert a whole screen in one change. Each step below is independently sh
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
 
    ```sh
-   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.9.0/convert-product-ui-0.9.0.tgz
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.10.0/convert-product-ui-0.10.0.tgz
    ```
 
    ```tsx
@@ -49,8 +49,6 @@ Use `ActivityList` or `ResourceList` only for simple string-only rows. They cann
 ### Status and RAG
 
 Use `Badge` with `tone`: `positive`, `warning` (amber), `negative`, `accent`, `neutral`.
-
-**Known limitation.** A badge's background sits close to the surface behind it, measuring between 1.00:1 and 1.37:1, so the chip shape reads faintly and the text colour carries most of the meaning. If your application already has stronger status chips, keep them and use the `--cui-text-warning`, `--cui-text-positive` and `--cui-text-negative` tokens for their colour. A softer tint is on the roadmap.
 
 Never rely on colour alone. Every status needs a text label.
 
@@ -101,7 +99,9 @@ Use `DashboardShell` only if you do not already have an application shell. It re
 
 ### Tables
 
-Use `Table` or `DataTable` as they are. Be aware of what they do not yet do: no column width control, no pinned columns, no column visibility, no server-driven pagination, and column `size` on a TanStack column definition is not applied to rendered cells. For a dense financial table these matter; see [ROADMAP.md](../ROADMAP.md) section 1b.
+Use `Table` for static data. Use `DataTable` for search, sorting, pagination and supplied summary footers. Column sizes and leading sticky columns shipped in 0.9.0.
+
+The 0.10 candidate adds controlled state, server pagination, selection, visibility, pinning and expandable rows. Follow [the table guide](data-table.md) for saved views and remote data. These APIs are not in the 0.9.0 archive.
 
 ## What to leave alone
 
@@ -122,7 +122,7 @@ To roll back, revert that commit and reinstall from the restored lockfile.
 
 ### Upgrading to 0.9.0 specifically
 
-Everything is additive, but three defaults change what an existing screen looks like. Check these before you ship:
+Three defaults change what an existing screen looks like. Check these before you ship:
 
 - **`Badge tone="negative"`** now has a soft red tint. It previously used the page colour, so it read as bare text.
 - **A closed `SidebarSection`** now actually hides its children. They were still visible and still reachable by Tab, despite the section reporting itself closed.

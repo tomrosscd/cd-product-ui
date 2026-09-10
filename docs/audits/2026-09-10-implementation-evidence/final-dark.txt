@@ -1,0 +1,68 @@
+
+> @convert/product-ui@0.10.0-rc.1 test:dark /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> VITE_CUI_THEME=dark vitest run --project storybook
+
+│ ┌────────────────────────────────────────────────────────────────────────────┐
+│ │  Info: Found a setup file with "setProjectAnnotations".                    │
+│ │  Skipping automatic provisioning of preview annotations to avoid           │
+│ │  conflicts. Since Storybook 10.3, "@storybook/addon-vitest" applies these  │
+│ │   automatically.                                                           │
+│ │  You can safely remove the "setProjectAnnotations" call from your setup    │
+│ │  file, or remove the file entirely if you don't have custom code there.    │
+│ └────────────────────────────────────────────────────────────────────────────┘
+
+ RUN  v4.1.11 /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+
+9:48:36 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+9:48:37 PM [vite] (client) [optimizer] bundling dependencies...
+9:48:44 PM [vite] (client) [console.error] An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+9:48:44 PM [vite] (client) [console.error] A component suspended inside an `act` scope, but the `act` call was not awaited. When testing React components that depend on asynchronous data, you must await the result:
+
+await act(() => ...)
+9:48:49 PM [vite] (client) [console.error] Error: Deliberate failure for the story.
+    at Bomb (http://localhost:63315/Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My%20Drive/Tom%20-%20Project%20Working%20Files/Internal/Convert%20Product%20UI%20Design%20System/convert-product-ui/src/components/primitives/error-boundary.stories.tsx?import&browserv=1789040929350:13:20)
+    at Object.react_stack_bottom_frame (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:12866:12)
+    at renderWithHooks (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:4213:19)
+    at updateFunctionComponent (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:5569:16)
+    at beginWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:6140:20)
+    at runWithFiberInDEV (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:851:66)
+    at performUnitOfWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:8429:92)
+    at workLoopSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:8325:37)
+    at renderRootSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:8309:6)
+    at performWorkOnRoot (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:7994:27)
+
+The above error occurred in the <Bomb> component.
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+
+9:48:49 PM [vite] (client) [console.error] Error: Deliberate failure for the story.
+    at Bomb (http://localhost:63315/Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My%20Drive/Tom%20-%20Project%20Working%20Files/Internal/Convert%20Product%20UI%20Design%20System/convert-product-ui/src/components/primitives/error-boundary.stories.tsx?import&browserv=1789040929350:13:20)
+    at Object.react_stack_bottom_frame (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:12866:12)
+    at renderWithHooks (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:4213:19)
+    at updateFunctionComponent (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:5569:16)
+    at beginWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:6140:20)
+    at runWithFiberInDEV (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:851:66)
+    at performUnitOfWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:8429:92)
+    at workLoopSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:8325:37)
+    at renderRootSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:8309:6)
+    at performWorkOnRoot (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=5aad69b1:7994:27)
+
+The above error occurred in the <Bomb> component.
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+
+
+ Test Files  50 passed (50)
+      Tests  230 passed (230)
+   Start at  21:48:36
+   Duration  13.41s (transform 0ms, setup 19.55s, import 23.47s, tests 28.97s, environment 0ms)
+

@@ -14,6 +14,8 @@ export interface FilterToolbarProps {
   searchPlaceholder?: string
   /** Additional filter controls rendered alongside search, e.g. a StyledSelect, Combobox or SegmentedControl. The toolbar doesn't define filter types itself. */
   filters?: ReactNode
+  /** Primary actions sit separately from filtering controls. */
+  actions?: ReactNode
   activeFilters?: readonly ActiveFilter[]
   onClearAll?: () => void
   resultCount?: number
@@ -26,6 +28,7 @@ export function FilterToolbar({
   onSearchChange,
   searchPlaceholder,
   filters,
+  actions,
   activeFilters = [],
   onClearAll,
   resultCount,
@@ -50,6 +53,11 @@ export function FilterToolbar({
           </p>
         )}
       </div>
+      {actions && (
+        <div className="cui-filter-toolbar-actions" role="group" aria-label="Actions">
+          {actions}
+        </div>
+      )}
       {activeFilters.length > 0 && (
         <div className="cui-filter-toolbar-active" role="group" aria-label="Active filters">
           {activeFilters.map((filter) => (

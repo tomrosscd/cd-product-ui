@@ -1,5 +1,5 @@
 'use client'
-import { useState, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Drawer } from './drawer.js'
 import { Button } from './button.js'
 import { Checkbox } from './fields.js'
@@ -44,18 +44,15 @@ export function ColumnConfigPanel({
   const movable = columns.filter((c) => !c.locked)
   const movableDefaults = defaultKeys ?? movable.map((c) => c.key)
 
-  const initialOrder = (): string[] => {
-    const ordered = visibleKeys.filter((k) => !lockedKeys.includes(k))
-    const rest = movable.map((c) => c.key).filter((k) => !ordered.includes(k))
-    return [...ordered, ...rest]
-  }
-  const [order, setOrder] = useState<string[]>(initialOrder)
-  const [visible, setVisible] = useState<Set<string>>(() => new Set(visibleKeys.filter((k) => !lockedKeys.includes(k))))
+  // Selection is controlled: saved views, host rejection and changed permissions are reflected
+  // immediately. Hidden columns remain available in definition order.
+  const allowed = new Set(movable.map((column) => column.key))
+  const selected = [...new Set(visibleKeys.filter((key) => allowed.has(key)))]
+  const order = [...selected, ...movable.map((column) => column.key).filter((key) => !selected.includes(key))]
+  const visible = new Set(selected)
 
   function commit(nextOrder: string[], nextVisible: Set<string>) {
-    setOrder(nextOrder)
-    setVisible(nextVisible)
-    onChange([...lockedKeys, ...nextOrder.filter((k) => nextVisible.has(k))])
+    onChange([...lockedKeys, ...nextOrder.filter((key) => allowed.has(key) && nextVisible.has(key))])
   }
 
   function toggle(key: string) {
@@ -120,7 +117,7 @@ export function ColumnConfigPanel({
                   type="button"
                   className="cui-column-config-reorder-button"
                   onClick={() => move(index, -1)}
-                  disabled={index === 0}
+                  disabled={!isVisible || index === 0}
                   aria-label={`Move ${def.label} up`}
                 >
                   <Icon name="arrow-up" />
@@ -129,7 +126,7 @@ export function ColumnConfigPanel({
                   type="button"
                   className="cui-column-config-reorder-button"
                   onClick={() => move(index, 1)}
-                  disabled={index === order.length - 1}
+                  disabled={!isVisible || index === selected.length - 1}
                   aria-label={`Move ${def.label} down`}
                 >
                   <Icon name="arrow-down" />

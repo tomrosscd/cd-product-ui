@@ -1,6 +1,7 @@
 'use client'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Field } from './fields.js'
+import { parseLocaleNumber } from '../../lib/parse-number.js'
 interface FormattedInputSharedProps {
   label: string
   value: number | undefined
@@ -11,12 +12,8 @@ interface FormattedInputSharedProps {
   required?: boolean
   name?: string
   placeholder?: string
-}
-function parseNumber(raw: string): number | undefined {
-  const cleaned = raw.replace(/[^0-9.-]/g, '')
-  if (cleaned === '' || cleaned === '-') return undefined
-  const value = Number(cleaned)
-  return Number.isFinite(value) ? value : undefined
+  /** Message for incomplete or invalid numeric text. Invalid drafts do not change the model. */
+  invalidInputLabel?: string
 }
 function FormattedNumberInput({
   label,
@@ -25,21 +22,37 @@ function FormattedNumberInput({
   prefix,
   suffix,
   format,
+  locale,
   hint,
   error,
   disabled,
   required,
   name,
   placeholder,
-}: FormattedInputSharedProps & { prefix?: string; suffix?: string; format: (value: number) => string }) {
+  invalidInputLabel = 'Enter a valid number.',
+}: FormattedInputSharedProps & {
+  prefix?: string
+  suffix?: string
+  format: (value: number) => string
+  locale: string
+}) {
   const id = useId()
   const [focused, setFocused] = useState(false)
   const [draft, setDraft] = useState('')
+  const [invalid, setInvalid] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    if (!focused) setDraft(value === undefined ? '' : format(value))
-  }, [value, focused, format])
+    setInvalid(false)
+    inputRef.current?.setCustomValidity('')
+  }, [value, locale])
   return (
-    <Field id={id} label={label} hint={hint} error={error} required={required}>
+    <Field
+      id={id}
+      label={label}
+      hint={hint}
+      error={error || (invalid ? invalidInputLabel : undefined)}
+      required={required}
+    >
       {(field) => (
         <div className="cui-affixed-input">
           {prefix && (
@@ -49,20 +62,31 @@ function FormattedNumberInput({
           )}
           <input
             {...field}
+            ref={inputRef}
             type="text"
             inputMode="decimal"
             name={name}
             disabled={disabled}
             required={required}
             placeholder={placeholder}
-            value={focused ? draft : value === undefined ? '' : format(value)}
+            value={focused || invalid ? draft : value === undefined ? '' : format(value)}
             onFocus={() => {
               setFocused(true)
-              setDraft(value === undefined ? '' : String(value))
+              if (!invalid)
+                setDraft(
+                  value === undefined
+                    ? ''
+                    : new Intl.NumberFormat(locale, { useGrouping: false, maximumSignificantDigits: 21 }).format(value),
+                )
             }}
             onChange={(event) => {
               setDraft(event.target.value)
-              onValueChange(parseNumber(event.target.value))
+              const raw = event.target.value
+              const parsed = parseLocaleNumber(raw, locale)
+              const bad = raw.trim() !== '' && parsed === undefined
+              setInvalid(bad)
+              event.target.setCustomValidity(bad ? invalidInputLabel : '')
+              if (!bad) onValueChange(parsed)
             }}
             onBlur={() => setFocused(false)}
           />
@@ -93,6 +117,7 @@ export function CurrencyInput({ currency = 'AUD', locale = 'en-AU', ...props }: 
   return (
     <FormattedNumberInput
       {...props}
+      locale={locale}
       prefix={currencySymbol(locale, currency)}
       format={(value) =>
         new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)
@@ -108,6 +133,7 @@ export function PercentageInput({ locale = 'en-AU', ...props }: PercentageInputP
   return (
     <FormattedNumberInput
       {...props}
+      locale={locale}
       suffix="%"
       format={(value) => new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(value)}
     />
@@ -121,6 +147,7 @@ export function HoursInput({ locale = 'en-AU', ...props }: HoursInputProps) {
   return (
     <FormattedNumberInput
       {...props}
+      locale={locale}
       suffix="hrs"
       format={(value) => new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(value)}
     />

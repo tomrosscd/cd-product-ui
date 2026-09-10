@@ -1,0 +1,11 @@
+import postcss from 'postcss'
+import tailwind from 'tailwindcss'
+import {execFileSync} from 'node:child_process'
+import {writeFileSync} from 'node:fs'
+const result={}
+for(const [name,file] of Object.entries({baseline:'/private/tmp/cui-audit-20260910-logs/consumer-library-0.6.0.tgz',main:'/private/tmp/cui-audit-20260910-main-package/convert-product-ui-0.9.0.tgz'})){
+ const css=execFileSync('tar',['-xOf',file,'package/dist/styles.css'],{encoding:'utf8'})
+ try {const r=await postcss([tailwind({content:[]})]).process(css,{from:undefined});result[name]={status:'pass',bytes:r.css.length}}
+ catch(e){result[name]={status:'fail',reason:e.reason}}
+}
+writeFileSync('/private/tmp/cui-audit-20260910-logs/tailwind3.json',JSON.stringify(result,null,2));console.log(result)

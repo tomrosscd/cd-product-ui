@@ -418,7 +418,6 @@
   font-size: var(--cui-type-caption);
   font-weight: var(--cui-font-medium);
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   margin-block-end: var(--cui-space-8);
 }
 .cui-column-config-locked-row {
@@ -448,7 +447,7 @@
   align-items: center;
   justify-content: center;
   width: var(--cui-space-24);
-  height: var(--cui-space-16);
+  height: var(--cui-space-24);
   border: 0;
   background: none;
   color: var(--cui-text-secondary);

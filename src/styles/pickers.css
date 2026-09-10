@@ -76,9 +76,22 @@
    radius to match how far it sits inside a rounded box, so it visibly pinches/clips at the
    corners. box-shadow's inset ring follows the element's actual border-radius exactly at any
    inset. */
-.cui-select-option[data-highlighted]:not([data-disabled]) {
+.cui-select-option:focus-visible {
+  /* The rounded inset ring below replaces the shared tabindex outline, which is clipped by
+     Radix's scrolling viewport and otherwise draws a second border around the corners. */
+  outline: none;
+}
+.cui-select-option[data-highlighted]:not([data-disabled]),
+.cui-select-option:focus-visible:not([data-disabled]) {
   background: var(--cui-dropdown-hover);
   box-shadow: inset 0 0 0 var(--cui-focus-width) var(--cui-focus-colour);
+}
+@media (forced-colors: active) {
+  .cui-select-option[data-highlighted]:not([data-disabled]),
+  .cui-select-option:focus-visible:not([data-disabled]) {
+    outline: var(--cui-focus-width) solid Highlight;
+    outline-offset: calc(-1 * var(--cui-focus-width));
+  }
 }
 /* Combobox is different: it's hand-rolled, and DOM focus never leaves the input (the active
    option is only ever exposed via aria-activedescendant) — so unlike Select, a real mouse :hover
@@ -113,7 +126,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--cui-space-16);
-  max-height: calc(100dvh - var(--cui-space-32));
+  max-height: min(calc(100dvh - var(--cui-space-32)), var(--radix-popover-content-available-height, 100dvh));
+  overscroll-behavior: contain;
   overflow: auto;
 }
 .cui-calendar-root {

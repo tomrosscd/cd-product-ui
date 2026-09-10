@@ -16,14 +16,14 @@ Run `pnpm check`, `pnpm format:check` and `pnpm package:check`, followed by `pnp
 2. Update stories, usage guidance and the changelog. Supply migration steps if consumers must change their code.
 3. Run the checks and review desktop and mobile examples using the approved Convert rules and Impeccable guidance.
 4. Obtain a team review through the GitHub pull request process. Follow the contribution guide and supplied template.
-5. Set the package version, build and inspect its contents, then test the packaged version in a consuming project.
+5. Set the package version, build and inspect its contents, then test the packed distribution in independent fixtures. Application owners verify their own projects.
 6. Commit the release and create an immutable version tag. Publish only to the agreed destination after authorisation.
 
 Use patch versions for compatible fixes, minor versions for compatible additions, and major versions for breaking API or token changes. During 0.x, use minor versions for breaking changes and document them explicitly. Never replace the contents of an existing release.
 
 ## Adoption and rollback
 
-Each consumer upgrades deliberately and commits its vendor archive, dependency and new lockfile. Verify important screens before merging. To roll back, revert the application's upgrade commit and reinstall from the restored lockfile. GitHub holds source, fixed version tags and contributions. Hosting, registry distribution and CI services are separate setup decisions.
+Each consumer upgrades deliberately and commits its vendor archive, dependency and new lockfile. Verify important screens before merging. To roll back, revert the application's upgrade commit and reinstall from the restored lockfile. GitHub holds source, fixed version tags and contributions. CI runs the library and fixture checks. Release archives are the supported distribution channel; registry hosting is retired.
 
 ## Suggest an improvement
 

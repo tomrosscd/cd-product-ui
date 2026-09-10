@@ -90,9 +90,10 @@ export function NotificationCentre({
                       <span className="cui-notification-title">
                         {item.title}
                         {!item.read && (
-                          <span className="cui-notification-dot" aria-hidden="true">
+                          <>
+                            <span className="cui-notification-dot" aria-hidden="true" />
                             <span className="cui-sr-only">, unread</span>
-                          </span>
+                          </>
                         )}
                       </span>
                       {item.description && <span className="cui-notification-description">{item.description}</span>}

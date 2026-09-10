@@ -8,11 +8,17 @@
     "start": "next start --hostname 127.0.0.1"
   },
   "dependencies": {
-    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.3.0.tgz",
+    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.10.0.tgz",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "3.10.1",
     "react-is": "19.2.8"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@types/node": "22.19.11"
   }
 }

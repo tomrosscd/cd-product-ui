@@ -1,0 +1,15 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Mark this changelog entry released before tagging
+    at file:///Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My%20Drive/Tom%20-%20Project%20Working%20Files/Internal/Convert%20Product%20UI%20Design%20System/convert-product-ui/scripts/check-release.mjs:22:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.22.2

@@ -1,0 +1,26 @@
+'use client'
+import { useState } from 'react'
+import { Button, Card, ColumnConfigPanel, InlineEdit, CurrencyInput, Drawer, DashboardShell, PageHeader, ThemeProvider, NotificationCentre, DataTable, DatePicker, Progress, Combobox, type ColumnDef } from '@convert/product-ui'
+type Row = { a: string; b: string; c: string }
+const columns: ColumnDef<Row>[] = [{ accessorKey: 'a', header: 'First', size: 120, meta: { sticky: true } }, { accessorKey: 'b', header: 'Second', size: 120, meta: { sticky: true } }, { accessorKey: 'c', header: 'Third', size: 120 }]
+export default function Probes() {
+  const [keys, setKeys] = useState<readonly string[]>(['a'])
+  const [number, setNumber] = useState<number | undefined>(1234.56)
+  const [open, setOpen] = useState(false)
+  const [failure, setFailure] = useState('')
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [date, setDate] = useState<{start:string;end?:string}>()
+  const [picked, setPicked] = useState('')
+  return <ThemeProvider theme={theme}><DashboardShell collapsible brand={<strong>Audit brand</strong>} brandMark={<strong>A</strong>} workspace='Synthetic workspace' activeId='home' items={[{ id: 'home', label: 'Home', href: '#home' }, { id: 'group', label: 'Projects', items: [{ id: 'nested', label: 'Engineering', items: [{ id: 'report', label: 'A long nested destination for checking navigation', href: '#report', badge: 'Beta' }] }] }]}>
+    <PageHeader heading='Current main probes' actions={<Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>Toggle theme</Button>} />
+    <Card heading='Controlled columns'><Button onClick={() => setKeys(['b'])}>Load saved view B</Button><output data-testid='keys'>{keys.join(',')}</output><ColumnConfigPanel trigger={<Button>Configure columns</Button>} columns={[{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }, {key:'c',label:'Gamma'}]} visibleKeys={keys} onChange={setKeys} /></Card>
+    <Card heading='Failed save'><InlineEdit label='Notes' value='Before' onSave={async () => { throw new Error('Synthetic rejected save') }}>{({ commit, cancel, saving }) => <><input aria-label='Edit notes' defaultValue='Before' disabled={saving} /><Button disabled={saving} onClick={() => { void commit('After').catch(() => setFailure('Synthetic rejection caught')) }}>Save notes</Button><Button onClick={cancel}>Cancel edit</Button><output data-testid='saving'>{String(saving)}</output></>}</InlineEdit><p role='status'>{failure}</p></Card>
+    <Card heading='Localised input'><CurrencyInput label='Euro amount' locale='de-DE' currency='EUR' value={number} onValueChange={setNumber} /><output data-testid='number'>{String(number)}</output></Card>
+    <Card heading='Focus return'><Button onClick={() => setOpen(true)}>Open controlled drawer</Button><Drawer heading='Controlled details' open={open} onOpenChange={setOpen}><p>Synthetic details</p></Drawer></Card>
+    <Card heading='Notifications'><NotificationCentre items={[{ id:'read',title:'Read item',read:true },{id:'unread',title:'Unread item',read:false}]} /></Card>
+    <Card heading='Focus contrast'><Button variant='destructive'>Destructive example</Button></Card>
+    <Card heading='Sticky columns'><DataTable caption='Sticky measurement' data={[{a:'First cell',b:'Second cell',c:'Third cell'}]} columns={columns} tableLayout='scroll' tableMinWidth={1000} searchable={false}/></Card>
+    <Card heading='Dates and unusual values'><DatePicker label='Audit date' value={date} onValueChange={setDate} min='2026-09-01' max='2026-12-31'/><Progress label='Missing capacity'/><Progress label='Zero capacity' value={0}/><Progress label='Over capacity' value={142}/></Card>
+    <Card heading='Combobox contracts'><form data-testid='choice-form'><Combobox label='Required choice' required name='required-choice' options={[{value:'one',label:'One'}]} onValueChange={()=>{}}/><Combobox label='Disabled choice' disabled name='disabled-choice' value='retained' options={[{value:'retained',label:'Retained'}]} onValueChange={()=>{}}/></form><Combobox label='Loading choice' loading options={[{value:'stale',label:'Stale option'}]} value={picked} onValueChange={setPicked}/><output data-testid='picked'>{picked}</output></Card>
+  </DashboardShell></ThemeProvider>
+}

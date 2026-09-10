@@ -1,0 +1,108 @@
+import { createRequire } from 'node:module'
+import { writeFile } from 'node:fs/promises'
+const require = createRequire(`${process.env.CUI_LIBRARY}/package.json`)
+const { chromium } = require('playwright')
+const browser = await chromium.launch({ headless: true })
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } })
+const results = { errors: [], checks: {} }
+page.on('pageerror', e => results.errors.push(e.message))
+const check = async (name, fn) => { try { results.checks[name] = await fn() } catch(e) { results.checks[name] = { error: e.message } } }
+const base = 'http://127.0.0.1:3217'
+await page.goto(base + '/probes')
+await page.getByRole('heading', { name: 'Current main probes' }).waitFor()
+await check('columns-external-update', async () => {
+  await page.getByRole('button', { name: 'Load saved view B' }).click()
+  await page.getByRole('button', { name: 'Configure columns', exact: true }).click()
+  const result = { parentKeys: await page.getByTestId('keys').textContent(), alphaChecked: await page.getByLabel('Alpha', {exact:true}).isChecked(), betaChecked: await page.getByLabel('Beta',{exact:true}).isChecked(), targets: await page.locator('.cui-column-config-reorder-button').evaluateAll(es => es.map(e => ({label:e.getAttribute('aria-label'),disabled:e.disabled,rect:e.getBoundingClientRect().toJSON()}))) }
+  await page.keyboard.press('Escape')
+  return result
+})
+await check('inline-rejection', async () => {
+  await page.getByRole('button', { name: 'Edit Notes: Before' }).click()
+  await page.getByRole('button', { name: 'Save notes' }).click()
+  await page.getByText('Synthetic rejection caught').waitFor()
+  return { saving: await page.getByTestId('saving').textContent(), disabled: await page.getByRole('textbox', {name:'Edit notes'}).isDisabled() }
+})
+await check('inline-cancel-focus', async () => {
+  await page.getByRole('button', { name: 'Cancel edit' }).click()
+  return await page.evaluate(() => ({ tag:document.activeElement.tagName,text:document.activeElement.getAttribute('aria-label') }))
+})
+await check('locale-parse', async () => {
+  const input=page.getByRole('textbox',{name:'Euro amount'})
+  await input.click()
+  await page.waitForTimeout(100)
+  await input.fill('1.234,56')
+  await input.press('Tab')
+  return { model:await page.getByTestId('number').textContent(), display:await input.inputValue() }
+})
+await check('controlled-drawer-focus', async () => {
+  await page.getByRole('button',{name:'Open controlled drawer'}).click()
+  await page.getByRole('dialog',{name:'Controlled details'}).waitFor()
+  await page.keyboard.press('Escape')
+  await page.getByRole('dialog',{name:'Controlled details'}).waitFor({state:'hidden'})
+  await page.waitForTimeout(100)
+  return await page.evaluate(() => ({ tag:document.activeElement.tagName,text:document.activeElement.textContent?.slice(0,60) }))
+})
+await check('notification-accessibility',async()=>{
+  await page.getByRole('button',{name:'Notifications (1 unread)'}).click()
+  const snapshot=await page.getByRole('dialog',{name:'Notifications'}).ariaSnapshot()
+  await page.keyboard.press('Escape')
+  await page.getByRole('dialog',{name:'Notifications'}).waitFor({state:'hidden'})
+  await page.waitForTimeout(100)
+  return snapshot
+})
+await check('sticky-offsets', async () => {
+ const region=page.getByRole('region',{name:'Sticky measurement'})
+ await region.evaluate(e=>e.scrollLeft=250)
+ return await page.locator('.cui-cell-sticky').evaluateAll(es=>es.map(e=>({text:e.textContent,offset:getComputedStyle(e).insetInlineStart,rect:e.getBoundingClientRect().toJSON()})))
+})
+await check('sidebar-desktop', async () => {
+  await page.evaluate(()=>window.scrollTo(0,0))
+  const toggle=page.getByRole('button',{name:'Collapse navigation'})
+  const before={toggle:await toggle.boundingBox(),sidebar:await page.getByRole('complementary',{name:'Workspace sidebar'}).boundingBox(),header:await page.locator('.cui-layout-header').boundingBox()}
+  await toggle.click()
+  const after=await page.getByRole('button',{name:'Expand navigation'}).boundingBox()
+  await page.getByRole('button',{name:'Expand navigation'}).click()
+  await page.getByRole('button',{name:'Projects',exact:true}).click()
+  await page.getByRole('button',{name:'Engineering',exact:true}).click()
+  await page.getByRole('button',{name:'Projects',exact:true}).click()
+  return {before,after,closedChildVisible:await page.getByRole('link',{name:'A long nested destination for checking navigation Beta'}).isVisible()}
+})
+await check('date-validation', async()=>{
+ await page.getByRole('button',{name:'Audit date',exact:true}).click()
+ const input=page.getByRole('textbox',{name:'Enter date',exact:true})
+ await input.fill('2026-09-31');const invalidDisabled=await page.getByRole('button',{name:'Apply',exact:true}).isDisabled()
+ await input.fill('2026-10-04');await page.getByRole('button',{name:'Apply',exact:true}).click()
+ return {invalidDisabled,dateText:await page.getByRole('button',{name:'Audit date',exact:true}).textContent()}
+})
+await check('mobile-navigation',async()=>{
+ await page.setViewportSize({width:320,height:800}); await page.evaluate(()=>window.scrollTo(0,0))
+ const width=await page.evaluate(()=>({viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth}))
+ await page.getByRole('button',{name:'Open navigation'}).click()
+ await page.getByRole('dialog',{name:'Workspace navigation'}).waitFor()
+  await page.keyboard.press('Tab');const trapped=await page.getByRole('dialog').evaluate(e=>e.contains(document.activeElement))
+  await page.keyboard.press('Escape')
+  await page.getByRole('dialog',{name:'Workspace navigation'}).waitFor({state:'hidden'})
+  await page.waitForTimeout(100)
+  return {width,trapped,focusReturned:await page.getByRole('button',{name:'Open navigation'}).evaluate(e=>e===document.activeElement)}
+})
+await check('combobox-contracts',async()=>{
+ const form=await page.getByTestId('choice-form').evaluate(e=>({valid:e.checkValidity(),entries:[...new FormData(e).entries()]}))
+ await page.getByRole('combobox',{name:'Loading choice',exact:true}).click()
+ await page.getByRole('combobox',{name:'Loading choice',exact:true}).press('Enter')
+ return {form,picked:await page.getByTestId('picked').textContent()}
+})
+await check('light-axe',async()=>{
+ await page.setViewportSize({width:1280,height:900})
+ await page.addScriptTag({path:process.env.CUI_LIBRARY+'/node_modules/.pnpm/axe-core@4.13.0/node_modules/axe-core/axe.min.js'})
+  return await page.evaluate(async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))})
+})
+await check('dark-axe',async()=>{
+ await page.getByRole('button',{name:'Toggle theme'}).click()
+ await page.waitForTimeout(350)
+ return await page.evaluate(async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))})
+})
+await page.screenshot({path:'./audit-results/probes-dark.png',fullPage:true})
+await browser.close()
+await writeFile('./audit-results/browser-results.json',JSON.stringify(results,null,2))
+console.log(JSON.stringify(results,null,2))

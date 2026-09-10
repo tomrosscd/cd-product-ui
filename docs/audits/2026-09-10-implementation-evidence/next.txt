@@ -1,0 +1,65 @@
+
+> @convert/product-ui@0.10.0-rc.1 next:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/check-next.mjs
+
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Progress: resolved 148, reused 118, downloaded 0, added 0
+Packages: +125
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 157, reused 127, downloaded 0, added 73
+Progress: resolved 157, reused 127, downloaded 0, added 96
+Progress: resolved 157, reused 127, downloaded 0, added 123
+Progress: resolved 157, reused 127, downloaded 0, added 125, done
+
+dependencies:
++ @convert/product-ui 0.10.0-rc.1
++ next 16.3.4
++ react 19.2.8
++ react-dom 19.2.8
++ react-is 19.2.8
++ recharts 3.10.1
+
+devDependencies:
++ @types/node 22.19.11 (26.5.0 is available)
++ @types/react 19.2.18
++ @types/react-dom 19.2.7
++ typescript 5.9.3 (7.0.2 is available)
+
+Done in 4.4s using pnpm v10.33.0
+
+> convert-product-ui-next-example@ build /private/var/folders/v2/gnsxxbmx2sj0jj7gm2mhk60m0000gn/T/convert-product-ui-next-gy0fub
+> next build --webpack
+
+▲ Next.js 16.3.4 (webpack)
+✓ Running next.config.mjs took 13ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 13.9s
+  Running TypeScript ...
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- incremental was set to true
+  	- include was updated to add '.next/dev/types/**/*.ts'
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+
+  Finished TypeScript in 1253ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 391ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+Next.js package build passed: /var/folders/v2/gnsxxbmx2sj0jj7gm2mhk60m0000gn/T/convert-product-ui-next-gy0fub

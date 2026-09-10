@@ -1,0 +1,41 @@
+[
+  {
+    "width": 1280,
+    "height": 700,
+    "dark": false,
+    "geometry": {
+      "top": 378,
+      "bottom": 688,
+      "height": 308,
+      "scrollHeight": 520
+    },
+    "pointerApply": "passed",
+    "dateOnly": "2026-10-04 retained"
+  },
+  {
+    "width": 320,
+    "height": 700,
+    "dark": false,
+    "geometry": {
+      "top": 382,
+      "bottom": 688,
+      "height": 304,
+      "scrollHeight": 536
+    },
+    "pointerApply": "passed",
+    "dateOnly": "2026-10-04 retained"
+  },
+  {
+    "width": 1280,
+    "height": 400,
+    "dark": true,
+    "geometry": {
+      "top": 228,
+      "bottom": 388,
+      "height": 158,
+      "scrollHeight": 520
+    },
+    "pointerApply": "passed",
+    "dateOnly": "2026-10-04 retained"
+  }
+]

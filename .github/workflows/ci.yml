@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -35,6 +36,9 @@ jobs:
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Documentation and candidate version
+        run: pnpm docs:check && pnpm release:check
+
       - name: Formatting
         run: pnpm format:check
 
@@ -58,3 +62,6 @@ jobs:
 
       - name: Next.js consumer check
         run: pnpm next:check
+
+      - name: npm, Next.js 15 and Tailwind compatibility
+        run: pnpm compatibility:check

@@ -6,7 +6,7 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 Install Product UI as a package and pin the version. Copying a code sample out of Storybook gives you a snapshot, not a component that improves when the library does.
 
-This page does not name a version number, so it cannot go stale. The [GitHub README](https://github.com/tomrosscd/cd-product-ui#install-the-library) names the current tag and the exact commands.
+Use the [installation guide](https://github.com/tomrosscd/cd-product-ui#install-the-library) for the released archive and upgrade instructions.
 
 ## Install
 
@@ -16,9 +16,9 @@ Each release attaches a built archive. Install it by URL, replacing both version
 pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/VERSION_TAG/convert-product-ui-VERSION.tgz
 ```
 
-The URL pins one immutable release. Commit your `package.json` and lockfile.
+The URL identifies a release. Commit `package.json` and the lockfile to retain its integrity hash. Release policy forbids replacing archives.
 
-To install a revision with no release, such as an unreleased branch, build the archive yourself outside your application's folder:
+To reproduce a tagged release, build its archive outside your application's folder:
 
 ```sh
 git clone --branch VERSION_TAG --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
@@ -88,7 +88,7 @@ Class names and CSS variables use the `cui` prefix, and the package ships no glo
 Your application stays on its installed version until you upgrade it.
 
 1. Read the changelog and release notes for the version you are moving to.
-2. Build an archive from that version's tag.
+2. Install its release archive. Build from the tag only when you need to reproduce it.
 3. Install the exact filename, then review your dashboard, keyboard navigation and mobile layout.
 4. Commit the archive, dependency and lockfile changes in one pull request.
 

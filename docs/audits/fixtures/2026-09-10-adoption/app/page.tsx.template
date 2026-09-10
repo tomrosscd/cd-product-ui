@@ -1,0 +1,3 @@
+import {Card} from '@convert/product-ui'
+import Screen from './screen'
+export default function Page(){ return <><Card heading="Server rendered card">Synthetic audit data only</Card><Screen/></> }
