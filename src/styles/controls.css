@@ -198,6 +198,51 @@
   text-decoration: underline;
   text-decoration-thickness: var(--cui-focus-width);
 }
+.cui-inline-edit-trigger {
+  display: inline-block;
+  max-width: 100%;
+  border: 0;
+  background: none;
+  padding: var(--cui-space-0);
+  color: var(--cui-text-secondary);
+  font: inherit;
+  text-align: start;
+  text-decoration: underline dashed;
+  text-decoration-color: var(--cui-border-control);
+  text-underline-offset: var(--cui-space-4);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.cui-inline-edit-trigger:hover {
+  color: var(--cui-text-primary);
+  text-decoration-color: var(--cui-text-secondary);
+}
+.cui-inline-edit-display {
+  color: var(--cui-text-secondary);
+}
+.cui-inline-edit-editor {
+  display: inline-block;
+  max-width: 100%;
+}
+.cui-inline-edit-control {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: var(--cui-size-control-sm);
+  border: var(--cui-border-width) solid var(--cui-accent-primary);
+  border-radius: var(--cui-radius-control);
+  padding: var(--cui-space-4) var(--cui-space-8);
+  color: var(--cui-text-primary);
+  background: var(--cui-surface-card);
+  font: inherit;
+}
+.cui-inline-edit-control:focus-visible {
+  outline: var(--cui-focus-width) solid var(--cui-focus-colour);
+  outline-offset: var(--cui-focus-offset);
+}
+.cui-inline-edit-control:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 .cui-badge {
   white-space: normal;
   overflow-wrap: anywhere;
