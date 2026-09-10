@@ -999,6 +999,28 @@ export interface DisclosureProps extends ComponentProps<'details'> {
     heading: ReactNode;
 }
 
+// @public
+export function Drawer(input: DrawerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DrawerProps {
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    closeLabel?: string;
+    // (undocumented)
+    description?: string;
+    // (undocumented)
+    footer?: ReactNode;
+    // (undocumented)
+    heading: string;
+    // (undocumented)
+    onOpenChange?: (open: boolean) => void;
+    // (undocumented)
+    open?: boolean;
+    trigger?: ReactNode;
+}
+
 // @public (undocumented)
 export function EmptyState(input: {
     heading: string;
