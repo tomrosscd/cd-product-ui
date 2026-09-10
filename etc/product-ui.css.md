@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (266)
+## Classes (282)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -90,6 +90,12 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-chip-select`
 - `cui-chip-selected`
 - `cui-choice`
+- `cui-column-config-group`
+- `cui-column-config-label`
+- `cui-column-config-locked-row`
+- `cui-column-config-reorder`
+- `cui-column-config-reorder-button`
+- `cui-column-config-row`
 - `cui-combobox`
 - `cui-combobox-listbox`
 - `cui-combobox-panel`
@@ -115,7 +121,13 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-dialog-actions`
 - `cui-disclosure`
 - `cui-disclosure-body`
+- `cui-drawer-body`
 - `cui-drawer-close`
+- `cui-drawer-description`
+- `cui-drawer-footer`
+- `cui-drawer-header`
+- `cui-drawer-panel`
+- `cui-drawer-title`
 - `cui-empty`
 - `cui-eyebrow`
 - `cui-field`
@@ -130,6 +142,10 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-icon`
 - `cui-icon-inline`
 - `cui-icon-spin`
+- `cui-inline-edit-control`
+- `cui-inline-edit-display`
+- `cui-inline-edit-editor`
+- `cui-inline-edit-trigger`
 - `cui-input`
 - `cui-input-affix`
 - `cui-input-row`
@@ -377,10 +393,11 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `--cui-type-tracking-display`
 - `--cui-type-tracking-heading`
 
-## Data attributes (5)
+## Data attributes (6)
 
 - `data-cui-current-section`
 - `data-cui-nav`
 - `data-cui-search-clear`
 - `data-cui-step`
 - `data-cui-theme`
+- `data-cui-visible`

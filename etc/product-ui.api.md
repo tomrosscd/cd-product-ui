@@ -745,6 +745,38 @@ export interface ChoiceOption {
     value: string;
 }
 
+// @public (undocumented)
+export interface ColumnConfigColumn {
+    // (undocumented)
+    adminOnly?: boolean;
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+    locked?: boolean;
+}
+
+// @public
+export function ColumnConfigPanel(input: ColumnConfigPanelProps): JSX.Element;
+
+// @public (undocumented)
+export interface ColumnConfigPanelProps {
+    // (undocumented)
+    columns: readonly ColumnConfigColumn[];
+    defaultKeys?: readonly string[];
+    // (undocumented)
+    heading?: string;
+    // (undocumented)
+    onChange: (next: readonly string[]) => void;
+    // (undocumented)
+    onOpenChange?: (open: boolean) => void;
+    // (undocumented)
+    open?: boolean;
+    // (undocumented)
+    trigger?: ReactNode;
+    visibleKeys: readonly string[];
+}
+
 export { ColumnDef }
 
 // @public
@@ -999,6 +1031,28 @@ export interface DisclosureProps extends ComponentProps<'details'> {
     heading: ReactNode;
 }
 
+// @public
+export function Drawer(input: DrawerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DrawerProps {
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    closeLabel?: string;
+    // (undocumented)
+    description?: string;
+    // (undocumented)
+    footer?: ReactNode;
+    // (undocumented)
+    heading: string;
+    // (undocumented)
+    onOpenChange?: (open: boolean) => void;
+    // (undocumented)
+    open?: boolean;
+    trigger?: ReactNode;
+}
+
 // @public (undocumented)
 export function EmptyState(input: {
     heading: string;
@@ -1114,6 +1168,32 @@ export function Icon(input: SVGProps<SVGSVGElement> & {
 //
 // @public (undocumented)
 export type IconName = keyof typeof icons;
+
+// @public
+export function InlineEdit(input: InlineEditProps): JSX.Element;
+
+// @public (undocumented)
+export interface InlineEditProps {
+    children: (props: InlineEditRenderProps) => ReactNode;
+    // (undocumented)
+    disabled?: boolean;
+    displayValue?: string;
+    label: string;
+    // (undocumented)
+    onSave: (value: string | null) => Promise<void>;
+    // (undocumented)
+    placeholder?: string;
+    // (undocumented)
+    value: string | null;
+}
+
+// @public (undocumented)
+export interface InlineEditRenderProps {
+    cancel: () => void;
+    commit: (value: string | null) => Promise<void>;
+    // (undocumented)
+    saving: boolean;
+}
 
 // @public (undocumented)
 export function Input(input: InputProps): JSX.Element;
