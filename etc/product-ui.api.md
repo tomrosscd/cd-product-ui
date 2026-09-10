@@ -1642,6 +1642,7 @@ export type SidebarEntry = SidebarItem | SidebarSection;
 
 // @public (undocumented)
 export interface SidebarItem {
+    badge?: ReactNode;
     // (undocumented)
     disabled?: boolean;
     // (undocumented)

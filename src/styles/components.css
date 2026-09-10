@@ -402,6 +402,10 @@
   width: var(--cui-size-icon-small);
   height: var(--cui-size-icon-small);
 }
+.cui-nav-item-badge {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
 .cui-nav-item:hover {
   background: var(--cui-surface-page);
   text-decoration: none !important;
