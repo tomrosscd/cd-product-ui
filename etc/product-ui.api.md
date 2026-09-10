@@ -745,6 +745,38 @@ export interface ChoiceOption {
     value: string;
 }
 
+// @public (undocumented)
+export interface ColumnConfigColumn {
+    // (undocumented)
+    adminOnly?: boolean;
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+    locked?: boolean;
+}
+
+// @public
+export function ColumnConfigPanel(input: ColumnConfigPanelProps): JSX.Element;
+
+// @public (undocumented)
+export interface ColumnConfigPanelProps {
+    // (undocumented)
+    columns: readonly ColumnConfigColumn[];
+    defaultKeys?: readonly string[];
+    // (undocumented)
+    heading?: string;
+    // (undocumented)
+    onChange: (next: readonly string[]) => void;
+    // (undocumented)
+    onOpenChange?: (open: boolean) => void;
+    // (undocumented)
+    open?: boolean;
+    // (undocumented)
+    trigger?: ReactNode;
+    visibleKeys: readonly string[];
+}
+
 export { ColumnDef }
 
 // @public
@@ -997,6 +1029,28 @@ export function Disclosure(input: DisclosureProps): JSX.Element;
 export interface DisclosureProps extends ComponentProps<'details'> {
     // (undocumented)
     heading: ReactNode;
+}
+
+// @public
+export function Drawer(input: DrawerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DrawerProps {
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    closeLabel?: string;
+    // (undocumented)
+    description?: string;
+    // (undocumented)
+    footer?: ReactNode;
+    // (undocumented)
+    heading: string;
+    // (undocumented)
+    onOpenChange?: (open: boolean) => void;
+    // (undocumented)
+    open?: boolean;
+    trigger?: ReactNode;
 }
 
 // @public (undocumented)
