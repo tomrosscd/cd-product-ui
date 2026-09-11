@@ -1,6 +1,6 @@
 # Component guide
 
-Use this guide to select components from the 0.10.0-rc.1 source candidate. Candidate additions are not in the released 0.9.0 archive. Use the component's Storybook documentation for props and live states. Components use the same generated tokens as the foundations reference.
+Use this guide to select components from Product UI 0.10.0. Projects on earlier versions must upgrade before using the additions. Use the component's Storybook documentation for props and live states. Components use the same generated tokens as the foundations reference.
 
 ## Choose the right component
 

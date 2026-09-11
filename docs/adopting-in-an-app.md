@@ -101,7 +101,7 @@ Use `DashboardShell` only if you do not already have an application shell. It re
 
 Use `Table` for static data. Use `DataTable` for search, sorting, pagination and supplied summary footers. Column sizes and leading sticky columns shipped in 0.9.0.
 
-The 0.10 candidate adds controlled state, server pagination, selection, visibility, pinning and expandable rows. Follow [the table guide](data-table.md) for saved views and remote data. These APIs are not in the 0.9.0 archive.
+Version 0.10.0 adds controlled state, server pagination, selection, visibility, pinning and expandable rows. Follow [the table guide](data-table.md) for saved views and remote data. These APIs are not in the 0.9.0 archive.
 
 ## What to leave alone
 

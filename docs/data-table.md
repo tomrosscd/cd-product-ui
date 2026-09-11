@@ -2,7 +2,7 @@
 
 Use `DataTable` for semantic tables with optional controlled state. Keep fetching, permissions, totals and saved-view persistence in your application.
 
-These additions require `0.10.0-rc.1`. The 0.9.0 archive supports client search, sorting, pagination, column sizes, leading sticky columns and summary footers.
+These additions require `0.10.0` or later. The 0.9.0 archive supports client search, sorting, pagination, column sizes, leading sticky columns and summary footers.
 
 ## Control state
 
