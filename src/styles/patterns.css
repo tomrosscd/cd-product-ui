@@ -129,3 +129,36 @@
     padding-block-end: 0;
   }
 }
+
+.cui-filter-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--cui-space-8);
+}
+.cui-wizard-fields {
+  border: 0;
+  min-width: 0;
+  padding: var(--cui-space-0);
+  margin: var(--cui-space-0);
+  display: grid;
+  gap: var(--cui-space-16);
+}
+.cui-attachment-list {
+  list-style: none;
+  padding: var(--cui-space-0);
+  margin: var(--cui-space-0);
+}
+.cui-attachment {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--cui-space-16);
+  padding-block: var(--cui-space-12);
+  border-bottom: var(--cui-border-width) solid var(--cui-border-subtle);
+  overflow-wrap: anywhere;
+}
+.cui-attachment > .cui-stack {
+  flex: 1;
+  min-width: 0;
+}

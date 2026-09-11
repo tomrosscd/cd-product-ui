@@ -48,7 +48,7 @@ export function Pagination({
       )}
       {pages > 1 && (
         <div className="cui-pagination-controls">
-          <Button disabled={current === 1} onClick={() => onPageChange(current - 1)} aria-describedby={id}>
+          <Button size="sm" disabled={current === 1} onClick={() => onPageChange(current - 1)} aria-describedby={id}>
             Previous
           </Button>
           <span className="cui-pagination-compact">
@@ -59,6 +59,7 @@ export function Pagination({
               <span key={n}>
                 {index > 0 && n > (visible[index - 1] ?? 0) + 1 && <span aria-hidden="true">…</span>}
                 <Button
+                  size="sm"
                   aria-label={`Page ${n}`}
                   aria-current={n === current ? 'page' : undefined}
                   variant={n === current ? 'primary' : 'quiet'}
@@ -69,7 +70,12 @@ export function Pagination({
               </span>
             ))}
           </div>
-          <Button disabled={current === pages} onClick={() => onPageChange(current + 1)} aria-describedby={id}>
+          <Button
+            size="sm"
+            disabled={current === pages}
+            onClick={() => onPageChange(current + 1)}
+            aria-describedby={id}
+          >
             Next
           </Button>
         </div>

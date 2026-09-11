@@ -1,15 +1,17 @@
-# Known consumers
+# Track known consumers
 
-This is the checklist referenced by [docs/release-process.md](docs/release-process.md#backward-compatibility). Before shipping a breaking change, check this list and tell anyone on it what's changing before the release goes out, not after. After they upgrade, update their row.
+Before releasing changed APIs or visual defaults, review this list and the [compatibility policy](docs/release-process.md#backward-compatibility). Record upgrades only after the application owner confirms them.
 
-Add a row whenever someone installs this package into a new project — the whole point of this file is that it can only protect people it knows about.
+| Project                                                      | Contact         | Installed version          | Evidence date | Verified scope                                                                                                                                                   |
+| ------------------------------------------------------------ | --------------- | -------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [cd_capacity](https://github.com/SebastianKlett/cd_capacity) | Sebastian Klett | 0.6.0 archive in `vendor/` | 2026-09-10    | Read-only source inspection at `6e6691d5902032233154d0c1dfd4e1daf178f282`. Dashboard adoption is partial. Next.js 15, React 19 and intended Tailwind 4 pipeline. |
 
-Record the consuming stack, not just the version. Tailwind's major version, the framework and how the package is installed are exactly the details that turn a routine change into someone else's broken build: the first consumer's Next.js build hard-failed on Tailwind-v4-only CSS while their application was still on v3.
+The inspected revision's npm CI fails because its lockfile disagrees with the manifest. The application owner must choose the package manager and reconcile the lockfile.
 
-| Project                                                                 | Contact         | Installed version | Last confirmed | Notes                                                                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------- | --------------- | ----------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [cd_capacity](https://github.com/SebastianKlett/cd_capacity) (Planwerk) | Sebastian Klett | 0.6.0             | 2026-09-09     | Next.js 15 App Router, React 19, Tailwind v4, Supabase auth. Installs the archive from `vendor/`. 0.9.0 verified to build against this app on 9 September 2026: clean build, 104 app tests passing, no API changes needed. Three visible defaults change on upgrade, see docs/release-0.9.md. |
+No application build or upgrade was performed during this audit or implementation. Independent fixtures are compatibility evidence, not consumer upgrade confirmation. See [the audit](docs/audits/2026-09-10-adoption-audit.md).
 
-## Why this file exists
+## Add a consumer
 
-Nothing else in this repository can answer "will this breaking change affect anyone?" — there's no telemetry, no registry with download counts, and no CI running against other repositories. This file is the entire mechanism. If it's out of date, the backward-compatibility process in docs/release-process.md degrades back into "hope nobody's using it," which is exactly the failure mode it exists to prevent.
+Record the installed archive version, framework, React version, CSS pipeline, package manager and confirmation date. Keep client data and credentials out of this file.
+
+The library has no telemetry or cross-repository automation. This list supports release coordination; it does not replace each application's checks.

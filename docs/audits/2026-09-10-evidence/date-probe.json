@@ -1,0 +1,125 @@
+{
+  "before": {
+    "panel": {
+      "x": 264,
+      "y": 378,
+      "width": 314,
+      "height": 522,
+      "top": 378,
+      "right": 578,
+      "bottom": 900,
+      "left": 264
+    },
+    "available": "310px",
+    "max": "668px",
+    "scrollTop": 0,
+    "scrollHeight": 520,
+    "clientHeight": 520,
+    "buttons": [
+      {
+        "text": "Clear",
+        "rect": {
+          "x": 281,
+          "y": 843,
+          "width": 68.203125,
+          "height": 40,
+          "top": 843,
+          "right": 349.203125,
+          "bottom": 883,
+          "left": 281
+        }
+      },
+      {
+        "text": "Cancel",
+        "rect": {
+          "x": 357.203125,
+          "y": 843,
+          "width": 78.828125,
+          "height": 40,
+          "top": 843,
+          "right": 436.03125,
+          "bottom": 883,
+          "left": 357.203125
+        }
+      },
+      {
+        "text": "Apply",
+        "rect": {
+          "x": 444.03125,
+          "y": 843,
+          "width": 70.578125,
+          "height": 40,
+          "top": 843,
+          "right": 514.609375,
+          "bottom": 883,
+          "left": 444.03125
+        }
+      }
+    ],
+    "viewport": 700,
+    "scrollY": 1101
+  },
+  "clicked": false,
+  "after": {
+    "panel": {
+      "x": 264,
+      "y": 378,
+      "width": 314,
+      "height": 522,
+      "top": 378,
+      "right": 578,
+      "bottom": 900,
+      "left": 264
+    },
+    "available": "310px",
+    "max": "668px",
+    "scrollTop": 0,
+    "scrollHeight": 520,
+    "clientHeight": 520,
+    "buttons": [
+      {
+        "text": "Clear",
+        "rect": {
+          "x": 281,
+          "y": 843,
+          "width": 68.203125,
+          "height": 40,
+          "top": 843,
+          "right": 349.203125,
+          "bottom": 883,
+          "left": 281
+        }
+      },
+      {
+        "text": "Cancel",
+        "rect": {
+          "x": 357.203125,
+          "y": 843,
+          "width": 78.828125,
+          "height": 40,
+          "top": 843,
+          "right": 436.03125,
+          "bottom": 883,
+          "left": 357.203125
+        }
+      },
+      {
+        "text": "Apply",
+        "rect": {
+          "x": 444.03125,
+          "y": 843,
+          "width": 70.578125,
+          "height": 40,
+          "top": 843,
+          "right": 514.609375,
+          "bottom": 883,
+          "left": 444.03125
+        }
+      }
+    ],
+    "viewport": 700,
+    "scrollY": 1101
+  },
+  "focus": "Apply",
+  "keyboardResult": "4 Oct 2026▦"
+}

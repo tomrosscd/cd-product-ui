@@ -1,0 +1,13 @@
+{
+  "version": "0.10.0-rc.1",
+  "root": "/var/folders/v2/gnsxxbmx2sj0jj7gm2mhk60m0000gn/T/cui-compatibility-eeVyFS",
+  "next": "15.5.25",
+  "react": "19.2.8",
+  "tailwind": "4.3.3",
+  "cssPipeline": "Tailwind 3.4.19 also passed",
+  "packageManager": "npm",
+  "frozenInstall": "passed",
+  "productionBrowser": "passed",
+  "hostBorder": "7px",
+  "narrowWidth": 320
+}

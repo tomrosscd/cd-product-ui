@@ -1,6 +1,6 @@
 # Component guide
 
-0.3.0 expands Product UI into reusable controls, data displays and complete patterns. Use the component's Storybook documentation for props and live states. Components use the same generated tokens as the foundations reference.
+Use this guide to select components from Product UI 0.10.0. Projects on earlier versions must upgrade before using the additions. Use the component's Storybook documentation for props and live states. Components use the same generated tokens as the foundations reference.
 
 ## Choose the right component
 
@@ -51,13 +51,13 @@ export function SettingsForm() {
 
 Supply your own submit handler, validation and saving behaviour. Inputs accept native attributes and controlled or uncontrolled values. Keep visible labels; placeholders do not replace them. Field associates its child control through a render function, including supporting text IDs. PasswordInput preserves autocomplete and paste, and its reveal control does not submit a form.
 
-SignInForm requires onSubmit and prevents the default browser submission. It does not contact an authentication service. The handler receives the form event; the host can read FormData and pass credentials directly to its chosen authentication service. Never log credentials, store them in library state or test with real credentials in Storybook. Supply pending and error props to reflect the host's request state. Recovery links and any SSO action are supplied by the host.
+SignInForm requires onSubmit and prevents the default browser submission. It does not contact an authentication service. The handler receives the form event; the host can read FormData and pass credentials directly to its chosen authentication service. Never log credentials, store them in library state or test with real credentials in Storybook. Supply loading and error props to reflect the host's request state. Recovery links and any SSO action are supplied by the host.
 
 ## Metrics and progress
 
 Values and comparison text are supplied by the application. An upward trend is not automatically positive: set direction and sentiment independently. Supply the comparison period and units explicitly. The library does not calculate business metrics.
 
-Progress clamps finite values into zero to max; omit value for indeterminate work. Target markers include a text description. AllocationBar shows shares of a total and keeps exact values in a visible legend. Negative or non-finite allocation values are treated as zero; validate business data before rendering.
+Progress displays overrun above max; omit value for indeterminate work. Target markers include a text description. AllocationBar shows shares of a total and keeps exact values in a visible legend. Negative or non-finite allocation values are treated as zero; validate business data before rendering.
 
 ## Tables
 
@@ -65,7 +65,7 @@ Table provides styling and semantic structure. Supply caption, thead/tbody and s
 
 DataTable uses the pinned TanStack Table v8 implementation. Supply data and `ColumnDef<T>[]` definitions. The first sort is ascending, numeric values sort numerically, and searching resets pagination. Provide stable row IDs when possible. Custom cells can contain Badge, TextLink or Button. The application owns row actions and remote fetching.
 
-DataTable currently supports client-side search, sorting and pagination for moderate datasets. It does not provide virtualisation, server-side pagination, bulk selection or editable spreadsheet behaviour. Do not load an entire large database into this component.
+DataTable supports controlled state, server pagination, selection and host-supplied expandable rows in 0.10.0. Follow [the table guide](data-table.md). It does not provide virtualisation or spreadsheet editing.
 
 ## Charts
 
@@ -76,7 +76,7 @@ pnpm add --save-exact recharts@3.10.1 react-is@19.2.8
 # or: npm install --save-exact recharts@3.10.1 react-is@19.2.8
 ```
 
-The react-is version should match the application's React version. These pins match this release's tested React 19.2.8 setup.
+Match react-is to the application's React version. These pins match this release's tested React 19.2.8 setup.
 
 ```tsx
 'use client'
@@ -127,17 +127,46 @@ ThemeProvider, ConvertLogo, ActionMenu, SearchSelect, DateRange, Tooltip, ToastR
 
 Breaking: Alert, EmptyState, Disclosure, ConfirmationDialog, DataChart, RoadmapBoard and SignInForm renamed their `title` prop to `heading`, matching Card. SignInForm's `pending` renamed to `loading`. No new components. Read [the migration guide](./release-0.4.md) for the full rename table and what was deliberately left unchanged.
 
-## 0.5.0 candidate additions
+## 0.5.0 additions
 
 Pagination, StyledSelect, Calendar, DatePicker and MonthPicker plus opt-in table scrolling/full pagination are documented in [release-0.5.md](release-0.5.md). Existing native Select and DateRange contracts remain supported.
 
-## 0.6.0 candidate additions
+## 0.6.0 additions
 
 Chip/ChipGroup, SegmentedControl/SegmentedMultiControl, Combobox, CurrencyInput/PercentageInput/HoursInput, PeriodNavigator and the FilterToolbar pattern are documented in [release-0.6.md](release-0.6.md).
 
-## Dashboard composition additions (unreleased)
+## Dashboard composition additions (0.8.0)
 
 - `Stack`, `Grid`, `SplitLayout`, `PageHeader`: parent-owned spacing and responsive content layout.
 - `ContentList`, `ContentListItem`: flexible leading content, title, description, metadata and separate actions, with comfortable and compact density.
 - `RoadmapBoard` / `RoadmapCard` `readOnly`: hide editing controls explicitly while preserving legacy defaults.
 - Storybook **Patterns / Dashboard composition** is the complete adoption example. See [composition guidance](./dashboard-composition.md).
+
+## Editing and workflow components
+
+- `InlineEdit`: recoverable field editing with supplied controls and asynchronous saving.
+- `Drawer`: record details with controlled dismissal and focus return.
+- `ColumnConfigPanel`: controlled column selection, ordering and reset.
+- `Stepper`: sequential progress display. `Wizard` composes validated steps and host-owned navigation.
+- `FileUpload`: native file selection and controlled transfer states.
+- `NotificationCentre`: supplied notifications with accessible unread state.
+- `ErrorBoundary`: render-error fallback and host-owned recovery. It does not catch asynchronous event failures.
+
+Follow [the form workflow guide](form-workflows.md) for ownership and integration requirements.
+
+## Public export checklist
+
+This checklist includes runtime helpers and compositions that share implementation files. `pnpm docs:check` compares it with the public exports.
+
+| Area                  | Exports                                                                                                                                                                     |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Foundations           | Icon, ConvertMark, ConvertLogo, ThemeProvider, useProductTheme, brandAssets                                                                                                 |
+| Layout                | Stack, Grid, SplitLayout, PageHeader, DashboardShell, DashboardSidebar                                                                                                      |
+| Forms                 | Field, Input, PasswordInput, Textarea, Checkbox, Switch, RadioGroup, Select, StyledSelect, SearchSelect, Combobox                                                           |
+| Dates and values      | Calendar, DatePicker, MonthPicker, DateRange, PeriodNavigator, CurrencyInput, PercentageInput, HoursInput                                                                   |
+| Actions and choices   | Button, TextLink, Chip, ChipGroup, SegmentedControl, SegmentedMultiControl, FilterToolbar                                                                                   |
+| Content               | Card, SummaryCard, DetailsCard, ProgressCard, ActionCard, KeyValueList, Avatar, ResourceList, ActivityList, ContentList, ContentListItem                                    |
+| Metrics and tables    | Metric, MetricCard, Progress, AllocationBar, Table, DataTable, Pagination, ColumnConfigPanel                                                                                |
+| Feedback and overlays | Badge, Alert, EmptyState, Spinner, Skeleton, ErrorBoundary, Tabs, Disclosure, ConfirmationDialog, Drawer, ActionMenu, Tooltip, ToastRegion, NotificationCentre, Breadcrumbs |
+| Workflows             | RoadmapCard, RoadmapBoard, SignInForm, InlineEdit, Stepper, Wizard, FileUpload                                                                                              |
+| Optional charts       | ChartContainer, ChartTooltipContent, ChartLegend, DataChart, Sparkline                                                                                                      |

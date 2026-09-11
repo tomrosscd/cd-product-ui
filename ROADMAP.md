@@ -1,5 +1,24 @@
 # Roadmap
 
+## Adoption implementation status, 10 September 2026
+
+The user confirmed the audit's larger feature deferrals. Preserve the approved delivery order below. The implementation is included in the 0.10.0 release scope. Larger feature deferrals remain unchanged.
+
+| Scope                       | Implementation status                                                                                                                                  |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Pass 2 controls             | Audit correctness fixes implemented; regression checks added.                                                                                          |
+| 10: DataTable               | Controlled state, server pagination, selection, visibility and pinning implemented. Virtualisation remains outside this scope.                         |
+| 11: Column configuration    | Controlled selection and reset repaired. Saved-view persistence remains application-owned.                                                             |
+| 12: Grouped rows and totals | Host-supplied nested rows expand and collapse. Summary values and overall footers come from the host.                                                  |
+| 13: Details drawer          | Focus return repaired. Dirty, saving and failed-state composition documented.                                                                          |
+| 14: Inline editing          | Rejection, retry, pending and focus behaviour repaired. Native quick-entry composition documented; spreadsheet navigation remains deferred.            |
+| 15: Uploads                 | FileUpload provides native selection, transfer status, retry and removal callbacks. The host owns validation and transfer.                             |
+| 16: Steps                   | Wizard provides controlled form steps, native validation and focus movement. The host owns asynchronous validation and completion.                     |
+| 25 through 27               | Recursive navigation, page header and notification presentation are implemented. Unread accessibility repaired.                                        |
+| Engineering                 | Typed archive examples, catalogue coverage and exact-tag release gates implemented. Full i18n, RTL, Chromatic and animation decisions remain deferred. |
+
+Use [the implementation record](docs/audits/2026-09-10-implementation.md) for verification. The dated sections below preserve the approved scope and earlier status; read this checkpoint first.
+
 ## Active: dashboard composition (9 September 2026)
 
 Branch `feature/dashboard-composition`. Approved ahead of deferred Pass 3 work after the first consumer dashboard screenshot. Implementation: parent-owned section spacing, responsive equal grids and a two-to-one split, page header, rich content lists, and explicit read-only roadmap controls. The live neutral dashboard exercises the actual content shapes that previously required ad-hoc markup. Verification and PR review remain before release; see HANDOFF.md.

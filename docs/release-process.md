@@ -1,6 +1,6 @@
 # Review and release process
 
-Keep tokens, components and guidance on one version initially. A release is an immutable package and matching Git tag. The Storybook build describes that same source revision.
+Keep tokens, components and guidance on one version initially. Release policy forbids replacing packages or Git tags. Platform immutability is not assumed. The Storybook build describes that same source revision.
 
 1. Create a branch and explain the concrete change. Update stories, relevant tests, docs and CHANGELOG.md.
 2. Run pnpm test:dark, pnpm check, pnpm format:check and pnpm package:check and pnpm next:check locally before pushing. `.github/workflows/ci.yml` runs the same commands on every push and pull request — a red CI check means the branch is not ready, regardless of what ran locally. Inspect desktop, 390px mobile and long-content states. Check keyboard focus, mobile Escape/focus return, error recovery and reduced motion. Use the Convert rules and Impeccable review guidance.
@@ -8,7 +8,7 @@ Keep tokens, components and guidance on one version initially. A release is an i
 4. Choose a version. Patches are compatible fixes; minors are compatible additions; majors are breaking API/token changes. Read "Backward compatibility" below before choosing a breaking change during 0.x — it is not automatically fine just because semver technically allows it.
 5. Change package.json, refresh the lockfile, update displayed version labels and the changelog, then rerun the release checks. Inspect package contents for fonts, credentials and client material.
 6. Commit the release and tag the approved commit, for example v0.1.0. Push the approved commit and its tag to GitHub. Do not move or overwrite release tags or packages. The README's versioned clone command must match an available tag.
-7. Build the archive from that tagged revision using pnpm install --frozen-lockfile and pnpm pack --pack-destination artifacts. Share the archive with authorised consumers or let them build it from the same tag. A package registry, hosted Storybook and release-asset uploads are separate setup decisions. Only remove private:true when registry publication is deliberately configured.
+7. Build the archive from that tagged revision using pnpm install --frozen-lockfile and pnpm pack --pack-destination artifacts. Share the archive with authorised consumers or let them build it from the same tag. The release workflow attaches the archive and checksum after checking the exact tag commit. A package registry and hosted Storybook remain separate decisions. Only remove private:true when registry publication is deliberately configured.
 
 ## Backward compatibility
 
@@ -35,3 +35,15 @@ Install an exact package version and commit the vendor archive, dependency and l
 ## Repository and future distribution
 
 GitHub is the source repository and the place for bug reports, feature requests and pull requests. Git tags identify fixed versions; the default branch contains ongoing work. `.github/workflows/ci.yml` runs the full check suite on every push and pull request; `.github/dependabot.yml` opens weekly PRs for outdated pinned dependencies (review each one against this process rather than auto-merging). A package registry, hosted Storybook and cross-repository automation remain separate, not-yet-made setup decisions. Keep deployment credentials outside Git and resolve font hosting rights before distributing a font-containing catalogue.
+
+## Automated release gates
+
+The tag workflow calls the full CI workflow on the tag commit. Local framework checks verify the SHA256 of the archive that passed `package:check`. It then verifies version, changelog and release-note agreement before packing.
+
+Before tagging, remove the changelog entry's `unreleased` marker and record the release date. `pnpm release:check` checks candidate metadata; the tag check also rejects an unreleased entry.
+
+The workflow refuses an existing release and attaches `SHA256SUMS` beside the archive. To verify a downloaded archive, run `sha256sum -c SHA256SUMS` in its folder. On macOS, use `shasum -a 256 -c SHA256SUMS`.
+
+Keep lockfile integrity checks in application CI. Do not reuse a version or filename for different contents. Repository owners can review platform immutability settings separately.
+
+Registry hosting is retired. Its manual workflow reports retirement without publishing. Keep `pnpm registry:check` for the retained pilot's source consistency.

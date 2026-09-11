@@ -1,5 +1,15 @@
 # Release validation history
 
+## Validate 0.10.0
+
+Use `pnpm package:check`, `pnpm next:check` and `pnpm compatibility:check` in that order. Framework checks verify the SHA256 of the archive that passed the package check.
+
+The fixtures cover React/Vite without chart peers, optional charts, Next.js 16 with pnpm, and Next.js 15 with npm and Tailwind 4. The compatibility check also processes the stylesheet with Tailwind 3.
+
+Run `pnpm test:coverage` and `pnpm test:dark` for component regressions. These include editing, locale input, saved views, table selection, sticky columns and constrained date panels.
+
+Read [the implementation record](audits/2026-09-10-implementation.md) for completed runs and remaining limits. Historical version results below do not validate another commit or an application's upgrade.
+
 ## 0.4.0 · 8 September 2026
 
 Breaking release (see docs/release-0.4.md) done deliberately while there is exactly one known consumer (CONSUMERS.md). Validated on `feature/product-ui-0.4` before merge.
@@ -67,4 +77,4 @@ No client services, real data, authentication or production integrations are inc
 
 Reduced-motion and forced-colour styles are implemented. Native select menus follow the operating system. Licensed fonts are excluded from Git and the installable package; local Storybook builds may contain ignored preview fonts and need rights review before hosting.
 
-GitHub is the source and contribution destination. Local validation covers the package and catalogue; hosted Storybook, registry distribution and CI services are not configured.
+GitHub CI runs the library, archive and framework checks. Releases distribute built archives. Registry hosting is retired; hosted Storybook is not configured.

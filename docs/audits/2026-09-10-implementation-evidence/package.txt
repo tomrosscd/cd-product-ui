@@ -1,0 +1,417 @@
+
+> @convert/product-ui@0.10.0-rc.1 package:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/check-package.mjs
+
+
+> @convert/product-ui@0.10.0-rc.1 prepack /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> pnpm build
+
+
+> @convert/product-ui@0.10.0-rc.1 build /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> pnpm tokens && tsc -p tsconfig.build.json && pnpm styles && node scripts/copy-tokens.mjs
+
+
+> @convert/product-ui@0.10.0-rc.1 tokens /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/generate-tokens.mjs
+
+101 tokens generated
+
+> @convert/product-ui@0.10.0-rc.1 styles /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> tailwindcss -i src/styles/index.css -o dist/styles.css --minify
+
+≈ tailwindcss v4.3.3
+
+Done in 57ms
+📦  @convert/product-ui@0.10.0-rc.1
+Tarball Contents
+AGENTS.md
+assets/brand/icon-jpeg-clear-space-convert-icon-clear-space-black.jpg
+assets/brand/icon-jpeg-clear-space-convert-icon-clear-space-dark-green.jpg
+assets/brand/icon-jpeg-clear-space-convert-icon-clear-space-light-green.jpg
+assets/brand/icon-jpeg-clear-space-convert-icon-clear-space-white.jpg
+assets/brand/icon-jpeg-convert-icon-black.jpg
+assets/brand/icon-jpeg-convert-icon-dark-green.jpg
+assets/brand/icon-jpeg-convert-icon-light-green.jpg
+assets/brand/icon-jpeg-convert-icon-white.jpg
+assets/brand/icon-png-clear-space-convert-icon-clear-space-black.png
+assets/brand/icon-png-clear-space-convert-icon-clear-space-dark-green.png
+assets/brand/icon-png-clear-space-convert-icon-clear-space-light-green.png
+assets/brand/icon-png-clear-space-convert-icon-clear-space-white.png
+assets/brand/icon-png-convert-icon-black.png
+assets/brand/icon-png-convert-icon-dark-green.png
+assets/brand/icon-png-convert-icon-light-green.png
+assets/brand/icon-png-convert-icon-white.png
+assets/brand/icon-svg-clear-space-convert-icon-clear-space-black.svg
+assets/brand/icon-svg-clear-space-convert-icon-clear-space-dark-green.svg
+assets/brand/icon-svg-clear-space-convert-icon-clear-space-light-green.svg
+assets/brand/icon-svg-clear-space-convert-icon-clear-space-white.svg
+assets/brand/icon-svg-convert-icon-black.svg
+assets/brand/icon-svg-convert-icon-dark-green.svg
+assets/brand/icon-svg-convert-icon-light-green.svg
+assets/brand/icon-svg-convert-icon-white.svg
+assets/brand/logo-jpeg-clear-space-convert-logo-clear-space-black.jpg
+assets/brand/logo-jpeg-clear-space-convert-logo-clear-space-dark-green.jpg
+assets/brand/logo-jpeg-clear-space-convert-logo-clear-space-light-green.jpg
+assets/brand/logo-jpeg-clear-space-convert-logo-clear-space-white.jpg
+assets/brand/logo-jpeg-convert-logo-black.jpg
+assets/brand/logo-jpeg-convert-logo-dark-green.jpg
+assets/brand/logo-jpeg-convert-logo-light-green.jpg
+assets/brand/logo-jpeg-convert-logo-white.jpg
+assets/brand/logo-png-clear-space-convert-logo-clear-space-black.png
+assets/brand/logo-png-clear-space-convert-logo-clear-space-dark-green.png
+assets/brand/logo-png-clear-space-convert-logo-clear-space-light-green.png
+assets/brand/logo-png-clear-space-convert-logo-clear-space-white.png
+assets/brand/logo-png-convert-logo-black.png
+assets/brand/logo-png-convert-logo-dark-green.png
+assets/brand/logo-png-convert-logo-light-green.png
+assets/brand/logo-png-convert-logo-white.png
+assets/brand/logo-svg-clear-space-convert-logo-clear-space-black.svg
+assets/brand/logo-svg-clear-space-convert-logo-clear-space-dark-green.svg
+assets/brand/logo-svg-clear-space-convert-logo-clear-space-light-green.svg
+assets/brand/logo-svg-clear-space-convert-logo-clear-space-white.svg
+assets/brand/logo-svg-convert-logo-black.svg
+assets/brand/logo-svg-convert-logo-dark-green.svg
+assets/brand/logo-svg-convert-logo-light-green.svg
+assets/brand/logo-svg-convert-logo-white.svg
+assets/brand/profile-icons-cd-icon-2.png
+assets/brand/profile-icons-cd-icon-3.png
+assets/brand/profile-icons-cd-icon-4.png
+assets/brand/profile-icons-cd-profile-icon.jpg
+assets/brand/profile-icons-cd-profile-logo-icon.jpg
+assets/brand/profile-icons-cdpi-round-darkgreen-lightgreen.png
+assets/brand/profile-icons-cdpi-round-darkgreen.png
+assets/brand/profile-icons-cdpi-round-lightgreen.png
+assets/brand/straight-jpeg-clear-space-convert-logo-straight-black-clear-space.jpg
+assets/brand/straight-jpeg-clear-space-convert-logo-straight-dark-green-clear-space.jpg
+assets/brand/straight-jpeg-clear-space-convert-logo-straight-light-green-clear-space.jpg
+assets/brand/straight-jpeg-clear-space-convert-logo-straight-white-clear-space.jpg
+assets/brand/straight-jpeg-convert-logo-straight-black.jpg
+assets/brand/straight-jpeg-convert-logo-straight-dark-green.jpg
+assets/brand/straight-jpeg-convert-logo-straight-light-green.jpg
+assets/brand/straight-jpeg-convert-logo-straight-white.jpg
+assets/brand/straight-png-clear-space-convert-logo-straight-black-clear-space.png
+assets/brand/straight-png-clear-space-convert-logo-straight-dark-green-clear-space.png
+assets/brand/straight-png-clear-space-convert-logo-straight-light-green-clear-space.png
+assets/brand/straight-png-clear-space-convert-logo-straight-white-clear-space.png
+assets/brand/straight-png-convert-logo-straight-black.png
+assets/brand/straight-png-convert-logo-straight-dark-green.png
+assets/brand/straight-png-convert-logo-straight-light-green.png
+assets/brand/straight-png-convert-logo-straight-white.png
+assets/brand/straight-svg-clear-space-convert-logo-straight-black-clear-space.svg
+assets/brand/straight-svg-clear-space-convert-logo-straight-dark-green-clear-space.svg
+assets/brand/straight-svg-clear-space-convert-logo-straight-light-green-clear-space.svg
+assets/brand/straight-svg-clear-space-convert-logo-straight-white-clear-space.svg
+assets/brand/straight-svg-convert-logo-straight-black.svg
+assets/brand/straight-svg-convert-logo-straight-dark-green.svg
+assets/brand/straight-svg-convert-logo-straight-light-green.svg
+assets/brand/straight-svg-convert-logo-straight-white.svg
+CHANGELOG.md
+CONTRIBUTING.md
+dist/brand-assets.d.ts
+dist/brand-assets.d.ts.map
+dist/brand-assets.js
+dist/brand-assets.js.map
+dist/charts/index.d.ts
+dist/charts/index.d.ts.map
+dist/charts/index.js
+dist/charts/index.js.map
+dist/components/data/data-table.d.ts
+dist/components/data/data-table.d.ts.map
+dist/components/data/data-table.js
+dist/components/data/data-table.js.map
+dist/components/navigation/dashboard-sidebar.d.ts
+dist/components/navigation/dashboard-sidebar.d.ts.map
+dist/components/navigation/dashboard-sidebar.js
+dist/components/navigation/dashboard-sidebar.js.map
+dist/components/navigation/nav-entries.d.ts
+dist/components/navigation/nav-entries.d.ts.map
+dist/components/navigation/nav-entries.js
+dist/components/navigation/nav-entries.js.map
+dist/components/primitives/badge.d.ts
+dist/components/primitives/badge.d.ts.map
+dist/components/primitives/badge.js
+dist/components/primitives/badge.js.map
+dist/components/primitives/button.d.ts
+dist/components/primitives/button.d.ts.map
+dist/components/primitives/button.js
+dist/components/primitives/button.js.map
+dist/components/primitives/card.d.ts
+dist/components/primitives/card.d.ts.map
+dist/components/primitives/card.js
+dist/components/primitives/card.js.map
+dist/components/primitives/chip.d.ts
+dist/components/primitives/chip.d.ts.map
+dist/components/primitives/chip.js
+dist/components/primitives/chip.js.map
+dist/components/primitives/column-config-panel.d.ts
+dist/components/primitives/column-config-panel.d.ts.map
+dist/components/primitives/column-config-panel.js
+dist/components/primitives/column-config-panel.js.map
+dist/components/primitives/combobox.d.ts
+dist/components/primitives/combobox.d.ts.map
+dist/components/primitives/combobox.js
+dist/components/primitives/combobox.js.map
+dist/components/primitives/confirmation-dialog.d.ts
+dist/components/primitives/confirmation-dialog.d.ts.map
+dist/components/primitives/confirmation-dialog.js
+dist/components/primitives/confirmation-dialog.js.map
+dist/components/primitives/content-list.d.ts
+dist/components/primitives/content-list.d.ts.map
+dist/components/primitives/content-list.js
+dist/components/primitives/content-list.js.map
+dist/components/primitives/content.d.ts
+dist/components/primitives/content.d.ts.map
+dist/components/primitives/content.js
+dist/components/primitives/content.js.map
+dist/components/primitives/convert-logo.d.ts
+dist/components/primitives/convert-logo.d.ts.map
+dist/components/primitives/convert-logo.js
+dist/components/primitives/convert-logo.js.map
+dist/components/primitives/convert-mark.d.ts
+dist/components/primitives/convert-mark.d.ts.map
+dist/components/primitives/convert-mark.js
+dist/components/primitives/convert-mark.js.map
+dist/components/primitives/date-picker.d.ts
+dist/components/primitives/date-picker.d.ts.map
+dist/components/primitives/date-picker.js
+dist/components/primitives/date-picker.js.map
+dist/components/primitives/disclosure.d.ts
+dist/components/primitives/disclosure.d.ts.map
+dist/components/primitives/disclosure.js
+dist/components/primitives/disclosure.js.map
+dist/components/primitives/drawer.d.ts
+dist/components/primitives/drawer.d.ts.map
+dist/components/primitives/drawer.js
+dist/components/primitives/drawer.js.map
+dist/components/primitives/error-boundary.d.ts
+dist/components/primitives/error-boundary.d.ts.map
+dist/components/primitives/error-boundary.js
+dist/components/primitives/error-boundary.js.map
+dist/components/primitives/feedback.d.ts
+dist/components/primitives/feedback.d.ts.map
+dist/components/primitives/feedback.js
+dist/components/primitives/feedback.js.map
+dist/components/primitives/fields.d.ts
+dist/components/primitives/fields.d.ts.map
+dist/components/primitives/fields.js
+dist/components/primitives/fields.js.map
+dist/components/primitives/file-upload.d.ts
+dist/components/primitives/file-upload.d.ts.map
+dist/components/primitives/file-upload.js
+dist/components/primitives/file-upload.js.map
+dist/components/primitives/formatted-input.d.ts
+dist/components/primitives/formatted-input.d.ts.map
+dist/components/primitives/formatted-input.js
+dist/components/primitives/formatted-input.js.map
+dist/components/primitives/icon.d.ts
+dist/components/primitives/icon.d.ts.map
+dist/components/primitives/icon.js
+dist/components/primitives/icon.js.map
+dist/components/primitives/inline-edit.d.ts
+dist/components/primitives/inline-edit.d.ts.map
+dist/components/primitives/inline-edit.js
+dist/components/primitives/inline-edit.js.map
+dist/components/primitives/layout.d.ts
+dist/components/primitives/layout.d.ts.map
+dist/components/primitives/layout.js
+dist/components/primitives/layout.js.map
+dist/components/primitives/metric.d.ts
+dist/components/primitives/metric.d.ts.map
+dist/components/primitives/metric.js
+dist/components/primitives/metric.js.map
+dist/components/primitives/notification-centre.d.ts
+dist/components/primitives/notification-centre.d.ts.map
+dist/components/primitives/notification-centre.js
+dist/components/primitives/notification-centre.js.map
+dist/components/primitives/option.d.ts
+dist/components/primitives/option.d.ts.map
+dist/components/primitives/option.js
+dist/components/primitives/option.js.map
+dist/components/primitives/pagination.d.ts
+dist/components/primitives/pagination.d.ts.map
+dist/components/primitives/pagination.js
+dist/components/primitives/pagination.js.map
+dist/components/primitives/period-navigator.d.ts
+dist/components/primitives/period-navigator.d.ts.map
+dist/components/primitives/period-navigator.js
+dist/components/primitives/period-navigator.js.map
+dist/components/primitives/progress.d.ts
+dist/components/primitives/progress.d.ts.map
+dist/components/primitives/progress.js
+dist/components/primitives/progress.js.map
+dist/components/primitives/segmented-control.d.ts
+dist/components/primitives/segmented-control.d.ts.map
+dist/components/primitives/segmented-control.js
+dist/components/primitives/segmented-control.js.map
+dist/components/primitives/select.d.ts
+dist/components/primitives/select.d.ts.map
+dist/components/primitives/select.js
+dist/components/primitives/select.js.map
+dist/components/primitives/stepper.d.ts
+dist/components/primitives/stepper.d.ts.map
+dist/components/primitives/stepper.js
+dist/components/primitives/stepper.js.map
+dist/components/primitives/styled-select.d.ts
+dist/components/primitives/styled-select.d.ts.map
+dist/components/primitives/styled-select.js
+dist/components/primitives/styled-select.js.map
+dist/components/primitives/table.d.ts
+dist/components/primitives/table.d.ts.map
+dist/components/primitives/table.js
+dist/components/primitives/table.js.map
+dist/components/primitives/tabs.d.ts
+dist/components/primitives/tabs.d.ts.map
+dist/components/primitives/tabs.js
+dist/components/primitives/tabs.js.map
+dist/components/primitives/text-link.d.ts
+dist/components/primitives/text-link.d.ts.map
+dist/components/primitives/text-link.js
+dist/components/primitives/text-link.js.map
+dist/components/primitives/theme.d.ts
+dist/components/primitives/theme.d.ts.map
+dist/components/primitives/theme.js
+dist/components/primitives/theme.js.map
+dist/components/primitives/workspace-controls.d.ts
+dist/components/primitives/workspace-controls.d.ts.map
+dist/components/primitives/workspace-controls.js
+dist/components/primitives/workspace-controls.js.map
+dist/index.d.ts
+dist/index.d.ts.map
+dist/index.js
+dist/index.js.map
+dist/lib/aria.d.ts
+dist/lib/aria.d.ts.map
+dist/lib/aria.js
+dist/lib/aria.js.map
+dist/lib/classes.d.ts
+dist/lib/classes.d.ts.map
+dist/lib/classes.js
+dist/lib/classes.js.map
+dist/lib/href.d.ts
+dist/lib/href.d.ts.map
+dist/lib/href.js
+dist/lib/href.js.map
+dist/lib/parse-number.d.ts
+dist/lib/parse-number.d.ts.map
+dist/lib/parse-number.js
+dist/lib/parse-number.js.map
+dist/patterns/card-patterns.d.ts
+dist/patterns/card-patterns.d.ts.map
+dist/patterns/card-patterns.js
+dist/patterns/card-patterns.js.map
+dist/patterns/dashboard-shell.d.ts
+dist/patterns/dashboard-shell.d.ts.map
+dist/patterns/dashboard-shell.js
+dist/patterns/dashboard-shell.js.map
+dist/patterns/filter-toolbar.d.ts
+dist/patterns/filter-toolbar.d.ts.map
+dist/patterns/filter-toolbar.js
+dist/patterns/filter-toolbar.js.map
+dist/patterns/roadmap-board.d.ts
+dist/patterns/roadmap-board.d.ts.map
+dist/patterns/roadmap-board.js
+dist/patterns/roadmap-board.js.map
+dist/patterns/sign-in-form.d.ts
+dist/patterns/sign-in-form.d.ts.map
+dist/patterns/sign-in-form.js
+dist/patterns/sign-in-form.js.map
+dist/patterns/wizard.d.ts
+dist/patterns/wizard.d.ts.map
+dist/patterns/wizard.js
+dist/patterns/wizard.js.map
+dist/styles.css
+dist/tokens.css
+dist/tokens.d.ts
+dist/tokens.d.ts.map
+dist/tokens.js
+dist/tokens.js.map
+docs/adopting-in-an-app.md
+docs/ai-guidance.md
+docs/architecture.md
+docs/component-catalogue.md
+docs/dashboard-composition.md
+docs/data-table.md
+docs/form-workflows.md
+docs/release-0.10.md
+docs/release-0.3.md
+docs/release-0.4.md
+docs/release-0.5.md
+docs/release-0.6.md
+docs/release-0.7.md
+docs/release-0.8.md
+docs/release-0.9.md
+docs/release-process.md
+docs/validation.md
+LICENSE
+package.json
+README.md
+Tarball Details
+/var/folders/v2/gnsxxbmx2sj0jj7gm2mhk60m0000gn/T/cui-package-DdjTPZ/convert-product-ui-0.10.0-rc.1.tgz
+Progress: resolved 1, reused 0, downloaded 0, added 0
+
+   ╭──────────────────────────────────────────────╮
+   │                                              │
+   │     Update available! 10.33.0 → 12.3.4.      │
+   │     Changelog: https://pnpm.io/v/12.3.4      │
+   │   To update, run: corepack use pnpm@12.3.4   │
+   │                                              │
+   ╰──────────────────────────────────────────────╯
+
+Progress: resolved 101, reused 76, downloaded 1, added 0
+Packages: +86
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 110, reused 85, downloaded 1, added 84
+Progress: resolved 110, reused 85, downloaded 1, added 86, done
+
+dependencies:
++ @convert/product-ui 0.10.0-rc.1
++ react 19.2.8
++ react-dom 19.2.8
+
+devDependencies:
++ @types/node 22.19.11 (26.5.0 is available)
++ @types/react 19.2.18
++ @types/react-dom 19.2.7
++ @vitejs/plugin-react 6.1.1
++ typescript 5.9.3 (7.0.2 is available)
++ vite 8.2.2
+
+Done in 2.9s using pnpm v10.33.0
+Packed consumer: React render, token export and compiled CSS passed.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 2922 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.27 kB
+dist/assets/index-CXS_n-zr.css   59.83 kB │ gzip:  9.43 kB
+dist/assets/index-D-DNrMD5.js   208.26 kB │ gzip: 66.37 kB
+
+✓ built in 606ms
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +39 -1
++++++++++++++++++++++++++++++++++++++++-
+Progress: resolved 148, reused 124, downloaded 0, added 20
+Progress: resolved 148, reused 124, downloaded 0, added 39, done
+
+dependencies:
++ react-is 19.2.8
++ recharts 3.10.1
+
+Done in 1.9s using pnpm v10.33.0
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 3495 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:   0.27 kB
+dist/assets/index-CXS_n-zr.css   59.83 kB │ gzip:   9.43 kB
+dist/assets/index-BUmaLLz-.js   768.84 kB │ gzip: 227.89 kB
+
+✓ built in 290ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+Verified 321 package files. Consumer fixture: /var/folders/v2/gnsxxbmx2sj0jj7gm2mhk60m0000gn/T/convert-product-ui-consumer-aUiB8I

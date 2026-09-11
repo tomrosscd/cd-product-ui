@@ -1,6 +1,6 @@
 'use client'
 import * as Dialog from '@radix-ui/react-dialog'
-import type { ReactNode } from 'react'
+import { useRef, type ReactNode, type RefObject } from 'react'
 import { useProductTheme } from './theme.js'
 import { Button } from './button.js'
 import { Icon } from './icon.js'
@@ -15,6 +15,8 @@ export interface DrawerProps {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   closeLabel?: string
+  /** Return focus here if the opening control is removed or focus did not open the drawer. */
+  returnFocusRef?: RefObject<HTMLElement | null>
 }
 /**
  * A side panel for inspecting or editing a record without leaving the page. Content, loading,
@@ -29,14 +31,29 @@ export function Drawer({
   open,
   onOpenChange,
   closeLabel = 'Close',
+  returnFocusRef,
 }: DrawerProps) {
+  const opener = useRef<HTMLElement | null>(null)
   const theme = useProductTheme()
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
         <Dialog.Overlay className="cui-sidebar-overlay" />
-        <Dialog.Content data-cui-theme={theme} className="cui-root cui-drawer-panel">
+        <Dialog.Content
+          data-cui-theme={theme}
+          className="cui-root cui-drawer-panel"
+          onOpenAutoFocus={() => {
+            opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+          }}
+          onCloseAutoFocus={(event) => {
+            const target = returnFocusRef?.current ?? (!trigger ? opener.current : null)
+            if (target?.isConnected && target !== document.body) {
+              event.preventDefault()
+              target.focus()
+            }
+          }}
+        >
           <div className="cui-drawer-header">
             <Dialog.Title className="cui-drawer-title">{heading}</Dialog.Title>
             <Dialog.Close asChild>

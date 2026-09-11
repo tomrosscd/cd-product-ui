@@ -1,0 +1,116 @@
+
+> @convert/product-ui@0.10.0-rc.1 test:coverage /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> vitest run --coverage
+
+│ ┌────────────────────────────────────────────────────────────────────────────┐
+│ │  Info: Found a setup file with "setProjectAnnotations".                    │
+│ │  Skipping automatic provisioning of preview annotations to avoid           │
+│ │  conflicts. Since Storybook 10.3, "@storybook/addon-vitest" applies these  │
+│ │   automatically.                                                           │
+│ │  You can safely remove the "setProjectAnnotations" call from your setup    │
+│ │  file, or remove the file entirely if you don't have custom code there.    │
+│ └────────────────────────────────────────────────────────────────────────────┘
+
+ RUN  v4.1.11 /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+      Coverage enabled with v8
+
+9:48:17 PM [vite] (client) [console.error] An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+9:48:17 PM [vite] (client) [console.error] A component suspended inside an `act` scope, but the `act` call was not awaited. When testing React components that depend on asynchronous data, you must await the result:
+
+await act(() => ...)
+9:48:32 PM [vite] (client) [console.error] Error: Deliberate failure for the story.
+    at Bomb (http://localhost:63315/Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My%20Drive/Tom%20-%20Project%20Working%20Files/Internal/Convert%20Product%20UI%20Design%20System/convert-product-ui/src/components/primitives/error-boundary.stories.tsx?import&browserv=1789040912367:13:20)
+    at Object.react_stack_bottom_frame (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:12866:12)
+    at renderWithHooks (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:4213:19)
+    at updateFunctionComponent (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:5569:16)
+    at beginWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:6140:20)
+    at runWithFiberInDEV (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:851:66)
+    at performUnitOfWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:8429:92)
+    at workLoopSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:8325:37)
+    at renderRootSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:8309:6)
+    at performWorkOnRoot (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:7994:27)
+
+The above error occurred in the <Bomb> component.
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+
+9:48:32 PM [vite] (client) [console.error] Error: Deliberate failure for the story.
+    at Bomb (http://localhost:63315/Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My%20Drive/Tom%20-%20Project%20Working%20Files/Internal/Convert%20Product%20UI%20Design%20System/convert-product-ui/src/components/primitives/error-boundary.stories.tsx?import&browserv=1789040912367:13:20)
+    at Object.react_stack_bottom_frame (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:12866:12)
+    at renderWithHooks (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:4213:19)
+    at updateFunctionComponent (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:5569:16)
+    at beginWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:6140:20)
+    at runWithFiberInDEV (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:851:66)
+    at performUnitOfWork (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:8429:92)
+    at workLoopSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:8325:37)
+    at renderRootSync (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:8309:6)
+    at performWorkOnRoot (http://localhost:63315/node_modules/.cache/storybook/10.6.0/45a65703c3c2024d3f18ca153a5e3f98817a2467e7c6e3e948b27911edeca94c/sb-vitest/deps/client-CYXFDkms.js?v=9923df70:7994:27)
+
+The above error occurred in the <Bomb> component.
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+
+
+ Test Files  56 passed (56)
+      Tests  289 passed (289)
+   Start at  21:48:07
+   Duration  26.11s (transform 39.23s, setup 28.81s, import 105.89s, tests 48.22s, environment 10.85s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   93.11 |    87.78 |   92.71 |   94.15 |                   
+ src/charts        |     100 |    88.15 |     100 |     100 |                   
+  index.tsx        |     100 |    88.15 |     100 |     100 | ...77,250,266,310 
+ ...omponents/data |   88.37 |    83.21 |   85.71 |    86.3 |                   
+  data-table.tsx   |   88.37 |    83.21 |   85.71 |    86.3 | ...57-259,448,463 
+ ...nts/navigation |      86 |    94.44 |      90 |   88.37 |                   
+  ...d-sidebar.tsx |   85.71 |       95 |   83.33 |    87.5 | 63,124-125        
+  nav-entries.tsx  |   86.36 |       94 |     100 |   89.47 | 110-111           
+ ...nts/primitives |   92.75 |     87.6 |   92.03 |    94.2 |                   
+  chip.tsx         |   83.33 |       90 |      80 |   83.33 | 63                
+  ...fig-panel.tsx |   91.48 |     82.6 |   95.65 |   96.77 | 119               
+  combobox.tsx     |   74.39 |    78.22 |      80 |   80.59 | ...98,104,106,169 
+  content.tsx      |    92.3 |    76.92 |   88.88 |   91.66 | 32                
+  convert-logo.tsx |     100 |       60 |     100 |     100 | 31-33             
+  date-picker.tsx  |   93.22 |    72.38 |   84.61 |   93.87 | 70,237,244        
+  drawer.tsx       |     100 |    94.11 |     100 |     100 | 47                
+  ...-boundary.tsx |   92.85 |       90 |     100 |     100 | 30                
+  fields.tsx       |     100 |    88.46 |     100 |     100 | ...69,178,244-251 
+  file-upload.tsx  |     100 |    81.25 |     100 |     100 | 52-57,61,76       
+  ...ted-input.tsx |     100 |    93.54 |     100 |     100 | 75,105            
+  inline-edit.tsx  |     100 |    96.66 |     100 |     100 | 91                
+  layout.tsx       |     100 |    95.23 |     100 |     100 | 61                
+  metric.tsx       |     100 |    93.75 |     100 |     100 | 42                
+  ...on-centre.tsx |      90 |       92 |      80 |    87.5 | 117               
+  pagination.tsx   |   85.71 |    88.46 |   81.81 |   83.33 | 44-51             
+  progress.tsx     |     100 |    97.14 |     100 |     100 | 15,95             
+  ...ed-select.tsx |     100 |    90.32 |     100 |     100 | 43,105-106        
+  table.tsx        |     100 |    88.88 |     100 |     100 | 37                
+  ...-controls.tsx |    92.3 |    88.33 |   86.95 |   90.32 | 200,273-284       
+ src/lib           |   97.95 |    85.96 |     100 |     100 |                   
+  href.ts          |      75 |       50 |     100 |     100 | 4-5               
+  parse-number.ts  |     100 |    87.23 |     100 |     100 | 7-9,20,25-26,44   
+ src/patterns      |   98.68 |    90.19 |     100 |     100 |                   
+  ...ard-shell.tsx |     100 |    81.81 |     100 |     100 | 23,34             
+  ...r-toolbar.tsx |     100 |    93.33 |     100 |     100 | 56                
+  ...map-board.tsx |     100 |    89.36 |     100 |     100 | ...10,146,186,200 
+  wizard.tsx       |   93.33 |    86.66 |     100 |     100 | 39-46             
+-------------------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 93.11% ( 785/843 )
+Branches     : 87.78% ( 1135/1293 )
+Functions    : 92.71% ( 331/357 )
+Lines        : 94.15% ( 661/702 )
+================================================================================

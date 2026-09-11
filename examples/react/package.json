@@ -4,15 +4,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 6007",
-    "build": "vite build"
+    "build": "tsc --noEmit && vite build"
   },
   "dependencies": {
-    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.3.0.tgz",
+    "@convert/product-ui": "file:../../artifacts/convert-product-ui-0.10.0.tgz",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "vite": "8.2.2",
-    "@vitejs/plugin-react": "6.1.1"
+    "@vitejs/plugin-react": "6.1.1",
+    "typescript": "5.9.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@types/node": "22.19.11"
   }
 }

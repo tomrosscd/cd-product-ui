@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.10.0 · 11 September 2026
+
+Shared table and form improvements, adoption audit fixes and aligned pagination controls. The library remains independent of application services and business rules.
+
+### Added
+
+- `Stepper`, `NotificationCentre`, `Drawer`, `ColumnConfigPanel` and `InlineEdit` from the post-0.9.0 work.
+- Recursive sidebar sections, `SidebarItem.badge`, Button variants and control sizes.
+- `DataTable.tableState` and `onTableStateChange` for sorting, filtering, pagination, visibility, order, pinning, selection and expansion.
+- Server pagination with explicit `rowCount`, optional bulk actions and host-supplied grouped rows and totals.
+- `FileUpload` for file selection and transfer status; `Wizard` for controlled form steps.
+- `FilterToolbar.actions` for actions separate from filtering controls.
+
+### Fixed
+
+- Pagination uses an inline page-size label and matching compact controls. Narrow containers place navigation on its own row.
+- Styled select options use one rounded focus ring without viewport clipping, retain a forced-colour outline and align checkmarks to the trailing edge.
+- Inline editing retains the draft after rejection, clears pending state and restores trigger focus. Duplicate saves and cancellation during submission are blocked.
+- Column configuration reflects saved views and host-controlled selection. Reorder buttons meet the 24px target minimum.
+- Formatted inputs parse locale separators and digits. Invalid text stays visible and does not emit a replacement value.
+- Combobox loading/error results cannot be selected. Required values participate in validation; disabled values are excluded from submission.
+- Date panels fit the available popover height. Sticky table offsets use rendered column widths.
+- Triggerless drawers restore focus. Notification items expose unread text to assistive technology.
+- Adoption examples use the release archive and type-check against its declarations. Demonstration content is synthetic.
+
+### Behaviour and release review
+
+- Post-0.9.0 token work changes focus width from 2px to 1px and adds control-size tokens. Review focus visibility and density.
+- Column configuration is controlled. Update `visibleKeys` in `onChange`; hidden columns remain available in definition order.
+- Numeric inputs reject malformed grouping, arbitrary text, currency symbols and exponent notation. Use the selected locale's decimal notation.
+- Release jobs run the full checks on the tag commit, verify metadata, publish a SHA256 checksum and refuse existing releases.
+- Registry hosting is retired. Local registry source and drift checks remain available.
+
+See [migration notes](docs/release-0.10.md). Applications upgrade deliberately; this release does not change installed consumers.
+
 ## 0.9.0 · 9 September 2026
 
 Tables that carry real data, and the navigation and status fixes the first external consumer found while adopting 0.8.0. Everything is additive; two existing default appearances change, both called out below. See [docs/release-0.9.md](docs/release-0.9.md).

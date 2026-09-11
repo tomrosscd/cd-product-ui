@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@custom-variant dark (&:is(.dark *));
+@theme { --color-background: #faf9f7; --color-foreground: #19211c; }
+@layer base { body { margin: 0; background: var(--color-background); color: var(--color-foreground); } }
+.host-control { border: 2px solid blue; padding: 7px; }

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import * as Popover from '@radix-ui/react-popover'
 import { useProductTheme } from './theme.js'
 import { Chip } from './chip.js'
@@ -48,16 +48,22 @@ export function Combobox(props: ComboboxProps) {
   const [query, setQuery] = useState('')
   const [activeIndex, setActiveIndex] = useState(0)
   const selectedValues = props.multiple ? props.value : props.value ? [props.value] : []
-  const filtered = onSearchChange
-    ? options
-    : options.filter((option) => option.label.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+  const filtered = useMemo(
+    () =>
+      onSearchChange
+        ? options
+        : options.filter((option) => option.label.toLocaleLowerCase().includes(query.toLocaleLowerCase())),
+    [options, query, onSearchChange],
+  )
+  const available = !loading && !error && !disabled
   useEffect(() => {
-    const firstEnabled = filtered.findIndex((option) => !option.disabled)
-    setActiveIndex(firstEnabled === -1 ? 0 : firstEnabled)
-    // Deliberately re-run only on query/open, not `filtered` (a new array reference every render).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, open])
+    setActiveIndex(filtered.findIndex((option) => !option.disabled))
+  }, [filtered, open, available])
+  useEffect(() => {
+    inputRef.current?.setCustomValidity(required && selectedValues.length === 0 ? 'Select an option.' : '')
+  }, [required, selectedValues.length])
   function select(optionValue: string) {
+    if (disabled) return
     if (props.multiple) {
       props.onValueChange(
         props.value.includes(optionValue)
@@ -79,24 +85,28 @@ export function Combobox(props: ComboboxProps) {
     return from
   }
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.currentTarget.matches(':disabled')) return
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       setOpen(true)
-      setActiveIndex((index) => nextEnabledIndex(index, 1))
+      if (available)
+        setActiveIndex((index) =>
+          open ? nextEnabledIndex(index, 1) : filtered.findIndex((option) => !option.disabled),
+        )
     } else if (event.key === 'ArrowUp') {
       event.preventDefault()
-      setActiveIndex((index) => nextEnabledIndex(index, -1))
+      if (available) setActiveIndex((index) => nextEnabledIndex(index, -1))
     } else if (event.key === 'Enter') {
-      event.preventDefault()
+      if (open) event.preventDefault()
       const option = filtered[activeIndex]
-      if (option && !option.disabled) select(option.value)
+      if (open && available && option && !option.disabled) select(option.value)
     } else if (event.key === 'Escape') {
       setOpen(false)
     } else if (event.key === 'Backspace' && props.multiple && query === '' && props.value.length > 0) {
       props.onValueChange(props.value.slice(0, -1))
     }
   }
-  const activeOption = filtered[activeIndex]
+  const activeOption = available ? filtered[activeIndex] : undefined
   const selectedSingleLabel = !props.multiple && props.value ? options.find((o) => o.value === props.value)?.label : ''
   const selectedOptions = options.filter((option) => selectedValues.includes(option.value))
   return (
@@ -125,7 +135,8 @@ export function Combobox(props: ComboboxProps) {
               id={id}
               role="combobox"
               aria-expanded={open}
-              aria-controls={`${id}-listbox`}
+              aria-controls={open ? `${id}-listbox` : undefined}
+              aria-required={required || undefined}
               aria-activedescendant={open && activeOption ? `${id}-option-${activeOption.value}` : undefined}
               aria-autocomplete="list"
               aria-describedby={hint || error ? `${id}-note` : undefined}
@@ -149,10 +160,14 @@ export function Combobox(props: ComboboxProps) {
               }}
               onKeyDown={handleKeyDown}
             />
-            {name && !props.multiple && <input type="hidden" name={name} value={props.value ?? ''} />}
+            {name && !props.multiple && (
+              <input type="hidden" disabled={disabled} name={name} value={props.value ?? ''} />
+            )}
             {name &&
               props.multiple &&
-              props.value.map((item) => <input key={item} type="hidden" name={`${name}[]`} value={item} />)}
+              props.value.map((item) => (
+                <input key={item} type="hidden" disabled={disabled} name={`${name}[]`} value={item} />
+              ))}
           </div>
         </Popover.Anchor>
         <Popover.Portal>
@@ -178,8 +193,7 @@ export function Combobox(props: ComboboxProps) {
               aria-multiselectable={props.multiple || undefined}
               className="cui-combobox-listbox"
             >
-              {!loading &&
-                !error &&
+              {available &&
                 filtered.map((option, index) => (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events -- ARIA combobox listbox pattern: the input owns keyboard navigation via aria-activedescendant, not each option
                   <li
@@ -193,7 +207,7 @@ export function Combobox(props: ComboboxProps) {
                     data-disabled={option.disabled ? '' : undefined}
                     className="cui-select-option"
                     onMouseEnter={() => !option.disabled && setActiveIndex(index)}
-                    onClick={() => !option.disabled && select(option.value)}
+                    onClick={() => !inputRef.current?.matches(':disabled') && !option.disabled && select(option.value)}
                   >
                     {option.avatar}
                     <span className="cui-select-option-label">{option.label}</span>

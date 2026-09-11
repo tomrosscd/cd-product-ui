@@ -1,0 +1,45 @@
+
+> @convert/product-ui@0.10.0-rc.1 compatibility:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/check-compatibility.mjs
+
+
+added 209 packages in 15s
+
+added 209 packages in 8s
+
+> build
+> next build
+
+   ▲ Next.js 15.5.25
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 12.8s
+   Linting and checking validity of types ...
+
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+   	- incremental was set to true
+   	- exclude was set to ['node_modules']
+
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                     218 kB         321 kB
+└ ○ /_not-found                            995 B         104 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-37e0f0325134c4d7.js       46.4 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.93 kB
+
+
+○  (Static)  prerendered as static content
+
+Independent npm/Next15/Tailwind4 build, runtime and Tailwind3 CSS check passed: /var/folders/v2/gnsxxbmx2sj0jj7gm2mhk60m0000gn/T/cui-compatibility-eeVyFS

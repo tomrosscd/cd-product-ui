@@ -7,7 +7,7 @@ export default function ClientExample() {
   return (
     <>
       <DataChart
-        title="Weekly completion"
+        heading="Weekly completion"
         summary="Completed items increased from 3 to 8."
         kind="bar"
         data={[
@@ -29,7 +29,7 @@ export default function ClientExample() {
         ]}
       />
       <SignInForm onSubmit={() => setSubmitted(true)} />
-      {submitted && <Alert title="Demo submitted">No account was accessed.</Alert>}
+      {submitted && <Alert heading="Demo submitted">No account was accessed.</Alert>}
     </>
   )
 }

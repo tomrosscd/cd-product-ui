@@ -1,0 +1,18 @@
+'use client'
+import { useState } from 'react'
+import { DashboardShell, Card, Button, Input, DataTable, Progress, ThemeProvider, StyledSelect, ConfirmationDialog, CurrencyInput, Combobox, type ColumnDef } from '@convert/product-ui'
+type Row = { name: string; hours: number | null; category: string }
+const rows: Row[] = Array.from({ length: 18 }, (_, i) => ({ name: i === 0 ? 'An intentionally long synthetic project name for wrapping verification' : `Example ${i + 1}`, hours: i === 0 ? null : i === 1 ? 0 : i + 1, category: i % 2 ? 'Review' : 'Ready' }))
+const columns: ColumnDef<Row>[] = [{ accessorKey: 'name', header: 'Project' }, { accessorKey: 'hours', header: 'Hours', cell: ({ getValue }) => getValue() === null ? 'Missing' : String(getValue()) }, { accessorKey: 'category', header: 'Status' }]
+export default function Screen() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [amount, setAmount] = useState<number | undefined>(0)
+  const [query, setQuery] = useState('')
+  const [choice, setChoice] = useState<string>()
+  return <ThemeProvider theme={theme}><DashboardShell items={[{ id: 'home', label: 'Dashboard', href: '#home' }, { id: 'reports', label: 'Reports', href: '#reports' }]} activeId='home' workspace='Audit workspace'>
+    <header><h1>Independent adoption fixture</h1><Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>Toggle theme</Button></header>
+    <button className='host-control' data-testid='host-control'>Host control</button>
+    <Card heading='Filters'><Input label='Search projects' value={query} onChange={e => setQuery(e.target.value)} /><StyledSelect label='View' defaultValue='all' options={[{ value: 'all', label: 'All projects' }, { value: 'review', label: 'Review' }]} /><CurrencyInput label='Budget' value={amount} onValueChange={setAmount} /><Combobox label='Team' value={choice} onValueChange={setChoice} options={[{ value: 'design', label: 'Design' }, { value: 'build', label: 'Build' }]} /></Card>
+    <Card heading='Delivery'><Progress label='Capacity' value={142} max={100} /><DataTable caption='Synthetic projects' data={rows.filter(r => r.name.toLowerCase().includes(query.toLowerCase()))} columns={columns} pagination='full' tableLayout='scroll' /><ConfirmationDialog heading='Confirm selection' description='Synthetic action only.' trigger={<Button>Review action</Button>} onConfirm={() => {}} /></Card>
+  </DashboardShell></ThemeProvider>
+}

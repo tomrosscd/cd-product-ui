@@ -31,6 +31,14 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement)
     await userEvent.click(c.getByRole('combobox', { name: 'Project view' }))
+    const selected = within(canvasElement.ownerDocument.body).getByRole('option', { name: 'All projects' })
+    const style = getComputedStyle(selected)
+    await expect(style.outlineStyle).toBe('none')
+    await expect(style.boxShadow).not.toBe('none')
+    const label = selected.querySelector('.cui-select-option-label')!
+    const indicator = selected.querySelector('.cui-select-option-indicator')!
+    await expect(label.getBoundingClientRect().right).toBeLessThan(indicator.getBoundingClientRect().left)
+    await expect(selected.getBoundingClientRect().right - indicator.getBoundingClientRect().right).toBeLessThan(16)
     await userEvent.keyboard('{Home}{ArrowDown}{Enter}')
     await expect(c.getByRole('combobox')).toHaveTextContent('Active projects')
     await expect(c.getByRole('combobox')).toHaveFocus()

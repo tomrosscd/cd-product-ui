@@ -1,0 +1,52 @@
+{
+  "errors": [],
+  "checks": {
+    "destructive-focus": {
+      "outline": "rgb(39, 56, 47)",
+      "width": "1px",
+      "offset": "0px",
+      "surface": "rgb(255, 255, 255)",
+      "focusVisible": true
+    },
+    "columns-axe": [
+      {
+        "id": "target-size",
+        "nodes": [
+          {
+            "target": ["button[aria-label=\"Move Beta up\"]"],
+            "summary": "Fix any of the following:\n  Target has insufficient size (24px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+          },
+          {
+            "target": ["button[aria-label=\"Move Beta down\"]"],
+            "summary": "Fix any of the following:\n  Target has insufficient size (24px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+          }
+        ]
+      }
+    ],
+    "date-short-viewport": {
+      "error": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Apply', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"cui-button cui-button-primary\">Apply</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - element is outside of the viewport\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - element is outside of the viewport\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    13 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - element is outside of the viewport\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    "reduced-motion": {
+      "animation": "none",
+      "transition": "0s"
+    },
+    "table-filter-and-recovery": {
+      "rows": 10,
+      "focusReturned": true,
+      "hiddenLegacyNav": "none"
+    },
+    "select-keyboard": "All projects",
+    "dialog-theme-keyboard": {
+      "theme": "dark",
+      "focusReturned": true
+    },
+    "host-control-isolation": {
+      "padding": "7px",
+      "border": "rgb(0, 0, 255)"
+    },
+    "mobile-baseline": {
+      "width": 320,
+      "scrollWidth": 320
+    }
+  }
+}

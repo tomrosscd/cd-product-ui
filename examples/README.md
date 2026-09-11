@@ -1,9 +1,16 @@
-# Consuming examples
+# Run the package examples
 
-Build the library archive first with `pnpm pack --pack-destination artifacts`. These examples target 0.3.0.
+Build the release archive before installing either example. Both examples target `0.10.0` and import the packed distribution.
 
-- `react/`: install with pnpm from that folder, then run `pnpm dev`. It consumes the package archive through normal package imports, without chart dependencies.
-- `html/`: open index.html after the library build. It references compiled CSS and uses native controls without React.
-- `next/`: install with pnpm from that folder, then run `pnpm dev`. It uses Next.js 16.3.4, React 19.2.8 and the optional chart peers. Static cards are rendered from a server page; charts, tables and sign-in interaction live in a client component. Demonstration submission does not authenticate anyone.
+1. In the library root, run `pnpm pack --pack-destination artifacts`.
+2. In `examples/react` or `examples/next`, run `pnpm install`.
+3. Run `pnpm build`.
+4. Run `pnpm dev` to inspect the example.
 
-For automated isolated checks, run `pnpm package:check` from the repository root, followed by `pnpm next:check`. Dependencies may need registry access. Local example font files are not provided; consumers supply licensed fonts.
+The React example uses Vite with strict TypeScript. The Next example uses App Router, a server-rendered card and client-side forms and charts.
+
+For repeatable validation in disposable directories, run `pnpm package:check` followed by `pnpm next:check`. These commands type-check against the archive's declarations.
+
+The [plain HTML example](html/index.html) demonstrates token and CSS use without React. CSS does not supply interactive behaviour.
+
+Keep example data synthetic. Do not copy application credentials or client records into these examples.

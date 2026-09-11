@@ -16,7 +16,7 @@ Bug reports should include the installed library version, reproduction steps, ex
 2. Follow the README to install the pinned tooling and run Storybook. Read [AGENTS.md](AGENTS.md), [architecture](docs/architecture.md) and [AI guidance](docs/ai-guidance.md).
 3. Make a focused change. Keep components generic, typed and reusable. Client data, authentication, routing ownership and business logic belong in applications.
 4. Update relevant stories, guidance and tests. For tokens, edit `tokens/tokens.json`, run `pnpm tokens`, and include the generated changes.
-5. Describe the change under an Unreleased heading in [CHANGELOG.md](CHANGELOG.md). Include migration steps for breaking changes. Maintainers assign the release version.
+5. Describe the change under the relevant version heading in [CHANGELOG.md](CHANGELOG.md). Include migration steps for breaking changes. Maintainers assign the release version.
 6. Run the checks below, inspect the affected Storybook states, and commit the result.
 7. Push your branch and open a pull request against `tomrosscd/cd-product-ui`'s `main` branch. For a fork, select your fork's branch as the source. Link the relevant issue and complete the pull request template.
 

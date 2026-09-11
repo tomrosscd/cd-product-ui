@@ -1,0 +1,223 @@
+{
+  "errors": [],
+  "checks": {
+    "columns-external-update": {
+      "parentKeys": "b",
+      "alphaChecked": true,
+      "betaChecked": false,
+      "targets": [
+        {
+          "label": "Move Alpha up",
+          "disabled": true,
+          "rect": {
+            "x": 832,
+            "y": 112,
+            "width": 24,
+            "height": 16,
+            "top": 112,
+            "right": 856,
+            "bottom": 128,
+            "left": 832
+          }
+        },
+        {
+          "label": "Move Alpha down",
+          "disabled": false,
+          "rect": {
+            "x": 832,
+            "y": 128,
+            "width": 24,
+            "height": 16,
+            "top": 128,
+            "right": 856,
+            "bottom": 144,
+            "left": 832
+          }
+        },
+        {
+          "label": "Move Beta up",
+          "disabled": false,
+          "rect": {
+            "x": 832,
+            "y": 152,
+            "width": 24,
+            "height": 16,
+            "top": 152,
+            "right": 856,
+            "bottom": 168,
+            "left": 832
+          }
+        },
+        {
+          "label": "Move Beta down",
+          "disabled": false,
+          "rect": {
+            "x": 832,
+            "y": 168,
+            "width": 24,
+            "height": 16,
+            "top": 168,
+            "right": 856,
+            "bottom": 184,
+            "left": 832
+          }
+        },
+        {
+          "label": "Move Gamma up",
+          "disabled": false,
+          "rect": {
+            "x": 832,
+            "y": 192,
+            "width": 24,
+            "height": 16,
+            "top": 192,
+            "right": 856,
+            "bottom": 208,
+            "left": 832
+          }
+        },
+        {
+          "label": "Move Gamma down",
+          "disabled": true,
+          "rect": {
+            "x": 832,
+            "y": 208,
+            "width": 24,
+            "height": 16,
+            "top": 208,
+            "right": 856,
+            "bottom": 224,
+            "left": 832
+          }
+        }
+      ]
+    },
+    "inline-rejection": {
+      "saving": "true",
+      "disabled": true
+    },
+    "inline-cancel-focus": {
+      "tag": "BODY",
+      "text": null
+    },
+    "locale-parse": {
+      "model": "1.23456",
+      "display": "1,23"
+    },
+    "controlled-drawer-focus": {
+      "tag": "BODY",
+      "text": "Skip to contentAudit brandSynthetic workspaceProduct workspa"
+    },
+    "notification-accessibility": "- dialog \"Notifications\":\n  - text: Notifications\n  - list:\n    - listitem:\n      - button \"Read item\"\n    - listitem:\n      - button \"Unread item\"",
+    "sticky-offsets": [
+      {
+        "text": "First",
+        "offset": "0px",
+        "rect": {
+          "x": 265,
+          "y": 1033,
+          "width": 333.328125,
+          "height": 64.5,
+          "top": 1033,
+          "right": 598.328125,
+          "bottom": 1097.5,
+          "left": 265
+        }
+      },
+      {
+        "text": "Second",
+        "offset": "120px",
+        "rect": {
+          "x": 556.328125,
+          "y": 1033,
+          "width": 333.328125,
+          "height": 64.5,
+          "top": 1033,
+          "right": 889.65625,
+          "bottom": 1097.5,
+          "left": 556.328125
+        }
+      },
+      {
+        "text": "First cell",
+        "offset": "0px",
+        "rect": {
+          "x": 265,
+          "y": 1097.5,
+          "width": 333.328125,
+          "height": 44.5,
+          "top": 1097.5,
+          "right": 598.328125,
+          "bottom": 1142,
+          "left": 265
+        }
+      },
+      {
+        "text": "Second cell",
+        "offset": "120px",
+        "rect": {
+          "x": 556.328125,
+          "y": 1097.5,
+          "width": 333.328125,
+          "height": 44.5,
+          "top": 1097.5,
+          "right": 889.65625,
+          "bottom": 1142,
+          "left": 556.328125
+        }
+      }
+    ],
+    "sidebar-desktop": {
+      "before": {
+        "toggle": {
+          "x": 159,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 208,
+          "height": 900
+        },
+        "header": {
+          "x": 240,
+          "y": 40,
+          "width": 1008,
+          "height": 40
+        }
+      },
+      "after": {
+        "x": 8,
+        "y": 104,
+        "width": 47,
+        "height": 48
+      },
+      "closedChildVisible": false
+    },
+    "date-validation": {
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Apply', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"cui-button cui-button-primary\">Apply</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - element is outside of the viewport\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - element is outside of the viewport\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - element is outside of the viewport\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    "mobile-navigation": {
+      "width": {
+        "viewport": 320,
+        "scrollWidth": 320
+      },
+      "trapped": true,
+      "focusReturned": true
+    },
+    "combobox-contracts": {
+      "form": {
+        "valid": true,
+        "entries": [
+          ["required-choice", ""],
+          ["disabled-choice", "retained"]
+        ]
+      },
+      "picked": "stale"
+    },
+    "light-axe": [],
+    "dark-axe": []
+  }
+}

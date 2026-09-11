@@ -1,0 +1,402 @@
+
+> @convert/product-ui@0.10.0-rc.1 type-check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> tsc --noEmit
+
+
+> @convert/product-ui@0.10.0-rc.1 lint /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> eslint .
+
+
+> @convert/product-ui@0.10.0-rc.1 test:unit /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> vitest run --project unit
+
+│ ┌────────────────────────────────────────────────────────────────────────────┐
+│ │  Info: Found a setup file with "setProjectAnnotations".                    │
+│ │  Skipping automatic provisioning of preview annotations to avoid           │
+│ │  conflicts. Since Storybook 10.3, "@storybook/addon-vitest" applies these  │
+│ │   automatically.                                                           │
+│ │  You can safely remove the "setProjectAnnotations" call from your setup    │
+│ │  file, or remove the file entirely if you don't have custom code there.    │
+│ └────────────────────────────────────────────────────────────────────────────┘
+
+ RUN  v4.1.11 /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+
+
+ Test Files  6 passed (6)
+      Tests  59 passed (59)
+   Start at  21:49:06
+   Duration  4.18s (transform 813ms, setup 1.47s, import 6.89s, tests 1.03s, environment 7.56s)
+
+
+> @convert/product-ui@0.10.0-rc.1 docs:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/check-catalogue.mjs
+
+src/index.ts: 79 runtime exports have catalogue entries.
+src/charts/index.tsx: 5 runtime exports have catalogue entries.
+
+> @convert/product-ui@0.10.0-rc.1 release:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/check-release.mjs
+
+Release metadata agrees on 0.10.0-rc.1.
+
+> @convert/product-ui@0.10.0-rc.1 registry:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/check-registry-drift.mjs
+
+Registry token source matches canonical across 3 files.
+
+> @convert/product-ui@0.10.0-rc.1 api:check /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> pnpm build && api-extractor run --print-api-report-diff -c api-extractor.json && api-extractor run --print-api-report-diff -c api-extractor.tokens.json && api-extractor run --print-api-report-diff -c api-extractor.charts.json
+
+
+> @convert/product-ui@0.10.0-rc.1 build /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> pnpm tokens && tsc -p tsconfig.build.json && pnpm styles && node scripts/copy-tokens.mjs
+
+
+> @convert/product-ui@0.10.0-rc.1 tokens /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/generate-tokens.mjs
+
+101 tokens generated
+
+> @convert/product-ui@0.10.0-rc.1 styles /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> tailwindcss -i src/styles/index.css -o dist/styles.css --minify
+
+≈ tailwindcss v4.3.3
+
+Done in 72ms
+
+[1mapi-extractor 7.59.0 [36m - https://api-extractor.com/[39m
+[22m
+Analysis will use the bundled TypeScript version 5.9.3
+
+API Extractor completed successfully
+
+[1mapi-extractor 7.59.0 [36m - https://api-extractor.com/[39m
+[22m
+Analysis will use the bundled TypeScript version 5.9.3
+
+API Extractor completed successfully
+
+[1mapi-extractor 7.59.0 [36m - https://api-extractor.com/[39m
+[22m
+Analysis will use the bundled TypeScript version 5.9.3
+
+API Extractor completed successfully
+CSS surface unchanged: 286 classes, 101 custom properties, 6 data attributes.
+
+> @convert/product-ui@0.10.0-rc.1 build-storybook /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> pnpm tokens && storybook build --disable-telemetry
+
+
+> @convert/product-ui@0.10.0-rc.1 tokens /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My Drive/Tom - Project Working Files/Internal/Convert Product UI Design System/convert-product-ui
+> node scripts/generate-tokens.mjs
+
+101 tokens generated
+
+┌  Building storybook v10.6.0
+│
+◇  Cleaning outputDir: storybook-static
+│
+◇  Loading presets
+│
+◇  Building manager..
+│
+●  Building open services..
+│
+●  Building preview..
+│
+●  Copying static files: assets/brand at storybook-static/brand-assets
+│  Vite vite v8.2.2 building client environment for production...
+transforming...
+✓ 3706 modules transformed.
+│
+●  Copying static files: local-fonts at storybook-static/local-fonts
+rendering chunks...
+computing gzip size...
+│  Vite storybook-static/iframe.html
+│  20.76 kB │ gzip:   5.56 kB
+│  storybook-static/assets/iframe-BBKYLSRY.css
+│  65.68 kB │ gzip:  10.15 kB
+│  storybook-static/assets/iframe-ChY-0Rrm.js
+│  0.04 kB │ gzip:   0.06 kB
+│  storybook-static/assets/classes-D604yCL8.js
+│  0.18 kB │ gzip:   0.16 kB
+│  storybook-static/assets/href-CHv1j16d.js
+│  0.19 kB │ gzip:   0.17 kB
+│  storybook-static/assets/chunk-242VQQM5-bHL6qIJq.js
+│  0.24 kB │ gzip:   0.20 kB
+│  storybook-static/assets/formatter-L2YTDE3Q-RkjpF8cC.js
+│  0.30 kB │ gzip:   0.24 kB
+│  storybook-static/assets/chunk-QQBDHPVZ-DC5n6Pix.js
+│  0.32 kB │ gzip:   0.20 kB
+│  storybook-static/assets/jsx-runtime-DeHZSEgm.js
+│  0.43 kB │ gzip:   0.30 kB
+│  storybook-static/assets/clsx-CTwy9ux-.js
+│  0.46 kB │ gzip:   0.30 kB
+│  storybook-static/assets/convert-mark-C4s_e6Pe.js
+│  0.48 kB │ gzip:   0.35 kB
+│  storybook-static/assets/react-Bl2r1tuC.js
+│  0.58 kB │ gzip:   0.34 kB
+│  storybook-static/assets/disclosure-D45Kh3Aq.js
+│  0.61 kB │ gzip:   0.38 kB
+│  storybook-static/assets/dist-WlnDUsXx.js
+│  0.65 kB │ gzip:   0.44 kB
+│  storybook-static/assets/dist-DZTofGWX.js
+│  0.75 kB │ gzip:   0.45 kB
+│  storybook-static/assets/shim-DlYORV19.js
+│  0.85 kB │ gzip:   0.46 kB
+│  storybook-static/assets/workspace-data-PlyatKd2.js
+│  1.00 kB │ gzip:   0.51 kB
+│  storybook-static/assets/month-picker.stories-BAJiJAPq.js
+│  1.07 kB │ gzip:   0.63 kB
+│  storybook-static/assets/badge-1sUhYZxF.js
+│  1.09 kB │ gzip:   0.51 kB
+│  storybook-static/assets/stepper-CrRDv8z-.js
+│  1.13 kB │ gzip:   0.59 kB
+│  storybook-static/assets/rolldown-runtime-DkW27tQK.js
+│  1.19 kB │ gzip:   0.67 kB
+│  storybook-static/assets/text-link-BDC44kDM.js
+│  1.21 kB │ gzip:   0.65 kB
+│  storybook-static/assets/preload-helper-wdlQj8DP.js
+│  1.31 kB │ gzip:   0.74 kB
+│  storybook-static/assets/DocsRenderer-JROSPFPF-B1V1MY0e.js
+│  1.37 kB │ gzip:   0.72 kB
+│  storybook-static/assets/button-DfsfuYmB.js
+│  1.41 kB │ gzip:   0.72 kB
+│  storybook-static/assets/tabs.stories-qPPWnZa4.js
+│  1.57 kB │ gzip:   0.74 kB
+│  storybook-static/assets/text-link.stories-C2o8cBtT.js
+│  1.58 kB │ gzip:   0.79 kB
+│  storybook-static/assets/table-CZfRvjLZ.js
+│  1.64 kB │ gzip:   0.78 kB
+│  storybook-static/assets/chunk-IMSF75WX-CGYlPTyG.js
+│  1.67 kB │ gzip:   0.91 kB
+│  storybook-static/assets/table.stories-BYtcOLcg.js
+│  1.70 kB │ gzip:   0.70 kB
+│  storybook-static/assets/content-list-BBSJC92v.js
+│  1.87 kB │ gzip:   0.72 kB
+│  storybook-static/assets/date-range.stories-_zOLtsKj.js
+│  1.90 kB │ gzip:   0.93 kB
+│  storybook-static/assets/typography-TZBAoavw.js
+│  1.97 kB │ gzip:   0.99 kB
+│  storybook-static/assets/disclosure.stories-BaHhAZOf.js
+│  1.99 kB │ gzip:   0.81 kB
+│  storybook-static/assets/badge.stories-tQp4Vew8.js
+│  2.03 kB │ gzip:   0.86 kB
+│  storybook-static/assets/dashboard.stories-BQOzUgTZ.js
+│  2.04 kB │ gzip:   0.84 kB
+│  storybook-static/assets/select-Dtwhcaw1.js
+│  2.12 kB │ gzip:   0.91 kB
+│  storybook-static/assets/icon.stories-CExJZIT8.js
+│  2.16 kB │ gzip:   1.21 kB
+│  storybook-static/assets/metric-CJ8RTVIT.js
+│  2.17 kB │ gzip:   0.76 kB
+│  storybook-static/assets/card-BtxAB4Gl.js
+│  2.32 kB │ gzip:   0.89 kB
+│  storybook-static/assets/content-list.stories-D30piNl7.js
+│  2.32 kB │ gzip:   1.08 kB
+│  storybook-static/assets/feedback.stories-Dvk4ATX6.js
+│  2.43 kB │ gzip:   0.92 kB
+│  storybook-static/assets/content.stories-BpwYDCE9.js
+│  2.48 kB │ gzip:   0.99 kB
+│  storybook-static/assets/drawer.stories-DF5VRNh_.js
+│  2.52 kB │ gzip:   1.08 kB
+│  storybook-static/assets/chip-DvIQDw6F.js
+│  2.54 kB │ gzip:   0.93 kB
+│  storybook-static/assets/calendar.stories-8opxGGMU.js
+│  2.55 kB │ gzip:   1.15 kB
+│  storybook-static/assets/content-BgvS1sq1.js
+│  2.60 kB │ gzip:   0.90 kB
+│  storybook-static/assets/confirmation-dialog.stories-CHMtebfR.js
+│  2.68 kB │ gzip:   0.96 kB
+│  storybook-static/assets/feedback-BAYnisoa.js
+│  2.69 kB │ gzip:   0.96 kB
+│  storybook-static/assets/pagination-SNDsAOAM.js
+│  2.71 kB │ gzip:   1.16 kB
+│  storybook-static/assets/dropdown-states.stories-D_D9HOo9.js
+│  2.83 kB │ gzip:   1.23 kB
+│  storybook-static/assets/dist-BxADbOV4.js
+│  2.85 kB │ gzip:   1.25 kB
+│  storybook-static/assets/metric.stories-CPyy7_ME.js
+│  2.86 kB │ gzip:   1.04 kB
+│  storybook-static/assets/drawer-5vyGLQCc.js
+│  2.90 kB │ gzip:   1.24 kB
+│  storybook-static/assets/stepper.stories-BRtzmhGY.js
+│  3.02 kB │ gzip:   1.24 kB
+│  storybook-static/assets/pagination.stories-C8YGgNty.js
+│  3.02 kB │ gzip:   1.17 kB
+│  storybook-static/assets/column-config-panel.stories-CIItEN6c.js
+│  3.07 kB │ gzip:   1.13 kB
+│  storybook-static/assets/styled-select.stories-CENYhTnB.js
+│  3.09 kB │ gzip:   1.26 kB
+│  storybook-static/assets/tokens-CM3FFvSP.js
+│  3.11 kB │ gzip:   1.35 kB
+│  storybook-static/assets/layout.stories-BFKPjsAB.js
+│  3.24 kB │ gzip:   1.32 kB
+│  storybook-static/assets/inline-edit-C-3n5hku.js
+│  3.35 kB │ gzip:   1.43 kB
+│  storybook-static/assets/chunk-DRQKCCAG-DtXejAOb.js
+│  3.38 kB │ gzip:   1.41 kB
+│  storybook-static/assets/tabs-BEkh5Y_b.js
+│  3.42 kB │ gzip:   1.55 kB
+│  storybook-static/assets/themes.stories-CYKIc594.js
+│  3.44 kB │ gzip:   1.51 kB
+│  storybook-static/assets/react-dom-BzEl8usk.js
+│  3.58 kB │ gzip:   1.36 kB
+│  storybook-static/assets/formatted-input.stories-BcqemW35.js
+│  3.61 kB │ gzip:   1.24 kB
+│  storybook-static/assets/convert-logo-CFoy_O3h.js
+│  3.66 kB │ gzip:   1.81 kB
+│  storybook-static/assets/notification-centre-mG4JTmAu.js
+│  3.67 kB │ gzip:   1.33 kB
+│  storybook-static/assets/column-config-panel-v5NZVRH5.js
+│  3.78 kB │ gzip:   1.48 kB
+│  storybook-static/assets/progress-BWitwEAt.js
+│  3.91 kB │ gzip:   1.41 kB
+│  storybook-static/assets/segmented-control.stories-_mQiG_40.js
+│  3.96 kB │ gzip:   1.22 kB
+│  storybook-static/assets/confirmation-dialog-BpW-kpc3.js
+│  3.96 kB │ gzip:   1.41 kB
+│  storybook-static/assets/design-rules-IoO4tRHe.js
+│  4.01 kB │ gzip:   1.87 kB
+│  storybook-static/assets/card.stories-BaJWbYHu.js
+│  4.25 kB │ gzip:   1.58 kB
+│  storybook-static/assets/releases-hs7DPhQS.js
+│  4.30 kB │ gzip:   1.83 kB
+│  storybook-static/assets/layout-s6UG6DuF.js
+│  4.44 kB │ gzip:   1.22 kB
+│  storybook-static/assets/error-boundary.stories-_yJHBPDl.js
+│  4.49 kB │ gzip:   1.83 kB
+│  storybook-static/assets/dist-DFk1ucjl.js
+│  4.50 kB │ gzip:   1.99 kB
+│  storybook-static/assets/inline-edit.stories-Bw8U41T8.js
+│  4.60 kB │ gzip:   1.72 kB
+│  storybook-static/assets/date-picker.stories-Djesudj-.js
+│  4.63 kB │ gzip:   1.42 kB
+│  storybook-static/assets/button.stories-DN4Q2sk5.js
+│  4.65 kB │ gzip:   1.47 kB
+│  storybook-static/assets/progress.stories-DC7_581a.js
+│  4.91 kB │ gzip:   1.59 kB
+│  storybook-static/assets/chip.stories-nGkR-dgs.js
+│  4.96 kB │ gzip:   1.48 kB
+│  storybook-static/assets/chunk-7PIQR4A3-BGgO7bU4.js
+│  5.14 kB │ gzip:   1.93 kB
+│  storybook-static/assets/select.stories-DmsV4L9B.js
+│  5.15 kB │ gzip:   1.72 kB
+│  storybook-static/assets/dist-zFZTpDee.js
+│  5.18 kB │ gzip:   1.92 kB
+│  storybook-static/assets/segmented-control-uSbs260L.js
+│  5.19 kB │ gzip:   1.76 kB
+│  storybook-static/assets/sign-in-form.stories-BepYhPpt.js
+│  5.21 kB │ gzip:   1.95 kB
+│  storybook-static/assets/dist-CO22ZxUB.js
+│  5.23 kB │ gzip:   1.94 kB
+│  storybook-static/assets/combobox-6wgTPSdV.js
+│  5.45 kB │ gzip:   2.21 kB
+│  storybook-static/assets/period-navigator.stories-DohYse3I.js
+│  5.65 kB │ gzip:   1.88 kB
+│  storybook-static/assets/combobox.stories-CEGFgvJK.js
+│  5.93 kB │ gzip:   1.66 kB
+│  storybook-static/assets/notification-centre.stories-gZR42dLI.js
+│  6.25 kB │ gzip:   2.27 kB
+│  storybook-static/assets/card-patterns.stories-BHtOk6Bg.js
+│  6.50 kB │ gzip:   1.41 kB
+│  storybook-static/assets/fields.stories-D4KPtbTr.js
+│  6.71 kB │ gzip:   1.93 kB
+│  storybook-static/assets/formatted-input-BH2Q_LbW.js
+│  6.83 kB │ gzip:   1.86 kB
+│  storybook-static/assets/filter-toolbar.stories-DgOxRbXg.js
+│  7.01 kB │ gzip:   2.43 kB
+│  storybook-static/assets/fields-CS7mg5c-.js
+│  7.27 kB │ gzip:   1.85 kB
+│  storybook-static/assets/charts.stories-2rNHVIWQ.js
+│  7.47 kB │ gzip:   2.04 kB
+│  storybook-static/assets/react-BZJXY1be.js
+│  7.53 kB │ gzip:   2.88 kB
+│  storybook-static/assets/dist-BsPCTpoH.js
+│  7.54 kB │ gzip:   2.76 kB
+│  storybook-static/assets/using-the-library-7h827A8v.js
+│  7.84 kB │ gzip:   2.74 kB
+│  storybook-static/assets/welcome-BKg3LQ79.js
+│  8.72 kB │ gzip:   2.96 kB
+│  storybook-static/assets/dist-VN9qHpoW.js
+│  8.98 kB │ gzip:   3.53 kB
+│  storybook-static/assets/workspace-controls.stories-Dw3Xp0Va.js
+│  9.71 kB │ gzip:   2.63 kB
+│  storybook-static/assets/dashboard-composition.stories-CPSRATqY.js
+│  10.08 kB │ gzip:   3.71 kB
+│  storybook-static/assets/data-table.stories-BW2c1LQW.js
+│  12.19 kB │ gzip:   3.76 kB
+│  storybook-static/assets/form-workflows.stories-CwyMtMW2.js
+│  12.64 kB │ gzip:   3.63 kB
+│  storybook-static/assets/dashboard-sidebar.stories-DllC61js.js
+│  14.50 kB │ gzip:   4.28 kB
+│  storybook-static/assets/icon-DiRbptPV.js
+│  14.68 kB │ gzip:   5.29 kB
+│  storybook-static/assets/component-catalogue-ChMEGxJ3.js
+│  14.74 kB │ gzip:   5.46 kB
+│  storybook-static/assets/roadmap-board.stories-BWJpmHUo.js
+│  15.34 kB │ gzip:   4.46 kB
+│  storybook-static/assets/adoption-checks.stories-C5pp4puB.js
+│  17.55 kB │ gzip:   4.73 kB
+│  storybook-static/assets/dashboard-example-CFcxqf27.js
+│  18.02 kB │ gzip:   5.08 kB
+│  storybook-static/assets/component-states.stories-saW_5NdN.js
+│  18.33 kB │ gzip:   5.19 kB
+│  storybook-static/assets/tokens-DYS0rncc.js
+│  20.82 kB │ gzip:   4.47 kB
+│  storybook-static/assets/styled-select-BMVks4Up.js
+│  22.64 kB │ gzip:   7.75 kB
+│  storybook-static/assets/chunk-W22LQPXL-DptmxMNr.js
+│  22.74 kB │ gzip:   7.59 kB
+│  storybook-static/assets/brand.stories-BU6wKIpu.js
+│  24.30 kB │ gzip:   6.88 kB
+│  storybook-static/assets/Combination-Cl3-oXBP.js
+│  24.54 kB │ gzip:   8.84 kB
+│  storybook-static/assets/dist-BaYfguuQ.js
+│  26.71 kB │ gzip:  10.38 kB
+│  storybook-static/vite-inject-mocker-entry.js
+│  27.84 kB │ gzip:   9.66 kB
+│  storybook-static/assets/matchers-JIUQ3HVY-C789_MAK.js
+│  28.79 kB │ gzip:   9.68 kB
+│  storybook-static/assets/Color-6AOWCN3U-DDP-P6OU.js
+│  30.39 kB │ gzip:  11.49 kB
+│  storybook-static/assets/WithTooltip-CDUNV5IS-syGhLl1k.js
+│  32.74 kB │ gzip:  11.47 kB
+│  storybook-static/assets/workspace-controls-B-c8NL8o.js
+│  38.69 kB │ gzip:  11.96 kB
+│  storybook-static/assets/theming-DkWjSWUW.js
+│  55.40 kB │ gzip:  21.34 kB
+│  storybook-static/assets/data-table-BKlAbSHR.js
+│  62.60 kB │ gzip:  16.63 kB
+│  storybook-static/assets/syntaxhighlighter-4REYKNEV-oSrtE4Wt.js
+│  75.88 kB │ gzip:  27.25 kB
+│  storybook-static/assets/date-picker-C700b2Jn.js
+│  81.95 kB │ gzip:  24.19 kB
+│  storybook-static/assets/react-18-EmNFJX4V.js
+│  179.10 kB │ gzip:  56.66 kB
+│  storybook-static/assets/charts-CBPnXaw-.js
+│  434.76 kB │ gzip: 125.96 kB
+│  storybook-static/assets/axe-DAwsjurR.js
+│  586.95 kB │ gzip: 160.20 kB
+│  storybook-static/assets/blocks-CisScioH.js
+│  751.38 kB │ gzip: 238.20 kB
+│  storybook-static/assets/iframe-3MSJjxfq.js
+│  1,141.77 kB │ gzip: 325.14 kB
+
+│
+▲  Vite [plugin builtin:vite-reporter]
+│  (!) Some chunks are larger than 500 kB after minification. Consider:
+│  - Using dynamic import() to code-split the application
+│  - Use build.rolldownOptions.output.codeSplitting to improve chunking:
+│  ]8;;https://rolldown.rs/reference/OutputOptions.codeSplittinghttps://rolldown.rs/reference/OutputOptions.codeSplitting]8;;
+│  - Adjust chunk size limit for this warning via
+│  build.chunkSizeWarningLimit.
+│  Vite ✓ built in 2.42s
+│
+◇  Output directory:
+│  /Users/tomross/Library/CloudStorage/GoogleDrive-tom@convertdigital.com.au/My
+│  Drive/Tom - Project Working Files/Internal/Convert Product UI Design
+│  System/convert-product-ui/storybook-static
+│
+└  Storybook build completed successfully
+

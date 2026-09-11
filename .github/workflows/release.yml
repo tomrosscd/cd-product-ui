@@ -1,55 +1,53 @@
-# Builds the installable archive from a pushed version tag and attaches it to the matching GitHub
-# Release. Until this existed, every consumer had to clone the repository, install its dev
-# dependencies and run pnpm pack themselves before they could install anything, which is a lot of
-# setup to ask of someone who only wants to use the library, and it produced a separate archive per
-# person with no guarantee they matched.
-#
-# This does not publish to any package registry. package.json keeps private: true, and
-# docs/release-process.md step 7 still governs who may install the result.
 name: Release archive
-
 on:
   push:
     tags: ['v*']
-
 permissions:
-  contents: write
-
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
+  validate:
+    uses: ./.github/workflows/ci.yml
   archive:
-    name: Build and attach archive
+    name: Build and attach verified archive
+    needs: validate
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # The tag is the contract. If package.json disagrees with it, the archive would be named
-      # after one version while claiming to be another, so fail here rather than publish that.
-      - name: Verify the tag matches package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Verify release metadata
+        run: node scripts/check-release.mjs --tag "$GITHUB_REF_NAME"
+      - name: Refuse to replace an existing release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.repos.getReleaseByTag({ ...context.repo, tag: context.ref.replace('refs/tags/', '') })
+              core.setFailed('This release already exists. Never replace its archive or checksum.')
+            } catch (error) {
+              if (error.status !== 404) throw error
+            }
+      - name: Build and hash the archive
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
-          PKG="$(node -p "require('./package.json').version")"
-          if [ "$TAG" != "$PKG" ]; then
-            echo "Tag $GITHUB_REF_NAME does not match package.json version $PKG." >&2
-            exit 1
-          fi
-          echo "Tag and package.json agree on $PKG."
-
-      - name: Build the archive
-        run: pnpm pack --pack-destination artifacts
-
-      - name: Attach the archive to the release
+          pnpm pack --pack-destination artifacts
+          cd artifacts
+          sha256sum *.tgz > SHA256SUMS
+      - name: Attach the archive and checksum
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/*.tgz
+          files: |
+            artifacts/*.tgz
+            artifacts/SHA256SUMS
           generate_release_notes: true
           fail_on_unmatched_files: true
+          overwrite_files: false
+          prerelease: ${{ contains(github.ref_name, '-') }}

@@ -7,13 +7,7 @@ export interface StepperProps {
   steps: readonly StepperStep[]
   activeId: string
 }
-/**
- * Presentation only, matching every other component in this library: step content, next/back
- * navigation and validation stay with the consuming application. A step's own state is derived
- * from its position relative to the active step (done/current/upcoming), the same rule a real
- * consumer's own two hand-rolled versions of this both used, rather than a separate completed
- * flag — a wizard's steps are sequential, so there is nothing else for "done" to mean.
- */
+/** Sequential progress display. The host owns step content, validation and navigation. */
 export function Stepper({ steps, activeId }: StepperProps) {
   const activeIndex = steps.findIndex((step) => step.id === activeId)
   return (
