@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.11.0 · 14 September 2026
+
+Adoption and navigation polish based on the first full Product UI integration. Existing defaults remain compatible, and comfortable sidebar typography is opt-in.
 
 ### Added
 
@@ -16,6 +18,8 @@
 - Preserve button colours and remove link underlines when the public button classes style an anchor used for navigation.
 - Add approved 4px spacing between sortable table header labels and their direction icons.
 - Keep third-level sidebar destinations the same type size and row height as their immediate nested section labels.
+
+See [upgrade notes](docs/release-0.11.md). Applications upgrade deliberately; this release does not change installed consumers.
 
 ## 0.10.0 · 11 September 2026
 
