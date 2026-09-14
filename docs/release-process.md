@@ -8,7 +8,7 @@ Keep tokens, components and guidance on one version initially. Release policy fo
 4. Choose a version. Patches are compatible fixes; minors are compatible additions; majors are breaking API/token changes. Read "Backward compatibility" below before choosing a breaking change during 0.x — it is not automatically fine just because semver technically allows it.
 5. Change package.json, refresh the lockfile, update displayed version labels and the changelog, then rerun the release checks. Inspect package contents for fonts, credentials and client material.
 6. Commit the release and tag the approved commit, for example v0.1.0. Push the approved commit and its tag to GitHub. Do not move or overwrite release tags or packages. The README's versioned clone command must match an available tag.
-7. Build the archive from that tagged revision using pnpm install --frozen-lockfile and pnpm pack --pack-destination artifacts. Share the archive with authorised consumers or let them build it from the same tag. The release workflow attaches the archive and checksum after checking the exact tag commit. A package registry and hosted Storybook remain separate decisions. Only remove private:true when registry publication is deliberately configured.
+7. Build the archive from that tagged revision using pnpm install --frozen-lockfile and pnpm pack --pack-destination artifacts. Share the archive with authorised consumers or let them build it from the same tag. The release workflow attaches the archive and checksum after checking the exact tag commit. The hosted Storybook documents the current `main` branch and is not a package distribution route. Only remove private:true when registry publication is deliberately configured.
 
 ## Backward compatibility
 
@@ -34,7 +34,7 @@ Install an exact package version and commit the vendor archive, dependency and l
 
 ## Repository and future distribution
 
-GitHub is the source repository and the place for bug reports, feature requests and pull requests. Git tags identify fixed versions; the default branch contains ongoing work. `.github/workflows/ci.yml` runs the full check suite on every push and pull request; `.github/dependabot.yml` opens weekly PRs for outdated pinned dependencies (review each one against this process rather than auto-merging). A package registry, hosted Storybook and cross-repository automation remain separate, not-yet-made setup decisions. Keep deployment credentials outside Git and resolve font hosting rights before distributing a font-containing catalogue.
+GitHub is the source repository and the place for bug reports, feature requests and pull requests. Git tags identify fixed versions; the default branch contains ongoing work. `.github/workflows/ci.yml` runs the full check suite on every push and pull request; `.github/dependabot.yml` opens weekly PRs for outdated pinned dependencies (review each one against this process rather than auto-merging). After CI succeeds on `main`, `.github/workflows/pages.yml` builds the public-safe Storybook and deploys it to GitHub Pages. The deployment removes stale output and excludes local licensed fonts. A package registry and cross-repository automation remain separate, not-yet-made setup decisions. Keep deployment credentials outside Git.
 
 ## Automated release gates
 

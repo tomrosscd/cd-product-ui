@@ -6,7 +6,7 @@ Each project stays on the version it installed until you decide to upgrade.
 
 Version: **0.10.0**. See the [changelog](CHANGELOG.md) for what changed in each version.
 
-[Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components-locally) · [Contribute](CONTRIBUTING.md)
+[Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components) · [Contribute](CONTRIBUTING.md)
 
 ## What you get
 
@@ -163,9 +163,11 @@ Never replace an existing archive with different contents under the same filenam
 
 During 0.x, a minor version can contain a breaking change, so read its release notes before upgrading. Every breaking change is listed in the [backward-compatibility policy](docs/release-process.md#backward-compatibility) and coordinated with the projects in [CONSUMERS.md](CONSUMERS.md) first.
 
-## Browse the components locally
+## Browse the components
 
-To see every component, its states and its source without installing anything, run Storybook from a clone:
+Open the [hosted component catalogue](https://tomrosscd.github.io/cd-product-ui/) to review the current `main` branch without installing anything. It updates after the repository checks pass on a change to `main`.
+
+To run an editable copy locally, start Storybook from a clone:
 
 ```sh
 git clone https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
