@@ -1,12 +1,12 @@
 # Release validation history
 
-## Validate 0.10.0
+## Validate 0.11.0
 
 Use `pnpm package:check`, `pnpm next:check` and `pnpm compatibility:check` in that order. Framework checks verify the SHA256 of the archive that passed the package check.
 
 The fixtures cover React/Vite without chart peers, optional charts, Next.js 16 with pnpm, and Next.js 15 with npm and Tailwind 4. The compatibility check also processes the stylesheet with Tailwind 3.
 
-Run `pnpm test:coverage` and `pnpm test:dark` for component regressions. These include editing, locale input, saved views, table selection, sticky columns and constrained date panels.
+Run `pnpm test:coverage` and `pnpm test:dark` for component regressions. These include editing, locale input, saved views, table selection, sticky columns, constrained date panels, sidebar density and adopted toolbar layouts.
 
 Read [the implementation record](audits/2026-09-10-implementation.md) for completed runs and remaining limits. Historical version results below do not validate another commit or an application's upgrade.
 

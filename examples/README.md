@@ -1,6 +1,6 @@
 # Run the package examples
 
-Build the release archive before installing either example. Both examples target `0.10.0` and import the packed distribution.
+Build the release archive before installing either example. Both examples target `0.11.0` and import the packed distribution.
 
 1. In the library root, run `pnpm pack --pack-destination artifacts`.
 2. In `examples/react` or `examples/next`, run `pnpm install`.

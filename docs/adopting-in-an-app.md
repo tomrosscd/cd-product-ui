@@ -11,7 +11,7 @@ Do not convert a whole screen in one change. Each step below is independently sh
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
 
    ```sh
-   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.10.0/convert-product-ui-0.10.0.tgz
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.0/convert-product-ui-0.11.0.tgz
    ```
 
    ```tsx
@@ -73,7 +73,7 @@ Use `DashboardSidebar`. `items` accepts a mix of:
 - `SidebarItem` for a destination: `{ id, label, href, icon?, disabled? }`
 - `SidebarSection` for a group: `{ id, label, icon?, items, defaultOpen? }`
 
-**Upcoming addition (not in 0.10.0):** set `density="comfortable"` on `DashboardSidebar` or `DashboardShell` for larger, semibold navigation labels. The default, `density="compact"`, preserves the current appearance. Comfortable uses the existing 16px body size and 600 weight; nested section headings use 14px to retain their hierarchy. Both variants keep the current line height, padding, icons and minimum destination row heights (44px desktop, 48px mobile); long labels can still wrap and grow. The same choice applies to the mobile drawer. Use this prop rather than overriding `.cui-nav-item` or global type tokens.
+From 0.11.0, set `density="comfortable"` on `DashboardSidebar` or `DashboardShell` for larger, semibold navigation labels. The default, `density="compact"`, preserves the existing appearance. Comfortable uses the existing 16px body size and 600 weight; nested section labels and their destinations use 14px to retain their hierarchy. Both variants keep the current line height, icons and minimum top-level destination row heights. The same choice applies to the mobile drawer. Use this prop rather than overriding `.cui-nav-item` or global type tokens.
 
 Set `collapsible` for a menu button that reduces the rail to icons, and `defaultCollapsed` to start collapsed.
 

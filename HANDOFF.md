@@ -1,8 +1,12 @@
-# 0.11.0 adoption release candidate
+# Release 0.11.0
 
-[PR #38](https://github.com/tomrosscd/cd-product-ui/pull/38) is merged and adds optional comfortable sidebar typography plus the corrected nested navigation hierarchy. [PR #39](https://github.com/tomrosscd/cd-product-ui/pull/39) fixes the adopted filter-toolbar layout, button-styled link presentation and sortable-header spacing. It also adds a synthetic Projects preview for local visual checks.
+Work is on `release/0.11.0`, based on merged PRs [#38](https://github.com/tomrosscd/cd-product-ui/pull/38) and [#39](https://github.com/tomrosscd/cd-product-ui/pull/39). The release adds optional comfortable sidebar typography, corrects nested navigation hierarchy, and fixes adopted filter-toolbar layout, button-styled link presentation and sortable-header spacing. It also includes the public-safe hosted Storybook work merged after 0.10.0.
 
-Both branches passed their focused and complete validation before integration. After PR #39 merges, prepare 0.11.0 metadata and run the release checks on the combined commit. Keep `cd_capacity` read-only; its owner controls installation and authenticated verification.
+The user approved merging, preparing, verifying and tagging 0.11.0 on 14 September 2026. Package metadata, installation guidance, examples, validation guidance, changelog, release notes and completed roadmap entries now target 0.11.0.
+
+Local release validation passed on the combined branch: formatting, catalogue, release metadata and registry drift; API and CSS contracts; 302 light tests; 242 dark stories; build and static Storybook; a 322-file packed React/Vite consumer; Next.js 16/pnpm; and independent Next.js 15/npm/Tailwind 4 plus Tailwind 3 CSS compatibility. The ErrorBoundary stories intentionally log their caught failure while passing. Open the release PR, require green GitHub CI, merge it, then tag the exact merged commit as `v0.11.0`. The tag workflow publishes the immutable archive and checksum.
+
+Keep `cd_capacity` read-only. Its owner controls installation, lockfile reconciliation and authenticated verification.
 
 ---
 
