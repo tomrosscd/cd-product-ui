@@ -2,15 +2,20 @@
 
 ## Unreleased
 
+### Added
+
+- Optional `density="comfortable"` on `DashboardSidebar` and `DashboardShell` for larger, semibold navigation labels. Compact remains the default; row spacing, nested hierarchy and mobile/collapsed behaviour are preserved. Addresses #37.
+
+### Changed
+
+- Publish the public-safe Storybook to GitHub Pages after CI succeeds on `main`, giving reviewers a shared component catalogue without distributing licensed local fonts.
+
 ### Fixed
 
 - Keep `FilterToolbar` measurable when it shares a flex row with sibling page actions, preventing its container query from incorrectly switching wide layouts to the stacked mobile arrangement.
 - Preserve button colours and remove link underlines when the public button classes style an anchor used for navigation.
 - Add approved 4px spacing between sortable table header labels and their direction icons.
-
-### Changed
-
-- Publish the public-safe Storybook to GitHub Pages after CI succeeds on `main`, giving reviewers a shared component catalogue without distributing licensed local fonts.
+- Keep third-level sidebar destinations the same type size and row height as their immediate nested section labels.
 
 ## 0.10.0 · 11 September 2026
 

@@ -1,10 +1,10 @@
-# Adoption layout and action fixes
+# 0.11.0 adoption release candidate
 
-Work is on `fix/adoption-layout-contrast`, based on released `main` commit `fcb19a4`. A live 0.10.0 consumer exposed three library integration defects: FilterToolbar collapsed to 0px beside sibling actions because inline-size containment removed its intrinsic flex size; generic `.cui-root a` colour/hover rules overrode button classes applied to navigation anchors; and DataTable sort labels had no spacing before their icons.
+[PR #38](https://github.com/tomrosscd/cd-product-ui/pull/38) is merged and adds optional comfortable sidebar typography plus the corrected nested navigation hierarchy. [PR #39](https://github.com/tomrosscd/cd-product-ui/pull/39) fixes the adopted filter-toolbar layout, button-styled link presentation and sortable-header spacing. It also adds a synthetic Projects preview for local visual checks.
 
-The fixes give FilterToolbar a flexible measurable width, exclude `.cui-button` anchors from generic link presentation, and make `.cui-table-sort` an inline flex row with the approved 4px gap. Stories reproduce the consumer compositions without retaining its data. A pre-existing InlineEdit focus test repeatedly completed its DOM assertion before the focus-restoration effect; it now waits for the promised focus result as well, without changing production behaviour.
+Both branches passed their focused and complete validation before integration. After PR #39 merges, prepare 0.11.0 metadata and run the release checks on the combined commit. Keep `cd_capacity` read-only; its owner controls installation and authenticated verification.
 
-Local validation passed: 292 light tests, 233 dark stories, coverage, types, lint, formatting, token/API/CSS contracts, static Storybook, catalogue/release metadata, registry drift, a 321-file packed Vite consumer, Next.js 16/pnpm and independent Next.js 15/npm/Tailwind 4 plus Tailwind 3 CSS checks. Neutral before/after screenshots and the detailed findings are in [the review record](docs/audits/2026-09-14-adoption-layout-fixes.md). [PR #39](https://github.com/tomrosscd/cd-product-ui/pull/39) contains the fixes; inspect its CI and keep it independent from sidebar-density PR #38. Do not edit or message the consumer app.
+---
 
 # Hosted Storybook
 
