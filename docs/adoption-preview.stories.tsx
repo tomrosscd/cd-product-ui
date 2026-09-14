@@ -5,6 +5,7 @@ import {
   Badge,
   Button,
   Card,
+  Combobox,
   DashboardShell,
   DataTable,
   FilterToolbar,
@@ -27,7 +28,7 @@ const navigation: readonly SidebarEntry[] = [
     label: 'Projects',
     icon: <Icon name="projects" />,
     items: [
-      { id: 'projects-all', label: 'All projects', href: '#projects' },
+      { id: 'projects-all', label: 'All Projects', href: '#projects' },
       { id: 'projects-timeline', label: 'Timeline', href: '#timeline' },
       { id: 'projects-import', label: 'Import', href: '#import' },
     ],
@@ -49,22 +50,43 @@ const navigation: readonly SidebarEntry[] = [
 
 function PreviewShell({ activeId, children }: { activeId: string; children: ReactNode }) {
   return (
-    <DashboardShell
-      items={navigation}
-      activeId={activeId}
-      workspace="Project Studio"
-      workspaceDescription="Local visual preview"
-      brand={<strong style={{ fontSize: '1.125rem' }}>Project Studio</strong>}
-      brandMark={<strong>PS</strong>}
-      footer={
-        <Stack gap={4}>
-          <strong>Preview account</strong>
-          <span className="cui-caption cui-secondary">Placeholder data only</span>
-        </Stack>
-      }
-    >
-      <div className="cui-page">{children}</div>
-    </DashboardShell>
+    <div className="cui-adoption-preview">
+      <style>{`
+        .cui-adoption-preview .cui-dashboard-main {
+          padding: 26px 30px 42px;
+        }
+        .cui-adoption-preview .cui-page {
+          max-width: none;
+          gap: 18px;
+        }
+        .cui-adoption-preview .cui-layout-header-copy {
+          gap: 4px;
+        }
+        .cui-adoption-preview .cui-filter-toolbar,
+        .cui-adoption-preview .cui-data-table {
+          gap: 8px;
+        }
+        .cui-adoption-preview .cui-band {
+          border-radius: 8px;
+        }
+      `}</style>
+      <DashboardShell
+        items={navigation}
+        activeId={activeId}
+        workspace="Project Studio"
+        workspaceDescription="Local visual preview"
+        brand={<strong style={{ fontSize: '1.125rem' }}>Project Studio</strong>}
+        brandMark={<strong>PS</strong>}
+        footer={
+          <Stack gap={4}>
+            <strong>Preview account</strong>
+            <span className="cui-caption cui-secondary">Placeholder data only</span>
+          </Stack>
+        }
+      >
+        <div className="cui-page">{children}</div>
+      </DashboardShell>
+    </div>
   )
 }
 
@@ -83,11 +105,15 @@ function HeaderActions({ label }: { label: string }) {
 
 interface ProjectRow {
   id: string
+  key: string
   project: string
   manager: string
+  rag: 'Green' | 'Amber' | 'Red'
   phase: string
   probability: number
   lead: string
+  backendLead: string
+  platform: string
   start: string
   launch: string
   days: number
@@ -96,44 +122,60 @@ interface ProjectRow {
 const projectRows: ProjectRow[] = [
   {
     id: 'harbour',
+    key: 'HAR0001',
     project: 'Harbour website refresh',
     manager: 'Mina Patel',
+    rag: 'Green',
     phase: 'Build',
     probability: 90,
     lead: 'Jordan Lee',
+    backendLead: 'Casey Park',
+    platform: 'Commerce',
     start: '16 Sep 2026',
     launch: '30 Oct 2026',
     days: 46,
   },
   {
     id: 'atlas',
+    key: 'ATL0002',
     project: 'Atlas reporting workspace',
     manager: 'Alex Morgan',
+    rag: 'Amber',
     phase: 'Design',
     probability: 70,
     lead: 'Riley Chen',
+    backendLead: 'Taylor Kim',
+    platform: 'Web app',
     start: '21 Sep 2026',
     launch: '18 Nov 2026',
     days: 65,
   },
   {
     id: 'garden',
+    key: 'GAR0003',
     project: 'Garden member portal',
     manager: 'Mina Patel',
+    rag: 'Red',
     phase: 'Discovery',
     probability: 40,
     lead: 'Jordan Lee',
+    backendLead: 'Taylor Kim',
+    platform: 'Portal',
     start: '12 Oct 2026',
     launch: '15 Dec 2026',
     days: 92,
   },
   {
     id: 'studio',
+    key: 'STU0004',
     project: 'Studio onboarding flow',
     manager: 'Sam Rivera',
+    rag: 'Green',
     phase: 'Build',
     probability: 80,
     lead: 'Riley Chen',
+    backendLead: 'Casey Park',
+    platform: 'Web app',
     start: '28 Sep 2026',
     launch: '20 Nov 2026',
     days: 67,
@@ -141,7 +183,40 @@ const projectRows: ProjectRow[] = [
 ]
 
 const projectColumns: ColumnDef<ProjectRow>[] = [
-  { accessorKey: 'project', header: 'Project', size: 230, meta: { sticky: true } },
+  {
+    accessorKey: 'project',
+    header: 'Project',
+    size: 250,
+    meta: { sticky: true },
+    cell: ({ row }) => (
+      <div className="cui-row" style={{ flexWrap: 'nowrap' }}>
+        <span
+          aria-hidden="true"
+          style={{
+            width: 10,
+            height: 10,
+            flex: '0 0 10px',
+            borderRadius: '50%',
+            background:
+              row.original.rag === 'Green'
+                ? 'var(--cui-text-positive)'
+                : row.original.rag === 'Amber'
+                  ? 'var(--cui-text-warning)'
+                  : 'var(--cui-text-negative)',
+          }}
+        />
+        <span className="cui-sr-only">{row.original.rag} status</span>
+        <span style={{ minWidth: 0 }}>
+          <a href={`#${row.original.id}`} className="cui-text-link cui-text-link-inline">
+            {row.original.project}
+          </a>
+          <span className="cui-caption cui-secondary" style={{ display: 'block' }}>
+            {row.original.key}
+          </span>
+        </span>
+      </div>
+    ),
+  },
   { accessorKey: 'manager', header: 'PM', size: 150 },
   {
     accessorKey: 'phase',
@@ -166,6 +241,17 @@ const projectColumns: ColumnDef<ProjectRow>[] = [
     meta: { numeric: true },
     cell: ({ row }) => <Badge tone={row.original.days < 50 ? 'warning' : 'neutral'}>{row.original.days}d</Badge>,
   },
+  {
+    id: 'actions',
+    header: 'Actions',
+    size: 110,
+    enableSorting: false,
+    cell: () => (
+      <Button size="sm" variant="secondary">
+        Actions
+      </Button>
+    ),
+  },
 ]
 
 function FilterWidth({ children }: { children: ReactNode }) {
@@ -174,35 +260,75 @@ function FilterWidth({ children }: { children: ReactNode }) {
 
 function ProjectsPreview() {
   const [search, setSearch] = useState('')
-  const [phase, setPhase] = useState('all')
-  const [lead, setLead] = useState('all')
+  const [rag, setRag] = useState('')
+  const [phase, setPhase] = useState('')
+  const [lead, setLead] = useState('')
+  const [manager, setManager] = useState('')
+  const [backendLead, setBackendLead] = useState('')
+  const [platform, setPlatform] = useState('')
   const [pipeline, setPipeline] = useState('on')
+  const [view, setView] = useState('list')
   const rows = useMemo(
     () =>
       projectRows.filter(
         (project) =>
-          project.project.toLocaleLowerCase().includes(search.toLocaleLowerCase()) &&
-          (phase === 'all' || project.phase === phase) &&
-          (lead === 'all' || project.lead === lead),
+          `${project.project} ${project.key}`.toLocaleLowerCase().includes(search.toLocaleLowerCase()) &&
+          (!rag || project.rag === rag) &&
+          (!phase || project.phase === phase) &&
+          (!lead || project.lead === lead) &&
+          (!manager || project.manager === manager) &&
+          (!backendLead || project.backendLead === backendLead) &&
+          (!platform || project.platform === platform),
       ),
-    [lead, phase, search],
+    [backendLead, lead, manager, phase, platform, rag, search],
   )
   return (
     <PreviewShell activeId="projects-all">
       <PageHeader
         heading="Projects"
         description="Active projects and upcoming work"
-        context="Local visual QA · placeholder data"
-        actions={<HeaderActions label="New project" />}
+        actions={
+          <div className="cui-row">
+            <Button variant="quiet" size="icon" aria-label="Notifications">
+              <Icon name="notifications" />
+            </Button>
+            <SegmentedControl
+              label="Project view"
+              value={view}
+              onValueChange={setView}
+              options={[
+                { value: 'list', label: 'List' },
+                { value: 'quick', label: 'Quick capture' },
+              ]}
+            />
+            <Button size="sm" variant="outline">
+              Remind stale
+            </Button>
+            <Button size="sm" variant="outline">
+              Import from Sheets
+            </Button>
+            <a href="#new" className="cui-button cui-button-primary">
+              New project
+            </a>
+          </div>
+        }
       />
       <div className="cui-row" style={{ alignItems: 'flex-end' }}>
         <FilterToolbarWithControls
           search={search}
           setSearch={setSearch}
+          rag={rag}
+          setRag={setRag}
           phase={phase}
           setPhase={setPhase}
           lead={lead}
           setLead={setLead}
+          manager={manager}
+          setManager={setManager}
+          backendLead={backendLead}
+          setBackendLead={setBackendLead}
+          platform={platform}
+          setPlatform={setPlatform}
           pipeline={pipeline}
           setPipeline={setPipeline}
           count={rows.length}
@@ -239,10 +365,18 @@ function ProjectsPreview() {
 interface FilterToolbarWithControlsProps {
   search: string
   setSearch: (value: string) => void
+  rag: string
+  setRag: (value: string) => void
   phase: string
   setPhase: (value: string) => void
   lead: string
   setLead: (value: string) => void
+  manager: string
+  setManager: (value: string) => void
+  backendLead: string
+  setBackendLead: (value: string) => void
+  platform: string
+  setPlatform: (value: string) => void
   pipeline: string
   setPipeline: (value: string) => void
   count: number
@@ -251,10 +385,18 @@ interface FilterToolbarWithControlsProps {
 function FilterToolbarWithControls({
   search,
   setSearch,
+  rag,
+  setRag,
   phase,
   setPhase,
   lead,
   setLead,
+  manager,
+  setManager,
+  backendLead,
+  setBackendLead,
+  platform,
+  setPlatform,
   pipeline,
   setPipeline,
   count,
@@ -269,12 +411,23 @@ function FilterToolbarWithControls({
       filters={
         <>
           <FilterWidth>
-            <StyledSelect
+            <Combobox
+              label="RAG"
+              value={rag}
+              onValueChange={setRag}
+              options={[
+                { value: 'Green', label: 'Green' },
+                { value: 'Amber', label: 'Amber' },
+                { value: 'Red', label: 'Red' },
+              ]}
+            />
+          </FilterWidth>
+          <FilterWidth>
+            <Combobox
               label="Phase"
               value={phase}
               onValueChange={setPhase}
               options={[
-                { value: 'all', label: 'All phases' },
                 { value: 'Discovery', label: 'Discovery' },
                 { value: 'Design', label: 'Design' },
                 { value: 'Build', label: 'Build' },
@@ -282,14 +435,48 @@ function FilterToolbarWithControls({
             />
           </FilterWidth>
           <FilterWidth>
-            <StyledSelect
-              label="FE lead"
+            <Combobox
+              label="FE Lead"
               value={lead}
               onValueChange={setLead}
               options={[
-                { value: 'all', label: 'All leads' },
                 { value: 'Jordan Lee', label: 'Jordan Lee' },
                 { value: 'Riley Chen', label: 'Riley Chen' },
+              ]}
+            />
+          </FilterWidth>
+          <FilterWidth>
+            <Combobox
+              label="PM"
+              value={manager}
+              onValueChange={setManager}
+              options={[
+                { value: 'Mina Patel', label: 'Mina Patel' },
+                { value: 'Alex Morgan', label: 'Alex Morgan' },
+                { value: 'Sam Rivera', label: 'Sam Rivera' },
+              ]}
+            />
+          </FilterWidth>
+          <FilterWidth>
+            <Combobox
+              label="BE Lead"
+              value={backendLead}
+              onValueChange={setBackendLead}
+              options={[
+                { value: 'Casey Park', label: 'Casey Park' },
+                { value: 'Taylor Kim', label: 'Taylor Kim' },
+              ]}
+            />
+          </FilterWidth>
+          <FilterWidth>
+            <Combobox
+              label="Platform"
+              value={platform}
+              onValueChange={setPlatform}
+              options={[
+                { value: 'Commerce', label: 'Commerce' },
+                { value: 'Web app', label: 'Web app' },
+                { value: 'Portal', label: 'Portal' },
               ]}
             />
           </FilterWidth>
@@ -484,6 +671,10 @@ export const Projects: Story = {
     await expect(getComputedStyle(filterRow).flexDirection).toBe('row')
     await expect(getComputedStyle(sortButton).gap).toBe('4px')
     await expect(getComputedStyle(primaryLink).color).not.toBe(getComputedStyle(primaryLink).backgroundColor)
+    for (const label of ['RAG', 'Phase', 'FE Lead', 'PM', 'BE Lead', 'Platform']) {
+      await expect(canvas.getByRole('combobox', { name: label })).toBeVisible()
+    }
+    await expect(canvas.getByRole('radiogroup', { name: 'Pipeline' })).toBeVisible()
     const search = canvas.getByRole('searchbox', { name: 'Search projects' })
     await userEvent.type(search, 'Harbour')
     await expect(canvas.getByText('1 result')).toBeVisible()
