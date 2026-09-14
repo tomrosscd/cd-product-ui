@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Publish the public-safe Storybook to GitHub Pages after CI succeeds on `main`, giving reviewers a shared component catalogue without distributing licensed local fonts.
+
 ## 0.10.0 · 11 September 2026
 
 Shared table and form improvements, adoption audit fixes and aligned pagination controls. The library remains independent of application services and business rules.
