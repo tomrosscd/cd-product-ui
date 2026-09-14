@@ -2,11 +2,11 @@
 
 The user authorised public Storybook hosting on GitHub Pages on 14 September 2026. Work is on `feat/host-storybook-pages`, based on the released `main` commit `0f1567f`.
 
-The proposed `.github/workflows/pages.yml` waits for the existing CI workflow to succeed on `main`, runs `pnpm build-storybook:public`, uploads `storybook-static` and deploys it through the `github-pages` environment. A manual trigger is also available for recovery. GitHub Pages must use GitHub Actions as its publishing source. The expected URL is <https://tomrosscd.github.io/cd-product-ui/>.
+[PR #36](https://github.com/tomrosscd/cd-product-ui/pull/36) adds `.github/workflows/pages.yml`. It waits for the existing CI workflow to succeed on `main`, runs `pnpm build-storybook:public`, uploads `storybook-static` and deploys it through the `github-pages` environment. A manual trigger is also available for recovery. GitHub Pages must use GitHub Actions as its publishing source. The expected URL is <https://tomrosscd.github.io/cd-product-ui/>.
 
 README and release guidance now distinguish the hosted catalogue from release-archive distribution. The hosted catalogue follows current `main`; fixed package versions remain on GitHub Releases. The public build excludes licensed local fonts and clears stale output before building.
 
-Local validation passed: documentation and release metadata checks, repository formatting, the public Storybook build, and a browser load from the production-style `/cd-product-ui/` subpath. The welcome page rendered with no unexpected failed requests. The generated font files are Storybook's bundled Nunito interface assets; no Roobert or Geist binaries were included.
+Local validation passed: documentation and release metadata checks, repository formatting, the public Storybook build, and a browser load from the production-style `/cd-product-ui/` subpath. The welcome page rendered with no unexpected failed requests. The generated font files are Storybook's bundled Nunito interface assets; no Roobert or Geist binaries were included. PR #36's complete GitHub CI suite passed before merge.
 
 ## Previous release: 0.10.0
 
