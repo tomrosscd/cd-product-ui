@@ -4,7 +4,7 @@ Work is on `fix/adoption-layout-contrast`, based on released `main` commit `fcb1
 
 The fixes give FilterToolbar a flexible measurable width, exclude `.cui-button` anchors from generic link presentation, and make `.cui-table-sort` an inline flex row with the approved 4px gap. Stories reproduce the consumer compositions without retaining its data. A pre-existing InlineEdit focus test repeatedly completed its DOM assertion before the focus-restoration effect; it now waits for the promised focus result as well, without changing production behaviour.
 
-Local validation passed: 292 light tests, 233 dark stories, coverage, types, lint, formatting, token/API/CSS contracts, static Storybook, catalogue/release metadata, registry drift, a 321-file packed Vite consumer, Next.js 16/pnpm and independent Next.js 15/npm/Tailwind 4 plus Tailwind 3 CSS checks. Neutral before/after screenshots and the detailed findings are in [the review record](docs/audits/2026-09-14-adoption-layout-fixes.md). Open a separate focused PR, inspect its CI and keep it independent from sidebar-density PR #38. Do not edit or message the consumer app.
+Local validation passed: 292 light tests, 233 dark stories, coverage, types, lint, formatting, token/API/CSS contracts, static Storybook, catalogue/release metadata, registry drift, a 321-file packed Vite consumer, Next.js 16/pnpm and independent Next.js 15/npm/Tailwind 4 plus Tailwind 3 CSS checks. Neutral before/after screenshots and the detailed findings are in [the review record](docs/audits/2026-09-14-adoption-layout-fixes.md). [PR #39](https://github.com/tomrosscd/cd-product-ui/pull/39) contains the fixes; inspect its CI and keep it independent from sidebar-density PR #38. Do not edit or message the consumer app.
 
 # Hosted Storybook
 
