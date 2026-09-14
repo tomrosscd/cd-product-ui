@@ -95,15 +95,21 @@ describe('Sidebar interactions', () => {
     expect(screen.getByRole('link', { name: 'Projects' }).getAttribute('aria-current')).toBe('page')
     expect(screen.queryByRole('link', { name: 'Settings' })).toBeNull()
   })
-  it('opens a labelled dialog, closes with Escape and returns focus to its trigger', async () => {
-    render(<DashboardSidebar items={items} activeId="overview" />)
-    const trigger = screen.getByRole('button', { name: 'Open navigation' })
-    await userEvent.click(trigger)
-    expect(screen.getByRole('dialog', { name: 'Workspace navigation' })).toBeTruthy()
-    await userEvent.keyboard('{Escape}')
-    expect(screen.queryByRole('dialog')).toBeNull()
-    expect(document.activeElement).toBe(trigger)
-  })
+  it.each(['compact', 'comfortable'] as const)(
+    'opens the %s drawer, closes with Escape and returns focus',
+    async (density) => {
+      render(<DashboardSidebar items={items} activeId="overview" density={density} />)
+      const trigger = screen.getByRole('button', { name: 'Open navigation' })
+      await userEvent.click(trigger)
+      expect(screen.getByRole('dialog', { name: 'Workspace navigation' })).toBeTruthy()
+      expect(
+        screen.getByRole('navigation', { name: 'Mobile navigation' }).classList.contains('cui-nav-comfortable'),
+      ).toBe(density === 'comfortable')
+      await userEvent.keyboard('{Escape}')
+      expect(screen.queryByRole('dialog')).toBeNull()
+      expect(document.activeElement).toBe(trigger)
+    },
+  )
   const grouped = [
     { id: 'overview', label: 'Overview', href: '#overview' },
     {

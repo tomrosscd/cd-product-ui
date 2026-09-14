@@ -80,7 +80,7 @@ it('keeps the draft after rejection, prevents duplicate saves and supports retry
   expect(screen.getByRole('alert').textContent).toContain('could not be saved')
   fireEvent.click(screen.getByText('Save'))
   await waitFor(() => expect(screen.queryByLabelText('Draft')).toBeNull())
-  expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Edit Notes: Original' }))
+  await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Edit Notes: Original' })))
 })
 
 it('cancels or commits an unchanged inline value without persistence and restores focus', async () => {
