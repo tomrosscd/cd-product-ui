@@ -6,7 +6,7 @@ Add `density="compact" | "comfortable"` to DashboardSidebar, inherited by Dashbo
 
 Implementation and local validation are complete. The [review record](docs/audits/2026-09-14-sidebar-density.md) includes the API decision, before/after screenshots and checks. Passed: 60 unit tests, 237 light stories, 237 dark stories, coverage, build, types, lint, formatting, API/CSS contracts, registry drift, catalogue/release metadata, packed Vite consumer, Next.js and npm/Tailwind compatibility. Dedicated browser checks passed for desktop/mobile themes, keyboard focus, long labels, rail expansion and both exported components using the installed archive's CSS. An initial existing inline-edit focus test failed transiently; the unchanged rerun and coverage run passed.
 
-Next: push this focused branch and open its PR for review, then inspect GitHub CI. Keep main and release tags unchanged until the PR is reviewed. The new prop is not in a released archive; do not distribute the local 0.10.0 validation archive as a release. Do not change or contact the consumer application.
+[PR #38](https://github.com/tomrosscd/cd-product-ui/pull/38) contains the implementation and visual evidence. Local checks are complete; use the PR for authoritative GitHub CI and developer review status. Keep main and release tags unchanged until the PR is reviewed. The new prop is not in a released archive; do not distribute the local 0.10.0 validation archive as a release. Do not change or contact the consumer application.
 
 ---
 
