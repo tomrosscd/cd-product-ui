@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, waitFor, within } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 import { DashboardShell } from '../../patterns/dashboard-shell.js'
 import { DashboardSidebar, type SidebarEntry } from './dashboard-sidebar.js'
 import { Icon } from '../primitives/icon.js'
@@ -30,7 +30,15 @@ const meta = {
 } satisfies Meta<typeof DashboardSidebar>
 export default meta
 type Story = StoryObj<typeof meta>
-export const Default: Story = {}
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole('link', { name: 'Overview' })
+    await expect(getComputedStyle(link).fontSize).toBe('14px')
+    await expect(getComputedStyle(link).fontWeight).toBe('500')
+    await expect(link.getBoundingClientRect().height).toBe(44)
+  },
+}
+export const Compact: Story = { ...Default, args: { density: 'compact' } }
 export const CurrentPage: Story = { args: { activeId: 'projects' } }
 export const UnavailableDestination: Story = {
   args: { items: [...demoNavigation, { id: 'settings', label: 'Settings', href: '#settings', disabled: true }] },
@@ -227,4 +235,55 @@ export const ProductBranding: Story = {
     brand: <strong style={{ fontSize: '1.125rem' }}>Planwerk</strong>,
     brandMark: <strong>PW</strong>,
   },
+}
+
+/** Comfortable changes typography only; single-line rows keep the compact 44px height. */
+export const Comfortable: Story = {
+  args: { density: 'comfortable', items: groupedNavigation, activeId: 'allocation-queue' },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    for (const item of [
+      c.getByRole('link', { name: 'Dashboard' }),
+      c.getByRole('button', { name: 'Allocation' }),
+      c.getByRole('link', { name: 'Capacity' }),
+    ]) {
+      await expect(getComputedStyle(item).fontSize).toBe('16px')
+      await expect(getComputedStyle(item).fontWeight).toBe('600')
+      await expect(getComputedStyle(item).lineHeight).toBe('20px')
+      await expect(item.getBoundingClientRect().height).toBe(44)
+    }
+    await expect(c.getByRole('link', { name: 'Over-allocation' })).toHaveAttribute('aria-current', 'page')
+    await expect(c.queryByRole('link', { name: 'Config' })).toBeNull()
+    const projects = c.getByRole('button', { name: 'Projects' })
+    projects.focus()
+    await userEvent.keyboard('{Enter}')
+    await expect(c.getByRole('link', { name: 'Active' })).toBeVisible()
+    await userEvent.keyboard('{Enter}')
+    await expect(c.queryByRole('link', { name: 'Active' })).toBeNull()
+  },
+}
+export const ComfortableNestedSections: Story = {
+  ...DeeplyNestedSections,
+  args: { ...DeeplyNestedSections.args, density: 'comfortable' },
+  play: async (context) => {
+    await DeeplyNestedSections.play?.(context)
+    const c = within(context.canvasElement)
+    const heading = c.getByRole('button', { name: 'FE' })
+    await expect(getComputedStyle(heading).fontSize).toBe('14px')
+    await expect(getComputedStyle(heading).fontWeight).toBe('600')
+    await expect(heading.getBoundingClientRect().height).toBe(36)
+    await expect(getComputedStyle(c.getByRole('link', { name: 'FE Lead' })).fontSize).toBe('16px')
+  },
+}
+export const ComfortableCollapsibleRail: Story = {
+  ...CollapsibleRail,
+  args: { ...CollapsibleRail.args, density: 'comfortable' },
+}
+export const ComfortableLongLabels: Story = {
+  ...LongLabels,
+  args: { ...LongLabels.args, density: 'comfortable' },
+}
+export const ComfortableMobile: Story = {
+  globals: { viewport: { value: 'mobile', isRotated: false } },
+  args: { density: 'comfortable', items: groupedNavigation, activeId: 'allocation-queue' },
 }

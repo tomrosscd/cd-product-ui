@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Optional `density="comfortable"` on `DashboardSidebar` and `DashboardShell` for larger, semibold navigation labels. Compact remains the default; row spacing, nested hierarchy and mobile/collapsed behaviour are preserved. Addresses #37.
+
 ### Changed
 
 - Publish the public-safe Storybook to GitHub Pages after CI succeeds on `main`, giving reviewers a shared component catalogue without distributing licensed local fonts.

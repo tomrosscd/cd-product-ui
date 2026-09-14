@@ -1,3 +1,15 @@
+# Sidebar navigation density, issue #37
+
+Work is on `feat/sidebar-density`, based on `fcb19a4` (hosted Storybook merged). The user asked to review issue #37 and implement it if appropriate. The request is a reusable adoption gap: navigation typography has no supported variant.
+
+Add `density="compact" | "comfortable"` to DashboardSidebar, inherited by DashboardShell. Compact preserves existing CSS. Comfortable uses existing body (16px) and semibold (600) tokens, with compact (14px) nested section headings. This deliberately reuses the approved scale rather than adding a 15px value for one consumer. Keep row spacing and line height, icon size, routing, rail state and portal behaviour unchanged. Scope the CSS class to the nav inside shared contents so the mobile portal receives it too.
+
+Implementation and local validation are complete. The [review record](docs/audits/2026-09-14-sidebar-density.md) includes the API decision, before/after screenshots and checks. Passed: 60 unit tests, 237 light stories, 237 dark stories, coverage, build, types, lint, formatting, API/CSS contracts, registry drift, catalogue/release metadata, packed Vite consumer, Next.js and npm/Tailwind compatibility. Dedicated browser checks passed for desktop/mobile themes, keyboard focus, long labels, rail expansion and both exported components using the installed archive's CSS. An initial existing inline-edit focus test failed transiently; the unchanged rerun and coverage run passed.
+
+Next: push this focused branch and open its PR for review, then inspect GitHub CI. Keep main and release tags unchanged until the PR is reviewed. The new prop is not in a released archive; do not distribute the local 0.10.0 validation archive as a release. Do not change or contact the consumer application.
+
+---
+
 # Hosted Storybook
 
 The user authorised public Storybook hosting on GitHub Pages on 14 September 2026. Work is on `feat/host-storybook-pages`, based on the released `main` commit `0f1567f`.

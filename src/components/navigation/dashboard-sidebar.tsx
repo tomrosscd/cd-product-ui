@@ -14,6 +14,8 @@ export interface DashboardSidebarProps {
   /** A flat list of destinations, or a mix of destinations and collapsible sections. */
   items: readonly SidebarEntry[]
   activeId: string
+  /** Navigation typography. Compact preserves the default; comfortable uses larger, semibold labels without changing row spacing. */
+  density?: 'compact' | 'comfortable'
   /** Show a menu button that collapses the rail to icons. Off by default, so existing usage is unchanged. */
   collapsible?: boolean
   /** Controlled collapsed state. Supply `onCollapsedChange` with it. */
@@ -37,6 +39,7 @@ export interface DashboardSidebarProps {
 export function DashboardSidebar({
   items,
   activeId,
+  density = 'compact',
   workspace = 'Workspace',
   workspaceDescription = 'Product workspace',
   brand,
@@ -111,7 +114,10 @@ export function DashboardSidebar({
             <span>{workspaceDescription}</span>
           </div>
         )}
-        <nav className="cui-nav" aria-label={mobile ? 'Mobile navigation' : 'Main navigation'}>
+        <nav
+          className={cn('cui-nav', density === 'comfortable' && 'cui-nav-comfortable')}
+          aria-label={mobile ? 'Mobile navigation' : 'Main navigation'}
+        >
           {items.map((entry) =>
             isSection(entry) ? (
               <NavSection

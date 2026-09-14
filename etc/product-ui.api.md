@@ -912,6 +912,7 @@ export interface DashboardSidebarProps {
     collapsible?: boolean;
     // (undocumented)
     defaultCollapsed?: boolean;
+    density?: 'compact' | 'comfortable';
     // (undocumented)
     footer?: ReactNode;
     items: readonly SidebarEntry[];

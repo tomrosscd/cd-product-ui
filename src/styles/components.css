@@ -462,6 +462,15 @@
   padding-block: var(--cui-space-8);
   font-size: var(--cui-type-caption);
 }
+/* Keep the compact line height and row spacing so larger labels do not enlarge single-line rows.
+   Scope the variant to navigation itself so desktop and portalled mobile content agree. */
+.cui-nav-comfortable .cui-nav-item {
+  font-size: var(--cui-type-body);
+  font-weight: var(--cui-font-semibold);
+}
+.cui-nav-comfortable .cui-nav-section-nested > .cui-nav-section-trigger {
+  font-size: var(--cui-type-compact);
+}
 /* A quiet square control, not a labelled row. Sized to --cui-size-touch so the pointer target
    stays adequate in the 64px rail, where the icon alone would be far too small to hit. */
 .cui-nav-toggle {

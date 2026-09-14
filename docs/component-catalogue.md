@@ -30,6 +30,10 @@ Use this guide to select components from Product UI 0.10.0. Projects on earlier 
 | Sign-in screen             | SignInForm, connected to the application's authentication handler         |
 | Application frame          | DashboardShell and DashboardSidebar                                       |
 
+## Navigation density (upcoming)
+
+`DashboardSidebar` and `DashboardShell` accept `density="compact" | "comfortable"`. Compact is the unchanged default. Comfortable uses existing body/semibold tokens for 16px/600 navigation labels and compact typography for 14px nested section headings. Row spacing, icon sizes and collapsed/mobile behaviour stay the same. This addition is not in the 0.10.0 archive; see the [adoption guide](adopting-in-an-app.md#navigation).
+
 ## Forms and sign-in
 
 Import the stylesheet once at the application root. The following component belongs in a client module when used with Next.js:
