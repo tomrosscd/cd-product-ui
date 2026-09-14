@@ -457,7 +457,8 @@
    .cui-nav-section-list's padding-inline-start applies at every depth, compounding on its own — so
    this only needs to shrink the row itself, keeping the visual hierarchy legible without a second
    indent scale. */
-.cui-nav-section-nested > .cui-nav-section-trigger {
+.cui-nav-section-nested > .cui-nav-section-trigger,
+.cui-nav-section-nested > .cui-nav-section-list > li > .cui-nav-item {
   min-height: var(--cui-space-32);
   padding-block: var(--cui-space-8);
   font-size: var(--cui-type-caption);
@@ -468,7 +469,8 @@
   font-size: var(--cui-type-body);
   font-weight: var(--cui-font-semibold);
 }
-.cui-nav-comfortable .cui-nav-section-nested > .cui-nav-section-trigger {
+.cui-nav-comfortable .cui-nav-section-nested > .cui-nav-section-trigger,
+.cui-nav-comfortable .cui-nav-section-nested > .cui-nav-section-list > li > .cui-nav-item {
   font-size: var(--cui-type-compact);
 }
 /* A quiet square control, not a labelled row. Sized to --cui-size-touch so the pointer target

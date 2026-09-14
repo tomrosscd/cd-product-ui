@@ -142,7 +142,7 @@ const deeplyNestedNavigation: readonly SidebarEntry[] = [
  */
 export const DeeplyNestedSections: Story = {
   args: { items: deeplyNestedNavigation, activeId: 'allocation-fe-lead' },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const c = within(canvasElement)
     // The active destination sits two levels down — both its immediate parent (FE) and the
     // grandparent (Allocation) must auto-open, not just the immediate one.
@@ -150,7 +150,12 @@ export const DeeplyNestedSections: Story = {
     await expect(allocation).toHaveAttribute('aria-expanded', 'true')
     const fe = c.getByRole('button', { name: 'FE' })
     await expect(fe).toHaveAttribute('aria-expanded', 'true')
-    await expect(c.getByRole('link', { name: 'FE Lead' })).toBeVisible()
+    const feLead = c.getByRole('link', { name: 'FE Lead' })
+    await expect(feLead).toBeVisible()
+    const nestedFontSize = args.density === 'comfortable' ? '14px' : '12px'
+    await expect(getComputedStyle(fe).fontSize).toBe(nestedFontSize)
+    await expect(getComputedStyle(feLead).fontSize).toBe(nestedFontSize)
+    await expect(feLead.getBoundingClientRect().height).toBe(36)
 
     // BE did not hold the active destination, so it starts closed — nesting does not force every
     // sibling open, only the branch that actually holds the current page.
@@ -272,7 +277,9 @@ export const ComfortableNestedSections: Story = {
     await expect(getComputedStyle(heading).fontSize).toBe('14px')
     await expect(getComputedStyle(heading).fontWeight).toBe('600')
     await expect(heading.getBoundingClientRect().height).toBe(36)
-    await expect(getComputedStyle(c.getByRole('link', { name: 'FE Lead' })).fontSize).toBe('16px')
+    const destination = c.getByRole('link', { name: 'FE Lead' })
+    await expect(getComputedStyle(destination).fontSize).toBe('14px')
+    await expect(destination.getBoundingClientRect().height).toBe(36)
   },
 }
 export const ComfortableCollapsibleRail: Story = {
