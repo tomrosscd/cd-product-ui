@@ -150,6 +150,9 @@
   padding: var(--cui-space-8) var(--cui-space-12);
 }
 .cui-table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-4);
   border: 0;
   background: none;
   font: inherit;
