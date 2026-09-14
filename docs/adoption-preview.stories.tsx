@@ -301,14 +301,10 @@ function ProjectsPreview() {
                 { value: 'quick', label: 'Quick capture' },
               ]}
             />
-            <Button size="sm" variant="outline">
-              Remind stale
-            </Button>
-            <Button size="sm" variant="outline">
-              Import from Sheets
-            </Button>
+            <Button variant="outline">Remind stale</Button>
+            <Button variant="outline">Import from Sheets</Button>
             <a href="#new" className="cui-button cui-button-primary">
-              New project
+              <Icon name="plus" /> New project
             </a>
           </div>
         }
@@ -671,6 +667,11 @@ export const Projects: Story = {
     await expect(getComputedStyle(filterRow).flexDirection).toBe('row')
     await expect(getComputedStyle(sortButton).gap).toBe('4px')
     await expect(getComputedStyle(primaryLink).color).not.toBe(getComputedStyle(primaryLink).backgroundColor)
+    for (const label of ['Remind stale', 'Import from Sheets']) {
+      await expect(Math.round(canvas.getByRole('button', { name: label }).getBoundingClientRect().height)).toBe(
+        Math.round(primaryLink.getBoundingClientRect().height),
+      )
+    }
     for (const label of ['RAG', 'Phase', 'FE Lead', 'PM', 'BE Lead', 'Platform']) {
       await expect(canvas.getByRole('combobox', { name: label })).toBeVisible()
     }
