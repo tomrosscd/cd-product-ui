@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { expect, userEvent, within } from 'storybook/test'
 import { FilterToolbar } from './filter-toolbar.js'
 import { SegmentedControl } from '../components/primitives/segmented-control.js'
+import { Button } from '../components/primitives/button.js'
 const projects = ['Workspace refresh', 'Reporting improvements', 'Team onboarding guide', 'Resource library']
 const meta = {
   title: 'Patterns/Filter toolbar',
@@ -78,5 +79,44 @@ export const NoActiveFilters: Story = {
   render: function Demo() {
     const [search, setSearch] = useState('')
     return <FilterToolbar searchValue={search} onSearchChange={setSearch} resultCount={projects.length} />
+  },
+}
+/** A toolbar remains measurable when it shares a flex row with page-level actions. */
+export const WithSiblingActions: Story = {
+  render: function Demo() {
+    const [search, setSearch] = useState('')
+    const [status, setStatus] = useState('all')
+    return (
+      <div className="cui-row">
+        <FilterToolbar
+          searchLabel="Search projects"
+          searchValue={search}
+          onSearchChange={setSearch}
+          filters={
+            <SegmentedControl
+              label="Status"
+              value={status}
+              onValueChange={setStatus}
+              options={[
+                { value: 'all', label: 'All' },
+                { value: 'active', label: 'Active' },
+              ]}
+            />
+          }
+        />
+        <Button>Configure columns</Button>
+      </div>
+    )
+  },
+  play: async ({ canvasElement }) => {
+    const toolbar = canvasElement.querySelector('.cui-filter-toolbar') as HTMLElement
+    const row = canvasElement.querySelector('.cui-filter-toolbar-row') as HTMLElement
+    const search = within(canvasElement).getByRole('searchbox', { name: 'Search projects' })
+    const status = within(canvasElement).getByRole('radiogroup', { name: 'Status' })
+    await expect(toolbar.getBoundingClientRect().width).toBeGreaterThan(480)
+    await expect(getComputedStyle(row).flexDirection).toBe('row')
+    await expect(Math.round(search.getBoundingClientRect().bottom)).toBe(
+      Math.round(status.getBoundingClientRect().bottom),
+    )
   },
 }

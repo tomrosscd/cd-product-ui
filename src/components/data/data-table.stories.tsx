@@ -24,7 +24,14 @@ const meta = {
 } satisfies Meta<typeof DataTable<ProjectRow>>
 export default meta
 type Story = StoryObj<typeof meta>
-export const Default: Story = {}
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const sort = within(canvasElement).getByRole('button', { name: /Project/ })
+    await expect(getComputedStyle(sort).display).toBe('inline-flex')
+    await expect(getComputedStyle(sort).alignItems).toBe('center')
+    await expect(getComputedStyle(sort).gap).toBe('4px')
+  },
+}
 export const SortSearchAndPaginate: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement)

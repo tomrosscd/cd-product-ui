@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Fixed
+
+- Keep `FilterToolbar` measurable when it shares a flex row with sibling page actions, preventing its container query from incorrectly switching wide layouts to the stacked mobile arrangement.
+- Preserve button colours and remove link underlines when the public button classes style an anchor used for navigation.
+- Add approved 4px spacing between sortable table header labels and their direction icons.
+
 ### Changed
 
 - Publish the public-safe Storybook to GitHub Pages after CI succeeds on `main`, giving reviewers a shared component catalogue without distributing licensed local fonts.

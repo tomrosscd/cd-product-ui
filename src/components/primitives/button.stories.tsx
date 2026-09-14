@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 import { Icon } from './icon.js'
 import { Button } from './button.js'
 const meta = {
@@ -36,6 +37,27 @@ export const AllVariants: Story = {
       <Button variant="link">Link</Button>
     </div>
   ),
+}
+/** Navigation can use the public button classes on an anchor while retaining button contrast. */
+export const NavigationLinks: Story = {
+  render: () => (
+    <div className="cui-row">
+      <a href="#primary" className="cui-button cui-button-primary">
+        New project
+      </a>
+      <a href="#secondary" className="cui-button cui-button-secondary">
+        Import projects
+      </a>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    const primary = c.getByRole('link', { name: 'New project' })
+    const secondary = c.getByRole('link', { name: 'Import projects' })
+    await expect(getComputedStyle(primary).color).not.toBe(getComputedStyle(primary).backgroundColor)
+    await expect(getComputedStyle(secondary).color).toBe(getComputedStyle(secondary.closest('.cui-root')!).color)
+    await expect(getComputedStyle(primary).textDecorationLine).toBe('none')
+  },
 }
 export const Sizes: Story = {
   render: () => (
