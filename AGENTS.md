@@ -22,7 +22,7 @@ These instructions apply to this repository. The package version is authoritativ
 - Exclude local fonts, secrets and client reference content from release packages. See README.md for preview font handling.
 - No sub-agents unless the user explicitly asks for delegation.
 
-- Read docs/component-catalogue.md before composing new forms, data views or roadmaps.
+- Read docs/component-catalogue.md before composing new forms, data views or roadmaps. Read docs/list-pages.md before composing record lists. Verify mixed wrapped buttons/direct links and complete list pages in the packed consumer, not only isolated controls.
 - Import charts only through @convert/product-ui/charts. Preserve optional chart dependencies and text/data-table alternatives.
 - Keep metric direction independent from sentiment. Never silently treat missing observations as zero.
 - SignInForm is presentation only. Never log credentials or add authentication/session storage to the library.

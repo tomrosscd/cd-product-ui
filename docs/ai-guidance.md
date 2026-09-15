@@ -38,3 +38,7 @@ For 0.3.0, read release-0.3.md. Wrap React content in ThemeProvider for dark mod
 ## Dashboard composition
 
 Read `docs/dashboard-composition.md` before assembling a dashboard. Use Stack for section gaps, Grid for repeated panels and SplitLayout for a wide summary with supporting content. Their responsiveness is based on parent width. Card only supplies internal spacing. Do not add another DashboardShell inside an existing app shell. Use ContentList/ContentListItem for rich read-only rows and RoadmapBoard readOnly to hide edit controls; retain DataTable when column comparison matters. Use actual component props rather than reconstructing layouts from a screenshot. These APIs require the additive dashboard-composition update, not the original 0.7.0 package.
+
+## List-page consistency (0.11.1)
+
+Read [the list-page composition guide](list-pages.md) before adopting tables and filters. Use one application wrapper across routes. Verify whole pages together; installing the package does not replace local controls. The [Claude Code handoff](claude-code-adoption-prompt.md) covers the Projects, Retainers and Clients migration.

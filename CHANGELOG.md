@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.1 · 15 September 2026
+
+- Fix PageHeader stretching direct button links beside wrapped commands and segmented controls. Small single-line actions retain matching 32px heights.
+- Centre plain table headers alongside sortable headers.
+- Bound desktop FilterToolbar search to 320px, align table actions with search and move filters to their own wrapping row. Narrow containers retain full-width search. This deliberately changes toolbar layout; move sibling table actions into its actions slot.
+- Add complete Projects, Retainers, Clients and narrow list-page regression examples, adoption guidance and a versioned Claude Code handoff. No public props, exports, tokens or class names are removed. Application migration remains separate from installing this patch.
+
 ## 0.11.0 · 14 September 2026
 
 Adoption and navigation polish based on the first full Product UI integration. Existing defaults remain compatible, and comfortable sidebar typography is opt-in.

@@ -1,3 +1,11 @@
+# List-page consistency patch 0.11.1
+
+The user authorised shared fixes, a new release and improved Claude Code adoption guidance on 15 September 2026. Work is on `fix/list-page-consistency`. Header actions now centre; FilterToolbar has a bounded search/action row and separate wrapping filters. New canonical Projects, Retainers, Clients and narrow stories exercise the composition. docs/list-pages.md and docs/claude-code-adoption-prompt.md specify application migration and verification.
+
+Local validation passed: pnpm check (306 tests), 246 dark stories, coverage, API/CSS contracts, formatting, catalogue/release metadata, registry drift, packed React/Vite consumption (324 files), Next.js 16/pnpm and independent Next.js 15/npm/Tailwind 4 plus Tailwind 3 processing. Packed browser checks assert equal 32px desktop and 48px mobile buttons, readable contrast, bounded search, header alignment and no document overflow. All three canonical examples were reviewed at 1440px/390px, including menu Escape/focus return and final pagination page. See docs/audits/2026-09-15-list-pages.md. GitHub PR/CI, merge and tagged publication remain. Keep cd_capacity read-only; the application owner runs its migration. The user has authorised this library release, including the necessary release workflow. Do not claim authenticated consumer validation or independent human review.
+
+---
+
 # Release 0.11.0
 
 Work is on `release/0.11.0`, based on merged PRs [#38](https://github.com/tomrosscd/cd-product-ui/pull/38) and [#39](https://github.com/tomrosscd/cd-product-ui/pull/39). The release adds optional comfortable sidebar typography, corrects nested navigation hierarchy, and fixes adopted filter-toolbar layout, button-styled link presentation and sortable-header spacing. It also includes the public-safe hosted Storybook work merged after 0.10.0.

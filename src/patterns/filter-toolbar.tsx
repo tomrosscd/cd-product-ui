@@ -12,9 +12,9 @@ export interface FilterToolbarProps {
   searchValue: string
   onSearchChange: (value: string) => void
   searchPlaceholder?: string
-  /** Additional filter controls rendered alongside search, e.g. a StyledSelect, Combobox or SegmentedControl. The toolbar doesn't define filter types itself. */
+  /** Additional filter controls rendered below search, e.g. a StyledSelect, Combobox or SegmentedControl. The toolbar doesn't define filter types itself. */
   filters?: ReactNode
-  /** Primary actions sit separately from filtering controls. */
+  /** Table actions share the search row. Put page creation/import actions in PageHeader. */
   actions?: ReactNode
   activeFilters?: readonly ActiveFilter[]
   onClearAll?: () => void
@@ -46,18 +46,18 @@ export function FilterToolbar({
             placeholder={searchPlaceholder}
           />
         </div>
-        {filters && <div className="cui-filter-toolbar-filters">{filters}</div>}
         {resultCount !== undefined && (
           <p role="status" className="cui-secondary cui-filter-toolbar-count">
             {resultLabel(resultCount)}
           </p>
         )}
+        {actions && (
+          <div className="cui-filter-toolbar-actions" role="group" aria-label="Actions">
+            {actions}
+          </div>
+        )}
       </div>
-      {actions && (
-        <div className="cui-filter-toolbar-actions" role="group" aria-label="Actions">
-          {actions}
-        </div>
-      )}
+      {filters && <div className="cui-filter-toolbar-filters">{filters}</div>}
       {activeFilters.length > 0 && (
         <div className="cui-filter-toolbar-active" role="group" aria-label="Active filters">
           {activeFilters.map((filter) => (

@@ -1,6 +1,10 @@
 # Release validation history
 
-## Validate 0.11.0
+## 0.11.1 validation
+
+The [list-page verification record](audits/2026-09-15-list-pages.md) records the local checks and synthetic visual evidence for this patch. Application migration remains a separate verification step.
+
+## Validate 0.11.1
 
 Use `pnpm package:check`, `pnpm next:check` and `pnpm compatibility:check` in that order. Framework checks verify the SHA256 of the archive that passed the package check.
 

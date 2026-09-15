@@ -11,7 +11,7 @@ Do not convert a whole screen in one change. Each step below is independently sh
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
 
    ```sh
-   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.0/convert-product-ui-0.11.0.tgz
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.1/convert-product-ui-0.11.1.tgz
    ```
 
    ```tsx
@@ -135,3 +135,7 @@ From 0.8.0 there is also one earlier change worth repeating: `Progress` no longe
 ## When something is missing
 
 Do not fork a component to change its appearance. Either compose the primitives (`Card`, `Badge`, `TextLink`, `ContentList`) into what you need, or [open an issue](https://github.com/tomrosscd/cd-product-ui/issues/new/choose) describing the screen you are building. Overriding library CSS is a deliberate exception worth reviewing, not a default.
+
+## List-page consistency (0.11.1)
+
+Read [the list-page composition guide](list-pages.md) before adopting tables and filters. Use one application wrapper across routes. Verify whole pages together; installing the package does not replace local controls. The [Claude Code handoff](claude-code-adoption-prompt.md) covers the Projects, Retainers and Clients migration.

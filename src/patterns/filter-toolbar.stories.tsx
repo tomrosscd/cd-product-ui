@@ -115,8 +115,7 @@ export const WithSiblingActions: Story = {
     const status = within(canvasElement).getByRole('radiogroup', { name: 'Status' })
     await expect(toolbar.getBoundingClientRect().width).toBeGreaterThan(480)
     await expect(getComputedStyle(row).flexDirection).toBe('row')
-    await expect(Math.round(search.getBoundingClientRect().bottom)).toBe(
-      Math.round(status.getBoundingClientRect().bottom),
-    )
+    await expect(search.getBoundingClientRect().width).toBeLessThanOrEqual(320)
+    await expect(status.getBoundingClientRect().top).toBeGreaterThan(search.getBoundingClientRect().bottom)
   },
 }

@@ -1,5 +1,9 @@
 # Roadmap
 
+## List-page consistency patch (15 September 2026)
+
+0.11.1 corrects header action stretching and bounds/reorganises the shared filter toolbar. docs/list-pages.md defines the canonical composition; docs/claude-code-adoption-prompt.md covers application migration. Packed browser checks cover desktop/mobile and both themes. This does not migrate the consumer app automatically or add a second table API.
+
 ## Adoption implementation status, 10 September 2026
 
 The user confirmed the audit's larger feature deferrals. Preserve the approved delivery order below. The implementation is included in the 0.10.0 release scope. Larger feature deferrals remain unchanged.
