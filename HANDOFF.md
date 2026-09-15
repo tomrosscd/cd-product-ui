@@ -1,3 +1,23 @@
+# FormSection and Grid equal-height work (15 September 2026, in progress)
+
+The user reviewed cd_capacity screenshots beyond the list pages covered by 0.11.1: the New Project wizard, Settings, Change Requests, Capacity Forecasting, the Allocation pool toolbar and the dashboard KPI row. Authorised building the library-side fixes now, on branch `feat/form-section-grid-align`, and folding them into a release later rather than immediately — do not tag or publish until asked.
+
+**Shipped on the branch, locally verified:**
+- New `FormSection` component (`src/components/primitives/form-section.tsx`) — an eyebrow heading with a rule beneath it, for grouping fields or read-only values in a longer form or record-review layout. Deliberately does not lay out its children; consumers compose `Grid`/`Stack` inside. Addresses the New Project wizard's "IDENTITY"/"TEAM"/"SKILLS NEEDED" sections and Change Requests' review-field groups, both of which cd_capacity currently hand-rolls with bespoke CSS.
+- `Grid`'s new `align` prop (`'start'` default, `'stretch'` opt-in) — `.cui-layout-grid` previously hardcoded `align-items: start`, so a row of otherwise-equal cards (the dashboard's Active projects / Launching / Avg utilisation / Open risks row) visibly mismatched height whenever one card's text wrapped an extra line. `align="stretch"` fixes it without changing the default for unrelated-card grids.
+- `pnpm type-check`, `pnpm lint`, `pnpm format:check`, `pnpm test` (310/310), `pnpm build`, `pnpm css:check` (updated, additive-only: 3 new classes) and `pnpm api:check` (updated, additive-only: new `FormSection` export, new optional `Grid.align` prop) all pass. Verified visually in Storybook (`FormSection/Multiple Sections` and `Foundations/Layout/Stretched Row`) in light theme; dark theme and the full `pnpm check`/packed-consumer/release pipeline have not been run yet — do that before any tag.
+
+**Diagnosed but not yet built — app-side gaps in cd_capacity, not library bugs (keep cd_capacity read-only; this is reference only):**
+- `components/shared/PageHeader.tsx` and most page bodies (Settings, Change Requests) don't wrap in `Stack`, so the gap between the header and the next block is inconsistent page to page (zero on Settings, a manual `mb-5`/`space-y-*` guess elsewhere).
+- Settings (`app/(dashboard)/settings/page.tsx`) uses a local shadcn-style `@/components/ui/card`, not cui's `Card`.
+- `components/settings/ChangeRequestsView.tsx` is fully hand-rolled: raw filter-tab buttons (cui has `Tabs`/`SegmentedControl`), a hand-built status badge (cui has `Badge`), raw uppercase field-label pairs (now exactly what `FormSection` is for), a plain `<div className="card p-6">` instead of `Card`.
+- `components/forecasting/ForecastingPage.tsx`'s Actuals/What-if/Demand switcher is a hand-rolled underlined button row; cui's `Tabs` (Radix-backed) already does this.
+- `components/grid/LeadAllocationGrid.tsx`'s toolbar (pool label, week range, project filter, view/skill/platform controls, Today/Refresh/Sync/Book actions) is a raw flex-wrap div, not `FilterToolbar` — it has the same labelled-select-breaks-row-alignment problem 0.11.1 fixed for list pages, just on a screen that was never migrated to the shared toolbar.
+
+None of the above needs a new library API — they're existing components (`Tabs`, `Badge`, `Card`, `FilterToolbar`, `Stack`) that the relevant cd_capacity screens simply never adopted. Once `FormSection` ships, the natural next step is a second Claude Code adoption prompt (same shape as `docs/claude-code-adoption-prompt.md`) covering these five screens.
+
+---
+
 # List-page consistency patch 0.11.1
 
 The user authorised shared fixes, a new release and improved Claude Code adoption guidance on 15 September 2026. Work is on `fix/list-page-consistency`. Header actions now centre; FilterToolbar has a bounded search/action row and separate wrapping filters. New canonical Projects, Retainers, Clients and narrow stories exercise the composition. docs/list-pages.md and docs/claude-code-adoption-prompt.md specify application migration and verification.

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add `FormSection`, a labelled group for related fields or read-only values inside a longer form or record-review layout (eyebrow heading with a rule beneath it). It only supplies the heading and spacing; compose `Grid` or `Stack` inside for the field arrangement. Fills the gap consumers were hand-rolling with ad hoc uppercase labels and custom CSS for multi-step forms and record-review panels (e.g. cd_capacity's New Project wizard and Change Requests review).
+- Add `Grid`'s `align` prop (`'start'` default, `'stretch'` opt-in). A row of comparable cards (a KPI/metric row) can now share one height per row even when one item's content wraps onto an extra line; unrelated card grids are unaffected since `'start'` stays the default.
+
 ## 0.11.1 · 15 September 2026
 
 - Fix PageHeader stretching direct button links beside wrapped commands and segmented controls. Small single-line actions retain matching 32px heights.

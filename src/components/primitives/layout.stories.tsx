@@ -28,6 +28,19 @@ export const EqualColumns: Story = {
     </Grid>
   ),
 }
+/** Default `align="start"` sizes each card to its own content — correct for unrelated cards, but
+ *  a row of comparable metric cards then mismatches height when one item's text wraps. Use
+ *  `align="stretch"` for that case so every card in the row shares the tallest item's height. */
+export const StretchedRow: Story = {
+  render: () => (
+    <Grid columns={4} align="stretch">
+      <Card heading="Active projects">52</Card>
+      <Card heading="Launching in 4 weeks">9 — next: Porsche Singapore Integration, W38</Card>
+      <Card heading="Avg utilisation">18%</Card>
+      <Card heading="Open risks">12</Card>
+    </Grid>
+  ),
+}
 export const SectionSpacing: Story = {
   render: () => (
     <Stack gap={32}>

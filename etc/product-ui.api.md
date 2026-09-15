@@ -1218,11 +1218,27 @@ export interface FilterToolbarProps {
     searchValue: string;
 }
 
+// @public
+export function FormSection(input: FormSectionProps): JSX.Element;
+
+// @public (undocumented)
+export interface FormSectionProps extends Omit<ComponentProps<'section'>, 'title'> {
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    description?: ReactNode;
+    // (undocumented)
+    heading: string;
+    // (undocumented)
+    headingLevel?: 2 | 3 | 4;
+}
+
 // @public (undocumented)
 export function Grid(input: GridProps): JSX.Element;
 
 // @public (undocumented)
 export interface GridProps extends StackProps {
+    align?: 'start' | 'stretch';
     columns?: 1 | 2 | 3 | 4;
     minItemWidth?: number;
 }
