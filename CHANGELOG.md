@@ -4,6 +4,7 @@
 
 - Add `FormSection`, a labelled group for related fields or read-only values inside a longer form or record-review layout (eyebrow heading with a rule beneath it). It only supplies the heading and spacing; compose `Grid` or `Stack` inside for the field arrangement. Fills the gap consumers were hand-rolling with ad hoc uppercase labels and custom CSS for multi-step forms and record-review panels (e.g. cd_capacity's New Project wizard and Change Requests review).
 - Add `Grid`'s `align` prop (`'start'` default, `'stretch'` opt-in). A row of comparable cards (a KPI/metric row) can now share one height per row even when one item's content wraps onto an extra line; unrelated card grids are unaffected since `'start'` stays the default.
+- Fix `DashboardSidebar`: a plain destination sitting beside a nested section in the same list (e.g. "QA" beside "FE"/"BE" inside "Allocation") now shrinks to the same size as its nested siblings. Previously only a nested section's own trigger and its children shrank, so a plain sibling at the identical indent kept the outer level's full size — this is the exact "FE/BE inside Allocation" structure the component's own docs already used as the motivating example, just untested for a plain sibling in the same list.
 
 ## 0.11.1 · 15 September 2026
 
