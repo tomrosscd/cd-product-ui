@@ -155,6 +155,12 @@ export const DeeplyNestedSections: Story = {
     const nestedFontSize = args.density === 'comfortable' ? '14px' : '12px'
     await expect(getComputedStyle(fe).fontSize).toBe(nestedFontSize)
     await expect(getComputedStyle(feLead).fontSize).toBe(nestedFontSize)
+    // QA sits beside FE/BE at the same indent, in the same list, but has no children of its own —
+    // it must still match FE/BE's size. It previously stayed at the outer level's full size, since
+    // the shrink rule only ever targeted a nested section and its own descendants, never a plain
+    // sibling destination in the same list.
+    const qa = c.getByRole('link', { name: 'QA' })
+    await expect(getComputedStyle(qa).fontSize).toBe(nestedFontSize)
     await expect(feLead.getBoundingClientRect().height).toBe(36)
 
     // BE did not hold the active destination, so it starts closed — nesting does not force every

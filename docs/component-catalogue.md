@@ -1,6 +1,6 @@
 # Component guide
 
-Use this guide to select components from Product UI 0.11.0. Projects on earlier versions must upgrade before using the additions. Use the component's Storybook documentation for props and live states. Components use the same generated tokens as the foundations reference.
+Use this guide to select components from Product UI 0.12.0. Projects on earlier versions must upgrade before using the additions. Use the component's Storybook documentation for props and live states. Components use the same generated tokens as the foundations reference.
 
 ## Choose the right component
 
@@ -56,6 +56,23 @@ export function SettingsForm() {
 Supply your own submit handler, validation and saving behaviour. Inputs accept native attributes and controlled or uncontrolled values. Keep visible labels; placeholders do not replace them. Field associates its child control through a render function, including supporting text IDs. PasswordInput preserves autocomplete and paste, and its reveal control does not submit a form.
 
 SignInForm requires onSubmit and prevents the default browser submission. It does not contact an authentication service. The handler receives the form event; the host can read FormData and pass credentials directly to its chosen authentication service. Never log credentials, store them in library state or test with real credentials in Storybook. Supply loading and error props to reflect the host's request state. Recovery links and any SSO action are supplied by the host.
+
+Group fields or read-only values under a labelled heading with `FormSection`, for a multi-step form or a record-review layout. It only supplies the heading and the rule beneath it; compose `Grid` or `Stack` inside for the field arrangement, and `Stack` around multiple sections for the gap between them:
+
+```tsx
+import { FormSection, Grid, Input, Select } from '@convert/product-ui'
+
+export function ProjectIdentitySection() {
+  return (
+    <FormSection heading="Identity">
+      <Grid columns={2} gap={16}>
+        <Input label="Project name" />
+        <Select label="Platform" options={platformOptions} />
+      </Grid>
+    </FormSection>
+  )
+}
+```
 
 ## Metrics and progress
 

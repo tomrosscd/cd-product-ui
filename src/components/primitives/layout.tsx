@@ -19,8 +19,23 @@ export interface GridProps extends StackProps {
   columns?: 1 | 2 | 3 | 4
   /** Preferred minimum item width in pixels, not a forced minimum on small screens. */
   minItemWidth?: number
+  /**
+   * Cross-axis alignment of each row's items. 'start' (default) sizes every item to its own
+   * content, so rows of unrelated cards keep their natural heights. Use 'stretch' for a row of
+   * comparable cards (for example a KPI/metric row) that should share one height per row even
+   * when one item's content wraps onto an extra line.
+   */
+  align?: 'start' | 'stretch'
 }
-export function Grid({ columns = 3, minItemWidth = 240, gap = 16, className, style, ...props }: GridProps) {
+export function Grid({
+  columns = 3,
+  minItemWidth = 240,
+  gap = 16,
+  align = 'start',
+  className,
+  style,
+  ...props
+}: GridProps) {
   return (
     <div
       {...props}
@@ -30,6 +45,7 @@ export function Grid({ columns = 3, minItemWidth = 240, gap = 16, className, sty
           '--cui-layout-gap': `var(--cui-space-${gap})`,
           '--cui-grid-columns': columns,
           '--cui-grid-min': `${Number.isFinite(minItemWidth) && minItemWidth > 0 ? minItemWidth : 240}px`,
+          '--cui-grid-align': align,
           ...style,
         } as CSSProperties
       }

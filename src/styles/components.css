@@ -264,6 +264,25 @@
   font-weight: var(--cui-font-medium);
   text-underline-offset: var(--cui-space-4);
 }
+.cui-form-section + .cui-form-section {
+  margin-block-start: var(--cui-space-32);
+}
+.cui-form-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-4);
+  padding-block-end: var(--cui-space-8);
+  margin-block-end: var(--cui-space-16);
+  border-block-end: var(--cui-border-width) solid var(--cui-border-subtle);
+}
+.cui-form-section-heading {
+  color: var(--cui-text-secondary);
+  font-size: var(--cui-type-caption);
+  line-height: var(--cui-type-caption-leading);
+  font-weight: var(--cui-font-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 .cui-skeleton {
   height: var(--cui-space-24);
   background: var(--cui-surface-band);
@@ -456,7 +475,12 @@
 /* A second level of grouping (e.g. "FE"/"BE" inside "Allocation") indents further automatically —
    .cui-nav-section-list's padding-inline-start applies at every depth, compounding on its own — so
    this only needs to shrink the row itself, keeping the visual hierarchy legible without a second
-   indent scale. */
+   indent scale.
+   The first selector below also covers a plain destination that sits beside a nested section in the
+   same list (e.g. "Solution Architects" beside "FE"/"BE" inside "Allocation"): without it, that
+   sibling kept the outer level's full size while FE/BE shrank, so two rows at the same indent and
+   the same list read at different sizes purely because one happened to have children. */
+.cui-nav-section-list:has(> li > .cui-nav-section-nested) > li > .cui-nav-item,
 .cui-nav-section-nested > .cui-nav-section-trigger,
 .cui-nav-section-nested > .cui-nav-section-list > li > .cui-nav-item {
   min-height: var(--cui-space-32);
@@ -469,6 +493,7 @@
   font-size: var(--cui-type-body);
   font-weight: var(--cui-font-semibold);
 }
+.cui-nav-comfortable .cui-nav-section-list:has(> li > .cui-nav-section-nested) > li > .cui-nav-item,
 .cui-nav-comfortable .cui-nav-section-nested > .cui-nav-section-trigger,
 .cui-nav-comfortable .cui-nav-section-nested > .cui-nav-section-list > li > .cui-nav-item {
   font-size: var(--cui-type-compact);

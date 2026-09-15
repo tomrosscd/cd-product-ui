@@ -11,7 +11,7 @@
 }
 .cui-layout-grid {
   display: grid;
-  align-items: start;
+  align-items: var(--cui-grid-align, start);
   grid-template-columns: repeat(
     auto-fit,
     minmax(
