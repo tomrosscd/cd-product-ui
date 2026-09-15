@@ -11,7 +11,7 @@ Do not convert a whole screen in one change. Each step below is independently sh
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
 
    ```sh
-   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.1/convert-product-ui-0.11.1.tgz
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.12.0/convert-product-ui-0.12.0.tgz
    ```
 
    ```tsx
