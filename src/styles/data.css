@@ -138,6 +138,7 @@
   background: var(--cui-surface-page);
 }
 .cui-table th {
+  vertical-align: middle;
   font-weight: var(--cui-font-medium);
 }
 .cui-table tbody tr:last-child > * {

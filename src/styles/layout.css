@@ -67,6 +67,7 @@
 }
 .cui-layout-header-actions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: var(--cui-space-8);
   max-inline-size: 100%;

@@ -15,6 +15,8 @@ assert(
   'Package includes private fonts or development material',
 )
 for (const required of [
+  'docs/list-pages.md',
+  'docs/claude-code-adoption-prompt.md',
   'dist/index.js',
   'dist/index.d.ts',
   'dist/styles.css',
@@ -106,6 +108,9 @@ await writeFile(
 )
 execFileSync('pnpm', ['exec', 'tsc', '--noEmit'], { cwd: consumer, stdio: 'inherit' })
 execFileSync('pnpm', ['exec', 'vite', 'build'], { cwd: consumer, stdio: 'inherit' })
+await copyFile('scripts/fixtures/packed-list-layout.mjs', join(consumer, 'packed-list-layout.mjs'))
+execFileSync(process.execPath, ['packed-list-layout.mjs'], { cwd: consumer, stdio: 'inherit' })
+execFileSync(process.execPath, ['scripts/check-packed-layout.mjs', consumer], { stdio: 'inherit' })
 await mkdir('artifacts', { recursive: true })
 await writeFile(
   'artifacts/package-check.json',

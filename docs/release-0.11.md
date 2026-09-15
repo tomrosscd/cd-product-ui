@@ -1,3 +1,17 @@
+# Upgrade to 0.11.1
+
+The 15 September 2026 patch fixes mixed header button heights and the filter-toolbar composition. Install `https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.1/convert-product-ui-0.11.1.tgz` using the package manager and vendor workflow already established in your application. Verify the release SHA256SUMS.
+
+## Patch adoption
+
+PageHeader centres actions rather than stretching direct links to match taller siblings. Plain table headers now centre alongside sortable headers. Small buttons and links remain 32px high on desktop; the existing 48px mobile/coarse-pointer targets are preserved. FilterToolbar now caps desktop search at 320px, puts actions beside search, and renders filters underneath. Search becomes full-width below the 480px container breakpoint. These are intentional visual-default corrections; existing props, exports, tokens and CSS class names remain available. Review custom selectors that depend on the previous toolbar child order.
+
+Read [Consistent list pages](list-pages.md) and apply the composition across each route. Move Views/Configure into FilterToolbar.actions and create/import actions into PageHeader. Package installation does not migrate local Retainer tables or remove application CSS overrides. The [Claude Code handoff](claude-code-adoption-prompt.md) specifies the coordinated application migration and verification.
+
+Roll back by reverting the application upgrade/migration commit and reinstalling from its restored lockfile and archive. Do not overwrite the 0.11.0 release.
+
+---
+
 # Upgrade to 0.11.0
 
 `0.11.0` adds optional sidebar typography density and fixes layout and presentation defects found during a full application adoption. Released 14 September 2026.

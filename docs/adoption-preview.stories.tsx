@@ -309,7 +309,7 @@ function ProjectsPreview() {
           </div>
         }
       />
-      <div className="cui-row" style={{ alignItems: 'flex-end' }}>
+      <>
         <FilterToolbarWithControls
           search={search}
           setSearch={setSearch}
@@ -329,15 +329,7 @@ function ProjectsPreview() {
           setPipeline={setPipeline}
           count={rows.length}
         />
-        <div className="cui-row" aria-label="Table options">
-          <Button size="sm" variant="quiet">
-            Views
-          </Button>
-          <Button size="sm" variant="outline">
-            Configure columns
-          </Button>
-        </div>
-      </div>
+      </>
       <section className="cui-band" aria-labelledby="projects-table-heading">
         <div className="cui-band-head">
           <h2 id="projects-table-heading">Projects</h2>
@@ -404,6 +396,12 @@ function FilterToolbarWithControls({
       onSearchChange={setSearch}
       searchPlaceholder="Search by name or code…"
       resultCount={count}
+      actions={
+        <>
+          <Button size="sm">Views</Button>
+          <Button size="sm">Configure columns</Button>
+        </>
+      }
       filters={
         <>
           <FilterWidth>

@@ -174,3 +174,7 @@ This checklist includes runtime helpers and compositions that share implementati
 | Feedback and overlays | Badge, Alert, EmptyState, Spinner, Skeleton, ErrorBoundary, Tabs, Disclosure, ConfirmationDialog, Drawer, ActionMenu, Tooltip, ToastRegion, NotificationCentre, Breadcrumbs |
 | Workflows             | RoadmapCard, RoadmapBoard, SignInForm, InlineEdit, Stepper, Wizard, FileUpload                                                                                              |
 | Optional charts       | ChartContainer, ChartTooltipContent, ChartLegend, DataChart, Sparkline                                                                                                      |
+
+## List-page consistency (0.11.1)
+
+Read [the list-page composition guide](list-pages.md) before adopting tables and filters. Use one application wrapper across routes. Verify whole pages together; installing the package does not replace local controls. The [Claude Code handoff](claude-code-adoption-prompt.md) covers the Projects, Retainers and Clients migration.

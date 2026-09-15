@@ -4,7 +4,7 @@ A shared design system for Convert dashboards and internal tools. It gives you c
 
 Each project stays on the version it installed until you decide to upgrade.
 
-Version: **0.11.0**. See the [changelog](CHANGELOG.md) for what changed in each version.
+Version: **0.11.1**. See the [changelog](CHANGELOG.md) for what changed in each version.
 
 [Install](#install-the-library) · [Use with React](#use-the-components-with-react) · [Use the tokens](#use-the-tokens-without-react) · [Upgrade](#upgrade-a-project) · [Browse components](#browse-the-components) · [Contribute](CONTRIBUTING.md)
 
@@ -31,13 +31,13 @@ Your application supplies React 19.2. The package name in imports is `@convert/p
 Each release attaches a built archive. Install it by URL from your application's folder:
 
 ```sh
-pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.0/convert-product-ui-0.11.0.tgz
+pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.1/convert-product-ui-0.11.1.tgz
 ```
 
 Using npm instead:
 
 ```sh
-npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.0/convert-product-ui-0.11.0.tgz
+npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.11.1/convert-product-ui-0.11.1.tgz
 ```
 
 The URL identifies one release. Commit `package.json` and its lockfile to retain the archive integrity hash. Release immutability is a project policy; the 0.9.0 hosting metadata does not enforce it.
@@ -51,16 +51,16 @@ To install a different version, change both version numbers in the URL. Releases
 To reproduce the released archive, run these outside your application's folder. Read the [0.11 upgrade notes](docs/release-0.11.md) before adoption.
 
 ```sh
-git clone --branch v0.11.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.11.1 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-Copy the resulting `artifacts/convert-product-ui-0.11.0.tgz` into a `vendor` folder in your application and install it from there:
+Copy the resulting `artifacts/convert-product-ui-0.11.1.tgz` into a `vendor` folder in your application and install it from there:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.11.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.11.1.tgz
 ```
 
 Commit the archive alongside your lockfile. If your project ignores `*.tgz`, add an exception for it.
@@ -223,3 +223,7 @@ This repository contains proprietary Convert Digital code. See [LICENSE](LICENSE
 ### Dashboard composition (0.8.0)
 
 For token-spaced layout components, flexible list rows, read-only roadmaps and nested navigation, see [the dashboard composition guide](./docs/dashboard-composition.md), [the adoption brief](./docs/adopting-in-an-app.md) and Storybook **Patterns / Dashboard composition**. These components shipped in 0.8.0.
+
+## List-page consistency (0.11.1)
+
+Read [the list-page composition guide](docs/list-pages.md) before adopting tables and filters. Use one application wrapper across routes. Verify whole pages together; installing the package does not replace local controls. The [Claude Code handoff](docs/claude-code-adoption-prompt.md) covers the Projects, Retainers and Clients migration.
