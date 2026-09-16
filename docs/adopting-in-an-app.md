@@ -11,7 +11,7 @@ Do not convert a whole screen in one change. Each step below is independently sh
 1. Install the release and import the stylesheet. Change nothing else. Confirm the application still builds and looks unchanged.
 
    ```sh
-   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.12.0/convert-product-ui-0.12.0.tgz
+   pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.13.0/convert-product-ui-0.13.0.tgz
    ```
 
    ```tsx
@@ -122,15 +122,14 @@ Version 0.10.0 adds controlled state, server pagination, selection, visibility, 
 
 To roll back, revert that commit and reinstall from the restored lockfile.
 
-### Upgrading to 0.9.0 specifically
+### Upgrading to 0.13.0 specifically
 
-Three defaults change what an existing screen looks like. Check these before you ship:
+Nothing existing changes appearance or behaviour. 0.13.0 only adds: cell controls, `CellGrid`, `cell` on `Combobox` and `StyledSelect`, and two utility classes. See [the release notes](release-0.13.md) and [the quick capture pattern](quick-capture-pattern.md).
 
-- **`Badge tone="negative"`** now has a soft red tint. It previously used the page colour, so it read as bare text.
-- **A closed `SidebarSection`** now actually hides its children. They were still visible and still reachable by Tab, despite the section reporting itself closed.
-- **A `DataTable` column that declares a `size`** now gets that size, and the table switches to fixed layout. If you set sizes previously and saw no effect, you will now.
+If you are skipping versions, these earlier changes do alter an existing screen:
 
-From 0.8.0 there is also one earlier change worth repeating: `Progress` no longer clamps a value to `max`, so a bar above its maximum shows the true overrun. If you were clamping values yourself before passing them in, stop. Pass the real number.
+- **0.9.0** gave `Badge tone="negative"` a soft red tint, where it previously used the page colour and read as bare text. A closed `SidebarSection` began actually hiding its children, which were previously still visible and reachable by Tab. A `DataTable` column declaring a `size` began getting it, with the table switching to fixed layout.
+- **0.8.0** stopped `Progress` clamping a value to `max`, so a bar above its maximum shows the true overrun. If you were clamping values yourself before passing them in, stop. Pass the real number.
 
 ## When something is missing
 

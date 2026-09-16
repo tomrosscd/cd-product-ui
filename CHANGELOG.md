@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.13.0 · 16 September 2026
+
+Filling in a table quickly. Controls that fit a cell, keyboard movement down a column, and a searchable picker for the columns that need one. Everything is additive. See [docs/release-0.13.md](docs/release-0.13.md).
 
 - Add `StyledSelect`'s `cell` prop and an `icon` on its options, exported as `StyledSelectOption`. A native `<select>` option holds text and nothing else, so a status colour in a cell needs a branded listbox; the icon renders inside the option text and therefore appears in the trigger once chosen. The existing option shape still assigns, since `icon` is optional.
 - Add `.cui-warning` text colour, completing the trio beside `.cui-positive` and `.cui-negative`.
