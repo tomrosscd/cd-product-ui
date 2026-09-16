@@ -31,13 +31,13 @@ Your application supplies React 19.2. The package name in imports is `@convert/p
 Each release attaches a built archive. Install it by URL from your application's folder:
 
 ```sh
-pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.12.0/convert-product-ui-0.12.0.tgz
+pnpm add --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.13.0/convert-product-ui-0.13.0.tgz
 ```
 
 Using npm instead:
 
 ```sh
-npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.12.0/convert-product-ui-0.12.0.tgz
+npm install --save-exact https://github.com/tomrosscd/cd-product-ui/releases/download/v0.13.0/convert-product-ui-0.13.0.tgz
 ```
 
 The URL identifies one release. Commit `package.json` and its lockfile to retain the archive integrity hash. Release immutability is a project policy; the 0.9.0 hosting metadata does not enforce it.
@@ -51,16 +51,16 @@ To install a different version, change both version numbers in the URL. Releases
 To reproduce the released archive, run these outside your application's folder. Read the [0.12 upgrade notes](docs/release-0.12.md) before adoption.
 
 ```sh
-git clone --branch v0.12.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
+git clone --branch v0.13.0 --depth 1 https://github.com/tomrosscd/cd-product-ui.git convert-product-ui
 cd convert-product-ui
 pnpm install --frozen-lockfile
 pnpm pack --pack-destination artifacts
 ```
 
-Copy the resulting `artifacts/convert-product-ui-0.12.0.tgz` into a `vendor` folder in your application and install it from there:
+Copy the resulting `artifacts/convert-product-ui-0.13.0.tgz` into a `vendor` folder in your application and install it from there:
 
 ```sh
-pnpm add --save-exact ./vendor/convert-product-ui-0.12.0.tgz
+pnpm add --save-exact ./vendor/convert-product-ui-0.13.0.tgz
 ```
 
 Commit the archive alongside your lockfile. If your project ignores `*.tgz`, add an exception for it.
@@ -207,7 +207,7 @@ For licensed preview fonts, put `Roobert-Regular.woff2`, `Roobert-Medium.woff2` 
 
 - [Component guide](docs/component-catalogue.md): every component, its API and its boundaries
 - [Adoption brief](docs/adopting-in-an-app.md): which component to use for what, and how to upgrade safely
-- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.12.md)
+- [Changelog](CHANGELOG.md) and [release notes](docs/release-0.13.md)
 - [Architecture and boundaries](docs/architecture.md)
 - [Review and release process](docs/release-process.md)
 - [Known consumers](CONSUMERS.md): check before shipping a breaking change
