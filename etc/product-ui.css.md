@@ -4,7 +4,7 @@
 
 Every class, custom property and data attribute the compiled `dist/styles.css` exposes to consumers. Renaming or removing anything here is a breaking change under [docs/release-process.md](../docs/release-process.md#backward-compatibility), exactly like renaming a prop. Additions are compatible.
 
-## Classes (296)
+## Classes (300)
 
 - `cui-activity-list`
 - `cui-affixed-input`
@@ -152,6 +152,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-form-section-header`
 - `cui-form-section-heading`
 - `cui-icon`
+- `cui-icon-filled`
 - `cui-icon-inline`
 - `cui-icon-spin`
 - `cui-inline-edit-control`
@@ -249,6 +250,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-select`
 - `cui-select-group`
 - `cui-select-option`
+- `cui-select-option-icon`
 - `cui-select-option-indicator`
 - `cui-select-option-label`
 - `cui-select-panel`
@@ -280,6 +282,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-stepper-marker`
 - `cui-stepper-step`
 - `cui-styled-select`
+- `cui-styled-select-cell`
 - `cui-switch`
 - `cui-tab`
 - `cui-tab-list`
@@ -300,6 +303,7 @@ Every class, custom property and data attribute the compiled `dist/styles.css` e
 - `cui-toast`
 - `cui-toast-viewport`
 - `cui-tooltip`
+- `cui-warning`
 - `cui-wizard-fields`
 - `cui-workspace`
 

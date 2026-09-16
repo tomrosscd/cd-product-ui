@@ -241,3 +241,29 @@
   flex-wrap: wrap;
   gap: var(--cui-space-4);
 }
+
+/* An option's icon sits beside its label inside the item text, so Radix mirrors both into the
+   trigger once chosen. Keeping them in one inline row means the trigger shows the status and its
+   name together rather than a bare coloured shape. */
+.cui-select-option-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-8);
+  min-width: 0;
+}
+.cui-select-option-icon > svg {
+  flex-shrink: 0;
+  width: var(--cui-size-icon-small);
+  height: var(--cui-size-icon-small);
+}
+/* A branded listbox sized for a cell. Unlike a native select its panel is ours, so an option can
+   carry a status colour; that is the reason to reach for it here instead of CellSelect. */
+.cui-styled-select-cell {
+  min-inline-size: 0;
+}
+.cui-styled-select-cell .cui-styled-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cui-space-4);
+}

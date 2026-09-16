@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { expect, within } from 'storybook/test'
 import { CellGrid, CellInput, CellSelect, CellTextarea } from '../components/data/cell-controls.js'
 import { Combobox } from '../components/primitives/combobox.js'
+import { StyledSelect } from '../components/primitives/styled-select.js'
+import { Icon } from '../components/primitives/icon.js'
 import { Table } from '../components/primitives/table.js'
 import { SegmentedControl } from '../components/primitives/segmented-control.js'
 import { PageHeader } from '../components/primitives/layout.js'
@@ -21,10 +23,13 @@ const people = [
 ]
 const tiers = ['T1', 'T2', 'T3', 'T4'].map((t) => ({ value: t.toLowerCase(), label: t }))
 const sizes = ['S', 'M', 'L', 'XL'].map((s) => ({ value: s.toLowerCase(), label: s }))
+const dot = (tone: 'positive' | 'warning' | 'negative') => (
+  <Icon name="status" aria-hidden="true" className={`cui-icon-inline cui-icon-filled cui-${tone}`} />
+)
 const healths = [
-  { value: 'green', label: 'On track' },
-  { value: 'amber', label: 'At watch' },
-  { value: 'red', label: 'At risk' },
+  { value: 'green', label: 'On track', icon: dot('positive') },
+  { value: 'amber', label: 'At watch', icon: dot('warning') },
+  { value: 'red', label: 'At risk', icon: dot('negative') },
 ]
 const phases = ['Discovery', 'Opportunity', 'Design'].map((p) => ({ value: p.toLowerCase(), label: p }))
 
@@ -67,6 +72,7 @@ const seed: Row[] = [
     code: 'BULL000X',
     ...blank,
     pm: 'am',
+    health: 'amber',
     notes: 'Waiting on scope',
     phase: 'opportunity',
   },
@@ -150,7 +156,7 @@ function ProjectsCapture() {
               <th scope="col" style={{ width: 90 }}>
                 Size
               </th>
-              <th scope="col" style={{ width: 130 }}>
+              <th scope="col" style={{ width: 160 }}>
                 Health
               </th>
               <th scope="col" style={{ width: 140 }}>
@@ -186,7 +192,20 @@ function ProjectsCapture() {
                 {person(row, 'pm', 'PM')}
                 {person(row, 'am', 'AM')}
                 {choice(row, 'size', 'Size', sizes)}
-                {choice(row, 'health', 'Health', healths)}
+                <td>
+                  {capture ? (
+                    <StyledSelect
+                      cell
+                      label={`Health for ${row.client}`}
+                      options={healths}
+                      value={row.health}
+                      placeholder="Not set"
+                      onValueChange={(value) => set(row.id, 'health', value)}
+                    />
+                  ) : (
+                    healths.find((h) => h.value === row.health)?.label || none
+                  )}
+                </td>
                 {choice(row, 'phase', 'Phase', phases)}
                 <td>
                   {capture ? (
@@ -245,6 +264,26 @@ export const Default: Story = {
     const ba = c.getByLabelText('BA for Albek')
     ba.focus()
     await expect(ba).toHaveAttribute('aria-expanded', 'false')
+
+    // A status colour must survive into a cell. A native select cannot carry one, so health uses
+    // the branded listbox and the icon has to reach both the option and the chosen trigger.
+    const health = c.getByLabelText('Health for Albek')
+    await expect(health.tagName).toBe('BUTTON')
+
+    // Assert the dot's colour, not merely that an svg exists: the trigger also holds a chevron, so
+    // "has an svg" passes even when the status icon is missing entirely.
+    const withHealth = c.getByLabelText('Health for Bulldogs')
+    await expect(withHealth).toHaveTextContent('At watch')
+    const statusIcon = withHealth.querySelector('.cui-warning')
+    await expect(statusIcon).not.toBeNull()
+    // Resolve the token through a probe so the comparison is computed-to-computed: the token is
+    // authored as a hex and the browser reports rgb(), which are the same colour written differently.
+    const probe = canvasElement.ownerDocument.createElement('span')
+    probe.style.color = 'var(--cui-text-warning)'
+    withHealth.appendChild(probe)
+    const expected = getComputedStyle(probe).color
+    await expect(getComputedStyle(statusIcon as Element).color).toBe(expected)
+    probe.remove()
 
     // A wide grid is exactly where a box that changes on focus would be most obvious.
     const resting = ba.getBoundingClientRect()
