@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add `CellInput`, `CellSelect` and `CellTextarea`: form controls sized for a table cell, for a capture mode where every cell is editable at once. They take the same `label` as other controls but put it on `aria-label` rather than rendering it, since the column header is already the visible label. Their box does not change between resting, hover and focus, so a row never shifts as you work down it.
+- Add `CellGrid`, which wraps such a table and adds Enter and Shift+Enter to move down and up a column, plus Escape to release focus. Arrow keys are deliberately left to the controls. A textarea keeps Enter for line breaks and navigates on Cmd/Ctrl+Enter.
+- Add `docs/quick-capture-pattern.md` and the `Patterns/Quick capture` story, plus `docs/quick-capture-adoption-prompt.md` for a consuming application rebuilding a hand-rolled editable table.
+
 ## 0.12.0 · 15 September 2026
 
 - Add `FormSection`, a labelled group for related fields or read-only values inside a longer form or record-review layout (eyebrow heading with a rule beneath it). It only supplies the heading and spacing; compose `Grid` or `Stack` inside for the field arrangement. Fills the gap consumers were hand-rolling with ad hoc uppercase labels and custom CSS for multi-step forms and record-review panels (e.g. cd_capacity's New Project wizard and Change Requests review).

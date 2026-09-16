@@ -1,3 +1,41 @@
+# Active: cell controls and capture grid (16 September 2026)
+
+Branch `feature/cell-controls-and-capture-grid`, pushed, **not merged**, based on `main` at 0.12.0. This section supersedes the 0.12.0 notes below for "what to do next"; those remain the record of the last release.
+
+## Why
+
+The user reported that Quick Capture on the cd_capacity Projects table has inputs "all over the place". Diagnosis from a read-only clone: `components/project/QuickCaptureTable.tsx` is 620 lines importing **nothing** from this library, and its four cell editors (`InlineSelect`, `InlineTextarea`, `InlineDatePicker`, `MultiSelect`) are raw `<select>`/`<textarea>`/`<input>` with Tailwind utilities.
+
+That was reasonable of them, and the gap is ours: **every form control in this library requires `label: string` and renders a visible `<label>`**, which is wrong in a table cell where the column header is already the label. `InlineEdit` manages the click-to-edit lifecycle but supplies no control, and click-to-edit is the wrong shape for bulk entry regardless.
+
+Their specific faults, from their code rather than guesswork: a resting borderless `<button>` swapped for a bordered padded `<select>` on click (so the box changes size and the row jumps), `max-w-[180px]` on a select in a column that is not 180px (so it overlaps its neighbour), a hand-rolled `focus:ring-1 focus:ring-(--forest)` per control, and one-cell-at-a-time editing with no way to run down a column.
+
+## What landed
+
+`src/components/data/cell-controls.tsx`: `CellInput`, `CellSelect`, `CellTextarea`, `CellGrid`, all exported. Rationale and usage in `docs/quick-capture-pattern.md` (ships in the package). Reference implementation in `src/patterns/quick-capture.stories.tsx`.
+
+The load-bearing property: a cell control's **box never changes between resting, hover and focus**. The border is always present and only changes colour. The pattern story asserts identical width and height to the pixel, because this is the exact thing a later change would quietly break.
+
+`CellGrid` adds Enter/Shift+Enter for column movement and Escape to release. **Arrow keys are deliberately untouched** so they stay with the controls; taking them is why hand-rolled grids are unpleasant to type in. A textarea keeps Enter for line breaks and navigates on Cmd/Ctrl+Enter.
+
+## Verified, and not
+
+Passing: `format:check`, `check` (type-check, lint, tests, build, CSS surface, Storybook build), `api:check`, `css:check`, `registry:check`, `test:dark` (251). Snapshots additive, nothing removed.
+
+**Not done: no browser check.** The work was committed from a passing suite while the session ran low on context. Before merging, open Storybook, look at `Patterns/Quick capture` in light and dark, and check it at a narrow width. Also confirm CI went green on the pushed branch.
+
+## Next, in order
+
+1. **Browser check, then merge.** Then release as 0.13.0: additive, nothing removed.
+2. **Cell-shaped `Combobox`.** `CellSelect` is a native select, fine for tens of options, wrong for hundreds. This is the biggest remaining gap for cd_capacity, whose person columns are the ones being filled most.
+3. **Multi-select cell** for skills and platforms, still hand-rolled in the consumer.
+4. **Bulk paste** of a spreadsheet column.
+5. **A saving helper.** The pattern deliberately leaves debounce, optimism and per-cell failure to the application, so every consumer reinvents it. Worth doing once a second consumer exists.
+
+## For the consumer
+
+`docs/quick-capture-adoption-prompt.md` is written to be handed to whoever works on cd_capacity. It is a rewrite brief, not a patch: their `QuickCaptureTable` should shrink to composition. **cd_capacity stays read-only from this repository.**
+
 # Release 0.12.0 (15 September 2026)
 
 The user reviewed cd_capacity screenshots beyond the list pages covered by 0.11.1: the New Project wizard, Settings, Change Requests, Capacity Forecasting, the Allocation pool toolbar and the dashboard KPI row. Authorised building the library-side fixes on branch `feat/form-section-grid-align`, then authorised pushing, opening the PR, merging and tagging 0.12.0 once the diagnosis pass was done. Minor bump: `FormSection` is a new component and `Grid.align` is a new prop, both genuine new public API, so this isn't patch-shaped even though the sidebar fix on its own would be.
