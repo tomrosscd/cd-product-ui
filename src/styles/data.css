@@ -368,3 +368,65 @@
 .cui-table tfoot {
   background: var(--cui-surface-band);
 }
+
+/* Controls that live in a table cell.
+
+   The border is always present and only ever changes colour. A resting control with no border that
+   gains one on hover or focus is 2px taller the moment you touch it, which shifts the row and every
+   row beneath it. That swap is the usual cause of an editable table feeling unstable, so the box is
+   fixed here and only paint changes. */
+.cui-cell-control {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--cui-size-control-sm);
+  padding: var(--cui-space-0) var(--cui-space-8);
+  color: var(--cui-text-primary);
+  background: transparent;
+  border: var(--cui-border-width) solid transparent;
+  border-radius: var(--cui-radius-control);
+  font: inherit;
+}
+.cui-cell-control::placeholder {
+  color: var(--cui-text-secondary);
+  opacity: 1;
+}
+/* Resting cells stay quiet so a dense grid does not read as a wall of boxes. The outline appears on
+   approach, which is what tells the reader the cell is editable at all. */
+.cui-cell-control:hover:not(:disabled) {
+  border-color: var(--cui-border-control);
+  background: var(--cui-surface-card);
+}
+.cui-cell-control:focus-visible {
+  border-color: var(--cui-border-control);
+  background: var(--cui-surface-card);
+  outline: var(--cui-focus-width) solid var(--cui-focus-colour);
+  outline-offset: calc(var(--cui-focus-width) * -1);
+}
+[data-cui-theme='dark'] .cui-cell-control:focus-visible {
+  outline-color: var(--cui-colour-white);
+}
+.cui-cell-control:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.cui-cell-control-invalid {
+  border-color: var(--cui-border-error);
+}
+.cui-cell-select {
+  appearance: none;
+  cursor: pointer;
+  padding-inline-end: var(--cui-space-4);
+}
+/* One row tall, and it stays that way: a cell that grows as you type pushes the rest of the table
+   down mid-entry. Long notes scroll inside the cell and open in the record view instead. */
+.cui-cell-textarea {
+  resize: none;
+  padding-block: var(--cui-space-4);
+  line-height: var(--cui-type-compact-leading);
+  overflow-y: auto;
+}
+/* A capture grid is dense by nature, so the cells give the controls room rather than double padding. */
+.cui-cell-grid .cui-table :is(td, th) {
+  padding-block: var(--cui-space-4);
+}
