@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- **Fix:** `.cui-cell-sticky` set `position: sticky` but no inset, which does nothing on its own. Only `DataTable` supplied one, computed in JS, so a hand-composed table got a pinned column that scrolled away with everything else. It now pins to the leading edge by default, and `DataTable`'s computed offset still overrides it for multiple pinned columns.
+- Add the `Patterns/Projects capture` story: the capture pattern at a consuming application's real shape, twelve of its twenty-one columns with five person pickers, used to check the pattern holds at that density.
+
 - Add `Combobox`'s `cell` prop: sizes the trigger for a table cell and moves the label to `aria-label`, for a searchable picker in a capture grid whose options run past what a native select holds comfortably. Filtering, the popup and keyboard behaviour are unchanged.
 - In `cell` mode the list no longer opens on focus. Opening on focus suits a form, but in a grid Tab crosses a row and would pop a listbox over every picker on the way past. It also keeps Enter unambiguous: closed it moves down the column, open it picks the active option. Typing, ArrowDown and a click still open it.
 - **Fix:** `Combobox` did not prevent default on Escape while its list was open, so one press both closed the list and reached any outer handler. Escape now belongs to the open list.
