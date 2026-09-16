@@ -8,6 +8,8 @@ import { Icon } from '../components/primitives/icon.js'
 import { Table } from '../components/primitives/table.js'
 import { SegmentedControl } from '../components/primitives/segmented-control.js'
 import { PageHeader } from '../components/primitives/layout.js'
+import { DashboardShell } from './dashboard-shell.js'
+import type { SidebarEntry } from '../components/navigation/dashboard-sidebar.js'
 
 /**
  * Recreated from a consuming application's Projects capture screen, to check the cell controls hold
@@ -78,6 +80,26 @@ const seed: Row[] = [
   },
 ]
 
+/* Mirrors the consuming application's own navigation, so the page sits in a main region with the
+   padding every other page gets rather than hard against the viewport edge. */
+const navigation: readonly SidebarEntry[] = [
+  { id: 'dashboard', label: 'Dashboard', href: '#dashboard', icon: <Icon name="overview" /> },
+  {
+    id: 'projects',
+    label: 'Projects',
+    icon: <Icon name="projects" />,
+    items: [
+      { id: 'all-projects', label: 'All projects', href: '#all' },
+      { id: 'timeline', label: 'Timeline', href: '#timeline' },
+    ],
+  },
+  { id: 'retainers', label: 'Retainers', href: '#retainers', icon: <Icon name="clock" /> },
+  { id: 'clients', label: 'Clients', href: '#clients', icon: <Icon name="users" /> },
+  { id: 'allocation', label: 'Allocation', href: '#allocation', icon: <Icon name="activity" /> },
+  { id: 'invoicing', label: 'Invoicing', href: '#invoicing', icon: <Icon name="status" /> },
+  { id: 'config', label: 'Config', href: '#config', icon: <Icon name="settings" /> },
+]
+
 function ProjectsCapture() {
   const [mode, setMode] = useState('capture')
   const [rows, setRows] = useState(seed)
@@ -119,112 +141,120 @@ function ProjectsCapture() {
   )
 
   return (
-    <div className="cui-root cui-stack">
-      <PageHeader
-        heading="Projects"
-        description="Discovery, Opportunity and Design"
-        actions={
-          <SegmentedControl
-            label="View mode"
-            options={[
-              { value: 'list', label: 'List' },
-              { value: 'capture', label: 'Quick capture' },
-            ]}
-            value={mode}
-            onValueChange={setMode}
-          />
-        }
-      />
-      <CellGrid>
-        <Table caption="Projects awaiting assignment" density="compact" layout="scroll" minWidth={1900}>
-          <thead>
-            <tr>
-              <th scope="col" className="cui-cell-sticky" style={{ width: 200 }}>
-                Client
-              </th>
-              <th scope="col" style={{ width: 120 }}>
-                Disco code
-              </th>
-              <th scope="col" style={{ width: 100 }}>
-                Disco tier
-              </th>
-              {['BA', 'SA/TL', 'Designer', 'PM', 'AM'].map((h) => (
-                <th scope="col" key={h} style={{ width: 170 }}>
-                  {h}
+    <DashboardShell
+      items={navigation}
+      activeId="all-projects"
+      collapsible
+      workspace="Planwerk"
+      workspaceDescription="Delivery and resource management"
+    >
+      <div className="cui-page">
+        <PageHeader
+          heading="Projects"
+          description="Discovery, Opportunity and Design"
+          actions={
+            <SegmentedControl
+              label="View mode"
+              options={[
+                { value: 'list', label: 'List' },
+                { value: 'capture', label: 'Quick capture' },
+              ]}
+              value={mode}
+              onValueChange={setMode}
+            />
+          }
+        />
+        <CellGrid>
+          <Table caption="Projects awaiting assignment" density="compact" layout="scroll" minWidth={1900}>
+            <thead>
+              <tr>
+                <th scope="col" className="cui-cell-sticky" style={{ width: 200 }}>
+                  Client
                 </th>
-              ))}
-              <th scope="col" style={{ width: 90 }}>
-                Size
-              </th>
-              <th scope="col" style={{ width: 160 }}>
-                Health
-              </th>
-              <th scope="col" style={{ width: 140 }}>
-                Phase
-              </th>
-              <th scope="col" style={{ width: 240 }}>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                <th scope="row" className="cui-cell-sticky">
-                  <span>{row.client}</span> <span className="cui-caption cui-secondary">{row.code}</span>
+                <th scope="col" style={{ width: 120 }}>
+                  Disco code
                 </th>
-                <td>
-                  {capture ? (
-                    <CellInput
-                      label={`Disco code for ${row.client}`}
-                      value={row.discoCode}
-                      placeholder="Code"
-                      onChange={(event) => set(row.id, 'discoCode', event.target.value)}
-                    />
-                  ) : (
-                    row.discoCode || none
-                  )}
-                </td>
-                {choice(row, 'tier', 'Disco tier', tiers)}
-                {person(row, 'ba', 'BA')}
-                {person(row, 'satl', 'SA/TL')}
-                {person(row, 'designer', 'Designer')}
-                {person(row, 'pm', 'PM')}
-                {person(row, 'am', 'AM')}
-                {choice(row, 'size', 'Size', sizes)}
-                <td>
-                  {capture ? (
-                    <StyledSelect
-                      cell
-                      label={`Health for ${row.client}`}
-                      options={healths}
-                      value={row.health}
-                      placeholder="Not set"
-                      onValueChange={(value) => set(row.id, 'health', value)}
-                    />
-                  ) : (
-                    healths.find((h) => h.value === row.health)?.label || none
-                  )}
-                </td>
-                {choice(row, 'phase', 'Phase', phases)}
-                <td>
-                  {capture ? (
-                    <CellTextarea
-                      label={`Notes for ${row.client}`}
-                      value={row.notes}
-                      placeholder="Add a note"
-                      onChange={(event) => set(row.id, 'notes', event.target.value)}
-                    />
-                  ) : (
-                    row.notes || none
-                  )}
-                </td>
+                <th scope="col" style={{ width: 100 }}>
+                  Disco tier
+                </th>
+                {['BA', 'SA/TL', 'Designer', 'PM', 'AM'].map((h) => (
+                  <th scope="col" key={h} style={{ width: 170 }}>
+                    {h}
+                  </th>
+                ))}
+                <th scope="col" style={{ width: 90 }}>
+                  Size
+                </th>
+                <th scope="col" style={{ width: 160 }}>
+                  Health
+                </th>
+                <th scope="col" style={{ width: 140 }}>
+                  Phase
+                </th>
+                <th scope="col" style={{ width: 240 }}>
+                  Notes
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </CellGrid>
-    </div>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.id}>
+                  <th scope="row" className="cui-cell-sticky">
+                    <span>{row.client}</span> <span className="cui-caption cui-secondary">{row.code}</span>
+                  </th>
+                  <td>
+                    {capture ? (
+                      <CellInput
+                        label={`Disco code for ${row.client}`}
+                        value={row.discoCode}
+                        placeholder="Code"
+                        onChange={(event) => set(row.id, 'discoCode', event.target.value)}
+                      />
+                    ) : (
+                      row.discoCode || none
+                    )}
+                  </td>
+                  {choice(row, 'tier', 'Disco tier', tiers)}
+                  {person(row, 'ba', 'BA')}
+                  {person(row, 'satl', 'SA/TL')}
+                  {person(row, 'designer', 'Designer')}
+                  {person(row, 'pm', 'PM')}
+                  {person(row, 'am', 'AM')}
+                  {choice(row, 'size', 'Size', sizes)}
+                  <td>
+                    {capture ? (
+                      <StyledSelect
+                        cell
+                        label={`Health for ${row.client}`}
+                        options={healths}
+                        value={row.health}
+                        placeholder="Not set"
+                        onValueChange={(value) => set(row.id, 'health', value)}
+                      />
+                    ) : (
+                      healths.find((h) => h.value === row.health)?.label || none
+                    )}
+                  </td>
+                  {choice(row, 'phase', 'Phase', phases)}
+                  <td>
+                    {capture ? (
+                      <CellTextarea
+                        label={`Notes for ${row.client}`}
+                        value={row.notes}
+                        placeholder="Add a note"
+                        onChange={(event) => set(row.id, 'notes', event.target.value)}
+                      />
+                    ) : (
+                      row.notes || none
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </CellGrid>
+      </div>
+    </DashboardShell>
   )
 }
 
