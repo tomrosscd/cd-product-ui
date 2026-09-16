@@ -88,6 +88,8 @@ DataTable uses the pinned TanStack Table v8 implementation. Supply data and `Col
 
 DataTable supports controlled state, server pagination, selection and host-supplied expandable rows in 0.10.0. Follow [the table guide](data-table.md). It does not provide virtualisation or spreadsheet editing.
 
+CellInput, CellSelect and CellTextarea are controls sized for a table cell, for a capture mode where every cell is editable at once. They take the same `label` as other controls but put it on `aria-label` rather than rendering it, because the column header is already the visible label. Their box does not change between resting, hover and focus, so a row never shifts as you work down it. CellGrid wraps such a table and adds Enter and Shift+Enter to move down and up a column, leaving arrow keys to the controls. Saving, including debounce and per-cell failure, belongs to the application. See [the quick capture pattern](quick-capture-pattern.md).
+
 ## Charts
 
 The core entry does not import Recharts. Install the optional chart peers only in applications using charts:

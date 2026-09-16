@@ -699,6 +699,47 @@ export interface CardProps extends Omit<ComponentProps<'article'>, 'children'>, 
     state?: 'ready' | 'loading' | 'empty' | 'error';
 }
 
+// @public
+export interface CellControlProps {
+    invalid?: boolean;
+    label: string;
+}
+
+// @public
+export function CellGrid(input: CellGridProps): JSX.Element;
+
+// @public (undocumented)
+export interface CellGridProps extends ComponentProps<'div'> {
+    // (undocumented)
+    children: ReactNode;
+}
+
+// @public (undocumented)
+export function CellInput(input: CellInputProps): JSX.Element;
+
+// @public (undocumented)
+export interface CellInputProps extends Omit<ComponentProps<'input'>, 'type' | 'size'>, CellControlProps {
+    // (undocumented)
+    type?: 'text' | 'number' | 'date' | 'time' | 'url' | 'tel';
+}
+
+// @public (undocumented)
+export function CellSelect(input: CellSelectProps): JSX.Element;
+
+// @public (undocumented)
+export interface CellSelectProps extends Omit<ComponentProps<'select'>, 'children' | 'size'>, CellControlProps {
+    // (undocumented)
+    options: readonly ChoiceOption[];
+    placeholder?: string;
+}
+
+// @public
+export function CellTextarea(input: CellTextareaProps): JSX.Element;
+
+// @public (undocumented)
+export interface CellTextareaProps extends Omit<ComponentProps<'textarea'>, 'rows'>, CellControlProps {
+}
+
 // @public (undocumented)
 export function Checkbox(props: CheckboxProps): JSX.Element;
 
