@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add `StyledSelect`'s `cell` prop and an `icon` on its options, exported as `StyledSelectOption`. A native `<select>` option holds text and nothing else, so a status colour in a cell needs a branded listbox; the icon renders inside the option text and therefore appears in the trigger once chosen. The existing option shape still assigns, since `icon` is optional.
+- Add `.cui-warning` text colour, completing the trio beside `.cui-positive` and `.cui-negative`.
+- Add `.cui-icon-filled`, which fills a curated icon with the current colour. The set is stroked outlines, which read as an empty state at status-dot size.
+
 - **Fix:** `.cui-cell-sticky` set `position: sticky` but no inset, which does nothing on its own. Only `DataTable` supplied one, computed in JS, so a hand-composed table got a pinned column that scrolled away with everything else. It now pins to the leading edge by default, and `DataTable`'s computed offset still overrides it for multiple pinned columns.
 - Add the `Patterns/Projects capture` story: the capture pattern at a consuming application's real shape, twelve of its twenty-one columns with five person pickers, used to check the pattern holds at that density.
 

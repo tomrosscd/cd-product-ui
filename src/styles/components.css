@@ -51,6 +51,11 @@
 .cui-positive {
   color: var(--cui-text-positive);
 }
+/* Completes the trio alongside .cui-negative and .cui-positive, so a three-state red/amber/green
+   set can be expressed in text without the consumer reaching for the raw token. */
+.cui-warning {
+  color: var(--cui-text-warning);
+}
 .cui-caption {
   font-size: var(--cui-type-caption);
   line-height: var(--cui-type-caption-leading);
@@ -90,6 +95,12 @@
 .cui-icon-inline {
   width: 1em;
   height: 1em;
+}
+/* The curated icons are stroked outlines, which is right for a glyph and wrong for a status dot:
+   at 16px a ring reads as an empty state rather than a filled indicator. Pair with a tone class
+   (.cui-positive, .cui-warning, .cui-negative) and always keep a text label beside it. */
+.cui-icon-filled {
+  fill: currentColor;
 }
 .cui-button {
   display: inline-flex;

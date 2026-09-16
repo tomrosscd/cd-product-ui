@@ -3,9 +3,13 @@ import { useState } from 'react'
 import { expect, within } from 'storybook/test'
 import { CellGrid, CellInput, CellSelect, CellTextarea } from '../components/data/cell-controls.js'
 import { Combobox } from '../components/primitives/combobox.js'
+import { StyledSelect } from '../components/primitives/styled-select.js'
+import { Icon } from '../components/primitives/icon.js'
 import { Table } from '../components/primitives/table.js'
 import { SegmentedControl } from '../components/primitives/segmented-control.js'
 import { PageHeader } from '../components/primitives/layout.js'
+import { DashboardShell } from './dashboard-shell.js'
+import type { SidebarEntry } from '../components/navigation/dashboard-sidebar.js'
 
 /**
  * Recreated from a consuming application's Projects capture screen, to check the cell controls hold
@@ -21,10 +25,13 @@ const people = [
 ]
 const tiers = ['T1', 'T2', 'T3', 'T4'].map((t) => ({ value: t.toLowerCase(), label: t }))
 const sizes = ['S', 'M', 'L', 'XL'].map((s) => ({ value: s.toLowerCase(), label: s }))
+const dot = (tone: 'positive' | 'warning' | 'negative') => (
+  <Icon name="status" aria-hidden="true" className={`cui-icon-inline cui-icon-filled cui-${tone}`} />
+)
 const healths = [
-  { value: 'green', label: 'On track' },
-  { value: 'amber', label: 'At watch' },
-  { value: 'red', label: 'At risk' },
+  { value: 'green', label: 'On track', icon: dot('positive') },
+  { value: 'amber', label: 'At watch', icon: dot('warning') },
+  { value: 'red', label: 'At risk', icon: dot('negative') },
 ]
 const phases = ['Discovery', 'Opportunity', 'Design'].map((p) => ({ value: p.toLowerCase(), label: p }))
 
@@ -67,9 +74,30 @@ const seed: Row[] = [
     code: 'BULL000X',
     ...blank,
     pm: 'am',
+    health: 'amber',
     notes: 'Waiting on scope',
     phase: 'opportunity',
   },
+]
+
+/* Mirrors the consuming application's own navigation, so the page sits in a main region with the
+   padding every other page gets rather than hard against the viewport edge. */
+const navigation: readonly SidebarEntry[] = [
+  { id: 'dashboard', label: 'Dashboard', href: '#dashboard', icon: <Icon name="overview" /> },
+  {
+    id: 'projects',
+    label: 'Projects',
+    icon: <Icon name="projects" />,
+    items: [
+      { id: 'all-projects', label: 'All projects', href: '#all' },
+      { id: 'timeline', label: 'Timeline', href: '#timeline' },
+    ],
+  },
+  { id: 'retainers', label: 'Retainers', href: '#retainers', icon: <Icon name="clock" /> },
+  { id: 'clients', label: 'Clients', href: '#clients', icon: <Icon name="users" /> },
+  { id: 'allocation', label: 'Allocation', href: '#allocation', icon: <Icon name="activity" /> },
+  { id: 'invoicing', label: 'Invoicing', href: '#invoicing', icon: <Icon name="status" /> },
+  { id: 'config', label: 'Config', href: '#config', icon: <Icon name="settings" /> },
 ]
 
 function ProjectsCapture() {
@@ -113,99 +141,120 @@ function ProjectsCapture() {
   )
 
   return (
-    <div className="cui-root cui-stack">
-      <PageHeader
-        heading="Projects"
-        description="Discovery, Opportunity and Design"
-        actions={
-          <SegmentedControl
-            label="View mode"
-            options={[
-              { value: 'list', label: 'List' },
-              { value: 'capture', label: 'Quick capture' },
-            ]}
-            value={mode}
-            onValueChange={setMode}
-          />
-        }
-      />
-      <CellGrid>
-        <Table caption="Projects awaiting assignment" density="compact" layout="scroll" minWidth={1900}>
-          <thead>
-            <tr>
-              <th scope="col" className="cui-cell-sticky" style={{ width: 200 }}>
-                Client
-              </th>
-              <th scope="col" style={{ width: 120 }}>
-                Disco code
-              </th>
-              <th scope="col" style={{ width: 100 }}>
-                Disco tier
-              </th>
-              {['BA', 'SA/TL', 'Designer', 'PM', 'AM'].map((h) => (
-                <th scope="col" key={h} style={{ width: 170 }}>
-                  {h}
+    <DashboardShell
+      items={navigation}
+      activeId="all-projects"
+      collapsible
+      workspace="Planwerk"
+      workspaceDescription="Delivery and resource management"
+    >
+      <div className="cui-page">
+        <PageHeader
+          heading="Projects"
+          description="Discovery, Opportunity and Design"
+          actions={
+            <SegmentedControl
+              label="View mode"
+              options={[
+                { value: 'list', label: 'List' },
+                { value: 'capture', label: 'Quick capture' },
+              ]}
+              value={mode}
+              onValueChange={setMode}
+            />
+          }
+        />
+        <CellGrid>
+          <Table caption="Projects awaiting assignment" density="compact" layout="scroll" minWidth={1900}>
+            <thead>
+              <tr>
+                <th scope="col" className="cui-cell-sticky" style={{ width: 200 }}>
+                  Client
                 </th>
-              ))}
-              <th scope="col" style={{ width: 90 }}>
-                Size
-              </th>
-              <th scope="col" style={{ width: 130 }}>
-                Health
-              </th>
-              <th scope="col" style={{ width: 140 }}>
-                Phase
-              </th>
-              <th scope="col" style={{ width: 240 }}>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                <th scope="row" className="cui-cell-sticky">
-                  <span>{row.client}</span> <span className="cui-caption cui-secondary">{row.code}</span>
+                <th scope="col" style={{ width: 120 }}>
+                  Disco code
                 </th>
-                <td>
-                  {capture ? (
-                    <CellInput
-                      label={`Disco code for ${row.client}`}
-                      value={row.discoCode}
-                      placeholder="Code"
-                      onChange={(event) => set(row.id, 'discoCode', event.target.value)}
-                    />
-                  ) : (
-                    row.discoCode || none
-                  )}
-                </td>
-                {choice(row, 'tier', 'Disco tier', tiers)}
-                {person(row, 'ba', 'BA')}
-                {person(row, 'satl', 'SA/TL')}
-                {person(row, 'designer', 'Designer')}
-                {person(row, 'pm', 'PM')}
-                {person(row, 'am', 'AM')}
-                {choice(row, 'size', 'Size', sizes)}
-                {choice(row, 'health', 'Health', healths)}
-                {choice(row, 'phase', 'Phase', phases)}
-                <td>
-                  {capture ? (
-                    <CellTextarea
-                      label={`Notes for ${row.client}`}
-                      value={row.notes}
-                      placeholder="Add a note"
-                      onChange={(event) => set(row.id, 'notes', event.target.value)}
-                    />
-                  ) : (
-                    row.notes || none
-                  )}
-                </td>
+                <th scope="col" style={{ width: 100 }}>
+                  Disco tier
+                </th>
+                {['BA', 'SA/TL', 'Designer', 'PM', 'AM'].map((h) => (
+                  <th scope="col" key={h} style={{ width: 170 }}>
+                    {h}
+                  </th>
+                ))}
+                <th scope="col" style={{ width: 90 }}>
+                  Size
+                </th>
+                <th scope="col" style={{ width: 160 }}>
+                  Health
+                </th>
+                <th scope="col" style={{ width: 140 }}>
+                  Phase
+                </th>
+                <th scope="col" style={{ width: 240 }}>
+                  Notes
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </CellGrid>
-    </div>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.id}>
+                  <th scope="row" className="cui-cell-sticky">
+                    <span>{row.client}</span> <span className="cui-caption cui-secondary">{row.code}</span>
+                  </th>
+                  <td>
+                    {capture ? (
+                      <CellInput
+                        label={`Disco code for ${row.client}`}
+                        value={row.discoCode}
+                        placeholder="Code"
+                        onChange={(event) => set(row.id, 'discoCode', event.target.value)}
+                      />
+                    ) : (
+                      row.discoCode || none
+                    )}
+                  </td>
+                  {choice(row, 'tier', 'Disco tier', tiers)}
+                  {person(row, 'ba', 'BA')}
+                  {person(row, 'satl', 'SA/TL')}
+                  {person(row, 'designer', 'Designer')}
+                  {person(row, 'pm', 'PM')}
+                  {person(row, 'am', 'AM')}
+                  {choice(row, 'size', 'Size', sizes)}
+                  <td>
+                    {capture ? (
+                      <StyledSelect
+                        cell
+                        label={`Health for ${row.client}`}
+                        options={healths}
+                        value={row.health}
+                        placeholder="Not set"
+                        onValueChange={(value) => set(row.id, 'health', value)}
+                      />
+                    ) : (
+                      healths.find((h) => h.value === row.health)?.label || none
+                    )}
+                  </td>
+                  {choice(row, 'phase', 'Phase', phases)}
+                  <td>
+                    {capture ? (
+                      <CellTextarea
+                        label={`Notes for ${row.client}`}
+                        value={row.notes}
+                        placeholder="Add a note"
+                        onChange={(event) => set(row.id, 'notes', event.target.value)}
+                      />
+                    ) : (
+                      row.notes || none
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </CellGrid>
+      </div>
+    </DashboardShell>
   )
 }
 
@@ -245,6 +294,26 @@ export const Default: Story = {
     const ba = c.getByLabelText('BA for Albek')
     ba.focus()
     await expect(ba).toHaveAttribute('aria-expanded', 'false')
+
+    // A status colour must survive into a cell. A native select cannot carry one, so health uses
+    // the branded listbox and the icon has to reach both the option and the chosen trigger.
+    const health = c.getByLabelText('Health for Albek')
+    await expect(health.tagName).toBe('BUTTON')
+
+    // Assert the dot's colour, not merely that an svg exists: the trigger also holds a chevron, so
+    // "has an svg" passes even when the status icon is missing entirely.
+    const withHealth = c.getByLabelText('Health for Bulldogs')
+    await expect(withHealth).toHaveTextContent('At watch')
+    const statusIcon = withHealth.querySelector('.cui-warning')
+    await expect(statusIcon).not.toBeNull()
+    // Resolve the token through a probe so the comparison is computed-to-computed: the token is
+    // authored as a hex and the browser reports rgb(), which are the same colour written differently.
+    const probe = canvasElement.ownerDocument.createElement('span')
+    probe.style.color = 'var(--cui-text-warning)'
+    withHealth.appendChild(probe)
+    const expected = getComputedStyle(probe).color
+    await expect(getComputedStyle(statusIcon as Element).color).toBe(expected)
+    probe.remove()
 
     // A wide grid is exactly where a box that changes on focus would be most obvious.
     const resting = ba.getBoundingClientRect()

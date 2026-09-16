@@ -1887,8 +1887,15 @@ export interface StepperStep {
 // @public
 export function StyledSelect(input: StyledSelectProps): JSX.Element;
 
+// @public
+export type StyledSelectOption = ChoiceOption & {
+    group?: string;
+    icon?: ReactNode;
+};
+
 // @public (undocumented)
 export interface StyledSelectProps {
+    cell?: boolean;
     // (undocumented)
     defaultValue?: string;
     // (undocumented)
@@ -1906,9 +1913,7 @@ export interface StyledSelectProps {
     // (undocumented)
     onValueChange?: (value: string) => void;
     // (undocumented)
-    options: readonly (ChoiceOption & {
-        group?: string;
-    })[];
+    options: readonly StyledSelectOption[];
     // (undocumented)
     placeholder?: string;
     // (undocumented)
