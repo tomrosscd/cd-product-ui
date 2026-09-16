@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { expect, userEvent, within } from 'storybook/test'
 import { CellGrid, CellInput, CellSelect, CellTextarea } from '../components/data/cell-controls.js'
+import { Combobox } from '../components/primitives/combobox.js'
 import { Table } from '../components/primitives/table.js'
 import { SegmentedControl } from '../components/primitives/segmented-control.js'
 import { Badge } from '../components/primitives/badge.js'
@@ -154,11 +155,13 @@ function QuickCapture() {
                 </td>
                 <td>
                   {capture ? (
-                    <CellSelect
+                    <Combobox
+                      cell
                       label={`BA for ${row.client}`}
                       options={people}
                       value={row.ba}
-                      onChange={(e) => set(row.id, 'ba', e.target.value)}
+                      placeholder="Search"
+                      onValueChange={(value) => set(row.id, 'ba', value)}
                     />
                   ) : (
                     nameOf(row.ba) || <span className="cui-secondary">Not set</span>
@@ -261,5 +264,35 @@ export const Default: Story = {
 
     // The accessible name is present without a visible label repeated on every row.
     await expect(c.queryByText('Discovery tier for Albek')).toBeNull()
+  },
+}
+
+/**
+ * A searchable picker in a cell, for a column whose options run past what a native select can
+ * comfortably hold. Everything except the trigger is the ordinary Combobox.
+ */
+export const SearchableCell: Story = {
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement)
+    const ba = c.getByLabelText('BA for Albek')
+    await expect(ba).toHaveAttribute('role', 'combobox')
+
+    // Closed, Enter belongs to the grid and moves down the column.
+    ba.focus()
+    await userEvent.keyboard('{Enter}')
+    await expect(c.getByLabelText('BA for Bon Maxie')).toHaveFocus()
+
+    // Open, Enter belongs to the list and selects instead of moving.
+    const second = c.getByLabelText('BA for Bon Maxie')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{Enter}')
+    await expect(second).toHaveFocus()
+
+    // The panel is not pinned to a narrow column, or every option would wrap.
+    second.focus()
+    await userEvent.keyboard('{ArrowDown}')
+    const panel = canvasElement.ownerDocument.querySelector('.cui-combobox-panel') as HTMLElement
+    await expect(panel).not.toBeNull()
+    await expect(panel.getBoundingClientRect().width).toBeGreaterThan(second.getBoundingClientRect().width)
   },
 }

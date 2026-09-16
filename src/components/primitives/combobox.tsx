@@ -20,6 +20,12 @@ interface ComboboxBaseProps {
   loading?: boolean
   /** Supply to filter remotely (e.g. an API search) instead of the built-in local label match. Called on every keystroke; `options` should reflect the current result set. */
   onSearchChange?: (query: string) => void
+  /**
+   * Sizes the control for a table cell and stops rendering the label, which moves to `aria-label`.
+   * Use it in a capture grid, where the column header is already the visible label and a label per
+   * row would be noise. Everything else, including filtering and keyboard behaviour, is unchanged.
+   */
+  cell?: boolean
 }
 export type ComboboxProps = ComboboxBaseProps &
   (
@@ -29,6 +35,7 @@ export type ComboboxProps = ComboboxBaseProps &
 /** Searchable single or multi-select. Filters `options` locally by label unless `onSearchChange` is supplied, in which case the host owns fetching/filtering entirely. */
 export function Combobox(props: ComboboxProps) {
   const {
+    cell = false,
     label,
     options,
     placeholder = 'Search…',
@@ -101,6 +108,7 @@ export function Combobox(props: ComboboxProps) {
       const option = filtered[activeIndex]
       if (open && available && option && !option.disabled) select(option.value)
     } else if (event.key === 'Escape') {
+      if (open) event.preventDefault()
       setOpen(false)
     } else if (event.key === 'Backspace' && props.multiple && query === '' && props.value.length > 0) {
       props.onValueChange(props.value.slice(0, -1))
@@ -110,11 +118,13 @@ export function Combobox(props: ComboboxProps) {
   const selectedSingleLabel = !props.multiple && props.value ? options.find((o) => o.value === props.value)?.label : ''
   const selectedOptions = options.filter((option) => selectedValues.includes(option.value))
   return (
-    <div className="cui-field">
-      <label className="cui-label" htmlFor={id}>
-        {label}
-        {required ? ' (required)' : ''}
-      </label>
+    <div className={cell ? 'cui-combobox-cell' : 'cui-field'}>
+      {!cell && (
+        <label className="cui-label" htmlFor={id}>
+          {label}
+          {required ? ' (required)' : ''}
+        </label>
+      )}
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Anchor asChild>
           <div className="cui-combobox">
@@ -141,7 +151,8 @@ export function Combobox(props: ComboboxProps) {
               aria-autocomplete="list"
               aria-describedby={hint || error ? `${id}-note` : undefined}
               aria-invalid={error ? true : undefined}
-              className="cui-input"
+              aria-label={cell ? label : undefined}
+              className={cell ? 'cui-cell-control' : 'cui-input'}
               autoComplete="off"
               disabled={disabled}
               placeholder={placeholder}
@@ -151,6 +162,12 @@ export function Combobox(props: ComboboxProps) {
                   suppressOpenOnFocusRef.current = false
                   return
                 }
+                // In a cell the list stays shut until it is asked for. Opening on focus is helpful
+                // in a form, where focus means intent, but in a capture grid Tab crosses a row and
+                // would pop a listbox over every person column on the way past. It also keeps Enter
+                // unambiguous: closed, it moves down the column; open, it picks the active option.
+                // Typing, ArrowDown or a click still open it.
+                if (cell) return
                 setOpen(true)
               }}
               onChange={(event) => {
@@ -173,6 +190,7 @@ export function Combobox(props: ComboboxProps) {
         <Popover.Portal>
           <Popover.Content
             data-cui-theme={theme}
+            data-cui-cell={cell || undefined}
             className="cui-root cui-select-panel cui-combobox-panel"
             align="start"
             sideOffset={4}

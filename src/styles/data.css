@@ -349,6 +349,12 @@
    rather than left so it pins to the leading edge in either writing direction. */
 .cui-cell-sticky {
   position: sticky;
+  /* position: sticky does nothing without an inset, and the class alone used to supply none: only
+     DataTable set one, computed in JS for multi-column pinning. A hand-composed table, which is what
+     a capture grid is, got a sticky cell that scrolled away with everything else. Pinning to the
+     leading edge is the single-column case and the common one, so it is the default here and
+     DataTable's computed offset still overrides it. */
+  inset-inline-start: 0;
   background: var(--cui-surface-card);
   z-index: 1;
 }
@@ -429,4 +435,18 @@
 /* A capture grid is dense by nature, so the cells give the controls room rather than double padding. */
 .cui-cell-grid .cui-table :is(td, th) {
   padding-block: var(--cui-space-4);
+}
+
+/* Combobox sized for a cell. The popup, filtering and keyboard behaviour are the ordinary ones;
+   only the trigger changes, so a searchable picker sits in a grid without a label per row. */
+.cui-combobox-cell {
+  min-inline-size: 0;
+}
+.cui-combobox-cell .cui-combobox {
+  min-inline-size: 0;
+}
+/* The tag row belongs to the multi-select form layout; in a cell it would push the row taller on
+   every selection, so a cell combobox shows its chosen values in the input instead. */
+.cui-combobox-cell .cui-combobox-tags {
+  display: none;
 }
