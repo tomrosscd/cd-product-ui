@@ -22,7 +22,14 @@ The load-bearing property: a cell control's **box never changes between resting,
 
 Passing: `format:check`, `check` (type-check, lint, tests, build, CSS surface, Storybook build), `api:check`, `css:check`, `registry:check`, `test:dark` (251). Snapshots additive, nothing removed.
 
-**Not done: no browser check.** The work was committed from a passing suite while the session ran low on context. Before merging, open Storybook, look at `Patterns/Quick capture` in light and dark, and check it at a narrow width. Also confirm CI went green on the pushed branch.
+**Browser check done, 16 September 2026.** CI green. In `Patterns/Quick capture`:
+
+- Box stability holds: a select measures 108x32 resting and 108x32 focused, row height delta 0.
+- Focus ring resolves from the system tokens in both themes: forest at 1px in light, white in dark at 21:1 against the row. Note `--cui-focus-width` is **1px** now, changed by an earlier session; the cell controls inherit it rather than setting their own, which is correct.
+- At 390px the page does not scroll horizontally; the table scrolls inside its own labelled region, which is the intended `layout="scroll"` behaviour.
+- Enter, Shift+Enter and Escape all move focus correctly.
+
+**Tooling trap worth knowing.** The browser pane's key injection produces malformed `KeyboardEvent`s: a requested Enter arrives with `event.key === ""`, so `CellGrid` cannot match it and focus appears not to move. The events bubble correctly (verified through capture, target and bubble listeners); only the `key` field is empty. `docs/registry-pilot.md` recorded the same trap for Space and Enter in an earlier session. Verify keyboard behaviour with a dispatched `new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })`, or trust the Playwright-backed story test, which sends well-formed events. Do not conclude from the pane alone that a key handler is broken.
 
 ## Next, in order
 
