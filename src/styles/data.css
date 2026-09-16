@@ -430,3 +430,17 @@
 .cui-cell-grid .cui-table :is(td, th) {
   padding-block: var(--cui-space-4);
 }
+
+/* Combobox sized for a cell. The popup, filtering and keyboard behaviour are the ordinary ones;
+   only the trigger changes, so a searchable picker sits in a grid without a label per row. */
+.cui-combobox-cell {
+  min-inline-size: 0;
+}
+.cui-combobox-cell .cui-combobox {
+  min-inline-size: 0;
+}
+/* The tag row belongs to the multi-select form layout; in a cell it would push the row taller on
+   every selection, so a cell combobox shows its chosen values in the input instead. */
+.cui-combobox-cell .cui-combobox-tags {
+  display: none;
+}

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add `Combobox`'s `cell` prop: sizes the trigger for a table cell and moves the label to `aria-label`, for a searchable picker in a capture grid whose options run past what a native select holds comfortably. Filtering, the popup and keyboard behaviour are unchanged.
+- In `cell` mode the list no longer opens on focus. Opening on focus suits a form, but in a grid Tab crosses a row and would pop a listbox over every picker on the way past. It also keeps Enter unambiguous: closed it moves down the column, open it picks the active option. Typing, ArrowDown and a click still open it.
+- **Fix:** `Combobox` did not prevent default on Escape while its list was open, so one press both closed the list and reached any outer handler. Escape now belongs to the open list.
+
 - Add `CellInput`, `CellSelect` and `CellTextarea`: form controls sized for a table cell, for a capture mode where every cell is editable at once. They take the same `label` as other controls but put it on `aria-label` rather than rendering it, since the column header is already the visible label. Their box does not change between resting, hover and focus, so a row never shifts as you work down it.
 - Add `CellGrid`, which wraps such a table and adds Enter and Shift+Enter to move down and up a column, plus Escape to release focus. Arrow keys are deliberately left to the controls. A textarea keeps Enter for line breaks and navigates on Cmd/Ctrl+Enter.
 - Add `docs/quick-capture-pattern.md` and the `Patterns/Quick capture` story, plus `docs/quick-capture-adoption-prompt.md` for a consuming application rebuilding a hand-rolled editable table.

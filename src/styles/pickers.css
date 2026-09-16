@@ -36,6 +36,14 @@
   max-height: var(--radix-popover-content-available-height);
   overflow: auto;
 }
+/* A cell combobox has a trigger only as wide as its column, and matching the panel to it wraps
+   every option onto two lines. The trigger width becomes a floor instead of a fixed size, with a
+   lower bound that fits a person's name and an upper bound so a long option cannot cover the row. */
+.cui-combobox-panel[data-cui-cell] {
+  width: auto;
+  min-width: max(var(--radix-popover-trigger-width), 200px);
+  max-width: 320px;
+}
 .cui-combobox-panel .cui-select-option {
   scroll-margin-block: var(--cui-space-4);
 }
